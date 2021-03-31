@@ -14,22 +14,16 @@ variables:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-build:
+build-job:
   stage: build
-  script: gradle --build-cache assemble
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: push
-    paths:
-      - build
-      - .gradle
+  script: 
+    - echo "Hello, $GITLAB_USER_LOGIN !"
+    - echo "This job check if the $CI_COMMIT_BRANCH branch is buildable."
+    - ./gradlew check
 
-test:
+test-job:
   stage: test
-  script: gradle check
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
+  script: 
+    - echo "This job check if every tests in the $CI_COMMIT_BRANCH branch pass."
+    - ./gradlew test
+    
