@@ -1,12 +1,11 @@
-image: 
-  - java:latest
-  - gradle:7
-  - javafx:16
-  - mysql
+image: gradle:alpine
   
 stages:
   - build
   - test
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
   - echo `pwd` # debug
@@ -23,20 +22,26 @@ build:
   script: 
     - echo "Hello, $GITLAB_USER_LOGIN !"
     - echo "This job check if the $CI_COMMIT_BRANCH branch is buildable."
-    - ./gradlew assemble
-  artifacts:
+    - ./gradlew --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
     paths:
-      - build/libs/*.jar
-    expire_in: 1 week
-  only:
-    - master
+      - build
+      - .gradle
 
 test:
   stage: test
   script: 
     - echo "This job check if every tests in the $CI_COMMIT_BRANCH branch pass."
     - ./gradlew check
-
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+      
 after_script:
   - echo "End CI"
     
