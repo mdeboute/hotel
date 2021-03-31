@@ -15,7 +15,7 @@ As a contributor, here are the guidelines we would like you to follow :
 Do not open issues for general support questions as we want to keep GitLab issues for bug reports and feature requests.
 Instead, we recommend using [this discord channel](https://discord.gg/XKk9xS6xET) to ask support-related questions.
 
-Moreover Stack Overflow is a pretty good place to ask questions since :
+Moreover [Stack Overflow][stackoverflow] is a pretty good place to ask questions since :
 
 - there are thousands of people willing to help on Stack Overflow
 - questions and answers stay available for public viewing so your question/answer might help someone else
@@ -295,3 +295,7 @@ The content of the commit message body should contain:
 
 - information about the SHA of the commit being reverted in the following format: `This reverts commit <SHA>`,
 - a clear description of the reason for reverting the commit message.
+
+
+[commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
+[stackoverflow]: https://stackoverflow.com/
