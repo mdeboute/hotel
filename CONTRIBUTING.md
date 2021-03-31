@@ -120,7 +120,7 @@ If we ask for changes via code reviews then:
     git push
     ```
 
-    For more info on working with fixup commits see [here](/FIXUP_COMMITS.md).
+    For more info on working with fixup commits see [here](docs/FIXUP_COMMITS.md).
 
 That's it! Thank you for your contribution!
 
