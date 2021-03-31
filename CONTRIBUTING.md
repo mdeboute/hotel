@@ -157,7 +157,7 @@ In order to update the commit message of the last commit on your branch:
 
 After your merge request is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
-* Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
+* Delete the remote branch on GitLab either through the GitLab web UI or your local shell as follows:
 
     ```shell
     git push origin --delete my-fix-branch
