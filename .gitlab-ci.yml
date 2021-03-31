@@ -1,6 +1,4 @@
-image: 
-  - gradle:alpine
-  - java:8-jdk
+image: gradle:alpine
   
 stages:
   - build
@@ -20,6 +18,7 @@ cache:
     - .gradle/caches
 
 build:
+  image : java:8-jdk
   stage: build
   script: 
     - echo "Hello, $GITLAB_USER_LOGIN !"
@@ -33,6 +32,7 @@ build:
       - .gradle
 
 test:
+  image : java:8-jdk
   stage: test
   script: 
     - echo "This job check if every tests in the $CI_COMMIT_BRANCH branch pass."
