@@ -1,5 +1,9 @@
-image: java:8-jdk
-
+image: 
+  - java:latest
+  - gradle:7
+  - javafx:16
+  - mysql
+  
 stages:
   - build
   - test
