@@ -16,21 +16,21 @@ public class HotelProject extends Application {
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
         root.setPadding(new Insets(5));
-        Label title = new Label("JavaFX");
+        Label title = new Label("Welcome");
         Label mysql;
 
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/StarWars?user=tobias&password=abcd1234&useSSL=false");
-            mysql = new Label("Driver found and connected");
+//        try {
+//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/StarWars?user=tobias&password=abcd1234&useSSL=false");
+//            mysql = new Label("Driver found and connected");
+//
+//        } catch (SQLException e) {
+//            mysql = new Label("An error has occurred: " + e.getMessage());
+//        }
 
-        } catch (SQLException e) {
-            mysql = new Label("An error has occurred: " + e.getMessage());
-        }
-
-        root.getChildren().addAll(title, mysql);
+        root.getChildren().addAll(title);
 
         primaryStage.setScene(new Scene(root, 400, 200));
-        primaryStage.setTitle("JavaFX");
+        primaryStage.setTitle("Hotel Manager");
         primaryStage.show();
     }
 }
