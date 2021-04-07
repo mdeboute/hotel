@@ -36,7 +36,7 @@ test:
   script: 
     - echo "This job check if every unit tests in the $CI_COMMIT_BRANCH branch pass."
     - ./gradlew check
-    - ./gradelew test
+    - ./gradlew test
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
