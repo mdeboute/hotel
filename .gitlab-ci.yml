@@ -1,8 +1,9 @@
-image: gradle:alpine
+image: gradle:5.6.4-jdk12
   
 stages:
   - build
   - test
+  - clean
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -18,7 +19,6 @@ cache:
     - .gradle/caches
 
 build:
-  image : java:8-jdk
   stage: build
   script: 
     - echo "Hello, $GITLAB_USER_LOGIN !"
@@ -32,11 +32,11 @@ build:
       - .gradle
 
 test:
-  image : java:8-jdk
   stage: test
   script: 
-    - echo "This job check if every tests in the $CI_COMMIT_BRANCH branch pass."
+    - echo "This job check if every unit tests in the $CI_COMMIT_BRANCH branch pass."
     - ./gradlew check
+    - ./gradlew test
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
@@ -44,6 +44,11 @@ test:
       - build
       - .gradle
       
+clean:
+  stage: clean
+  script:
+    - echo "This job deletes the build directory."
+    - ./gradlew clean
+
 after_script:
   - echo "End CI"
-    
