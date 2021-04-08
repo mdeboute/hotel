@@ -6,7 +6,6 @@ public class Room {
     private int room_nb;
     private String location;
 
-
     public Room() {
     }
 
