@@ -2,15 +2,15 @@ package hotelproject.controllers;
 
 import java.sql.*;
 
-public class MySQLDemo {
+public class DatabaseDemo {
  
   // MySQL 8.0 should use this
   static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
   static final String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
-  // remember to change here for use!!!
-  static final String USER = "root";
-  static final String PASS = "rootroot";
+  // remember to change here for use
+  static final String USER = "admin";
+  static final String PASSWORD = "root";
 
   public static void main(String[] args) {
       Connection conn = null;
@@ -21,10 +21,11 @@ public class MySQLDemo {
       
           // access database
           System.out.println("Accessing database...");
-          conn = DriverManager.getConnection(DB_URL,USER,PASS);
-      
+          conn = DatabaseConnector.createConnection(DB_URL, USER, PASSWORD, "hotel");
+
           // executing query
           System.out.println("Initializing Statement object...");
+          assert conn != null;
           stmt = conn.createStatement();
           String sql;
           sql = "SELECT u_name,u_password FROM users";
@@ -44,22 +45,16 @@ public class MySQLDemo {
           rs.close();
           stmt.close();
           conn.close();
-      }catch(SQLException se){
+      } catch(Exception e){
           // handle JDBC exception
-          se.printStackTrace();
-      }catch(Exception e){
-          // handle Class.forName exception
           e.printStackTrace();
-      }finally{
+      } finally{
           // shut down resources
           try{
               if(stmt!=null) stmt.close();
-          }catch(SQLException se2){
-          }// do nothing
-          try{
               if(conn!=null) conn.close();
-          }catch(SQLException se){
-              se.printStackTrace();
+          }catch(SQLException e) {
+              e.printStackTrace();
           }
       }
       System.out.println("Goodbye!");
