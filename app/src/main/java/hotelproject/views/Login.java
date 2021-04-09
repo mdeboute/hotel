@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.User;
-import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,9 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
-import java.util.List;
 
 public class Login {
 
@@ -56,9 +52,6 @@ public class Login {
         });
 
         scene = new Scene(pane);
-        /**primaryStage.setScene(scene);
-        primaryStage.setTitle("Login");
-        primaryStage.show();**/
     }
 
     public Scene getScene() {
