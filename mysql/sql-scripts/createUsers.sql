@@ -5,4 +5,4 @@ CREATE TABLE `hotel`.`users` (
   PRIMARY KEY (`u_name`));
 
 INSERT INTO `hotel`.`users`
-VALUES (admin, root, 1);
+VALUES ("admin", "root", 1);
