@@ -58,4 +58,24 @@ public class DatabaseManagement {
             Logger.getLogger(DatabaseManagement.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+    public static void addRoomType(Connection conn, String t_name, int beds, int r_size, int has_view, int has_kitchen,
+                                   int has_bathroom, int has_workspace, int has_tv, int has_coffee_maker){
+        try{
+            String sql = "INSERT INTO TABLE `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
+                    "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES " +
+                    "('%s', %d, %d, %d, %d, %d, %d, %d, %d)";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(String.format(sql, t_name, beds, r_size, has_view, has_kitchen, has_bathroom,
+                    has_workspace, has_tv, has_coffee_maker));
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    public static void addRoom(Connection conn, int r_num, int r_floor, String r_type, int booked) {
+        try{
+            String sql = "INSERT INTO TABLE `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, %s, %d)";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(String.format(sql, r_num, r_floor, r_type, booked));
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
 }
