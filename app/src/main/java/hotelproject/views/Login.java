@@ -40,10 +40,10 @@ public class Login {
         GridPane.setHalignment(testLogin, HPos.RIGHT);
 
         testLogin.setOnAction(e -> { //test if the user exist in the database and has correct password
-            if (username.getText().equals(user.getUsername()) && password.getText().equals(user.getPassword())) {
+            if (username.getText().equals(user.getU_name()) && password.getText().equals(user.getU_password())) {
                 result.setText("Success !");
-                user.setUsername(username.getText());
-                user.setPassword(password.getText());
+                user.setU_name(username.getText());
+                user.setU_password(password.getText());
                 //is user admin ?
                 isUserConnected = true;
             }else{

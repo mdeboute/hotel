@@ -10,6 +10,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.sql.DataSource;
+
+import hotelproject.controllers.db.DatabaseManagement;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

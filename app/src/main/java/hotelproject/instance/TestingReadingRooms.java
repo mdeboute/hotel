@@ -40,7 +40,7 @@ public class TestingReadingRooms {
     }
 
   public static void main(String[] args) {
-      ArrayList<Room> rooms = readRoomsFromCSV("/hotel/app/src/main/java/hotelproject/instance/room.csv");
+      ArrayList<Room> rooms = readRoomsFromCSV("./hotel/app/src/main/java/hotelproject/instance/room.csv");
 
       for (Room r : rooms) {
           System.out.println(r);

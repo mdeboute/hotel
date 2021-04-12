@@ -1,4 +1,6 @@
-package hotelproject.controllers;
+package hotelproject.controllers.db;
+
+import hotelproject.controllers.db.DatabaseConnector;
 
 import java.sql.*;
 

@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
