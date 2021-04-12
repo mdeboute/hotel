@@ -152,7 +152,7 @@ gradle-app.setting
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-app/bin/*.class
+*.class
 .classpath
 .project
 .settings
