@@ -14,7 +14,10 @@ import javafx.scene.layout.GridPane;
 public class Login {
 
     private Scene scene;
-    static boolean isUserConnected = false;
+    private Button testLogin;
+    private final TextField username = new TextField();
+    private final PasswordField password = new PasswordField();
+    private final Label result = new Label();
 
     public Login(User user) {
         authentication(user);
@@ -28,29 +31,13 @@ public class Login {
         pane.setVgap(5.5);
 
         pane.add(new Label("Username :"), 0, 0);
-        final TextField username = new TextField();
         pane.add(username, 1, 0);
         pane.add(new Label("Password :"), 0, 1);
-        final PasswordField password = new PasswordField();
         pane.add(password, 1, 1);
-        final Label result = new Label();
         pane.add(result, 0, 2);
-        Button testLogin = new Button("Login");
+        testLogin = new Button("Login");
         pane.add(testLogin, 1, 2);
         GridPane.setHalignment(testLogin, HPos.RIGHT);
-
-        testLogin.setOnAction(e -> { //test if the user exist in the database and has correct password
-            if (username.getText().equals(user.getU_name()) && password.getText().equals(user.getU_password())) {
-                result.setText("Success !");
-                user.setU_name(username.getText());
-                user.setU_password(password.getText());
-                //is user admin ?
-                isUserConnected = true;
-            }else{
-                result.setText("Fail !");
-            }
-        });
-
         scene = new Scene(pane);
     }
 
@@ -58,7 +45,19 @@ public class Login {
         return scene;
     }
 
-    public boolean isUserConnected() {
-        return isUserConnected;
+    public Button getTestLoginButton() {
+        return testLogin;
+    }
+
+    public TextField getUsername() {
+        return username;
+    }
+
+    public PasswordField getPassword() {
+        return password;
+    }
+
+    public Label getResult() {
+        return result;
     }
 }

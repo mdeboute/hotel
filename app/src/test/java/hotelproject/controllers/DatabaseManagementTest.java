@@ -1,22 +1,21 @@
 package hotelproject.controllers;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import javax.sql.DataSource;
-
 import hotelproject.controllers.db.DatabaseManagement;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -61,7 +60,7 @@ public class DatabaseManagementTest {
     ArrayList<String> log = new ArrayList<>();
     log.add("item");
     //assertNotNull("Should return true", databaseManagement.isTableExist(conn, TABLE, log));
-    assertTrue("Should return true",databaseManagement.tableExists(conn, TABLE, log));
+    assertTrue("Should return true", DatabaseManagement.tableExists(conn, TABLE, log));
 
 
   }

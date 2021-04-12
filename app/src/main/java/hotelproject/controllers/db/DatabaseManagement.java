@@ -9,14 +9,13 @@ import java.util.logging.Logger;
 
 public class DatabaseManagement {
 
-    public static Connection createConnection(String url, String user, String password, String database) throws SQLException {
+    public static Connection createConnection(String url, String user, String password, String database) {
         try {
             Properties connectionProps = new Properties();
             connectionProps.put("user", user);
             connectionProps.put("password", password);
             connectionProps.put("database", database);
-            Connection conn = DriverManager.getConnection(url, connectionProps);
-            return conn;
+            return DriverManager.getConnection(url, connectionProps);
         } catch (SQLException e) {
             System.err.println("Error : " + e);
             return null;
