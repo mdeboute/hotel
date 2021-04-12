@@ -61,7 +61,7 @@ public class DatabaseManagementTest {
     ArrayList<String> log = new ArrayList<>();
     log.add("item");
     //assertNotNull("Should return true", databaseManagement.isTableExist(conn, TABLE, log));
-    assertTrue("Should return true",databaseManagement.isTableExist(conn, TABLE, log));
+    assertTrue("Should return true",databaseManagement.tableExists(conn, TABLE, log));
 
 
   }

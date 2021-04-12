@@ -8,20 +8,14 @@ import java.util.logging.Logger;
 
 
 public class DatabaseManagement {
-    private static Connection conn = null;
-
-    public static Connection getConnection() {
-        return conn;
-    }
 
     public static Connection createConnection(String url, String user, String password, String database) throws SQLException {
-        if (conn != null) conn.close();
         try {
             Properties connectionProps = new Properties();
             connectionProps.put("user", user);
             connectionProps.put("password", password);
             connectionProps.put("database", database);
-            conn = DriverManager.getConnection(url, connectionProps);
+            Connection conn = DriverManager.getConnection(url, connectionProps);
         } catch (SQLException e) {
             System.err.println("Error : " + e);
             return null;
@@ -29,7 +23,7 @@ public class DatabaseManagement {
         return conn;
     }
 
-    public static boolean isTableExist(Connection conn, String tableName, ArrayList<String> log){
+    public static boolean tableExists(Connection conn, String tableName, ArrayList<String> log){
         try {
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null, null, tableName, null);
