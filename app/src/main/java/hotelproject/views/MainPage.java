@@ -42,7 +42,7 @@ public class MainPage {
         viewBookings = new Button("Vieaw bookings");
         update = new Button("Update bookings");
 
-        if (user.isAdmin()) {
+        if (user.getU_is_admin() == 1) {
             userStatus = "Administrator";
             updateUser = new Button("Update an user");
         }
