@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 public class Login {
 
     private Scene scene;
-    static boolean isUserConnected = false;
     private Button testLogin;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
@@ -60,9 +59,5 @@ public class Login {
 
     public Label getResult() {
         return result;
-    }
-
-    public boolean isUserConnected() {
-        return isUserConnected;
     }
 }

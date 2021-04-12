@@ -39,7 +39,7 @@ public class MainPage {
         myPage = new Button("My Page");
         logout = new Button("Logout");
         addBooking = new Button("Add a booking");
-        viewBookings = new Button("Vieaw bookings");
+        viewBookings = new Button("View bookings");
         update = new Button("Update bookings");
 
         if (user.getU_is_admin() == 1) {
