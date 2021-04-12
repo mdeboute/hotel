@@ -3,13 +3,13 @@ package hotelproject.controllers;
 public class Room {
     private int r_num;
     private int r_floor;
-    private RoomType r_type;
+    private String r_type;
     private int booked;
 
     public Room() {
     }
 
-    public Room(int r_num, int r_floor, RoomType r_type, int booked) {
+    public Room(int r_num, int r_floor, String r_type, int booked) {
         this.r_num = r_num;
         this.r_floor = r_floor;
         this.r_type = r_type;
@@ -32,11 +32,11 @@ public class Room {
         this.r_floor = r_floor;
     }
 
-    public RoomType getR_type() {
+    public String getR_type() {
         return r_type;
     }
 
-    public void setR_type(RoomType r_type) {
+    public void setR_type(String r_type) {
         this.r_type = r_type;
     }
 
