@@ -22,12 +22,14 @@ public class HotelProject extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        User user = new User("toto", "qwerty", true);
+        User user = new User("toto", "qwerty", 1);
         Login login = new Login(user);
 
-        /**primaryStage.setScene(welcomeSceneBeforeAuth());
+        /*
+        primaryStage.setScene(welcomeSceneBeforeAuth());
         primaryStage.setTitle("Hotel Manager");
-        primaryStage.show();**/
+        primaryStage.show();
+        */
 
         primaryStage.setScene(login.getScene());
         primaryStage.setTitle("Login");
