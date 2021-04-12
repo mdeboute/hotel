@@ -9,7 +9,7 @@ public class DatabaseDemo {
   static final String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
   // remember to change here for use
-  static final String USER = "admin";
+  static final String USER = "root";
   static final String PASSWORD = "root";
 
   public static void main(String[] args) {
