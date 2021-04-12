@@ -25,20 +25,21 @@ public class HotelProject extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        User user = new User("toto", "qwerty", true);
-
+        User user = new User("toto", "qwerty", 1);
         Login login = new Login(user);
         boolean isConnected = false;
 
-        /**primaryStage.setScene(welcomeSceneBeforeAuth());
+        /*
+        primaryStage.setScene(welcomeSceneBeforeAuth());
         primaryStage.setTitle("Hotel Manager");
-        primaryStage.show();**/
+        primaryStage.show();
+        */
 
         login.getTestLoginButton().setOnAction(e -> { //test if the user exist in the database and has correct password
-            if (login.getUsername().getText().equals(user.getUsername()) && login.getPassword().getText().equals(user.getPassword())) {
+            if (login.getUsername().getText().equals(user.getU_name()) && login.getPassword().getText().equals(user.getU_password())) {
                 login.getResult().setText("Success !");
-                connectedUser.setUsername(login.getUsername().getText());
-                connectedUser.setPassword(login.getPassword().getText());
+                connectedUser.setU_name(login.getUsername().getText());
+                connectedUser.setU_password(login.getPassword().getText());
                 //is user admin ?
                 //isConnected = login.isUserConnected();
                 primaryStage.close();

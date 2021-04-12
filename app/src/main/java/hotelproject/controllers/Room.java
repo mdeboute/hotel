@@ -1,60 +1,60 @@
 package hotelproject.controllers;
 
 public class Room {
-    private int size;
-    private int beds;
-    private int room_nb;
-    private String location;
+    private int r_num;
+    private int r_floor;
+    private String r_type;
+    private int booked;
 
     public Room() {
     }
 
-    public Room(int size, int beds, int roomNb, String location) {
-        this.beds = beds;
-        this.size = size;
-        this.room_nb = roomNb;
-        this.location = location;
+    public Room(int r_num, int r_floor, String r_type, int booked) {
+        this.r_num = r_num;
+        this.r_floor = r_floor;
+        this.r_type = r_type;
+        this.booked = booked;
     }
 
-    public int getSize() {
-        return size;
+    public int getR_num() {
+        return r_num;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setR_num(int r_num) {
+        this.r_num = r_num;
     }
 
-    public int getBeds() {
-        return beds;
+    public int getR_floor() {
+        return r_floor;
     }
 
-    public void setBeds(int beds) {
-        this.beds = beds;
+    public void setR_floor(int r_floor) {
+        this.r_floor = r_floor;
     }
 
-    public int getRoom_nb() {
-        return room_nb;
+    public String getR_type() {
+        return r_type;
     }
 
-    public void setRoom_nb(int room_nb) {
-        this.room_nb = room_nb;
+    public void setR_type(String r_type) {
+        this.r_type = r_type;
     }
 
-    public String getLocation() {
-        return location;
+    public int getBooked() {
+        return booked;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setBooked(int booked) {
+        this.booked = booked;
     }
 
     @Override
     public String toString() {
         return "Room{" +
-                "size=" + size +
-                ", beds=" + beds +
-                ", roomNb=" + room_nb +
-                ", location='" + location + '\'' +
+                "r_num=" + r_num +
+                ", r_floor=" + r_floor +
+                ", r_type=" + r_type +
+                ", booked=" + booked +
                 '}';
     }
 }

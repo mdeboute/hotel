@@ -1,49 +1,49 @@
 package hotelproject.controllers;
 
 public class User {
-    private String username;
-    private String password;
-    private boolean admin;
+    private String u_name;
+    private String u_password;
+    private int u_is_admin;
 
     public User() {
     }
 
-    public User(String username, String password, boolean admin) {
-        this.username = username;
-        this.password = password;
-        this.admin = admin;
+    public User(String u_name, String u_password, int u_is_admin) {
+        this.u_name = u_name;
+        this.u_password = u_password;
+        this.u_is_admin = u_is_admin;
     }
 
-    public String getUsername() {
-        return username;
+    public String getU_name() {
+        return u_name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setU_name(String u_name) {
+        this.u_name = u_name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getU_password() {
+        return u_password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setU_password(String u_password) {
+        this.u_password = u_password;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public int getU_is_admin() {
+        return u_is_admin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setU_is_admin(int u_is_admin) {
+        this.u_is_admin = u_is_admin;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", admin=" + admin +
+                "u_name='" + u_name + '\'' +
+                ", u_password='" + u_password + '\'' +
+                ", u_is_admin=" + u_is_admin +
                 '}';
     }
 }

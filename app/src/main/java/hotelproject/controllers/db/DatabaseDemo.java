@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.db;
 
 import java.sql.*;
 
@@ -21,7 +21,7 @@ public class DatabaseDemo {
       
           // access database
           System.out.println("Accessing database...");
-          conn = DatabaseConnector.createConnection(DB_URL, USER, PASSWORD, "hotel");
+          conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD, "hotel");
 
           // executing query
           System.out.println("Initializing Statement object...");
