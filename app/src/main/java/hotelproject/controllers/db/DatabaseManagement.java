@@ -16,11 +16,11 @@ public class DatabaseManagement {
             connectionProps.put("password", password);
             connectionProps.put("database", database);
             Connection conn = DriverManager.getConnection(url, connectionProps);
+            return conn;
         } catch (SQLException e) {
             System.err.println("Error : " + e);
             return null;
         }
-        return conn;
     }
 
     public static boolean tableExists(Connection conn, String tableName, ArrayList<String> log){
