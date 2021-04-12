@@ -145,4 +145,18 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+*.class
+.classpath
+.project
+.settings
+# Local History for Visual Studio Code
+.history/
+
 # End of https://www.toptal.com/developers/gitignore/api/gradle%

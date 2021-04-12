@@ -1,36 +1,49 @@
 package hotelproject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import hotelproject.controllers.User;
+import hotelproject.views.Login;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 public class HotelProject extends Application {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        VBox root = new VBox();
-        root.setPadding(new Insets(5));
-        Label title = new Label("JavaFX");
-        Label mysql;
+    public void start(Stage primaryStage) {
 
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/StarWars?user=tobias&password=abcd1234&useSSL=false");
-            mysql = new Label("Driver found and connected");
+        User user = new User("toto", "qwerty", true);
+        Login login = new Login(user);
 
-        } catch (SQLException e) {
-            mysql = new Label("An error has occurred: " + e.getMessage());
-        }
+        /**primaryStage.setScene(welcomeSceneBeforeAuth());
+        primaryStage.setTitle("Hotel Manager");
+        primaryStage.show();**/
 
-        root.getChildren().addAll(title, mysql);
-
-        primaryStage.setScene(new Scene(root, 400, 200));
-        primaryStage.setTitle("JavaFX");
+        primaryStage.setScene(login.getScene());
+        primaryStage.setTitle("Login");
         primaryStage.show();
+    }
+
+    private Scene welcomeSceneBeforeAuth() {
+        Button quit = new Button("Quit");
+        Label welcome = new Label("Welcome to your Hotel Manager");
+
+        Group group = new Group(welcome, quit);
+
+        return new Scene(group,500, 300);
+    }
+
+    private Scene welcomeSceneAfterAuth() {
+        return new Scene(new Label(""), 500, 300);
     }
 }
