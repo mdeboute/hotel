@@ -41,8 +41,9 @@ public class HotelProject extends Application {
                 connectedUser.setU_name(login.getUsername().getText());
                 connectedUser.setU_password(login.getPassword().getText());
                 //is user admin ?
+                connectedUser.setU_is_admin(user.getU_is_admin());
                 //isConnected = login.isUserConnected();
-                primaryStage.close();
+                //primaryStage.close();
                 afterAuth(primaryStage);
             }else{
                 login.getResult().setText("Fail !");
@@ -69,8 +70,10 @@ public class HotelProject extends Application {
 
         //button handling here
 
-        primaryStage.setScene(mainPage.getScene());
-        primaryStage.setTitle("Hotel Manager");
-        primaryStage.show();
+        Stage appStage = new Stage();
+        appStage.setScene(mainPage.getScene());
+        appStage.setTitle("Hotel Manager");
+        appStage.show();
+        primaryStage.close();
     }
 }
