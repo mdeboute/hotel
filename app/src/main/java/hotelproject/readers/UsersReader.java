@@ -9,6 +9,7 @@ import hotelproject.controllers.objects.User;
 
 public class UsersReader {
 
+  /** Reads rows from a csv file (containing user info) and creates User objects with that information. */
   public static ArrayList<User> readUsersFromCSV(String filepath) {
     ArrayList<User> users = new ArrayList<>();
     BufferedReader br = null;
@@ -37,6 +38,7 @@ public class UsersReader {
     return users;
   }
 
+  /** Uses information from an input array to create User objects. */
   public static User createUser(String[] metadata) {
     String u_name = metadata[0];
     String u_password = metadata[1];
