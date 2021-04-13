@@ -5,11 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import hotelproject.controllers.Room;
+import hotelproject.controllers.objects.Room;
 
 public class RoomsReader {
  
-    private static ArrayList<Room> readRoomsFromCSV(String filepath) {
+    public static ArrayList<Room> readRoomsFromCSV(String filepath) {
         ArrayList<Room> rooms = new ArrayList<>();
         BufferedReader br = null;
         FileReader fr;
@@ -37,7 +37,7 @@ public class RoomsReader {
         return rooms;
     }
 
-    private static Room createRoom(String[] metadata) {
+    public static Room createRoom(String[] metadata) {
         int num = Integer.parseInt(metadata[0]);
         int floor = Integer.parseInt(metadata[1]);
         String type = metadata[2];

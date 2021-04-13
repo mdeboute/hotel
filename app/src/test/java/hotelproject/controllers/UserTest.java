@@ -1,5 +1,6 @@
 package hotelproject.controllers;
 
+import hotelproject.controllers.objects.User;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

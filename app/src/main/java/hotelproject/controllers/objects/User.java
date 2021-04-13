@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.objects;
 
 public class User {
     private String u_name;
@@ -6,6 +6,11 @@ public class User {
     private int u_is_admin;
 
     public User() {
+    }
+
+    public User(String u_name, String u_password) {
+        this.u_name = u_name;
+        this.u_password = u_password;
     }
 
     public User(String u_name, String u_password, int u_is_admin) {

@@ -21,7 +21,7 @@ public class DatabaseDemo {
       
           // access database
           System.out.println("Accessing database...");
-          conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD, "hotel");
+          conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
 
           // executing query
           System.out.println("Initializing Statement object...");
@@ -37,7 +37,7 @@ public class DatabaseDemo {
               String name = rs.getString("u_name");
               String password = rs.getString("u_password");
               // output
-              System.out.print("user_name: " + name);
+              System.out.print("u_name: " + name);
               System.out.print(", u_password: " + password);
               System.out.print("\n");
           }
