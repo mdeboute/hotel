@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class MainPage {
+public class MainPageView {
     private final User user;
     private Scene scene;
 
@@ -21,7 +21,7 @@ public class MainPage {
     Button update;
     Button updateUser;
 
-    public MainPage(User user) {
+    public MainPageView(User user) {
         this.user = user;
         createScene();
     }
@@ -33,7 +33,6 @@ public class MainPage {
         pane.setHgap(5.5);
         pane.setVgap(5.5);
 
-        String userStatus = "Reception staff";
         myPage = new Button("My Page");
         logout = new Button("Logout");
         addBooking = new Button("Add a booking");
@@ -42,19 +41,16 @@ public class MainPage {
         update = new Button("Update bookings");
 
         if (user.getU_is_admin() == 1) {
-            userStatus = "Administrator";
             updateUser = new Button("Update an user");
         }
 
         pane.add(myPage, 1, 0);
         pane.add(logout, 2, 0);
-        Label status = new Label("Your status is : " + userStatus);
-        pane.add(status, 0, 1);
-        pane.add(addBooking, 0, 2);
-        pane.add(viewBookings, 0, 3);
-        pane.add(update, 0, 4);
-        pane.add(updateUser, 0, 5);
-        pane.add(viewRooms, 0, 6);
+        pane.add(addBooking, 0, 1);
+        pane.add(viewBookings, 0, 2);
+        pane.add(update, 0, 3);
+        pane.add(updateUser, 0, 4);
+        pane.add(viewRooms, 0, 5);
 
         scene = new Scene(pane);
     }

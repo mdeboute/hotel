@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class NewRoom {
+public class NewRoomView {
 
     Scene scene;
 
@@ -20,7 +20,7 @@ public class NewRoom {
     private final CheckBox booked = new CheckBox("Booked");
     private Button submit;
 
-    public NewRoom() {
+    public NewRoomView() {
         createScene();
     }
 

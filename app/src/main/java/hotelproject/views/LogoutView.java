@@ -2,18 +2,19 @@ package hotelproject.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class Rooms {
+public class LogoutView {
 
     private Scene scene;
-    Button addRoom;
 
-    public Rooms() {
+    Button login;
+    Button close;
+
+    public LogoutView() {
         createScene();
     }
 
@@ -24,10 +25,12 @@ public class Rooms {
         pane.setHgap(5.5);
         pane.setVgap(5.5);
 
-        Label title = new Label("Hotel rooms : ");
-        addRoom = new Button("New room");
+        Label title = new Label("You've been logged out successfully");
+        login = new Button("Login page");
+        close = new Button("Close");
         pane.add(title, 0, 0);
-        pane.add(addRoom, 0, 1);
+        pane.add(login, 0, 1);
+        pane.add(close, 0, 2);
 
         scene = new Scene(pane);
     }
@@ -36,7 +39,11 @@ public class Rooms {
         return scene;
     }
 
-    public Button getAddRoom() {
-        return addRoom;
+    public Button getLogin() {
+        return login;
+    }
+
+    public Button getClose() {
+        return close;
     }
 }

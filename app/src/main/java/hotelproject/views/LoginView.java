@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class Login {
+public class LoginView {
 
     private Scene scene;
     private Button testLogin;
@@ -18,7 +18,7 @@ public class Login {
     private final PasswordField password = new PasswordField();
     private final Label result = new Label();
 
-    public Login() {
+    public LoginView() {
         authentication();
     }
 
