@@ -53,4 +53,7 @@ CREATE TABLE `hotel`.`customer_booking` (
   FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));
 
 INSERT INTO `hotel`.`users`
-VALUES ("admin", "root", 1);
+VALUES 
+("admin", "root", 1),
+("reception", "staff", 0);
+
