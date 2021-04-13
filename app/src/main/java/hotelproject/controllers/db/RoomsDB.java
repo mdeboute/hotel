@@ -61,6 +61,7 @@ public class RoomsDB {
         return rooms;
     }
 
+    /** Deletes the room_type according to the room_type name */
     public static void deleteRoomType(Connection conn, String t_name) {
         try {
             Statement stmt = conn.createStatement();
@@ -71,6 +72,7 @@ public class RoomsDB {
         }
     }
 
+    /** Deletes the room according to the room number */
     public static void deleteRoom(Connection conn, int r_num) {
         try {
             Statement stmt = conn.createStatement();
