@@ -23,8 +23,9 @@ public class UserDB {
 
     public static int getU_is_admin(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM `users` WHERE u_name = %s AND u_password = %s";
+        String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
         ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name(), user.getU_password()));
-        return parseInt(rs.getString("us_is_admin"));
+        rs.next();
+        return parseInt(rs.getString("u_is_admin"));
     }
 }
