@@ -1,13 +1,11 @@
 package hotelproject.controllers.db;
 
-import hotelproject.controllers.db.DatabaseManagement;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -22,9 +20,6 @@ import static org.mockito.Mockito.mock;
 public class DatabaseManagementTest {
 
   @Mock
-  private DataSource dataSource;
-
-  @Mock
   private Connection conn;
 
   @Mock
@@ -34,11 +29,9 @@ public class DatabaseManagementTest {
   public void setUp() throws Exception {
 
     conn = mock(Connection.class);
-    dataSource = mock(DataSource.class);
     databaseMetaData  = mock(DatabaseMetaData.class);
 
     given(conn.getMetaData()).willReturn(databaseMetaData);
-    //given(dataSource.getConnection()).willReturn(conn);
 
   }
 
@@ -53,13 +46,8 @@ public class DatabaseManagementTest {
 
     given(databaseMetaData.getTables(null, null, TABLE, null)).willReturn(metaDataResultSet);
 
-    //ResultSet tables = databaseMetaData.getTables(null, null, TABLE, null);
-    //assertNotNull("Should be non-null",tables);
-
-    DatabaseManagement databaseManagement = new DatabaseManagement();
     ArrayList<String> log = new ArrayList<>();
     log.add("item");
-    //assertNotNull("Should return true", databaseManagement.isTableExist(conn, TABLE, log));
     assertTrue("Should return true", DatabaseManagement.tableExists(conn, TABLE, log));
 
 
