@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RoomsDB {
+
+    /** Inserts new row into the `room_type` table in the database. */
     public static void addRoomType(Connection conn, RoomType room){
         try{
             String sql = "INSERT INTO `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
@@ -24,6 +26,7 @@ public class RoomsDB {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
+    /** Inserts new row into the `room` table in the database. */
     public static void addRoom(Connection conn, Room room) {
         try{
             String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, '%s', %d)";
@@ -32,6 +35,7 @@ public class RoomsDB {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
+    /** Reads the `room` table in the database. */
     public static List<Room> readRooms(Connection conn){
         List<Room> rooms = new ArrayList<>();
         try {
