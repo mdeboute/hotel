@@ -79,10 +79,7 @@ public class HotelProject extends Application {
             // display window to change or delete a booking --> shouldn't we display this button on the view bookings page ?
         });
 
-        mainPage.getViewRooms().setOnAction(e -> {
-            roomsDisplay(appStage);
-
-        });
+        mainPage.getViewRooms().setOnAction(e -> roomsDisplay(appStage));
 
         if (connectedUser.getU_is_admin() == 1) {
             mainPage.getUpdateUserButton().setOnAction(e -> {
@@ -127,9 +124,7 @@ public class HotelProject extends Application {
 
         //add display of rooms --> add parameter in constructor with rooms map ?
 
-        roomsPage.getAddRoom().setOnAction(e -> {
-            newRoomDisplay(appStage, roomsStage);
-        });
+        roomsPage.getAddRoom().setOnAction(e -> newRoomDisplay(appStage, roomsStage));
 
         roomsStage.setScene(roomsPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");

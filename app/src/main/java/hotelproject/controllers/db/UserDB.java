@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
@@ -35,26 +34,5 @@ public class UserDB {
         String previousUserName = user.getU_name();
         String sql = "UPDATE users SET u_name = '%s', u_password = '%s', u_is_admin = %d WHERE u_name = '"+previousUserName+"'";
         stmt.executeUpdate(String.format(sql, new_username, new_password, u_is_admin));
-    }
-
-    public static void main(String[] args) {
-        // MySQL 8.0 should use this
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        String USER = "root";
-        //Remember to change here
-        String PASSWORD = "rootroot";
-        Connection conn;
-        //object for testing
-        User user = new User("admin","admin",1);
-        try{
-            // register driver
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Accessing database...");
-            conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
-            updateUserInformation(conn, user, "admin","1234",1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

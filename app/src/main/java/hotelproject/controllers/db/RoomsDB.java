@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
-import hotelproject.controllers.objects.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,26 +55,5 @@ public class RoomsDB {
             return null;
         }
         return rooms;
-    }
-
-    public static void main(String[] args) {
-        // MySQL 8.0 should use this
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        String USER = "root";
-        //Remember to change here
-        String PASSWORD = "rootroot";
-        Connection conn;
-
-        try{
-            // register driver
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Accessing database...");
-            conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
-            Room rm = new Room(12,1,"single",1);
-            addRoom(conn,rm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
