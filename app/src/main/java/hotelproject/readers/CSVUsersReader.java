@@ -9,7 +9,7 @@ import hotelproject.controllers.User;
 
 public class CSVUsersReader {
 
-  private static ArrayList<User> readUsersFromCSV(String filepath) {
+  public static ArrayList<User> readUsersFromCSV(String filepath) {
     ArrayList<User> users = new ArrayList<>();
     BufferedReader br = null;
     FileReader fr;
@@ -37,7 +37,7 @@ public class CSVUsersReader {
     return users;
   }
 
-  private static User createUser(String[] metadata) {
+  public static User createUser(String[] metadata) {
     String u_name = metadata[0];
     String u_password = metadata[1];
     int is_admin = Integer.parseInt(metadata[2]);
