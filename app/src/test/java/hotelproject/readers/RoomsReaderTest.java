@@ -26,6 +26,7 @@ public class RoomsReaderTest {
       System.out.println(m.toString());
     }
     */
+
     String[] metadata = {"1","2","3","0"};
     RoomsReader roomsReader = new RoomsReader();
     Class[] argClasses = new Class[1];
@@ -33,7 +34,7 @@ public class RoomsReaderTest {
     Method privateMethod = RoomsReader.class.getDeclaredMethod("createRoom", argClasses);
     privateMethod.setAccessible(true);
     Room returnValue = (Room) privateMethod.invoke(roomsReader, new Object[] {metadata});
-    assertTrue("Should be true", returnValue.getR_num() == 1);
+    assertEquals("Should be true", 1, returnValue.getR_num());
   }
 
 }

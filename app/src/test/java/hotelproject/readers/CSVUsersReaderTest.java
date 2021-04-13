@@ -2,7 +2,7 @@ package hotelproject.readers;
 
 import static org.junit.Assert.*;
 
-import hotelproject.controllers.User;
+import hotelproject.controllers.objects.User;
 import java.util.ArrayList;
 import org.junit.Test;
 
@@ -22,6 +22,6 @@ public class CSVUsersReaderTest {
     String is_admin = "0";
     String[] metadata = {u_name, u_password, is_admin};
     assertTrue("Should equal true",CSVUsersReader.createUser(metadata) instanceof User);
-    assertTrue("", CSVUsersReader.createUser(metadata).getU_name().equals(u_name));
+    assertEquals("", CSVUsersReader.createUser(metadata).getU_name(), u_name);
   }
 }
