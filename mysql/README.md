@@ -11,12 +11,13 @@ docker container ls -a
 ### to start container
 docker start [container_id]
 
-### if you need to inspect the machine
+### if you need to ssh into the mysql machine
 docker exec -it hotel-sql bash
 
-### check around the vm
+### check around the vm after docker exec
 mysql -uroot -proot
 show databases;
+show tables;
 
 ### to stop a container
 docker container stop [container_id]
