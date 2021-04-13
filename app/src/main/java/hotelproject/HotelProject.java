@@ -66,13 +66,12 @@ public class HotelProject extends Application {
         MainPage mainPage = new MainPage(connectedUser);
         Stage appStage = new Stage();
 
-        //button handling here
+        //handling buttons here
         mainPage.getMyPageButton().setOnAction(e -> {
             //display user info page
         });
 
         mainPage.getLogoutButton().setOnAction(e -> {
-            //display logout window
             logoutDisplay(appStage);
         });
 
@@ -93,7 +92,6 @@ public class HotelProject extends Application {
                 //display window to change the information of an user or delete one
             });
         }
-
 
         appStage.setScene(mainPage.getScene());
         appStage.setTitle("Hotel Manager");
