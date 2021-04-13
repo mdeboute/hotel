@@ -8,6 +8,11 @@ public class User {
     public User() {
     }
 
+    public User(String u_name, String u_password) {
+        this.u_name = u_name;
+        this.u_password = u_password;
+    }
+
     public User(String u_name, String u_password, int u_is_admin) {
         this.u_name = u_name;
         this.u_password = u_password;
