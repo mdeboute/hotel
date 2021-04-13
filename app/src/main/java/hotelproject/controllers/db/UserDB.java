@@ -28,4 +28,19 @@ public class UserDB {
         rs.next();
         return parseInt(rs.getString("u_is_admin"));
     }
+
+    public static void updateUserInformation(Connection conn, User user) throws SQLException {
+        Statement stmt = conn.createStatement();
+        String sql = "SELECT * FROM `users` WHERE u_name = '%s'";
+        ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name()));
+        String name;
+        String password;
+        int isAdmin;
+        while(rs.next()){
+            name = user.getU_name();
+            password = user.getU_password();
+            isAdmin = user.getU_is_admin();
+        }
+
+    }
 }
