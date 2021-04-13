@@ -1,6 +1,7 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
+import hotelproject.controllers.objects.RoomType;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,23 +13,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RoomsDB {
-    public static void addRoomType(Connection conn, String t_name, int beds, int r_size, int has_view, int has_kitchen,
-                                   int has_bathroom, int has_workspace, int has_tv, int has_coffee_maker){
+    public static void addRoomType(Connection conn, RoomType room){
         try{
             String sql = "INSERT INTO TABLE `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
                     "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES " +
                     "('%s', %d, %d, %d, %d, %d, %d, %d, %d)";
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate(String.format(sql, t_name, beds, r_size, has_view, has_kitchen, has_bathroom,
-                    has_workspace, has_tv, has_coffee_maker));
+            stmt.executeUpdate(String.format(sql, room.getT_name(), room.getBeds(), room.getR_size(), room.getHas_view(), room.getHas_kitchen(), room.getHas_bathroom(),
+                    room.getHas_workspace(), room.getHas_tv(), room.getHas_coffee_maker()));
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
-    public static void addRoom(Connection conn, int r_num, int r_floor, String r_type, int booked) {
+    public static void addRoom(Connection conn, Room room) {
         try{
             String sql = "INSERT INTO TABLE `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, %s, %d)";
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate(String.format(sql, r_num, r_floor, r_type, booked));
+            stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked()));
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
@@ -38,10 +38,10 @@ public class RoomsDB {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM room";
             ResultSet rs = stmt.executeQuery(sql);
-            int r_num = -1;
-            int r_floor = -1;
-            String r_type = null;
-            int booked = -1;
+            int r_num;
+            int r_floor;
+            String r_type;
+            int booked;
             while(rs.next()){
                 r_num = Integer.parseInt(rs.getString("r_num"));
                 r_floor = Integer.parseInt(rs.getString("r_floor"));
