@@ -5,7 +5,7 @@ As a contributor, here are the guidelines we would like you to follow :
  - [Question or Problem ?](#question)
  - [Issues and Bugs](#issue)
  - [Feature Requests](#feature)
- - [Submission Guidelines](#submit)
+ - [Submission Guidelines (if you contribute with your own fork repository)](#submit)
  - [Coding Rules](#rules)
  - [Commit Message Guidelines](#commit)
 
@@ -42,7 +42,7 @@ If you would like to *implement* a new feature, please consider the size of the 
 * **Small Features** can be crafted and directly [submitted as a Merge Request](#submit-pr).
 
 
-## <a name="submit"></a> Submission Guidelines
+## <a name="submit"></a> Submission Guidelines (if you contribute with your own fork repository)
 
 
 ### <a name="submit-issue"></a> Submitting an Issue
@@ -196,23 +196,9 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 We have very precise rules over how our Git commit messages must be formatted.
 This format leads to **easier to read commit history**.
 
-Each commit message consists of a **header**, a **body**, and a **footer**.
+Each commit message consists of a **header**.
 
-
-```
-<header>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
-
-The `header` is mandatory and must conform to the [Commit Message Header](#commit-header) format.
-
-The `body` is mandatory for all commits except for those of type "docs".
-When the body is present it must be at least 20 characters long and must conform to the [Commit Message Body](#commit-body) format.
-
-The `footer` is optional. The [Commit Message Footer](#commit-footer) format describes what the footer is used for and the structure it must have.
+The `header` must conform to the [Commit Message Header](#commit-header) format.
 
 Any line of the commit message cannot be longer than 100 characters.
 
@@ -223,7 +209,7 @@ Any line of the commit message cannot be longer than 100 characters.
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │       │
-  │       └─⫸ Commit Scope: engine|app|model|view or subpackage
+  │       └─⫸ Commit Scope: controllers|views|hotelproject|instances|test|docs|mysql
   │
   └─⫸ Commit Type: build|docs|feat|fix|perf|refactor|test
 ```
@@ -245,14 +231,17 @@ Must be one of the following:
 
 
 ##### Scope
-The scope should be the name of the main/test.java.hotelproject package affected (as perceived by the person reading the changelog generated from commit messages).
+The scope should be the name of the package affected (as perceived by the person reading the changelog generated from commit messages).
 
 The following is the list of supported scopes:
 
-* 
-*
-*
-*
+* **controllers**
+* **views**
+* **hotelproject**
+* **instances**
+* **test**
+* **docs**
+* **mysql**
 
 
 ##### Summary
@@ -262,29 +251,6 @@ Use the summary field to provide a succinct description of the change:
 * use the imperative, present tense: "change" not "changed" nor "changes"
 * don't capitalize the first letter
 * no dot (.) at the end
-
-#### <a name="commit-body"></a> Commit Message Body
-
-Just as in the summary, use the imperative, present tense: "fix" not "fixed" nor "fixes".
-
-Explain the motivation for the change in the commit message body. This commit message should explain _why_ you are making the change.
-You can include a comparison of the previous behavior with the new behavior in order to illustrate the impact of the change.
-
-
-#### <a name="commit-footer"></a> Commit Message Footer
-
-The footer can contain information about breaking changes and is also the place to reference GitLab issues and other MRs that this commit closes or is related to.
-
-```
-BREAKING CHANGE: <breaking change summary>
-<BLANK LINE>
-<breaking change description + migration instructions>
-<BLANK LINE>
-<BLANK LINE>
-Fixes #<issue number>
-```
-
-Breaking Change section should start with the phrase "BREAKING CHANGE: " followed by a summary of the breaking change, a blank line, and a detailed description of the breaking change that also includes migration instructions.
 
 
 ### Revert commits

@@ -11,14 +11,6 @@ import javafx.stage.Stage;
 
 
 public class HotelProject extends Application {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) {
 

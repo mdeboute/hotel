@@ -1,9 +1,11 @@
-package hotelproject.controllers;
+package hotelproject.readers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import hotelproject.controllers.RoomType;
 
 public class RoomTypesReader {
   
