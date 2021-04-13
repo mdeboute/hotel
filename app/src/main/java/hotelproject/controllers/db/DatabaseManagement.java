@@ -12,7 +12,7 @@ public class DatabaseManagement {
     public static Connection createConnection() {
         try {
             Properties connectionProps = new Properties();
-            connectionProps.put("user", "admin");
+            connectionProps.put("user", "root");
             connectionProps.put("password", "root");
             return DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", connectionProps);
         } catch (SQLException e) {
