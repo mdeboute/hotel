@@ -1,21 +1,16 @@
 package hotelproject.readers;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import hotelproject.controllers.objects.User;
 
-import hotelproject.controllers.User;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUsersReader {
   
-  public static ArrayList<User> DBAddUser(Connection conn) throws IOException {
+  public static ArrayList<User> DBAddUser(Connection conn) {
 
-    Statement stmt = null;
-    ResultSet rs = null;
+    Statement stmt;
+    ResultSet rs;
     
     ArrayList<User> users = new ArrayList<>();
 
@@ -34,7 +29,7 @@ public class DBUsersReader {
     return users;
   }
 
-  public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
+  public static void main(String[] args) throws SQLException, ClassNotFoundException {
     
     String myDriver = "com.mysql.cj.jdbc.Driver";
     String myUrl = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";

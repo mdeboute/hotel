@@ -1,22 +1,29 @@
 package hotelproject;
 
-import hotelproject.controllers.User;
+import hotelproject.controllers.db.UserDB;
+import hotelproject.controllers.objects.User;
+import hotelproject.controllers.db.DatabaseManagement;
 import hotelproject.views.Login;
 import hotelproject.views.Logout;
 import hotelproject.views.MainPage;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class HotelProject extends Application {
 
+    static final String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
+    // remember to change here for use
+    static final String USER = "root";
+    static final String PASSWORD = "root";
+
+    Connection conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
     User connectedUser = new User();
-    User userTest = new User("toto", "qwerty", 1);
 
     /**
      * @param args the command line arguments
@@ -31,17 +38,22 @@ public class HotelProject extends Application {
     }
 
     private void loginPage(Stage primaryStage) {
-        Login login = new Login(userTest);
+        Login login = new Login();
 
         login.getTestLoginButton().setOnAction(e -> { //test if the user exist in the database and has correct password
-            if (login.getUsername().getText().equals(userTest.getU_name()) && login.getPassword().getText().equals(userTest.getU_password())) {
-                login.getResult().setText("Success !");
-                connectedUser.setU_name(login.getUsername().getText());
-                connectedUser.setU_password(login.getPassword().getText());
-                connectedUser.setU_is_admin(userTest.getU_is_admin());
-                afterAuth(primaryStage);
-            }else{
-                login.getResult().setText("Fail !");
+            User userTest = new User(login.getUsername().getText(), login.getPassword().getText());
+            try {
+                if (UserDB.userExists(conn, userTest)) {
+                    login.getResult().setText("Success !");
+                    connectedUser.setU_name(login.getUsername().getText());
+                    connectedUser.setU_password(login.getPassword().getText());
+                    connectedUser.setU_is_admin(UserDB.getU_is_admin(conn, userTest));
+                    afterAuth(primaryStage);
+                }else{
+                    login.getResult().setText("Fail !");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
         });
 
@@ -100,9 +112,7 @@ public class HotelProject extends Application {
             logoutStage.close();
         });
 
-        logoutPage.getClose().setOnAction(e -> {
-            Platform.exit();
-        });
+        logoutPage.getClose().setOnAction(e -> Platform.exit());
 
         logoutStage.setScene(logoutPage.getScene());
         logoutStage.setTitle("Logout");

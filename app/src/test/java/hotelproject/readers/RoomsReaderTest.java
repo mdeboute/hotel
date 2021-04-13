@@ -2,7 +2,7 @@ package hotelproject.readers;
 
 import static org.junit.Assert.*;
 
-import hotelproject.controllers.Room;
+import hotelproject.controllers.objects.Room;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import org.junit.Test;

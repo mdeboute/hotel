@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import hotelproject.controllers.RoomType;
+import hotelproject.controllers.objects.RoomType;
 
 public class RoomTypesReader {
   

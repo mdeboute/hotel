@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.objects;
 
 import java.sql.Date;
 

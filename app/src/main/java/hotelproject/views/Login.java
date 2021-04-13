@@ -1,6 +1,5 @@
 package hotelproject.views;
 
-import hotelproject.controllers.User;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,11 +18,11 @@ public class Login {
     private final PasswordField password = new PasswordField();
     private final Label result = new Label();
 
-    public Login(User user) {
-        authentication(user);
+    public Login() {
+        authentication();
     }
 
-    private void authentication(User user) {
+    private void authentication() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));

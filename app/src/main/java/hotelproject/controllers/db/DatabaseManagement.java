@@ -1,6 +1,6 @@
 package hotelproject.controllers.db;
 
-import hotelproject.controllers.Room;
+import hotelproject.controllers.objects.Room;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,12 +12,11 @@ import java.util.logging.Logger;
 
 public class DatabaseManagement {
 
-    public static Connection createConnection(String url, String user, String password, String database) {
+    public static Connection createConnection(String url, String user, String password) {
         try {
             Properties connectionProps = new Properties();
             connectionProps.put("user", user);
             connectionProps.put("password", password);
-            connectionProps.put("database", database);
             return DriverManager.getConnection(url, connectionProps);
         } catch (SQLException e) {
             System.err.println("Error : " + e);

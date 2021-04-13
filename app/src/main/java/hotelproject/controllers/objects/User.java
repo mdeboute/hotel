@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.objects;
 
 public class User {
     private String u_name;
