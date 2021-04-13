@@ -10,8 +10,6 @@ import java.sql.Statement;
 import static java.lang.Integer.parseInt;
 
 public class UserDB {
-
-    /** Checks if a user exists in the `users` table in the database. */
     public static boolean userExists(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM users");
@@ -23,7 +21,6 @@ public class UserDB {
         return false;
     }
 
-    /** Checks if a user is an administrator in the `users` table in the database. */
     public static int getU_is_admin(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
@@ -32,7 +29,6 @@ public class UserDB {
         return parseInt(rs.getString("u_is_admin"));
     }
 
-    /** Updates a row in the `user` table in the database. */
     public static void updateUserInformation(Connection conn, User user, String new_username, String new_password, int u_is_admin) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
