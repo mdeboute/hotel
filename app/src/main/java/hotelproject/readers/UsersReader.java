@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import hotelproject.controllers.objects.User;
 
-public class CSVUsersReader {
+public class UsersReader {
 
   public static ArrayList<User> readUsersFromCSV(String filepath) {
     ArrayList<User> users = new ArrayList<>();

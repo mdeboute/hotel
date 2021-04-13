@@ -6,12 +6,12 @@ import hotelproject.controllers.objects.User;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class CSVUsersReaderTest {
+public class UsersReaderTest {
 
   @Test
   public void testReadUsersFromCSV() {
     String filepath = "app/src/main/java/instances/users.csv";
-    ArrayList<User> users = CSVUsersReader.readUsersFromCSV(filepath);
+    ArrayList<User> users = UsersReader.readUsersFromCSV(filepath);
     assertTrue("Should equal true",users instanceof ArrayList);
   }
 
@@ -21,7 +21,7 @@ public class CSVUsersReaderTest {
     String u_password = "1234";
     String is_admin = "0";
     String[] metadata = {u_name, u_password, is_admin};
-    assertTrue("Should equal true",CSVUsersReader.createUser(metadata) instanceof User);
-    assertEquals("", CSVUsersReader.createUser(metadata).getU_name(), u_name);
+    assertTrue("Should equal true", UsersReader.createUser(metadata) instanceof User);
+    assertEquals("", UsersReader.createUser(metadata).getU_name(), u_name);
   }
 }
