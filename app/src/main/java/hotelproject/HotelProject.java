@@ -1,11 +1,11 @@
 package hotelproject;
 
+import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.db.UserDB;
+import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
 import hotelproject.controllers.db.DatabaseManagement;
-import hotelproject.views.Login;
-import hotelproject.views.Logout;
-import hotelproject.views.MainPage;
+import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -52,7 +52,7 @@ public class HotelProject extends Application {
         });
 
         primaryStage.setScene(login.getScene());
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Hotel Manager - Login");
         primaryStage.show();
     }
 
@@ -79,6 +79,11 @@ public class HotelProject extends Application {
             // display window to change or delete a booking --> shouldn't we display this button on the view bookings page ?
         });
 
+        mainPage.getViewRooms().setOnAction(e -> {
+            roomsDisplay(appStage);
+
+        });
+
         if (connectedUser.getU_is_admin() == 1) {
             mainPage.getUpdateUserButton().setOnAction(e -> {
                 //display window to change the information of an user or delete one
@@ -86,9 +91,49 @@ public class HotelProject extends Application {
         }
 
         appStage.setScene(mainPage.getScene());
-        appStage.setTitle("Hotel Manager");
+        appStage.setTitle("Hotel Manager - Menu");
         appStage.show();
         primaryStage.close();
+    }
+
+    private void newRoomDisplay(Stage appStage, Stage roomsStage) {
+        NewRoom newRoomPage = new NewRoom();
+        Stage newRoomStage = new Stage();
+
+        //handle buttons
+        newRoomPage.getSubmit().setOnAction(e -> {
+            int roomNb = Integer.parseInt(newRoomPage.getNumRoom().getText());
+            int roomFloor = Integer.parseInt(newRoomPage.getFloor().getText());
+            String roomType = newRoomPage.getRoomType().getText();
+            int roomBooked = 0;
+            if (newRoomPage.getBooked().isSelected()) {
+                roomBooked = 1;
+            }
+
+            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+            RoomsDB.addRoom(conn, newRoom);
+
+            newRoomStage.close();
+        });
+
+        newRoomStage.setScene(newRoomPage.getScene());
+        newRoomStage.setTitle("Hotel Manager - New Room");
+        newRoomStage.show();
+    }
+
+    private void roomsDisplay(Stage appStage) {
+        Rooms roomsPage = new Rooms();
+        Stage roomsStage = new Stage();
+
+        //add display of rooms --> add parameter in constructor with rooms map ?
+
+        roomsPage.getAddRoom().setOnAction(e -> {
+            newRoomDisplay(appStage, roomsStage);
+        });
+
+        roomsStage.setScene(roomsPage.getScene());
+        roomsStage.setTitle("Hotel Manager - Rooms");
+        roomsStage.show();
     }
 
     private void logoutDisplay(Stage appStage) {
@@ -105,7 +150,7 @@ public class HotelProject extends Application {
         logoutPage.getClose().setOnAction(e -> Platform.exit());
 
         logoutStage.setScene(logoutPage.getScene());
-        logoutStage.setTitle("Logout");
+        logoutStage.setTitle("Hotel Manager - Logout");
         logoutStage.show();
         appStage.close();
     }

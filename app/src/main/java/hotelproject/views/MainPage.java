@@ -16,6 +16,7 @@ public class MainPage {
     Button myPage;
     Button logout;
     Button addBooking;
+    Button viewRooms;
     Button viewBookings;
     Button update;
     Button updateUser;
@@ -36,6 +37,7 @@ public class MainPage {
         myPage = new Button("My Page");
         logout = new Button("Logout");
         addBooking = new Button("Add a booking");
+        viewRooms = new Button("View rooms");
         viewBookings = new Button("View bookings");
         update = new Button("Update bookings");
 
@@ -52,6 +54,7 @@ public class MainPage {
         pane.add(viewBookings, 0, 3);
         pane.add(update, 0, 4);
         pane.add(updateUser, 0, 5);
+        pane.add(viewRooms, 0, 6);
 
         scene = new Scene(pane);
     }
@@ -83,4 +86,6 @@ public class MainPage {
     public Button getUpdateUserButton() {
         return updateUser;
     }
+
+    public Button getViewRooms() { return viewRooms; }
 }
