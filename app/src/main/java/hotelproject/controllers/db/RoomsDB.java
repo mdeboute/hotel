@@ -83,4 +83,26 @@ public class RoomsDB {
         }
     }
 
+    /** Update the room_type according to the room type name */
+    public static void updateRoomType(Connection conn, String t_name, int beds, int r_size, int has_view, int has_kitchen, int has_bathroom, int has_workspace, int has_tv, int has_coffee_maker){
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE room_type SET beds = '"+beds+"', r_size = '"+r_size+"', has_view = '"+has_view+"', has_kitchen = '"+has_kitchen+"', has_bathroom = '"+has_bathroom+"', has_workspace = '"+has_workspace+"', has_tv = '"+has_tv+"', has_coffee_maker = '"+has_coffee_maker+"' WHERE t_name = '"+t_name+"' ";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** Update the room according to the room number */
+    public static void updateRoom(Connection conn, int r_num, int r_floor, String r_type, int booked){
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "UPDATE room SET r_floor = '"+r_floor+"', r_type = '"+r_type+"', booked = '"+booked+"' WHERE r_num = '"+r_num+"' ";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
