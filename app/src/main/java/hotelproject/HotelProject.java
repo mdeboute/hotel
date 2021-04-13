@@ -16,13 +16,7 @@ import java.sql.SQLException;
 
 public class HotelProject extends Application {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-
-    // remember to change here for use
-    static final String USER = "root";
-    static final String PASSWORD = "root";
-
-    Connection conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
+    Connection conn = DatabaseManagement.createConnection();
     User connectedUser = new User();
 
     /**

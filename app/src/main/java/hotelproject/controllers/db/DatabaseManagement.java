@@ -9,6 +9,18 @@ import java.util.logging.Logger;
 
 public class DatabaseManagement {
 
+    public static Connection createConnection() {
+        try {
+            Properties connectionProps = new Properties();
+            connectionProps.put("user", "admin");
+            connectionProps.put("password", "root");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", connectionProps);
+        } catch (SQLException e) {
+            System.err.println("Error : " + e);
+            return null;
+        }
+    }
+
     public static Connection createConnection(String url, String user, String password) {
         try {
             Properties connectionProps = new Properties();

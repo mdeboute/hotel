@@ -1,5 +1,6 @@
 package hotelproject.readers;
 
+import hotelproject.controllers.db.DatabaseManagement;
 import hotelproject.controllers.objects.User;
 
 import java.sql.*;
@@ -29,12 +30,9 @@ public class DBUsersReader {
     return users;
   }
 
-  public static void main(String[] args) throws SQLException, ClassNotFoundException {
-    
-    String myDriver = "com.mysql.cj.jdbc.Driver";
-    String myUrl = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    Class.forName(myDriver);
-    Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+  public static void main(String[] args) {
+
+    Connection conn = DatabaseManagement.createConnection();
 
     ArrayList<User> users = DBAddUser(conn);
     for (User u : users) {
