@@ -71,9 +71,7 @@ public class HotelProject extends Application {
             //display user info page
         });
 
-        mainPage.getLogoutButton().setOnAction(e -> {
-            logoutDisplay(appStage);
-        });
+        mainPage.getLogoutButton().setOnAction(e -> logoutDisplay(appStage));
 
         mainPage.getAddBookingButton().setOnAction(e -> {
             // display window with a form for adding a booking
