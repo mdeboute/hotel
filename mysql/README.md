@@ -17,6 +17,7 @@ docker exec -it hotel-sql bash
 ### check around the vm after docker exec
 mysql -uroot -proot
 show databases;
+use hotel;
 show tables;
 
 ### to stop a container
