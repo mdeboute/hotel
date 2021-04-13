@@ -60,4 +60,25 @@ public class RoomsDB {
         }
         return rooms;
     }
+
+    public static void deleteRoomType(Connection conn, String t_name) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM room_type WHERE t_name = '" + t_name + "'";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteRoom(Connection conn, int r_num) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM room WHERE r_num = '" + r_num + "'";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
