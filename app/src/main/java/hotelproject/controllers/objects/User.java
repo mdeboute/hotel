@@ -44,6 +44,7 @@ public class User {
     }
 
     @Override
+    /** Returns attribute information as a String */
     public String toString() {
         return "User{" +
                 "u_name='" + u_name + '\'' +

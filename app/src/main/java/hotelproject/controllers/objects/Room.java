@@ -49,6 +49,7 @@ public class Room {
     }
 
     @Override
+    /** Returns attribute information as a String */
     public String toString() {
         return "Room{" +
                 "r_num=" + r_num +

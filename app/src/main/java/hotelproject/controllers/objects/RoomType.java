@@ -99,6 +99,7 @@ public class RoomType {
     }
 
     @Override
+    /** Returns attribute information as a String */
     public String toString() {
         return "RoomType{" +
                 "t_name='" + t_name + '\'' +
