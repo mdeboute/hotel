@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class RoomsDB {
     public static void addRoomType(Connection conn, RoomType room){
         try{
-            String sql = "INSERT INTO TABLE `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
+            String sql = "INSERT INTO `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
                     "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES " +
                     "('%s', %d, %d, %d, %d, %d, %d, %d, %d)";
             Statement stmt = conn.createStatement();
@@ -26,7 +26,7 @@ public class RoomsDB {
 
     public static void addRoom(Connection conn, Room room) {
         try{
-            String sql = "INSERT INTO TABLE `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, %s, %d)";
+            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, %s, %d)";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked()));
         } catch (SQLException e) { e.printStackTrace(); }
