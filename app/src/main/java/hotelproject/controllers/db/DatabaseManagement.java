@@ -1,7 +1,10 @@
 package hotelproject.controllers.db;
 
+import hotelproject.controllers.Room;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,4 +67,33 @@ public class DatabaseManagement {
             Logger.getLogger(DatabaseManagement.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+
+    public static List<Room> readRooms(Connection conn, ArrayList<String> log){
+        List<Room> rooms = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM room";
+            ResultSet rs = stmt.executeQuery(sql);
+            int r_num = -1;
+            int r_floor = -1;
+            String r_type = null;
+            int booked = -1;
+            while(rs.next()){
+                r_num = Integer.parseInt(rs.getString("r_num"));
+                r_floor = Integer.parseInt(rs.getString("r_floor"));
+                r_type = rs.getString("r_type");
+                booked = Integer.parseInt(rs.getString("booked"));
+                rooms.add(new Room(r_num,r_floor,r_type,booked));
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(DatabaseManagement.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+        return rooms;
+    }
+
+
+
+
 }
