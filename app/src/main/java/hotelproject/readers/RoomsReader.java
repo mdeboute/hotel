@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import hotelproject.controllers.objects.Room;
 
 public class RoomsReader {
- 
+
+    /** Reads rows from a csv file (containing room info) and creates Room objects with that information. */
     public static ArrayList<Room> readRoomsFromCSV(String filepath) {
         ArrayList<Room> rooms = new ArrayList<>();
         BufferedReader br = null;
@@ -37,6 +38,7 @@ public class RoomsReader {
         return rooms;
     }
 
+    /** Uses information from an input array to create Room objects. */
     public static Room createRoom(String[] metadata) {
         int num = Integer.parseInt(metadata[0]);
         int floor = Integer.parseInt(metadata[1]);

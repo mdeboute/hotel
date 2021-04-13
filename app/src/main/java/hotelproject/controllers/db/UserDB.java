@@ -10,6 +10,8 @@ import java.sql.Statement;
 import static java.lang.Integer.parseInt;
 
 public class UserDB {
+
+    /** Checks if a user exists in the `users` table in the database. */
     public static boolean userExists(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM users");
@@ -21,6 +23,7 @@ public class UserDB {
         return false;
     }
 
+    /** Checks if a user is an administrator in the `users` table in the database. */
     public static int getU_is_admin(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
@@ -29,18 +32,11 @@ public class UserDB {
         return parseInt(rs.getString("u_is_admin"));
     }
 
-    public static void updateUserInformation(Connection conn, User user) throws SQLException {
+    /** Updates a row in the `user` table in the database. */
+    public static void updateUserInformation(Connection conn, User user, String new_username, String new_password, int u_is_admin) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM `users` WHERE u_name = '%s'";
-        ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name()));
-        String name;
-        String password;
-        int isAdmin;
-        while(rs.next()){
-            name = user.getU_name();
-            password = user.getU_password();
-            isAdmin = user.getU_is_admin();
-        }
-
+        String previousUserName = user.getU_name();
+        String sql = "UPDATE users SET u_name = '%s', u_password = '%s', u_is_admin = %d WHERE u_name = '"+previousUserName+"'";
+        stmt.executeUpdate(String.format(sql, new_username, new_password, u_is_admin));
     }
 }

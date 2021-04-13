@@ -56,6 +56,7 @@ public class Customer {
     }
 
     @Override
+    /** Returns attribute information as a String */
     public String toString() {
         return "Customer{" +
                 "c_ss_number=" + c_ss_number +

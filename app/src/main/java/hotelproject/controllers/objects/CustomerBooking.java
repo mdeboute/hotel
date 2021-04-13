@@ -26,6 +26,7 @@ public class CustomerBooking {
     }
 
     @Override
+    /** Returns attribute information as a String */
     public String toString() {
         return "CustomerBooking{" +
                 "customer_ss_number=" + customer_ss_number +

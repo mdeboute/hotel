@@ -80,10 +80,7 @@ public class HotelProject extends Application {
             // display window to change or delete a booking --> shouldn't we display this button on the view bookings page ?
         });
 
-        mainPageView.getViewRooms().setOnAction(e -> {
-            roomsDisplay(appStage);
-
-        });
+        mainPageView.getViewRooms().setOnAction(e -> roomsDisplay(appStage));
 
         if (connectedUser.getU_is_admin() == 1) {
             mainPageView.getUpdateUserButton().setOnAction(e -> {

@@ -78,6 +78,7 @@ public class Booking {
     this.b_is_paid = b_is_paid;
   }
 
+  /** Returns attribute information as a String */
   @Override
   public String toString() {
     return "Booking{" +
