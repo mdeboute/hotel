@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
+import hotelproject.controllers.objects.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class RoomsDB {
 
     public static void addRoom(Connection conn, Room room) {
         try{
-            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, %s, %d)";
+            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, '%s', %d)";
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked()));
         } catch (SQLException e) { e.printStackTrace(); }
@@ -55,5 +56,26 @@ public class RoomsDB {
             return null;
         }
         return rooms;
+    }
+
+    public static void main(String[] args) {
+        // MySQL 8.0 should use this
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String USER = "root";
+        //Remember to change here
+        String PASSWORD = "rootroot";
+        Connection conn;
+
+        try{
+            // register driver
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Accessing database...");
+            conn = DatabaseManagement.createConnection(DB_URL, USER, PASSWORD);
+            Room rm = new Room(12,1,"single",1);
+            addRoom(conn,rm);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
