@@ -33,10 +33,10 @@ public class UserDB {
     }
 
     /** Updates a row in the `user` table in the database. */
-    public static void updateUserInformation(Connection conn, User user, String new_username, String new_password, int u_is_admin) throws SQLException {
+    public static void updateUserInformation(Connection conn, User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
-        String sql = "UPDATE users SET u_name = '%s', u_password = '%s', u_is_admin = %d WHERE u_name = '"+previousUserName+"'";
-        stmt.executeUpdate(String.format(sql, new_username, new_password, u_is_admin));
+        String sql = "UPDATE users SET u_name = '%s', u_password = '%s' WHERE u_name = '"+previousUserName+"'";
+        stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
 }

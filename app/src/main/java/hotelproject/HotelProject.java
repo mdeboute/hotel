@@ -117,7 +117,7 @@ public class HotelProject extends Application {
             String firstPassword = updateInfoPage.getFirstPassword().getText();
             String secondPassword = updateInfoPage.getSecondPassword().getText();
 
-            Boolean nothingEmpty = true;
+            boolean nothingEmpty = true;
             if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
                 updateInfoPage.setOutput("Username field is empty !\n");
                 nothingEmpty = false;
@@ -142,6 +142,11 @@ public class HotelProject extends Application {
                     updateInfoPage.setOutput("First and second input for password are not equal !");
                 }
             }
+            try {
+                UserDB.updateUserInformation(conn, connectedUser, newUsername, firstPassword);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         });
 
         updateInfoStage.setScene(updateInfoPage.getScene());
@@ -154,13 +159,9 @@ public class HotelProject extends Application {
         MyPageView myPage = new MyPageView(connectedUser);
         Stage myPageStage = new Stage();
 
-        myPage.getUpdateInfo().setOnAction(e -> {
-            updateInfoDisplay(myPageStage, appStage);
-        });
+        myPage.getUpdateInfo().setOnAction(e -> updateInfoDisplay(myPageStage, appStage));
 
-        myPage.getQuit().setOnAction(e -> {
-            Platform.exit();
-        });
+        myPage.getQuit().setOnAction(e -> Platform.exit());
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -199,9 +200,7 @@ public class HotelProject extends Application {
         //add display of rooms --> add parameter in constructor with rooms map ?
 
         if (connectedUser.getU_is_admin() == 1) {
-            roomsViewPage.getAddRoom().setOnAction(e -> {
-                newRoomDisplay(appStage, roomsStage);
-            });
+            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(appStage, roomsStage));
         }
 
         roomsStage.setScene(roomsViewPage.getScene());

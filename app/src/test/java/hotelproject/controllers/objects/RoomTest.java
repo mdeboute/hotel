@@ -1,8 +1,8 @@
 package hotelproject.controllers.objects;
 
-import hotelproject.controllers.objects.Room;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertNotNull;
 
 public class RoomTest {
 
