@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.db;
 
 import hotelproject.controllers.db.DatabaseManagement;
 import org.junit.Before;

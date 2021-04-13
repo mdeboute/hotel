@@ -1,4 +1,4 @@
-package hotelproject.controllers;
+package hotelproject.controllers.objects;
 
 import hotelproject.controllers.objects.User;
 import org.junit.Test;
