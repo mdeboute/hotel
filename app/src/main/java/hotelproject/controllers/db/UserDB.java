@@ -1,6 +1,5 @@
 package hotelproject.controllers.db;
 
-import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
 
 import java.sql.Connection;
