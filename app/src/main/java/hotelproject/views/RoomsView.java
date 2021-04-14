@@ -19,10 +19,9 @@ public class RoomsView {
 
     User user;
     ObservableList<Room> rooms;
-
-    private Scene scene;
     TableView<Room> roomsTable = new TableView<>();
     Button addRoom;
+    private Scene scene;
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -69,11 +68,17 @@ public class RoomsView {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue())//Switch on searchBar value
+            switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Room number":
+                    flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); //filter table by room number
+                    break;
+                case "Floor":
+                    flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim())); //filter table by floor
+                    break;
+                case "Room type":
+                    flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
+                    break;
             }
         });
 
