@@ -35,7 +35,6 @@ public class HotelProject extends Application {
 
     private void loginPage(Stage secondaryStage, Stage primaryStage, boolean beforeAuth) {
         LoginView loginView = new LoginView();
-        connectedUser = new User();
 
         if (!beforeAuth) {
             loginView.getCredentials().setVisible(true);
@@ -46,6 +45,7 @@ public class HotelProject extends Application {
             try {
                 if (UserDB.userExists(conn, userTest)) {
                     loginView.getResult().setText("Success !");
+                    connectedUser = new User();
                     connectedUser.setU_name(loginView.getUsername().getText());
                     connectedUser.setU_password(loginView.getPassword().getText());
                     connectedUser.setU_is_admin(UserDB.getU_is_admin(conn, userTest));
