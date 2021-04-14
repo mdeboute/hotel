@@ -36,4 +36,4 @@ any conflicts with container name existing after rebuild
 docker rm hotel-sql
 
 ### Dockerhub
-[Here is the last image](https://hub.docker.com/repository/docker/mdeboute/lnu_project/tags?page=1&ordering=last_updated)
+[Here is the last image](https://hub.docker.com/r/mdeboute/hotel-sql/tags?page=1&ordering=last_updated)
