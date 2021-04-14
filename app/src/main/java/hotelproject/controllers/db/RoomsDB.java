@@ -105,4 +105,38 @@ public class RoomsDB {
         }
     }
 
+    /** Search all current available room types and return as ArrayList */
+    public static List<RoomType> findAllRoomType(Connection conn){
+        List<RoomType> roomTypes = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM room_type";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                RoomType roomtype = new RoomType(rs.getString(1),rs.getInt(2),rs.getInt(3),rs.getInt(4), rs.getInt(5), rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9) );
+                roomTypes.add(roomtype);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomTypes;
+    }
+
+    /** Search all current available rooms and return as ArrayList */
+    public static List<Room> findAllRoom(Connection conn) {
+        List<Room> rooms = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM room";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Room room = new Room(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4));
+                rooms.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rooms;
+    }
+
 }

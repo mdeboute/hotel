@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -39,4 +41,33 @@ public class UserDB {
         String sql = "UPDATE users SET u_name = '%s', u_password = '%s' WHERE u_name = '"+previousUserName+"'";
         stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
+
+    /** Find all current users in the database */
+    public static List<User> findAllUsers(Connection conn){
+        List<User> users = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM users";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                User user = new User(rs.getString(1),rs.getString(2), rs.getInt(3));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    /** Delete a user according to the user name */
+    public static void deleteUser(Connection conn, String u_name) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM user WHERE u_name = '" + u_name + "'";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
