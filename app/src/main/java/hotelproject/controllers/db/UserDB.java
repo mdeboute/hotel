@@ -59,4 +59,15 @@ public class UserDB {
         return users;
     }
 
+    /** Delete a user according to the user name */
+    public static void deleteUser(Connection conn, String u_name) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM user WHERE u_name = '" + u_name + "'";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
