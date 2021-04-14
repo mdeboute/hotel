@@ -9,15 +9,19 @@ import java.util.logging.Logger;
 
 public class DatabaseManagement {
 
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+    private static final String URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
     /**
      * Creates and returns a connection to the database with default login details.
      */
     public static Connection createConnection() {
         try {
             Properties connectionProps = new Properties();
-            connectionProps.put("user", "root");
-            connectionProps.put("password", "root");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", connectionProps);
+            connectionProps.put("user", USER);
+            connectionProps.put("password", PASSWORD);
+            return DriverManager.getConnection(URL, connectionProps);
         } catch (SQLException e) {
             System.err.println("Error : " + e);
             return null;

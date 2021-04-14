@@ -150,12 +150,14 @@ public class HotelProject extends Application {
                     }
                 }
 
-                //update bd
+                //update db
                 try {
                     UserDB.updateUserInformation(conn, connectedUser, connectedUser.getU_name(), connectedUser.getU_password());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
+                //TODO: change the login and this method
 
                 myPageDisplay();
                 updateInfoStage.close();
