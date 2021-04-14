@@ -121,4 +121,22 @@ public class RoomsDB {
         }
         return roomTypes;
     }
+
+    /** Search all current available rooms and return as ArrayList */
+    public static List<Room> findAllRoom(Connection conn) {
+        List<Room> rooms = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM room";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Room room = new Room(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getInt(4));
+                rooms.add(room);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rooms;
+    }
+
 }
