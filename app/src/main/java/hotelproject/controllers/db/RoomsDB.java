@@ -139,4 +139,13 @@ public class RoomsDB {
         return rooms;
     }
 
+    public static boolean roomTypeExists(Connection conn, String roomType) throws SQLException {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM room_type");
+        while (rs.next()) {
+            if (rs.getString("t_name").equals(roomType))
+                return true;
+        }
+        return false;
+    }
 }

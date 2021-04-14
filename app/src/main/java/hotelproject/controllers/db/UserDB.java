@@ -42,6 +42,13 @@ public class UserDB {
         stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
 
+    public static void updateUserInformation(Connection conn, User user, String new_username) throws SQLException {
+        Statement stmt = conn.createStatement();
+        String previousUserName = user.getU_name();
+        String sql = "UPDATE users SET u_name = '%s' WHERE u_name = '"+previousUserName+"'";
+        stmt.executeUpdate(String.format(sql, new_username));
+    }
+
     /** Find all current users in the database */
     public static List<User> findAllUsers(Connection conn){
         List<User> users = new ArrayList<>();
@@ -70,4 +77,26 @@ public class UserDB {
         }
     }
 
+    /** Reads rows from the `users` table in the database and creates User objects with that information. */
+    public static ArrayList<User> addUser(Connection conn) {
+
+        Statement stmt;
+        ResultSet rs;
+
+        ArrayList<User> users = new ArrayList<>();
+
+        try{
+            String query = "SELECT * FROM users";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
+                users.add(user);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }
