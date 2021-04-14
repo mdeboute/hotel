@@ -49,7 +49,9 @@ public class MainPageView {
         pane.add(addBooking, 0, 1);
         pane.add(viewBookings, 0, 2);
         pane.add(update, 0, 3);
-        pane.add(updateUser, 0, 4);
+        if (user.getU_is_admin() == 1) {
+            pane.add(updateUser, 0, 4);
+        }
         pane.add(viewRooms, 0, 5);
 
         scene = new Scene(pane);

@@ -18,7 +18,7 @@ import java.util.List;
 public class HotelProject extends Application {
 
     Connection conn = DatabaseManagement.createConnection();
-    User connectedUser = new User();
+    User connectedUser;
 
     /**
      * @param args the command line arguments
@@ -35,6 +35,7 @@ public class HotelProject extends Application {
 
     private void loginPage(Stage secondaryStage, Stage primaryStage, boolean beforeAuth) {
         LoginView loginView = new LoginView();
+        connectedUser = new User();
 
         if (!beforeAuth) {
             loginView.getCredentials().setVisible(true);
@@ -158,7 +159,6 @@ public class HotelProject extends Application {
                 myPageDisplay();
                 updateInfoStage.close();
             }
-
         });
 
         updateInfoStage.setScene(updateInfoPage.getScene());
@@ -198,21 +198,20 @@ public class HotelProject extends Application {
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
             RoomsDB.addRoom(conn, newRoom);
 
+            roomsDisplay(appStage);
             newRoomStage.close();
         });
 
         newRoomStage.setScene(newRoomViewPage.getScene());
         newRoomStage.setTitle("Hotel Manager - New Room");
         newRoomStage.show();
+        roomsStage.close();
     }
 
     private void roomsDisplay(Stage appStage) {
         List<Room> rooms = RoomsDB.readRooms(conn);
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
-
-        //add display of rooms --> add parameter in constructor with rooms map ?
-
 
 
         if (connectedUser.getU_is_admin() == 1) {
