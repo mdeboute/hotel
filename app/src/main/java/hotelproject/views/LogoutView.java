@@ -9,10 +9,9 @@ import javafx.scene.layout.GridPane;
 
 public class LogoutView {
 
-    private Scene scene;
-
     Button login;
     Button close;
+    private Scene scene;
 
     public LogoutView() {
         createScene();

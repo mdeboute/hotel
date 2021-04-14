@@ -13,7 +13,7 @@ plugins {
 }
 
 javafx {
-    version = "16"
+    version = '16'
     modules = [ 'javafx.controls' ]
 }
 
@@ -31,7 +31,7 @@ dependencies {
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
 
-    testImplementation "org.mockito:mockito-core:3.9.0"
+    testImplementation 'org.mockito:mockito-core:3.9.0'
 }
 
 application {

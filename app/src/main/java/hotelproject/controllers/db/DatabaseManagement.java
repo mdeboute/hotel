@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 
 public class DatabaseManagement {
 
-    /** Creates and returns a connection to the database with default login details. */
+    /**
+     * Creates and returns a connection to the database with default login details.
+     */
     public static Connection createConnection() {
         try {
             Properties connectionProps = new Properties();
@@ -22,7 +24,9 @@ public class DatabaseManagement {
         }
     }
 
-    /** Creates and returns a connection to the database with custom login details. */
+    /**
+     * Creates and returns a connection to the database with custom login details.
+     */
     public static Connection createConnection(String url, String user, String password) {
         try {
             Properties connectionProps = new Properties();
@@ -35,12 +39,14 @@ public class DatabaseManagement {
         }
     }
 
-    /** Checks if a table exists and returns boolean accordingly. */
-    public static boolean tableExists(Connection conn, String tableName, ArrayList<String> log){
+    /**
+     * Checks if a table exists and returns boolean accordingly.
+     */
+    public static boolean tableExists(Connection conn, String tableName, ArrayList<String> log) {
         try {
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null, null, tableName, null);
-            if (tables.next()){
+            if (tables.next()) {
                 log.add(tableName + " exists.");
                 return true;
             }
@@ -52,8 +58,10 @@ public class DatabaseManagement {
         }
     }
 
-    /** Creates a table in the provided database connection. */
-    public static void createTable(Connection conn, String tableName, String body, ArrayList<String> log){
+    /**
+     * Creates a table in the provided database connection.
+     */
+    public static void createTable(Connection conn, String tableName, String body, ArrayList<String> log) {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("CREATE TABLE " + tableName + "(" + body + ")");
@@ -63,11 +71,13 @@ public class DatabaseManagement {
         }
     }
 
-    /** Drops a table in the database if it exists. */
-    public static void dropTable(Connection conn, String tableName, ArrayList<String> log){
+    /**
+     * Drops a table in the database if it exists.
+     */
+    public static void dropTable(Connection conn, String tableName, ArrayList<String> log) {
         try {
             Statement stmt = conn.createStatement();
-            if (stmt.executeUpdate("DROP TABLE IF EXISTS " + tableName)!=0)
+            if (stmt.executeUpdate("DROP TABLE IF EXISTS " + tableName) != 0)
                 log.add(tableName + " is deleted.");
         } catch (SQLException e) {
             Logger.getLogger(DatabaseManagement.class.getName()).log(Level.SEVERE, null, e);

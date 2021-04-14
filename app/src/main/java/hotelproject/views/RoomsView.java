@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -59,7 +58,7 @@ public class RoomsView {
         roomIsBookedCol.setMinWidth(100);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("booked"));
 
-        FilteredList<Room> flRoom = new FilteredList(rooms, p-> true);
+        FilteredList<Room> flRoom = new FilteredList(rooms, p -> true);
         roomsTable.setItems(flRoom);
         roomsTable.getColumns().addAll(roomNbCol, roomFloorCol, roomTypeCol, roomIsBookedCol);
 
@@ -72,15 +71,9 @@ public class RoomsView {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue())//Switch on searchBar value
             {
-                case "Room number":
-                    flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));//filter table by room number
-                    break;
-                case "Floor":
-                    flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));//filter table by floor
-                    break;
-                case "Room type":
-                    flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by room type
-                    break;
+                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));//filter table by room number
+                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));//filter table by floor
+                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by room type
             }
         });
 
@@ -97,7 +90,7 @@ public class RoomsView {
         addRoom = new Button("New room");
         pane.add(title, 0, 0);
         pane.add(search, 0, 1);
-        pane.add(roomsTable, 0,2);
+        pane.add(roomsTable, 0, 2);
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 3);
         }

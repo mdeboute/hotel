@@ -12,13 +12,12 @@ import javafx.scene.layout.GridPane;
 
 public class LoginView {
 
-    private Scene scene;
-
-    Label credentials = new Label("Please enter your credentials first.");
-    private Button testLogin;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
     private final Label result = new Label();
+    Label credentials = new Label("Please enter your credentials first.");
+    private Scene scene;
+    private Button testLogin;
 
     public LoginView() {
         authentication();
@@ -32,7 +31,7 @@ public class LoginView {
         pane.setVgap(5.5);
 
         credentials.setVisible(false);
-        pane.add(credentials,0,0);
+        pane.add(credentials, 0, 0);
         pane.add(new Label("Username :"), 0, 1);
         pane.add(username, 1, 1);
         pane.add(new Label("Password :"), 0, 2);

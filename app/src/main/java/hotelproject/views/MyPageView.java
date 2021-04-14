@@ -3,7 +3,6 @@ package hotelproject.views;
 import hotelproject.controllers.objects.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -41,11 +40,7 @@ public class MyPageView {
 
         Label username = new Label("Username : " + user.getU_name());
         String pwd = user.getU_password();
-        String hiddenPwd = "";
-        for (int i = 0 ; i < pwd.length() ; i++) {
-            hiddenPwd += "*";
-        }
-        Label password = new Label("Password : " + hiddenPwd);
+        Label password = new Label("Password : " + "*".repeat(pwd.length()));
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
 

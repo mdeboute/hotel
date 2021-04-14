@@ -13,7 +13,9 @@ import static java.lang.Integer.parseInt;
 
 public class UserDB {
 
-    /** Checks if a user exists in the `users` table in the database. */
+    /**
+     * Checks if a user exists in the `users` table in the database.
+     */
     public static boolean userExists(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM users");
@@ -25,7 +27,9 @@ public class UserDB {
         return false;
     }
 
-    /** Checks if a user is an administrator in the `users` table in the database. */
+    /**
+     * Checks if a user is an administrator in the `users` table in the database.
+     */
     public static int getU_is_admin(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
@@ -34,30 +38,34 @@ public class UserDB {
         return parseInt(rs.getString("u_is_admin"));
     }
 
-    /** Updates a row in the `user` table in the database. */
+    /**
+     * Updates a row in the `user` table in the database.
+     */
     public static void updateUserInformation(Connection conn, User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
-        String sql = "UPDATE users SET u_name = '%s', u_password = '%s' WHERE u_name = '"+previousUserName+"'";
+        String sql = "UPDATE users SET u_name = '%s', u_password = '%s' WHERE u_name = '" + previousUserName + "'";
         stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
 
     public static void updateUserInformation(Connection conn, User user, String new_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
-        String sql = "UPDATE users SET u_name = '%s' WHERE u_name = '"+previousUserName+"'";
+        String sql = "UPDATE users SET u_name = '%s' WHERE u_name = '" + previousUserName + "'";
         stmt.executeUpdate(String.format(sql, new_username));
     }
 
-    /** Find all current users in the database */
-    public static List<User> findAllUsers(Connection conn){
+    /**
+     * Find all current users in the database
+     */
+    public static List<User> findAllUsers(Connection conn) {
         List<User> users = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM users";
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                User user = new User(rs.getString(1),rs.getString(2), rs.getInt(3));
+            while (rs.next()) {
+                User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -66,7 +74,9 @@ public class UserDB {
         return users;
     }
 
-    /** Delete a user according to the user name */
+    /**
+     * Delete a user according to the user name
+     */
     public static void deleteUser(Connection conn, String u_name) {
         try {
             Statement stmt = conn.createStatement();
@@ -77,7 +87,9 @@ public class UserDB {
         }
     }
 
-    /** Reads rows from the `users` table in the database and creates User objects with that information. */
+    /**
+     * Reads rows from the `users` table in the database and creates User objects with that information.
+     */
     public static ArrayList<User> addUser(Connection conn) {
 
         Statement stmt;
@@ -85,7 +97,7 @@ public class UserDB {
 
         ArrayList<User> users = new ArrayList<>();
 
-        try{
+        try {
             String query = "SELECT * FROM users";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
@@ -93,8 +105,7 @@ public class UserDB {
                 User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
                 users.add(user);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return users;

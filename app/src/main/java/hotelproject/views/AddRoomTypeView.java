@@ -2,7 +2,6 @@ package hotelproject.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,18 +11,17 @@ import javafx.scene.layout.GridPane;
 
 public class AddRoomTypeView {
 
-    Scene scene;
-
-    private TextField name = new TextField();
-    private TextField nbBeds = new TextField();
-    private TextField roomSize = new TextField();
     private final CheckBox hasView = new CheckBox("with view");
     private final CheckBox hasKitchen = new CheckBox("with kitchen");
     private final CheckBox hasBathroom = new CheckBox("with bathroom");
     private final CheckBox hasWorksp = new CheckBox("with a workspace");
     private final CheckBox hasTv = new CheckBox("with TV");
     private final CheckBox hasCoffeeMkr = new CheckBox("with a coffee maker");
-    private Button submit = new Button("Submit");
+    Scene scene;
+    private final TextField name = new TextField();
+    private final TextField nbBeds = new TextField();
+    private final TextField roomSize = new TextField();
+    private final Button submit = new Button("Submit");
 
     public AddRoomTypeView() {
         createScene();

@@ -1,17 +1,16 @@
 package hotelproject;
 
+import hotelproject.controllers.db.DatabaseManagement;
 import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.db.UserDB;
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
-import hotelproject.controllers.db.DatabaseManagement;
 import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -215,9 +214,7 @@ public class HotelProject extends Application {
         NewRoomView newRoomViewPage = new NewRoomView(conn);
         Stage newRoomStage = new Stage();
 
-        newRoomViewPage.getAddRoomType().setOnAction(e -> {
-            addRoomTypeDisplay(newRoomStage);
-        });
+        newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(newRoomStage));
 
         //handle buttons
         newRoomViewPage.getSubmit().setOnAction(e -> {

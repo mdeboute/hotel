@@ -6,8 +6,8 @@ package hotelproject;
 import org.junit.Test;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
+    @Test
+    public void testAppHasAGreeting() {
         HotelProject classUnderTest = new HotelProject();
-        //assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
 }

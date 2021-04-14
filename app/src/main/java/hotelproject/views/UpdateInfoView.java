@@ -1,9 +1,7 @@
 package hotelproject.views;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,20 +11,17 @@ import javafx.scene.layout.GridPane;
 
 public class UpdateInfoView {
 
-    Scene scene;
-
-    Label usernameL = new Label("Username :");
-    Label fstPwdL = new Label("New Password : ");
-    Label sndPwdL = new Label("Please enter your new password again : ");
-
     private final TextField username = new TextField();
     private final PasswordField firstPassword = new PasswordField();
     private final PasswordField secondPassword = new PasswordField();
-    private Label output = new Label();
-
+    Scene scene;
+    Label usernameL = new Label("Username :");
+    Label fstPwdL = new Label("New Password : ");
+    Label sndPwdL = new Label("Please enter your new password again : ");
     Button changeUsername = new Button("Change username");
     Button changePwd = new Button("Change password");
     Button save = new Button("Save");
+    private final Label output = new Label();
 
     public UpdateInfoView() {
         createScene();
@@ -40,7 +35,7 @@ public class UpdateInfoView {
         pane.setVgap(5.5);
 
         pane.add(changeUsername, 0, 0);
-        pane.add(changePwd,0, 3);
+        pane.add(changePwd, 0, 3);
 
         usernameL.setVisible(false);
         pane.add(usernameL, 0, 0);

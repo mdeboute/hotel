@@ -4,7 +4,6 @@ import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.objects.RoomType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -21,7 +20,7 @@ public class NewRoomView {
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox roomType = new ComboBox();
-    private Button addRoomType = new Button("Add type");
+    private final Button addRoomType = new Button("Add type");
     private final CheckBox booked = new CheckBox("Booked");
     private Button submit;
 
@@ -49,14 +48,14 @@ public class NewRoomView {
         pane.add(type, 0, 3);
 
         List<RoomType> roomTypes = RoomsDB.findAllRoomType(conn);
-        for (int i = 0; i < roomTypes.size() ; i ++) {
+        for (RoomType value : roomTypes) {
             //MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
-            roomType.getItems().add(roomTypes.get(i).getT_name());
+            roomType.getItems().add(value.getT_name());
         }
         roomType.setValue("Single");
 
         pane.add(roomType, 1, 3);
-        pane.add(addRoomType,2, 3);
+        pane.add(addRoomType, 2, 3);
         pane.add(booked, 0, 4);
 
         submit = new Button("Submit");

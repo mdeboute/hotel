@@ -5,13 +5,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class MainPageView {
     private final User user;
-    private Scene scene;
-
     //buttons
     Button myPage;
     Button logout;
@@ -20,6 +17,7 @@ public class MainPageView {
     Button viewBookings;
     Button update;
     Button updateUser;
+    private Scene scene;
 
     public MainPageView(User user) {
         this.user = user;
@@ -85,5 +83,7 @@ public class MainPageView {
         return updateUser;
     }
 
-    public Button getViewRooms() { return viewRooms; }
+    public Button getViewRooms() {
+        return viewRooms;
+    }
 }

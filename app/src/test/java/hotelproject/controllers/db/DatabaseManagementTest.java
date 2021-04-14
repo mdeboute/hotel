@@ -19,37 +19,37 @@ import static org.mockito.Mockito.mock;
 @RunWith(MockitoJUnitRunner.class)
 public class DatabaseManagementTest {
 
-  @Mock
-  private Connection conn;
+    @Mock
+    private Connection conn;
 
-  @Mock
-  private DatabaseMetaData databaseMetaData ;
+    @Mock
+    private DatabaseMetaData databaseMetaData;
 
-  @Before
-  public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
-    conn = mock(Connection.class);
-    databaseMetaData  = mock(DatabaseMetaData.class);
+        conn = mock(Connection.class);
+        databaseMetaData = mock(DatabaseMetaData.class);
 
-    given(conn.getMetaData()).willReturn(databaseMetaData);
+        given(conn.getMetaData()).willReturn(databaseMetaData);
 
-  }
-
-
-  @Test
-  public void testIsTableExist() throws Exception{
-
-    final String TABLE = "table";
-
-    ResultSet metaDataResultSet  = mock(ResultSet.class);
-    given(metaDataResultSet.next()).willReturn(true, false);
-
-    given(databaseMetaData.getTables(null, null, TABLE, null)).willReturn(metaDataResultSet);
-
-    ArrayList<String> log = new ArrayList<>();
-    log.add("item");
-    assertTrue("Should return true", DatabaseManagement.tableExists(conn, TABLE, log));
+    }
 
 
-  }
+    @Test
+    public void testIsTableExist() throws Exception {
+
+        final String TABLE = "table";
+
+        ResultSet metaDataResultSet = mock(ResultSet.class);
+        given(metaDataResultSet.next()).willReturn(true, false);
+
+        given(databaseMetaData.getTables(null, null, TABLE, null)).willReturn(metaDataResultSet);
+
+        ArrayList<String> log = new ArrayList<>();
+        log.add("item");
+        assertTrue("Should return true", DatabaseManagement.tableExists(conn, TABLE, log));
+
+
+    }
 }
