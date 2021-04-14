@@ -71,9 +71,9 @@ public class RoomsView {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue())//Switch on searchBar value
             {
-                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));//filter table by room number
-                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));//filter table by floor
-                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by room type
+                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); //filter table by room number
+                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim())); //filter table by floor
+                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
             }
         });
 
