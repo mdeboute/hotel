@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class HotelProject extends Application {
@@ -28,11 +29,16 @@ public class HotelProject extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        loginPage(primaryStage);
+        Stage secondaryStage = new Stage();
+        loginPage(secondaryStage, primaryStage, true);
     }
 
-    private void loginPage(Stage primaryStage) {
+    private void loginPage(Stage secondaryStage, Stage primaryStage, boolean beforeAuth) {
         LoginView loginView = new LoginView();
+
+        if (!beforeAuth) {
+            loginView.getCredentials().setVisible(true);
+        }
 
         loginView.getTestLoginButton().setOnAction(e -> { //test if the user exist in the database and has correct password
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
@@ -42,8 +48,12 @@ public class HotelProject extends Application {
                     connectedUser.setU_name(loginView.getUsername().getText());
                     connectedUser.setU_password(loginView.getPassword().getText());
                     connectedUser.setU_is_admin(UserDB.getU_is_admin(conn, userTest));
-                    afterAuth(primaryStage);
-                }else{
+                    if (beforeAuth) {
+                        afterAuth(primaryStage);
+                    } else {
+                        updateInfoDisplay(secondaryStage, primaryStage);
+                    }
+                } else {
                     loginView.getResult().setText("Fail !");
                 }
             } catch (SQLException throwables) {
@@ -63,7 +73,7 @@ public class HotelProject extends Application {
         //handling buttons here
         mainPageView.getMyPageButton().setOnAction(e -> {
             //display user info page
-            myPageDisplay(appStage);
+            myPageDisplay();
         });
 
         mainPageView.getLogoutButton().setOnAction(e -> logoutDisplay(appStage));
@@ -94,9 +104,9 @@ public class HotelProject extends Application {
         primaryStage.close();
     }
 
-    private void updateInfoDisplay(Stage myPageStage, Stage appStage) {
+    private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage) {
         UpdateInfoView updateInfoPage = new UpdateInfoView();
-        Stage updateInfoStage = new Stage();
+        //Stage updateInfoStage = new Stage();
 
         updateInfoPage.getChangeUsername().setOnAction(e -> {
             updateInfoPage.getChangeUsername().setVisible(false);
@@ -127,26 +137,28 @@ public class HotelProject extends Application {
                 nothingEmpty = false;
             }
             if (nothingEmpty) {
-                if (firstPassword.equals(secondPassword)) {
-                    if (!updateInfoPage.getChangeUsername().isVisible()) {
-                        connectedUser.setU_name(newUsername);
-                    }
-                    if (!updateInfoPage.getChangePwd().isVisible()) {
-                        connectedUser.setU_password(firstPassword);
-                    }
-
-                    myPageDisplay(appStage);
-                    updateInfoStage.close();
-                } else {
-                    updateInfoPage.getFirstPassword().setVisible(false);
-                    updateInfoPage.setOutput("First and second input for password are not equal !");
+                if (!updateInfoPage.getChangeUsername().isVisible()) {
+                    connectedUser.setU_name(newUsername);
                 }
+                if (!updateInfoPage.getChangePwd().isVisible()) {
+                    if (firstPassword.equals(secondPassword)) {
+                        connectedUser.setU_password(firstPassword);
+                    } else {
+                        updateInfoPage.setOutput("First and second input for password are not equal !");
+                    }
+                }
+
+                //update bd
+                try {
+                    UserDB.updateUserInformation(conn, connectedUser, connectedUser.getU_name(), connectedUser.getU_password());
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                myPageDisplay();
+                updateInfoStage.close();
             }
-            try {
-                UserDB.updateUserInformation(conn, connectedUser, newUsername, firstPassword);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+
         });
 
         updateInfoStage.setScene(updateInfoPage.getScene());
@@ -155,13 +167,14 @@ public class HotelProject extends Application {
         myPageStage.close();
     }
 
-    private void myPageDisplay(Stage appStage) {
+    private void myPageDisplay() {
         MyPageView myPage = new MyPageView(connectedUser);
         Stage myPageStage = new Stage();
 
-        myPage.getUpdateInfo().setOnAction(e -> updateInfoDisplay(myPageStage, appStage));
+        Stage loginStage = new Stage();
+        myPage.getUpdateInfo().setOnAction(e -> loginPage(myPageStage, loginStage, false));
 
-        myPage.getQuit().setOnAction(e -> Platform.exit());
+        myPage.getQuit().setOnAction(e -> myPageStage.close());
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -194,10 +207,13 @@ public class HotelProject extends Application {
     }
 
     private void roomsDisplay(Stage appStage) {
-        RoomsView roomsViewPage = new RoomsView(connectedUser);
+        List<Room> rooms = RoomsDB.readRooms(conn);
+        RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
         //add display of rooms --> add parameter in constructor with rooms map ?
+
+
 
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(appStage, roomsStage));
@@ -215,7 +231,8 @@ public class HotelProject extends Application {
         logoutViewPage.getLogin().setOnAction(e -> {
             //display again login window
             Stage loginStage = new Stage();
-            loginPage(loginStage);
+            Stage secondStage = new Stage();
+            loginPage(secondStage, loginStage, true);
             logoutStage.close();
         });
 

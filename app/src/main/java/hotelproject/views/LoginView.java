@@ -13,6 +13,8 @@ import javafx.scene.layout.GridPane;
 public class LoginView {
 
     private Scene scene;
+
+    Label credentials = new Label("Please enter your credentials first.");
     private Button testLogin;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
@@ -29,19 +31,25 @@ public class LoginView {
         pane.setHgap(5.5);
         pane.setVgap(5.5);
 
-        pane.add(new Label("Username :"), 0, 0);
-        pane.add(username, 1, 0);
-        pane.add(new Label("Password :"), 0, 1);
-        pane.add(password, 1, 1);
-        pane.add(result, 0, 2);
+        credentials.setVisible(false);
+        pane.add(credentials,0,0);
+        pane.add(new Label("Username :"), 0, 1);
+        pane.add(username, 1, 1);
+        pane.add(new Label("Password :"), 0, 2);
+        pane.add(password, 1, 2);
+        pane.add(result, 0, 3);
         testLogin = new Button("Login");
-        pane.add(testLogin, 1, 2);
+        pane.add(testLogin, 1, 3);
         GridPane.setHalignment(testLogin, HPos.RIGHT);
         scene = new Scene(pane);
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public Label getCredentials() {
+        return credentials;
     }
 
     public Button getTestLoginButton() {
