@@ -15,7 +15,7 @@ public class MyPageView {
     Scene scene;
 
     Button updateInfo = new Button("Change personal information");
-    Button quit = new Button("Quit");
+    Button quit = new Button("Back");
 
     public MyPageView(User user) {
         this.user = user;

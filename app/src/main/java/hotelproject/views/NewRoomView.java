@@ -1,26 +1,32 @@
 package hotelproject.views;
 
+import hotelproject.controllers.db.RoomsDB;
+import hotelproject.controllers.objects.RoomType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.sql.Connection;
+import java.util.List;
+
 public class NewRoomView {
+
+    Connection conn;
 
     Scene scene;
 
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
-    private final TextField roomType = new TextField();
+    private final ComboBox roomType = new ComboBox();
+    private Button addRoomType = new Button("Add type");
     private final CheckBox booked = new CheckBox("Booked");
     private Button submit;
 
-    public NewRoomView() {
+    public NewRoomView(Connection conn) {
+        this.conn = conn;
         createScene();
     }
 
@@ -41,11 +47,20 @@ public class NewRoomView {
         pane.add(floor, 1, 2);
         Label type = new Label("Room type : ");
         pane.add(type, 0, 3);
+
+        List<RoomType> roomTypes = RoomsDB.findAllRoomType(conn);
+        for (int i = 0; i < roomTypes.size() ; i ++) {
+            //MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
+            roomType.getItems().add(roomTypes.get(i).getT_name());
+        }
+        roomType.setValue("Single");
+
         pane.add(roomType, 1, 3);
+        pane.add(addRoomType,2, 3);
         pane.add(booked, 0, 4);
 
         submit = new Button("Submit");
-        pane.add(submit, 0, 6);
+        pane.add(submit, 3, 6);
 
         scene = new Scene(pane);
     }
@@ -70,7 +85,11 @@ public class NewRoomView {
         return numRoom;
     }
 
-    public TextField getRoomType() {
+    public ComboBox getRoomType() {
         return roomType;
+    }
+
+    public Button getAddRoomType() {
+        return addRoomType;
     }
 }

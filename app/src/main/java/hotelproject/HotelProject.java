@@ -3,6 +3,7 @@ package hotelproject;
 import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.db.UserDB;
 import hotelproject.controllers.objects.Room;
+import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
 import hotelproject.controllers.db.DatabaseManagement;
 import hotelproject.views.*;
@@ -10,6 +11,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -91,7 +93,7 @@ public class HotelProject extends Application {
             // display window to change or delete a booking --> shouldn't we display this button on the view bookings page ?
         });
 
-        mainPageView.getViewRooms().setOnAction(e -> roomsDisplay(appStage));
+        mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
 
         if (connectedUser.getU_is_admin() == 1) {
             mainPageView.getUpdateUserButton().setOnAction(e -> {
@@ -181,15 +183,47 @@ public class HotelProject extends Application {
         myPageStage.show();
     }
 
-    private void newRoomDisplay(Stage appStage, Stage roomsStage) {
-        NewRoomView newRoomViewPage = new NewRoomView();
+    private void addRoomTypeDisplay(Stage newRoomStage) {
+        AddRoomTypeView addRoomTypePage = new AddRoomTypeView();
+        Stage addTypeStage = new Stage();
+
+        addRoomTypePage.getSubmit().setOnAction(e -> {
+            String typeName = addRoomTypePage.getName().getText();
+            int nbBeds = Integer.parseInt(addRoomTypePage.getNbBeds().getText());
+            int rSize = Integer.parseInt(addRoomTypePage.getRoomSize().getText());
+            int hasView = addRoomTypePage.getHasView();
+            int hasKitchen = addRoomTypePage.getHasKitchen();
+            int hasBathroom = addRoomTypePage.getHasBathroom();
+            int hasWorksp = addRoomTypePage.getHasWorksp();
+            int hasTv = addRoomTypePage.getHasTv();
+            int hasCoffeeMkr = addRoomTypePage.getHasCoffeeMkr();
+
+            RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView,
+                    hasKitchen, hasBathroom, hasWorksp, hasTv, hasCoffeeMkr);
+            RoomsDB.addRoomType(conn, newRoomType);
+
+            newRoomDisplay(addTypeStage);
+        });
+
+        addTypeStage.setScene(addRoomTypePage.getScene());
+        addTypeStage.setTitle("Add a new room type");
+        addTypeStage.show();
+        newRoomStage.close();
+    }
+
+    private void newRoomDisplay(Stage formerStage) {
+        NewRoomView newRoomViewPage = new NewRoomView(conn);
         Stage newRoomStage = new Stage();
+
+        newRoomViewPage.getAddRoomType().setOnAction(e -> {
+            addRoomTypeDisplay(newRoomStage);
+        });
 
         //handle buttons
         newRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(newRoomViewPage.getNumRoom().getText());
             int roomFloor = Integer.parseInt(newRoomViewPage.getFloor().getText());
-            String roomType = newRoomViewPage.getRoomType().getText();
+            String roomType = newRoomViewPage.getRoomType().getValue().toString();
             int roomBooked = 0;
             if (newRoomViewPage.getBooked().isSelected()) {
                 roomBooked = 1;
@@ -198,24 +232,24 @@ public class HotelProject extends Application {
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
             RoomsDB.addRoom(conn, newRoom);
 
-            roomsDisplay(appStage);
+            roomsDisplay();
             newRoomStage.close();
         });
 
         newRoomStage.setScene(newRoomViewPage.getScene());
         newRoomStage.setTitle("Hotel Manager - New Room");
         newRoomStage.show();
-        roomsStage.close();
+        formerStage.close();
     }
 
-    private void roomsDisplay(Stage appStage) {
+    private void roomsDisplay() {
         List<Room> rooms = RoomsDB.readRooms(conn);
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
 
         if (connectedUser.getU_is_admin() == 1) {
-            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(appStage, roomsStage));
+            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
         }
 
         roomsStage.setScene(roomsViewPage.getScene());
