@@ -19,7 +19,7 @@ CREATE TABLE `hotel`.`room_type` (
   PRIMARY KEY (`t_name`));
 
 CREATE TABLE `hotel`.`room` (
-  `r_num` SMALLINT NOT NULL AUTO_INCREMENT,
+  `r_num` SMALLINT NOT NULL,
   `r_floor` TINYINT NULL,
   `r_type` VARCHAR(30) NULL,
   `booked` TINYINT NULL,
