@@ -57,3 +57,14 @@ VALUES
 ("admin", "root", 1),
 ("reception", "staff", 0);
 
+INSERT INTO `hotel`.`room_type`
+VALUES
+("Single", 1, 27, 0, 0, 1, 0, 1, 1),
+("Double", 2, 45, 1, 1, 1, 1, 1, 1);
+
+INSERT INTO `hotel`.`room`
+VALUES
+(1, 1, "Single", 0),
+(2, 1, "Double", 1);
+
+
