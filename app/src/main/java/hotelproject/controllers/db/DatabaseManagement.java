@@ -14,7 +14,8 @@ public class DatabaseManagement {
     private static final String URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
     /**
-     * Creates and returns a connection to the database with default login details.
+     * @brief Creates a connection to the database with default login details.
+     * @return a Connection object that is connected to the database
      */
     public static Connection createConnection() {
         try {
@@ -29,7 +30,11 @@ public class DatabaseManagement {
     }
 
     /**
-     * Creates and returns a connection to the database with custom login details.
+     * @brief Creates a connection to the database with input login details.
+     * @param url url for the database connection
+     * @param user username for the database connection
+     * @param password password for the database connection
+     * @return a Connection object that is connected to the database
      */
     public static Connection createConnection(String url, String user, String password) {
         try {
@@ -44,7 +49,11 @@ public class DatabaseManagement {
     }
 
     /**
-     * Checks if a table exists and returns boolean accordingly.
+     * @brief Checks if a table exists.
+     * @param conn Connection object that is connected to a database
+     * @param tableName name of the table whose existence will be verified
+     * @param log an ArrayList of strings to store audit logs
+     * @return boolean regarding the existance of the input table
      */
     public static boolean tableExists(Connection conn, String tableName, ArrayList<String> log) {
         try {
@@ -63,7 +72,11 @@ public class DatabaseManagement {
     }
 
     /**
-     * Creates a table in the provided database connection.
+     * @brief Creates a table in the provided database connection.
+     * @param conn Connection object that is connected to a database
+     * @param tableName name of the table which will be created
+     * @param log an ArrayList of strings to store audit logs
+     * @param body column names for the new table separated by commas
      */
     public static void createTable(Connection conn, String tableName, String body, ArrayList<String> log) {
         try {
@@ -76,7 +89,10 @@ public class DatabaseManagement {
     }
 
     /**
-     * Drops a table in the database if it exists.
+     * @brief Drops a table in the database if it exists.
+     * @param conn Connection object that is connected to a database
+     * @param tableName name of the table which will be dropped
+     * @param log an ArrayList of strings to store audit logs
      */
     public static void dropTable(Connection conn, String tableName, ArrayList<String> log) {
         try {

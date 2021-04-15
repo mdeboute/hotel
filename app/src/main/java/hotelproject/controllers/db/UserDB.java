@@ -14,9 +14,14 @@ import static java.lang.Integer.parseInt;
 public class UserDB {
 
     /**
-     * Checks if a user exists in the `users` table in the database.
+     * @brief Checks if a user exists in the `users` table in the database.
+     * @param conn Connection object that is connected to a database
+     * @param user User object whose existence will be checked in the database
+     * @return boolean regarding the existence of the user
+     * @throws SQLException
      */
     public static boolean userExists(Connection conn, User user) throws SQLException {
+        //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM users");
         while (rs.next()) {
@@ -28,7 +33,11 @@ public class UserDB {
     }
 
     /**
-     * Checks if a user is an administrator in the `users` table in the database.
+     * @brief Checks if a user is an administrator in the `users` table in the database.
+     * @param conn Connection object that is connected to a database
+     * @param user User object whose admin status will be checked
+     * @return int that returns 1 if user is admin and 0 if not
+     * @throws SQLException
      */
     public static int getU_is_admin(Connection conn, User user) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -39,7 +48,12 @@ public class UserDB {
     }
 
     /**
-     * Updates a row in the `user` table in the database.
+     * @brief Updates a row in the `user` table in the database.
+     * @param conn Connection object that is connected to a database
+     * @param user User object whose information will be updated in the database
+     * @param new_username the new username
+     * @param new_password the new password
+     * @throws SQLException
      */
     public static void updateUserInformation(Connection conn, User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -48,6 +62,13 @@ public class UserDB {
         stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
 
+    /**
+     * @brief Updates a row in the `user` table in the database.
+     * @param conn Connection object that is connected to a database
+     * @param user User object whose information will be updated in the database
+     * @param new_username the new username
+     * @throws SQLException
+     */
     public static void updateUserInformation(Connection conn, User user, String new_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
@@ -56,7 +77,9 @@ public class UserDB {
     }
 
     /**
-     * Find all current users in the database
+     * @brief Find all current users in the database
+     * @param conn Connection object that is connected to a database
+     * @return a list of User objects from all users in the database
      */
     public static List<User> findAllUsers(Connection conn) {
         List<User> users = new ArrayList<>();
@@ -75,7 +98,9 @@ public class UserDB {
     }
 
     /**
-     * Delete a user according to the user name
+     * @brief Delete a user according to the user name
+     * @param conn Connection object that is connected to a database
+     * @param u_name username of the user who will be deleted from the database
      */
     public static void deleteUser(Connection conn, String u_name) {
         try {
@@ -87,9 +112,7 @@ public class UserDB {
         }
     }
 
-    /**
-     * Reads rows from the `users` table in the database and creates User objects with that information.
-     */
+    //TODO idk whats going on here, this method gets all users doesn't add user, and it already exists.
     public static ArrayList<User> addUser(Connection conn) {
 
         Statement stmt;

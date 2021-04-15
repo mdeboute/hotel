@@ -98,8 +98,11 @@ public class RoomType {
         this.has_coffee_maker = has_coffee_maker;
     }
 
+    /**
+     * @brief Returns attribute information as a String
+     * @return attribute information as a String
+     */
     @Override
-    /** Returns attribute information as a String */
     public String toString() {
         return "RoomType{" +
                 "t_name='" + t_name + '\'' +

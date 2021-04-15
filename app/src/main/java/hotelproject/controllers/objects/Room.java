@@ -48,8 +48,11 @@ public class Room {
         this.booked = booked;
     }
 
+    /**
+     * @brief Returns attribute information as a String
+     * @return attribute information as a String
+     */
     @Override
-    /** Returns attribute information as a String */
     public String toString() {
         return "Room{" +
                 "r_num=" + r_num +

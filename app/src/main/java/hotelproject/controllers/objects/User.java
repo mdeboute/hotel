@@ -43,8 +43,11 @@ public class User {
         this.u_is_admin = u_is_admin;
     }
 
+    /**
+     * @brief Returns attribute information as a String
+     * @return attribute information as a String
+     */
     @Override
-    /** Returns attribute information as a String */
     public String toString() {
         return "User{" +
                 "u_name='" + u_name + '\'' +
