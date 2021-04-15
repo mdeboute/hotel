@@ -23,7 +23,7 @@ public class UserDB {
     public static boolean userExists(Connection conn, User user) throws SQLException {
         //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM `users`");
         while (rs.next()) {
             if (rs.getString("u_name").equals(user.getU_name()) && rs.getString("u_password").equals(user.getU_password())) {
                 return true;
@@ -58,7 +58,7 @@ public class UserDB {
     public static void updateUserInformation(Connection conn, User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
-        String sql = "UPDATE users SET u_name = '%s', u_password = '%s' WHERE u_name = '" + previousUserName + "'";
+        String sql = "UPDATE `users` SET u_name = '%s', u_password = '%s' WHERE u_name = '" + previousUserName + "'";
         stmt.executeUpdate(String.format(sql, new_username, new_password));
     }
 
@@ -72,7 +72,7 @@ public class UserDB {
     public static void updateUserInformation(Connection conn, User user, String new_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
-        String sql = "UPDATE users SET u_name = '%s' WHERE u_name = '" + previousUserName + "'";
+        String sql = "UPDATE `users` SET u_name = '%s' WHERE u_name = '" + previousUserName + "'";
         stmt.executeUpdate(String.format(sql, new_username));
     }
 
@@ -105,13 +105,22 @@ public class UserDB {
     public static void deleteUser(Connection conn, String u_name) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM user WHERE u_name = '" + u_name + "'";
+            String sql = "DELETE FROM users WHERE u_name = '" + u_name + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public static void addUser(Connection conn, User user) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "INSERT INTO users (u_name, u_password, u_is_admin) VALUES ('%s','%s', %d)";
+            stmt.executeUpdate(String.format(sql,user.getU_name(),user.getU_password(),user.getU_is_admin()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     //TODO idk whats going on here, this method gets all users doesn't add user, and it already exists.
     public static ArrayList<User> addUser(Connection conn) {
 
