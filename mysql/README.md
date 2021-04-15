@@ -5,5 +5,5 @@ Run this commands on your terminal (a bash) :
 3. `./show_db.sh` (to obtain a mysql shell and see/communicate with the db)
 
 
-##Docker hub
+## Docker hub
 [Here is the last stable image of the project.](https://hub.docker.com/r/mdeboute/hotel-sql/tags?page=1&ordering=last_updated)
