@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
+import javafx.scene.chart.PieChart.Data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -116,10 +117,9 @@ public class RoomsDB {
     public static void updateRoom(Connection conn, Room room ) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room SET r_floor = '" + room.getR_floor() + "', r_type = '" + 
-            room.getR_type() + "', booked = '" + room.getBooked() + 
-            "' WHERE r_num = '" + room.getR_num() + "' ";
-            stmt.executeUpdate(sql);
+            String sql = "UPDATE room SET r_floor = %d, r_type = '%s', booked = %d WHERE r_num = %d";
+            stmt.executeUpdate(String.format(sql, room.getR_floor(), room.getR_type(), room.getBooked(), 
+            room.getR_num()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
