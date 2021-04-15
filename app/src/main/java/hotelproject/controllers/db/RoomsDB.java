@@ -100,14 +100,14 @@ public class RoomsDB {
     /**
      * Update the room_type according to the room type name
      */
-    public static void updateRoomType(Connection conn, String t_name, int beds, int r_size, int has_view, int has_kitchen, int has_bathroom, int has_workspace, int has_tv, int has_coffee_maker) {
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE room_type SET beds = '" + beds + "', r_size = '" + r_size + "', has_view = '" + has_view + "', has_kitchen = '" + has_kitchen + "', has_bathroom = '" + has_bathroom + "', has_workspace = '" + has_workspace + "', has_tv = '" + has_tv + "', has_coffee_maker = '" + has_coffee_maker + "' WHERE t_name = '" + t_name + "' ";
-            stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void updateRoomType(Connection conn, RoomType roomType) {
+            try {
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE room_type SET beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
+                stmt.executeUpdate(String.format(sql,roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 
     /**
