@@ -105,7 +105,7 @@ public class RoomsDB {
             try {
                 Statement stmt = conn.createStatement();
                 String sql = "UPDATE room_type SET beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
-                stmt.executeUpdate(String.format(sql,roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker()));
+                stmt.executeUpdate(String.format(sql,roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),roomType.getT_name()));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -172,5 +172,4 @@ public class RoomsDB {
         }
         return false;
     }
-    
 }
