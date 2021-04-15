@@ -113,10 +113,12 @@ public class RoomsDB {
     /**
      * Update the room according to the room number
      */
-    public static void updateRoom(Connection conn, int r_num, int r_floor, String r_type, int booked) {
+    public static void updateRoom(Connection conn, Room room ) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room SET r_floor = '" + r_floor + "', r_type = '" + r_type + "', booked = '" + booked + "' WHERE r_num = '" + r_num + "' ";
+            String sql = "UPDATE room SET r_floor = '" + room.getR_floor() + "', r_type = '" + 
+            room.getR_type() + "', booked = '" + room.getBooked() + 
+            "' WHERE r_num = '" + room.getR_num() + "' ";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,4 +172,5 @@ public class RoomsDB {
         }
         return false;
     }
+    
 }
