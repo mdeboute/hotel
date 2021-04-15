@@ -8,6 +8,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 public class AddRoomTypeView {
 
@@ -35,8 +36,12 @@ public class AddRoomTypeView {
         pane.setVgap(5.5);
 
         //labels and text fields
-        Label title = new Label("Please enter the new room type parameters : ");
-        pane.add(title, 0, 0);
+        Label title = new Label("New room type");
+        title.setStyle("-fx-font-weight: bold;");
+        title.setFont(Font.font(18));
+
+        Label subtitle = new Label("Please enter the new room type parameters : ");
+        pane.add(subtitle, 0, 0);
         Label nameL = new Label("Type name : ");
         pane.add(nameL, 0, 2);
         pane.add(name, 1, 2);
@@ -46,6 +51,8 @@ public class AddRoomTypeView {
         Label roomSizeL = new Label("Room size : ");
         pane.add(roomSizeL, 0, 4);
         pane.add(roomSize, 1, 4);
+        Label sizeUnit = new Label("m²");
+        pane.add(sizeUnit,2,4);
         //checkboxes
         pane.add(hasView, 0, 5);
         pane.add(hasKitchen, 0, 6);

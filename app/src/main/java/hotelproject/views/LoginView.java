@@ -30,6 +30,7 @@ public class LoginView {
         pane.setHgap(5.5);
         pane.setVgap(5.5);
 
+
         credentials.setVisible(false);
         pane.add(credentials, 0, 0);
         pane.add(new Label("Username :"), 0, 1);

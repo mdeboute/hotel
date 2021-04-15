@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.util.List;
 
@@ -37,7 +39,10 @@ public class RoomsView {
         pane.setHgap(5.5);
         pane.setVgap(5.5);
 
-        Label title = new Label("Hotel rooms : ");
+        Label title = new Label("Hotel rooms");
+        title.setStyle("-fx-font-weight: bold;");
+        title.setFont(Font.font(18));
+
 
         roomsTable.setEditable(true);
 
@@ -92,12 +97,13 @@ public class RoomsView {
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 
-        addRoom = new Button("New room");
+        addRoom = new Button("New room...");
         pane.add(title, 0, 0);
-        pane.add(search, 0, 1);
-        pane.add(roomsTable, 0, 2);
+        GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
+        pane.add(search, 0, 2);
+        pane.add(roomsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
-            pane.add(addRoom, 0, 3);
+            pane.add(addRoom, 0, 5);
         }
 
         scene = new Scene(pane);
