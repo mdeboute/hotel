@@ -47,7 +47,7 @@ public class NewRoomView {
         Label type = new Label("Room type : ");
         pane.add(type, 0, 3);
 
-        List<RoomType> roomTypes = RoomsDB.findAllRoomType(conn);
+        List<RoomType> roomTypes = RoomsDB.findAllRoomTypes(conn);
         for (RoomType value : roomTypes) {
             //MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
             roomType.getItems().add(value.getT_name());
