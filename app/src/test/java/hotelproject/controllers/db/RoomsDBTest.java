@@ -3,7 +3,7 @@ package hotelproject.controllers.db;
 import static org.junit.Assert.assertTrue;
 
 import hotelproject.controllers.objects.RoomType;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,8 +20,6 @@ public class RoomsDBTest {
   private ArrayList<String> log;
   private String tableName;
   private RoomType roomType;
-  private Statement stmt;
-  private ResultSet rs;
   private String t_name;
 
   @Before
@@ -45,8 +43,7 @@ public class RoomsDBTest {
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
     new Random().nextBytes(array);
-    String generatedString = new String(array, Charset.forName("UTF-8"));
-    return generatedString;
+    return new String(array, StandardCharsets.UTF_8);
   }
 
   @Test
@@ -59,8 +56,8 @@ public class RoomsDBTest {
     if (DatabaseManagement.tableExists(conn, tableName, log)) {
       String sql = String.format("SELECT * FROM `room_type` WHERE t_name = '%s'", t_name);
       try {
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery(sql);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
           if (t_name.equals(rs.getString("t_name"))) {
             successfulUpdate = true;
