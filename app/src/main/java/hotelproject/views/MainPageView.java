@@ -39,7 +39,7 @@ public class MainPageView {
         update = new Button("Update bookings");
 
         if (user.getU_is_admin() == 1) {
-            updateUser = new Button("Update an user");
+            updateUser = new Button("Update a user");
         }
 
         pane.add(myPage, 1, 0);
