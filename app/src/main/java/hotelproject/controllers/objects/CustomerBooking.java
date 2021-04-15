@@ -25,8 +25,11 @@ public class CustomerBooking {
         this.booking_id = booking_id;
     }
 
+    /**
+     * @brief Returns attribute information as a String
+     * @return attribute information as a String
+     */
     @Override
-    /** Returns attribute information as a String */
     public String toString() {
         return "CustomerBooking{" +
                 "customer_ss_number=" + customer_ss_number +

@@ -55,8 +55,11 @@ public class Customer {
         this.c_email = c_email;
     }
 
+    /**
+     * @brief Returns attribute information as a String
+     * @return attribute information as a String
+     */
     @Override
-    /** Returns attribute information as a String */
     public String toString() {
         return "Customer{" +
                 "c_ss_number=" + c_ss_number +
