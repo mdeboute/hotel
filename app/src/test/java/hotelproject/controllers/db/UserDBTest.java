@@ -14,16 +14,22 @@ import java.util.Random;
 import static org.junit.Assert.assertTrue;
 
 public class UserDBTest {
-    private Connection conn;
+
+    /* Oscar, there are a lot of instances here where the conn variable is used to close
+    a connection or create a new statement. You cannot do that anymore as I removed the conn
+    variable, as connections are now handled from the DatabaseManager object, dbm.
+    I have left TODOs down below to assist you. Please ask if you need some help.
+    */
+
+    private DatabaseManager dbm;
     private User userIsAdmin;
     private User userIsStaff;
     private String u_name_admin;
     private String u_name_staff;
 
-
     @Before
     public void setUp() {
-        conn = DatabaseManagement.createConnection();
+        dbm = new DatabaseManager();
         u_name_admin = "IsAdmin";
         u_name_staff = "IsStaff";
         userIsAdmin = new User(u_name_admin,"admin123",1);
@@ -31,6 +37,7 @@ public class UserDBTest {
     }
 
     @After
+    //TODO: Adapt this to the new DatabaseManager class (You don't need to close the connection.)
     public void tearDown() {
         try {
             conn.close();
@@ -46,9 +53,10 @@ public class UserDBTest {
     }
 
     @Test
+    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
     public void addUserAdminTest(){
         boolean isInsert = false;
-        UserDB.addUser(conn,userIsAdmin);
+        dbm.udb.addUser(userIsAdmin);
         String sql = "SELECT * From `users` WHERE u_name = '"+u_name_admin+"' ";
         try{
             Statement stmt = conn.createStatement();
@@ -66,9 +74,10 @@ public class UserDBTest {
     }
 
     @Test
+    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
     public void addUserTest2(){
         boolean isInsert = false;
-        UserDB.addUser(conn,userIsStaff);
+        dbm.udb.addUser(userIsStaff);
         String sql = "SELECT * From `users` WHERE u_name = '"+u_name_staff+"' ";
         try{
             Statement stmt = conn.createStatement();
@@ -88,8 +97,8 @@ public class UserDBTest {
     @Test
     public void testGetU_is_admin(){
         try{
-            int isAdmin = UserDB.getU_is_admin(conn,userIsAdmin);
-            int isStaff = UserDB.getU_is_admin(conn,userIsStaff);
+            int isAdmin = dbm.udb.getU_is_admin(userIsAdmin);
+            int isStaff = dbm.udb.getU_is_admin(userIsStaff);
             Assert.assertEquals(isAdmin,1);
             Assert.assertEquals(isStaff,0);
         } catch (SQLException e){
@@ -98,9 +107,10 @@ public class UserDBTest {
     }
 
     @Test
+    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
     public void testUpdateUserInformation(){
         try{
-            UserDB.updateUserInformation(conn,userIsAdmin,"userIsBoss","boss123");
+            dbm.udb.updateUserInformation(userIsAdmin,"userIsBoss","boss123");
             String sql = "SELECT * FROM users WHERE u_name = 'userIsBoss' AND u_password = 'boss123' ";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -114,9 +124,10 @@ public class UserDBTest {
     }
 
     @Test
+    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
     public void testUpdateUserInformation2(){
         try{
-            UserDB.updateUserInformation(conn,userIsStaff,"userIsWorker");
+            dbm.udb.updateUserInformation(userIsStaff,"userIsWorker");
             String sql = "SELECT * FROM users WHERE u_name = 'userIsWorker'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

@@ -16,7 +16,13 @@ import org.junit.Test;
 
 public class RoomsDBTest {
 
-  private Connection conn;
+  /* Oscar, there are a lot of instances here where the conn variable is used to close
+  a connection or create a new statement. You cannot do that anymore as I removed the conn
+  variable, as connections are now handled from the DatabaseManager object, dbm.
+  I have left TODOs down below to assist you. Please ask if you need some help.
+  */
+
+  private DatabaseManager dbm;
   private ArrayList<String> log;
   private String tableName;
   private RoomType roomType;
@@ -24,7 +30,7 @@ public class RoomsDBTest {
 
   @Before
   public void setUp() {
-    conn = DatabaseManagement.createConnection();
+    dbm = new DatabaseManager();
     tableName = "room_type";
     log = new ArrayList<>();
     t_name = generateRandomString();
@@ -32,6 +38,7 @@ public class RoomsDBTest {
   }
 
   @After
+  //TODO: Adapt this to the new DatabaseManager class (You don't need to close the connection.)
   public void tearDown() {
     try {
       conn.close();
@@ -49,11 +56,11 @@ public class RoomsDBTest {
   @Test
   public void testAddRoomType() {
 
-    RoomsDB.addRoomType(conn, roomType);
+    dbm.rdb.addRoomType(roomType);
 
     boolean successfulUpdate = false;
 
-    if (DatabaseManagement.tableExists(conn, tableName, log)) {
+    if (dbm.tableExists(tableName, log)) {
       String sql = String.format("SELECT * FROM `room_type` WHERE t_name = '%s'", t_name);
       try {
         Statement stmt = conn.createStatement();

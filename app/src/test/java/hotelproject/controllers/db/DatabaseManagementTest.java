@@ -1,3 +1,5 @@
+//TODO: This is broken, fix pls
+
 package hotelproject.controllers.db;
 
 import org.junit.Before;
@@ -15,12 +17,11 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class DatabaseManagementTest {
 
     @Mock
-    private Connection conn;
+    private DatabaseManager dbm;
 
     @Mock
     private DatabaseMetaData databaseMetaData;
@@ -48,7 +49,7 @@ public class DatabaseManagementTest {
 
         ArrayList<String> log = new ArrayList<>();
         log.add("item");
-        assertTrue("Should return true", DatabaseManagement.tableExists(conn, TABLE, log));
+        assertTrue("Should return true", dbm.tableExists(TABLE, log));
 
 
     }

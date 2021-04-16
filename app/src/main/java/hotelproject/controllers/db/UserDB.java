@@ -12,6 +12,11 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class UserDB {
+    private final Connection conn;
+
+    public UserDB(Connection conn) {
+        this.conn = conn;
+    }
 
     /**
      * @brief Checks if a user exists in the `users` table in the database.
@@ -20,7 +25,7 @@ public class UserDB {
      * @return boolean regarding the existence of the user
      * @throws SQLException
      */
-    public static boolean userExists(Connection conn, User user) throws SQLException {
+    public boolean userExists(User user) throws SQLException {
         //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM `users`");
@@ -39,7 +44,7 @@ public class UserDB {
      * @return int that returns 1 if user is admin and 0 if not
      * @throws SQLException
      */
-    public static int getU_is_admin(Connection conn, User user) throws SQLException {
+    public int getU_is_admin(User user) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
         ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name(), user.getU_password()));
@@ -55,7 +60,7 @@ public class UserDB {
      * @param new_password the new password
      * @throws SQLException
      */
-    public static void updateUserInformation(Connection conn, User user, String new_username, String new_password) throws SQLException {
+    public void updateUserInformation(User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
         String sql = "UPDATE `users` SET u_name = '%s', u_password = '%s' WHERE u_name = '" + previousUserName + "'";
@@ -69,7 +74,7 @@ public class UserDB {
      * @param new_username the new username
      * @throws SQLException
      */
-    public static void updateUserInformation(Connection conn, User user, String new_username) throws SQLException {
+    public void updateUserInformation(User user, String new_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String previousUserName = user.getU_name();
         String sql = "UPDATE `users` SET u_name = '%s' WHERE u_name = '" + previousUserName + "'";
@@ -81,7 +86,7 @@ public class UserDB {
      * @param conn Connection object that is connected to a database
      * @return a list of User objects from all users in the database
      */
-    public static List<User> findAllUsers(Connection conn) {
+    public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
@@ -102,7 +107,7 @@ public class UserDB {
      * @param conn Connection object that is connected to a database
      * @param u_name username of the user who will be deleted from the database
      */
-    public static void deleteUser(Connection conn, String u_name) {
+    public void deleteUser(String u_name) {
         try {
             Statement stmt = conn.createStatement();
             String sql = "DELETE FROM users WHERE u_name = '" + u_name + "'";
@@ -112,7 +117,7 @@ public class UserDB {
         }
     }
 
-    public static void addUser(Connection conn, User user) {
+    public void addUser(User user) {
         try {
             Statement stmt = conn.createStatement();
             String sql = "INSERT INTO users (u_name, u_password, u_is_admin) VALUES ('%s','%s', %d)";
@@ -122,7 +127,7 @@ public class UserDB {
         }
     }
     //TODO idk whats going on here, this method gets all users doesn't add user, and it already exists.
-    public static ArrayList<User> addUser(Connection conn) {
+    public ArrayList<User> addUser() {
 
         Statement stmt;
         ResultSet rs;
