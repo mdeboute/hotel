@@ -1,5 +1,7 @@
 package hotelproject.controllers.db;
 
+import util.ConfigManager;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -17,13 +19,8 @@ public class DatabaseManager {
      */
     public DatabaseManager() {
         try {
-            String USER = "root";
-            String PASSWORD = "root";
-            String URL = "jdbc:mysql://localhost:3306/hotel?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-            Properties connectionProps = new Properties();
-            connectionProps.put("user", USER);
-            connectionProps.put("password", PASSWORD);
-            conn = DriverManager.getConnection(URL, connectionProps);
+            ConfigManager cm = new ConfigManager("app.properties");
+            conn = DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
         } catch (SQLException e) {
             System.err.println("Error : " + e);
             conn = null;
