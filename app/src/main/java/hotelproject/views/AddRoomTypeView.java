@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 
 public class AddRoomTypeView extends View {
 
+    // The scene's nodes
     private final CheckBox hasView = new CheckBox("with view");
     private final CheckBox hasKitchen = new CheckBox("with kitchen");
     private final CheckBox hasBathroom = new CheckBox("with bathroom");
@@ -59,6 +60,8 @@ public class AddRoomTypeView extends View {
 
         scene = new Scene(pane);
     }
+
+    /*****************************Getters*********************************/
 
     public Button getSubmit() {
         return submit;

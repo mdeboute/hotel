@@ -27,10 +27,10 @@ public class HotelProject extends Application {
     @Override
     public void start(Stage primaryStage) {
         Stage secondaryStage = new Stage();
-        loginPage(secondaryStage, primaryStage, false);
+        credentialsDisplay(secondaryStage, primaryStage, false);
     }
 
-    private void loginPage(Stage secondaryStage, Stage primaryStage, boolean onlyPwd) {
+    private void credentialsDisplay(Stage secondaryStage, Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
 
         if (onlyPwd) {
@@ -48,7 +48,7 @@ public class HotelProject extends Application {
                         connectedUser.setU_password(loginView.getPassword().getText());
                         connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
 
-                        afterAuth(primaryStage);
+                        mainPageDisplay(primaryStage);
                     } else {
                         loginView.getResult().setText("Fail !");
                     }
@@ -69,7 +69,7 @@ public class HotelProject extends Application {
         primaryStage.show();
     }
 
-    private void afterAuth(Stage primaryStage) {
+    private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
         Stage appStage = new Stage();
 
@@ -176,7 +176,7 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
 
         Stage loginStage = new Stage();
-        myPage.getUpdateInfo().setOnAction(e -> loginPage(myPageStage, loginStage, true));
+        myPage.getUpdateInfo().setOnAction(e -> credentialsDisplay(myPageStage, loginStage, true));
 
         myPage.getQuit().setOnAction(e -> myPageStage.close());
 
@@ -265,7 +265,7 @@ public class HotelProject extends Application {
             //display again login window
             Stage loginStage = new Stage();
             Stage secondStage = new Stage();
-            loginPage(secondStage, loginStage, true);
+            credentialsDisplay(secondStage, loginStage, false);
             logoutStage.close();
         });
 

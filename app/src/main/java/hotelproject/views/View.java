@@ -8,11 +8,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public abstract class  View {
+/**
+ * Abstract class all views will extend to prevent code redundancy
+ */
+public abstract class View {
+
+    // the view scene
     Scene scene;
 
+    /**
+     * @brief create the view scene with all it's nodes
+     */
     abstract void createScene();
 
+    /**
+     * @brief create the scene's header, called in createScene
+     * @param title of the header
+     * @param subtitle of the header
+     * @return the header in the format VBox
+     */
      protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
         Label titleL = new Label(title);
         titleL.setStyle("-fx-font-weight: bold;");
@@ -29,6 +43,10 @@ public abstract class  View {
         return header;
     }
 
+    /**
+     * @brief create the initial GridPane
+     * @return the initial GridPane
+     */
     protected GridPane createPane() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);

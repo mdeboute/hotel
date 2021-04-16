@@ -8,8 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class MainPageView extends View {
+
+    // The user connected to the application
     private final User user;
-    //buttons
+
+    // The scene's nodes
     private Button myPage = new Button("My Page");
     private Button logout = new Button("Logout");
     private Button addBooking = new Button("Add a booking");
@@ -43,6 +46,8 @@ public class MainPageView extends View {
 
         scene = new Scene(pane);
     }
+
+    /*****************************Getters*********************************/
 
     public Button getMyPageButton() {
         return myPage;

@@ -10,8 +10,10 @@ import javafx.scene.layout.GridPane;
 
 public class MyPageView extends View {
 
+    // The user connected to the application
     private User user;
 
+    // The scene's nodes
     private Button updateInfo = new Button("Change personal information");
     private Button quit = new Button("Back");
 
@@ -45,6 +47,8 @@ public class MyPageView extends View {
 
         scene = new Scene(pane);
     }
+
+    /*****************************Getters*********************************/
 
     public Button getUpdateInfo() {
         return updateInfo;

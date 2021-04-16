@@ -19,8 +19,13 @@ import java.util.List;
 
 public class RoomsView extends View {
 
+    // The user connected to the application
     private User user;
+
+    // Observable list with all the hotel's rooms
     private ObservableList<Room> rooms;
+
+    // The scene's nodes
     private TableView<Room> roomsTable = new TableView<>();
     private Button addRoom = new Button("New room...");
 
@@ -38,9 +43,9 @@ public class RoomsView extends View {
         title.setStyle("-fx-font-weight: bold;");
         title.setFont(Font.font(18));
 
-
         roomsTable.setEditable(true);
 
+        // Create column in the table
         TableColumn roomNbCol = new TableColumn("Room number");
         roomNbCol.setMinWidth(100);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("r_num"));
@@ -57,14 +62,17 @@ public class RoomsView extends View {
         roomIsBookedCol.setMinWidth(100);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("booked"));
 
+        // Create a filtered list to put the rooms as items in the table
         FilteredList<Room> flRoom = new FilteredList(rooms, p -> true);
         roomsTable.setItems(flRoom);
         roomsTable.getColumns().addAll(roomNbCol, roomFloorCol, roomTypeCol, roomIsBookedCol);
 
+        // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox();
         whatToSearch.getItems().addAll("Room number", "Floor", "Room type");
-        whatToSearch.setValue("Room number");
+        whatToSearch.setValue("Room number"); // default search
 
+        // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -82,8 +90,9 @@ public class RoomsView extends View {
             }
         });
 
+        //When the new choice is selected we reset
         whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {//new choice is selected we reset
+                -> {
             if (newVal != null) {
                 searchBar.setText("");
             }
@@ -102,6 +111,8 @@ public class RoomsView extends View {
 
         scene = new Scene(pane);
     }
+
+    /**************************Getter**********************/
 
     public Button getAddRoom() {
         return addRoom;
