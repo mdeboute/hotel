@@ -9,34 +9,33 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class UpdateInfoView {
+public class UpdateInfoView extends View {
 
+    // The scene's nodes
     private final TextField username = new TextField();
     private final PasswordField firstPassword = new PasswordField();
     private final PasswordField secondPassword = new PasswordField();
-    Scene scene;
-    Label usernameL = new Label("Username :");
-    Label fstPwdL = new Label("New Password : ");
-    Label sndPwdL = new Label("Please enter your new password again : ");
-    Button changeUsername = new Button("Change username");
-    Button changePwd = new Button("Change password");
-    Button save = new Button("Save");
+    private Label usernameL = new Label("Username :");
+    private Label fstPwdL = new Label("New Password : ");
+    private Label sndPwdL = new Label("Please enter your new password again : ");
+    private Button changeUsername = new Button("Change username");
+    private Button changePwd = new Button("Change password");
+    private Button save = new Button("Save");
     private final Label output = new Label();
 
     public UpdateInfoView() {
         createScene();
     }
 
-    private void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+    @Override
+    void createScene() {
+        GridPane pane = createPane();
 
+        // let the user decide what information they want to change
         pane.add(changeUsername, 0, 0);
         pane.add(changePwd, 0, 3);
 
+        // textfields set as invisible while the user didn't click on the change buttons yet
         usernameL.setVisible(false);
         pane.add(usernameL, 0, 0);
         username.setVisible(false);
@@ -59,9 +58,7 @@ public class UpdateInfoView {
         scene = new Scene(pane, 500, 300);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+    /*****************************Getters*********************************/
 
     public Button getSave() {
         return save;
@@ -102,6 +99,8 @@ public class UpdateInfoView {
     public Label getOutput() {
         return output;
     }
+
+    /***************************Setter*******************************/
 
     public void setOutput(String outputTxt) {
         output.setText(outputTxt);

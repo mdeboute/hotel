@@ -8,25 +8,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class MyPageView {
+public class MyPageView extends View {
 
-    User user;
-    Scene scene;
+    // The user connected to the application
+    private User user;
 
-    Button updateInfo = new Button("Change personal information");
-    Button quit = new Button("Back");
+    // The scene's nodes
+    private Button updateInfo = new Button("Change personal information");
+    private Button quit = new Button("Back");
 
     public MyPageView(User user) {
         this.user = user;
         createScene();
     }
 
-    private void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+    @Override
+    void createScene() {
+        GridPane pane = createPane();
 
         String userStatus = "Reception staff";
         if (user.getU_is_admin() == 1) {
@@ -50,9 +48,7 @@ public class MyPageView {
         scene = new Scene(pane);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+    /*****************************Getters*********************************/
 
     public Button getUpdateInfo() {
         return updateInfo;

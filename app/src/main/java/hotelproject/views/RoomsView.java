@@ -17,35 +17,35 @@ import javafx.scene.text.Font;
 
 import java.util.List;
 
-public class RoomsView {
+public class RoomsView extends View {
 
-    User user;
-    ObservableList<Room> rooms;
-    TableView<Room> roomsTable = new TableView<>();
-    Button addRoom;
-    private Scene scene;
+    // The user connected to the application
+    private User user;
+
+    // Observable list with all the hotel's rooms
+    private ObservableList<Room> rooms;
+
+    // The scene's nodes
+    private TableView<Room> roomsTable = new TableView<>();
+    private Button addRoom = new Button("New room...");
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
-
         createScene();
     }
 
-    private void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+    @Override
+    void createScene() {
+        GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
         title.setStyle("-fx-font-weight: bold;");
         title.setFont(Font.font(18));
 
-
         roomsTable.setEditable(true);
 
+        // Create column in the table
         TableColumn roomNbCol = new TableColumn("Room number");
         roomNbCol.setMinWidth(100);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("r_num"));
@@ -62,14 +62,17 @@ public class RoomsView {
         roomIsBookedCol.setMinWidth(100);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("booked"));
 
+        // Create a filtered list to put the rooms as items in the table
         FilteredList<Room> flRoom = new FilteredList(rooms, p -> true);
         roomsTable.setItems(flRoom);
         roomsTable.getColumns().addAll(roomNbCol, roomFloorCol, roomTypeCol, roomIsBookedCol);
 
+        // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox();
         whatToSearch.getItems().addAll("Room number", "Floor", "Room type");
-        whatToSearch.setValue("Room number");
+        whatToSearch.setValue("Room number"); // default search
 
+        // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -87,8 +90,9 @@ public class RoomsView {
             }
         });
 
+        //When the new choice is selected we reset
         whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {//new choice is selected we reset
+                -> {
             if (newVal != null) {
                 searchBar.setText("");
             }
@@ -97,7 +101,6 @@ public class RoomsView {
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 
-        addRoom = new Button("New room...");
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
@@ -109,9 +112,7 @@ public class RoomsView {
         scene = new Scene(pane);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+    /**************************Getter**********************/
 
     public Button getAddRoom() {
         return addRoom;
