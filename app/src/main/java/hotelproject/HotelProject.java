@@ -1,6 +1,6 @@
 package hotelproject;
 
-import hotelproject.controllers.db.DatabaseManagement;
+import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.db.UserDB;
 import hotelproject.controllers.objects.Room;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HotelProject extends Application {
 
-    Connection conn = DatabaseManagement.createConnection();
+    DatabaseManager dbm = new DatabaseManager();
     User connectedUser;
 
     /**
@@ -44,12 +44,12 @@ public class HotelProject extends Application {
         loginView.getTestLoginButton().setOnAction(e -> { //test if the user exist in the database and has correct password
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
             try {
-                if (UserDB.userExists(conn, userTest)) {
+                if (dbm.udb.userExists(userTest)) {
                     loginView.getResult().setText("Success !");
                     connectedUser = new User();
                     connectedUser.setU_name(loginView.getUsername().getText());
                     connectedUser.setU_password(loginView.getPassword().getText());
-                    connectedUser.setU_is_admin(UserDB.getU_is_admin(conn, userTest));
+                    connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
                     if (beforeAuth) {
                         afterAuth(primaryStage);
                     } else {
@@ -152,7 +152,7 @@ public class HotelProject extends Application {
 
                 //update db
                 try {
-                    UserDB.updateUserInformation(conn, connectedUser, connectedUser.getU_name(), connectedUser.getU_password());
+                    dbm.udb.updateUserInformation(connectedUser, connectedUser.getU_name(), connectedUser.getU_password());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -201,7 +201,7 @@ public class HotelProject extends Application {
 
             RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView,
                     hasKitchen, hasBathroom, hasWorksp, hasTv, hasCoffeeMkr);
-            RoomsDB.addRoomType(conn, newRoomType);
+            dbm.rdb.addRoomType(newRoomType);
 
             newRoomDisplay(addTypeStage);
         });
@@ -213,7 +213,7 @@ public class HotelProject extends Application {
     }
 
     private void newRoomDisplay(Stage formerStage) {
-        NewRoomView newRoomViewPage = new NewRoomView(conn);
+        NewRoomView newRoomViewPage = new NewRoomView(dbm);
         Stage newRoomStage = new Stage();
 
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(newRoomStage));
@@ -229,7 +229,7 @@ public class HotelProject extends Application {
             }
 
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-            RoomsDB.addRoom(conn, newRoom);
+            dbm.rdb.addRoom(newRoom);
 
             roomsDisplay();
             newRoomStage.close();
@@ -242,7 +242,7 @@ public class HotelProject extends Application {
     }
 
     private void roomsDisplay() {
-        List<Room> rooms = RoomsDB.readRooms(conn);
+        List<Room> rooms = dbm.rdb.findAllRooms();
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 

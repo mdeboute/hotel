@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
-import javafx.scene.chart.PieChart.Data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,13 +13,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RoomsDB {
+    private final Connection conn;
+
+    public RoomsDB(Connection conn) {
+        this.conn = conn;
+    }
 
     /**
      * @brief Inserts new row into the `room_type` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param room RoomType object that will be added into the database
      */
-    public static void addRoomType(Connection conn, RoomType room) {
+    public void addRoomType(RoomType room) {
         try {
             String sql = "INSERT INTO `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
                     "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES " +
@@ -35,10 +38,9 @@ public class RoomsDB {
 
     /**
      * @brief Inserts new row into the `room` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param room Room object that will be added to the database
      */
-    public static void addRoom(Connection conn, Room room) {
+    public void addRoom(Room room) {
         try {
             String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, '%s', %d)";
             Statement stmt = conn.createStatement();
@@ -49,44 +51,13 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Reads the `room` table in the database.
-     * @param conn Connection object that is connected to a database
-     * @return a list of room objects from the database
-     */
-    public static List<Room> readRooms(Connection conn) {
-        List<Room> rooms = new ArrayList<>();
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM room";
-            ResultSet rs = stmt.executeQuery(sql);
-            int r_num;
-            int r_floor;
-            String r_type;
-            int booked;
-            while (rs.next()) {
-                r_num = Integer.parseInt(rs.getString("r_num"));
-                r_floor = Integer.parseInt(rs.getString("r_floor"));
-                r_type = rs.getString("r_type");
-                booked = Integer.parseInt(rs.getString("booked"));
-                rooms.add(new Room(r_num, r_floor, r_type, booked));
-            }
-
-        } catch (SQLException e) {
-            Logger.getLogger(DatabaseManagement.class.getName()).log(Level.SEVERE, null, e);
-            return null;
-        }
-        return rooms;
-    }
-
-    /**
      * @brief Deletes the room_type according to the room_type name
-     * @param conn Connection object that is connected to a database
-     * @param t_name name of the room_type that will be deleted from the database
+     * @param roomType object of the room_type that will be deleted from the database
      */
-    public static void deleteRoomType(Connection conn, String t_name) {
+    public void deleteRoomType(RoomType roomType) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM room_type WHERE t_name = '" + t_name + "'";
+            String sql = "DELETE FROM room_type WHERE t_name = '" + roomType.getT_name() + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,12 +67,12 @@ public class RoomsDB {
     /**
      * @brief Deletes the room according to the room number
      * @param conn Connection object that is connected to a database
-     * @param r_num the number of the room that will be deleted from the database
+     * @param room the number of the room that will be deleted from the database
      */
-    public static void deleteRoom(Connection conn, int r_num) {
+    public void deleteRoom(Room room) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM room WHERE r_num = '" + r_num + "'";
+            String sql = "DELETE FROM room WHERE r_num = '" + room.getR_num() + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,15 +81,14 @@ public class RoomsDB {
 
     /**
      * @brief Update the room_type according to the room type name
-     * @param conn Connection object that is connected to a database
      * @param roomType the updated RoomType object (must have the same name)
+     * @param oldRoomType the old room type's name that is to be updated
      */
-    public static void updateRoomType(Connection conn, RoomType roomType) {
-        //TODO find a way to change the room_type's name
+    public void updateRoomType(RoomType roomType, String oldRoomType) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room_type SET beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
-            stmt.executeUpdate(String.format(sql,roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),roomType.getT_name()));
+            String sql = "UPDATE room_type SET t_name ='%s', beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
+            stmt.executeUpdate(String.format(sql,roomType.getT_name(), roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),oldRoomType));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,16 +96,14 @@ public class RoomsDB {
 
     /**
      * @brief Update the room according to the room number
-     * @param conn Connection object that is connected to a database
      * @param room the updated Room object (must have the same room number)
      */
-    public static void updateRoom(Connection conn, Room room ) {
-        //TODO find a way to change the room number
+    public void updateRoom(Room room, int oldRNum) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room SET r_floor = %d, r_type = '%s', booked = %d WHERE r_num = %d";
-            stmt.executeUpdate(String.format(sql, room.getR_floor(), room.getR_type(), room.getBooked(), 
-            room.getR_num()));
+            String sql = "UPDATE room SET r_num = %d, r_floor = %d, r_type = '%s', booked = %d WHERE r_num = %d";
+            stmt.executeUpdate(String.format(sql,  room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked(), 
+            oldRNum));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -143,10 +111,9 @@ public class RoomsDB {
 
     /**
      * @brief Search all current available room types and return as ArrayList
-     * @param conn Connection object that is connected to a database
      * @return list filled with all RoomType objects collected from the database
      */
-    public static List<RoomType> findAllRoomTypes(Connection conn) {
+    public List<RoomType> findAllRoomTypes() {
         List<RoomType> roomTypes = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
@@ -164,10 +131,9 @@ public class RoomsDB {
 
     /**
      * @brief Search all current available rooms and return as ArrayList
-     * @param conn Connection object that is connected to a database
      * @return list filled with all Room objects collected from the database
      */
-    public static List<Room> findAllRooms(Connection conn) {
+    public List<Room> findAllRooms() {
         List<Room> rooms = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
@@ -185,17 +151,16 @@ public class RoomsDB {
 
     /**
      * @brief Checks if the input room_type exists.
-     * @param conn Connection object that is connected to a database
      * @param roomType RoomType object that will be searched in the database
      * @return a boolean regarding the existence of the room_type in the database
      * @throws SQLException
      */
-    public static boolean roomTypeExists(Connection conn, String roomType) throws SQLException {
+    public boolean roomTypeExists(RoomType roomType) throws SQLException {
         //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM room_type");
         while (rs.next()) {
-            if (rs.getString("t_name").equals(roomType))
+            if (rs.getString("t_name").equals(roomType.getT_name()))
                 return true;
         }
         return false;

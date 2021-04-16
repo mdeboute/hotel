@@ -1,5 +1,6 @@
 package hotelproject.views;
 
+import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.objects.RoomType;
 import javafx.geometry.Insets;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class NewRoomView {
 
-    Connection conn;
+    DatabaseManager dbm;
 
     Scene scene;
 
@@ -27,8 +28,8 @@ public class NewRoomView {
     private final CheckBox booked = new CheckBox("Booked");
     private Button submit;
 
-    public NewRoomView(Connection conn) {
-        this.conn = conn;
+    public NewRoomView(DatabaseManager dbm) {
+        this.dbm = dbm;
         createScene();
     }
 
@@ -50,7 +51,7 @@ public class NewRoomView {
         Label type = new Label("Room type : ");
         pane.add(type, 0, 4);
 
-        List<RoomType> roomTypes = RoomsDB.findAllRoomTypes(conn);
+        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
         for (RoomType value : roomTypes) {
             //MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
             roomType.getItems().add(value.getT_name());
