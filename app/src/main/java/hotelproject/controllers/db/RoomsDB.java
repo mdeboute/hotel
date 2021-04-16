@@ -51,35 +51,6 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Reads the `room` table in the database.
-     * @return a list of room objects from the database
-     */
-    public List<Room> readRooms() {
-        List<Room> rooms = new ArrayList<>();
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM room";
-            ResultSet rs = stmt.executeQuery(sql);
-            int r_num;
-            int r_floor;
-            String r_type;
-            int booked;
-            while (rs.next()) {
-                r_num = Integer.parseInt(rs.getString("r_num"));
-                r_floor = Integer.parseInt(rs.getString("r_floor"));
-                r_type = rs.getString("r_type");
-                booked = Integer.parseInt(rs.getString("booked"));
-                rooms.add(new Room(r_num, r_floor, r_type, booked));
-            }
-
-        } catch (SQLException e) {
-            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, e);
-            return null;
-        }
-        return rooms;
-    }
-
-    /**
      * @brief Deletes the room_type according to the room_type name
      * @param roomType object of the room_type that will be deleted from the database
      */
