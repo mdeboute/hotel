@@ -21,7 +21,6 @@ public class RoomsDB {
 
     /**
      * @brief Inserts new row into the `room_type` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param room RoomType object that will be added into the database
      */
     public void addRoomType(RoomType room) {
@@ -39,7 +38,6 @@ public class RoomsDB {
 
     /**
      * @brief Inserts new row into the `room` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param room Room object that will be added to the database
      */
     public void addRoom(Room room) {
@@ -54,7 +52,6 @@ public class RoomsDB {
 
     /**
      * @brief Reads the `room` table in the database.
-     * @param conn Connection object that is connected to a database
      * @return a list of room objects from the database
      */
     public List<Room> readRooms() {
@@ -84,7 +81,6 @@ public class RoomsDB {
 
     /**
      * @brief Deletes the room_type according to the room_type name
-     * @param conn Connection object that is connected to a database
      * @param t_name name of the room_type that will be deleted from the database
      */
     public void deleteRoomType(String t_name) {
@@ -114,7 +110,6 @@ public class RoomsDB {
 
     /**
      * @brief Update the room_type according to the room type name
-     * @param conn Connection object that is connected to a database
      * @param roomType the updated RoomType object (must have the same name)
      */
     public void updateRoomType(RoomType roomType) {
@@ -130,7 +125,6 @@ public class RoomsDB {
 
     /**
      * @brief Update the room according to the room number
-     * @param conn Connection object that is connected to a database
      * @param room the updated Room object (must have the same room number)
      */
     public void updateRoom(Room room ) {
@@ -147,7 +141,6 @@ public class RoomsDB {
 
     /**
      * @brief Search all current available room types and return as ArrayList
-     * @param conn Connection object that is connected to a database
      * @return list filled with all RoomType objects collected from the database
      */
     public List<RoomType> findAllRoomTypes() {
@@ -168,7 +161,6 @@ public class RoomsDB {
 
     /**
      * @brief Search all current available rooms and return as ArrayList
-     * @param conn Connection object that is connected to a database
      * @return list filled with all Room objects collected from the database
      */
     public List<Room> findAllRooms() {
@@ -189,7 +181,6 @@ public class RoomsDB {
 
     /**
      * @brief Checks if the input room_type exists.
-     * @param conn Connection object that is connected to a database
      * @param roomType RoomType object that will be searched in the database
      * @return a boolean regarding the existence of the room_type in the database
      * @throws SQLException

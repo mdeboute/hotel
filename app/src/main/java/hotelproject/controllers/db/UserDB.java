@@ -20,7 +20,6 @@ public class UserDB {
 
     /**
      * @brief Checks if a user exists in the `users` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param user User object whose existence will be checked in the database
      * @return boolean regarding the existence of the user
      * @throws SQLException
@@ -39,7 +38,6 @@ public class UserDB {
 
     /**
      * @brief Checks if a user is an administrator in the `users` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param user User object whose admin status will be checked
      * @return int that returns 1 if user is admin and 0 if not
      * @throws SQLException
@@ -54,7 +52,6 @@ public class UserDB {
 
     /**
      * @brief Updates a row in the `user` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param user User object whose information will be updated in the database
      * @param new_username the new username
      * @param new_password the new password
@@ -69,7 +66,6 @@ public class UserDB {
 
     /**
      * @brief Updates a row in the `user` table in the database.
-     * @param conn Connection object that is connected to a database
      * @param user User object whose information will be updated in the database
      * @param new_username the new username
      * @throws SQLException
@@ -83,7 +79,6 @@ public class UserDB {
 
     /**
      * @brief Find all current users in the database
-     * @param conn Connection object that is connected to a database
      * @return a list of User objects from all users in the database
      */
     public List<User> findAllUsers() {
@@ -104,7 +99,6 @@ public class UserDB {
 
     /**
      * @brief Delete a user according to the user name
-     * @param conn Connection object that is connected to a database
      * @param u_name username of the user who will be deleted from the database
      */
     public void deleteUser(String u_name) {
