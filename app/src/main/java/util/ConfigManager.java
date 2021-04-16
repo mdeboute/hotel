@@ -1,9 +1,6 @@
 package util;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -26,7 +23,7 @@ public class ConfigManager {
         Properties prop = new Properties();
         InputStream is = null;
         try {
-            is = new FileInputStream(configPath);
+            is = new FileInputStream(new File(configPath).getAbsolutePath());
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }

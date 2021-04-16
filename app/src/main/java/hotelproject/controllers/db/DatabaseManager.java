@@ -13,20 +13,49 @@ public class DatabaseManager {
     private Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
+    private String URL;
 
     /**
      * @brief Creates a connection to the database with default login details.
      */
     public DatabaseManager() {
+        conn = CheckAndGetConnection();
+        rdb = new RoomsDB(conn);
+        udb = new UserDB(conn);
+    }
+
+    /**
+     * @brief Check connections to the DB between local vs Gitlab environments.
+     */
+    public Connection CheckAndGetConnection() {
         try {
             ConfigManager cm = new ConfigManager("app.properties");
-            conn = DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
-        } catch (SQLException e) {
+            Properties connectionProps = new Properties();
+            connectionProps.put("user", cm.getPValue("db.user"));
+            connectionProps.put("password", cm.getPValue("db.password"));
+
+            conn = DriverManager.getConnection(cm.getPValue("db.url"), connectionProps);
+        } catch ( SQLException e) {
             System.err.println("Error : " + e);
             conn = null;
         }
-        rdb = new RoomsDB(conn);
-        udb = new UserDB(conn);
+        if(conn != null) {
+            return conn;
+        } else {
+            try {
+                ConfigManager cm = new ConfigManager("app.properties");
+                Properties connectionProps = new Properties();
+                connectionProps.put("user", cm.getPValue("db.user"));
+                connectionProps.put("password", cm.getPValue("db.password"));
+
+                conn = DriverManager.getConnection(cm.getPValue("db.alias"), connectionProps);
+            } catch ( SQLException e) {
+                System.err.println("Error : " + e);
+                conn = null;
+            }
+        }
+
+        return conn;
     }
 
     /**
