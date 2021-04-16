@@ -2,48 +2,36 @@ package hotelproject.controllers.db;
 
 import static org.junit.Assert.assertTrue;
 
+import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class RoomsDBTest<Arraylist> {
+public class RoomsDBTest {
 
-  /* Oscar, there are a lot of instances here where the conn variable is used to close
-  a connection or create a new statement. You cannot do that anymore as I removed the conn
-  variable, as connections are now handled from the DatabaseManager object, dbm.
-  I have left TODOs down below to assist you. Please ask if you need some help.
-  */
 
   private DatabaseManager dbm;
   private ArrayList<String> log;
-  private String tableName;
-  private RoomType testRoomType;
+  private Room testRoom1;
+  private RoomType testRoomType1;
   private String t_name;
+  private int r_num;
 
   @Before
   public void setUp() {
     dbm = new DatabaseManager();
-    tableName = "room_type";
     log = new ArrayList<>();
+    r_num = 666;
     t_name = generateRandomString();
-    testRoomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+    testRoom1 = new Room(r_num,6,"Single", 1);
+    testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   }
 
-  @After
-  //TODO: Adapt this to the new DatabaseManager class (You don't need to close the connection.)
-  public void tearDown() {
-    try {
-      conn.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
@@ -54,34 +42,115 @@ public class RoomsDBTest<Arraylist> {
   @Test
   public void testAddRoomType() {
 
-    dbm.rdb.addRoomType(testRoomType);
-
+    // Ensure first that the database does not contain testRoomType
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.addRoomType(testRoomType1);
     boolean successfulUpdate = false;
 
-    if (dbm.tableExists(tableName, log)) {
-      String sql = String.format("SELECT * FROM `room_type` WHERE t_name = '%s'", t_name);
-      try {
-        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
-        for (RoomType roomType : roomTypes) {
-          if (roomType.equals(testRoomType)) {
-            successfulUpdate = true;
-            break;
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
+    List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+    for (RoomType roomType : roomTypes) {
+      if (testRoomType1.getT_name().equals(roomType.getT_name())) {
+        successfulUpdate = true;
+        break;
       }
     }
     assertTrue(successfulUpdate);
   }
 
-
-
   @Test
-  public void testAddRoom() {
+  public void testDeleteRoomType() {
+    dbm.rdb.addRoomType(testRoomType1);
+    dbm.rdb.deleteRoomType(testRoomType1);
+    boolean successfulUpdate = true; // Note: 'true'
+
+    List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+    for (RoomType roomType : roomTypes) {
+      if (roomType.getT_name().equals(testRoomType1.getT_name())) {
+        successfulUpdate = false;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
   }
 
   @Test
-  public void testReadRooms() {
+  public void testAddRoom() {
+    // Have to ensure that testRoom does not already exist in the database
+    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.addRoom(testRoom1);
+    boolean successfulUpdate = false;
+
+    List<Room> rooms = dbm.rdb.findAllRooms();
+    for (Room room : rooms) {
+      if (room.getR_num() == testRoom1.getR_num()) {
+        successfulUpdate = true;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
+  }
+
+  @Test
+  public void testDeleteRoom() {
+    // Have to ensure that testRoom does exist in the database; hence the reverse order compared to previous test
+    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.addRoom(testRoom1);
+    dbm.rdb.deleteRoom(testRoom1);
+    boolean successfulUpdate = true;
+
+    List<Room> rooms = dbm.rdb.findAllRooms();
+    for (Room room : rooms) {
+      if (room.getR_num() == testRoom1.getR_num()) {
+        successfulUpdate = false;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
+  }
+
+  @Test
+  public void testUpdateRoomType() {
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.addRoomType(testRoomType1);
+
+    // Update testRoomType1, from has bed (1) to does not have bed (0)
+    testRoomType1.setBeds(0);
+
+    // test
+    dbm.rdb.updateRoomType(testRoomType1, testRoomType1.getT_name());
+
+    boolean successfulUpdate = false;
+
+    List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+    for (RoomType roomType : roomTypes) {
+      if (testRoomType1.getT_name().equals(roomType.getT_name())) {
+        successfulUpdate = true;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
+  }
+
+  @Test
+  public void testUpdateRoom() {
+    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.addRoom(testRoom1);
+
+    // Update testRoom1, from has r_type "Single" r_type "Double"
+    testRoom1.setR_type("Double");
+
+    // test
+    dbm.rdb.updateRoom(testRoom1, testRoom1.getR_num());
+
+    boolean successfulUpdate = false;
+
+    List<Room> rooms = dbm.rdb.findAllRooms();
+    for (Room room : rooms) {
+      if (testRoom1.getR_num() == room.getR_num()) {
+        successfulUpdate = true;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
   }
 }

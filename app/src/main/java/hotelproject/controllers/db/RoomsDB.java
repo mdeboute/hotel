@@ -51,42 +51,13 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Reads the `room` table in the database.
-     * @return a list of room objects from the database
-     */
-    public List<Room> readRooms() {
-        List<Room> rooms = new ArrayList<>();
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM room";
-            ResultSet rs = stmt.executeQuery(sql);
-            int r_num;
-            int r_floor;
-            String r_type;
-            int booked;
-            while (rs.next()) {
-                r_num = Integer.parseInt(rs.getString("r_num"));
-                r_floor = Integer.parseInt(rs.getString("r_floor"));
-                r_type = rs.getString("r_type");
-                booked = Integer.parseInt(rs.getString("booked"));
-                rooms.add(new Room(r_num, r_floor, r_type, booked));
-            }
-
-        } catch (SQLException e) {
-            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, e);
-            return null;
-        }
-        return rooms;
-    }
-
-    /**
      * @brief Deletes the room_type according to the room_type name
-     * @param t_name name of the room_type that will be deleted from the database
+     * @param roomType object of the room_type that will be deleted from the database
      */
-    public void deleteRoomType(String t_name) {
+    public void deleteRoomType(RoomType roomType) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM room_type WHERE t_name = '" + t_name + "'";
+            String sql = "DELETE FROM room_type WHERE t_name = '" + roomType.getT_name() + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,12 +67,12 @@ public class RoomsDB {
     /**
      * @brief Deletes the room according to the room number
      * @param conn Connection object that is connected to a database
-     * @param r_num the number of the room that will be deleted from the database
+     * @param room the number of the room that will be deleted from the database
      */
-    public void deleteRoom(int r_num) {
+    public void deleteRoom(Room room) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM room WHERE r_num = '" + r_num + "'";
+            String sql = "DELETE FROM room WHERE r_num = '" + room.getR_num() + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,13 +82,13 @@ public class RoomsDB {
     /**
      * @brief Update the room_type according to the room type name
      * @param roomType the updated RoomType object (must have the same name)
+     * @param oldRoomType the old room type's name that is to be updated
      */
-    public void updateRoomType(RoomType roomType) {
-        //TODO find a way to change the room_type's name
+    public void updateRoomType(RoomType roomType, String oldRoomType) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room_type SET beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
-            stmt.executeUpdate(String.format(sql,roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),roomType.getT_name()));
+            String sql = "UPDATE room_type SET t_name ='%s', beds = %d, r_size = %d, has_view = %d, has_kitchen = %d, has_bathroom = %d, has_workspace = %d, has_tv = %d, has_coffee_maker = %d WHERE t_name = '%s' ";
+            stmt.executeUpdate(String.format(sql,roomType.getT_name(), roomType.getBeds(),roomType.getR_size(),roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),oldRoomType));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,13 +98,12 @@ public class RoomsDB {
      * @brief Update the room according to the room number
      * @param room the updated Room object (must have the same room number)
      */
-    public void updateRoom(Room room ) {
-        //TODO find a way to change the room number
+    public void updateRoom(Room room, int oldRNum) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE room SET r_floor = %d, r_type = '%s', booked = %d WHERE r_num = %d";
-            stmt.executeUpdate(String.format(sql, room.getR_floor(), room.getR_type(), room.getBooked(), 
-            room.getR_num()));
+            String sql = "UPDATE room SET r_num = %d, r_floor = %d, r_type = '%s', booked = %d WHERE r_num = %d";
+            stmt.executeUpdate(String.format(sql,  room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked(), 
+            oldRNum));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -185,12 +155,12 @@ public class RoomsDB {
      * @return a boolean regarding the existence of the room_type in the database
      * @throws SQLException
      */
-    public boolean roomTypeExists(String roomType) throws SQLException {
+    public boolean roomTypeExists(RoomType roomType) throws SQLException {
         //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM room_type");
         while (rs.next()) {
-            if (rs.getString("t_name").equals(roomType))
+            if (rs.getString("t_name").equals(roomType.getT_name()))
                 return true;
         }
         return false;

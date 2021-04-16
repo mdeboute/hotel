@@ -1,12 +1,26 @@
 image: gradle:5.6.4-jdk12
   
 stages:
-  - build
+  - build  
   - test
   - clean
 
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"  
+  MYSQL_DATABASE_NAME: hotel
+  MYSQL_ROOT_PASSWORD: root
+
+services:
+  - name: mdeboute/hotel-sql:latest
+    alias: banana
+
+connect:
+  image: mdeboute/hotel-sql:latest
+  script:
+  - mysql --version
+  - sleep 5;
+  - apt-get update && apt-get install -y mysql-client
+  - mysql -h banana -uroot -proot -e "show databases; use $MYSQL_DATABASE_NAME; show tables;"
 
 before_script:
   - echo `pwd` # debug
@@ -52,3 +66,4 @@ clean:
 
 after_script:
   - echo "End CI"
+
