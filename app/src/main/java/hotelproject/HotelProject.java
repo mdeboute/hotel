@@ -27,32 +27,37 @@ public class HotelProject extends Application {
     @Override
     public void start(Stage primaryStage) {
         Stage secondaryStage = new Stage();
-        loginPage(secondaryStage, primaryStage, true);
+        loginPage(secondaryStage, primaryStage, false);
     }
 
-    private void loginPage(Stage secondaryStage, Stage primaryStage, boolean beforeAuth) {
-        LoginView loginView = new LoginView();
+    private void loginPage(Stage secondaryStage, Stage primaryStage, boolean onlyPwd) {
+        LoginView loginView = new LoginView(onlyPwd);
 
-        if (!beforeAuth) {
+        if (onlyPwd) {
             loginView.getCredentials().setVisible(true);
         }
 
-        loginView.getTestLoginButton().setOnAction(e -> { //test if the user exist in the database and has correct password
+        loginView.getTestLoginButton().setOnAction(e -> {
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
             try {
-                if (dbm.udb.userExists(userTest)) {
-                    loginView.getResult().setText("Success !");
-                    connectedUser = new User();
-                    connectedUser.setU_name(loginView.getUsername().getText());
-                    connectedUser.setU_password(loginView.getPassword().getText());
-                    connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
-                    if (beforeAuth) {
+                if (!onlyPwd) {
+                    if (dbm.udb.userExists(userTest)) { //test if the user exist in the database and has correct password
+                        loginView.getResult().setText("Success !");
+                        connectedUser = new User();
+                        connectedUser.setU_name(loginView.getUsername().getText());
+                        connectedUser.setU_password(loginView.getPassword().getText());
+                        connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
+
                         afterAuth(primaryStage);
                     } else {
-                        updateInfoDisplay(secondaryStage, primaryStage);
+                        loginView.getResult().setText("Fail !");
                     }
                 } else {
-                    loginView.getResult().setText("Fail !");
+                    if (connectedUser.getU_password().equals(userTest.getU_password())) {
+                        updateInfoDisplay(secondaryStage, primaryStage);
+                    } else {
+                        loginView.getResult().setText("Fail !");
+                    }
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -171,7 +176,7 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
 
         Stage loginStage = new Stage();
-        myPage.getUpdateInfo().setOnAction(e -> loginPage(myPageStage, loginStage, false));
+        myPage.getUpdateInfo().setOnAction(e -> loginPage(myPageStage, loginStage, true));
 
         myPage.getQuit().setOnAction(e -> myPageStage.close());
 

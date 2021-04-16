@@ -12,33 +12,38 @@ import javafx.scene.layout.GridPane;
 
 public class LoginView extends View {
 
+    boolean onlyPwd;
+
     private TextField username = new TextField();
     private PasswordField password = new PasswordField();
     private Label result = new Label();
-    private Label credentials = new Label("Please enter your credentials first.");
+    private Label credentials = new Label("Please enter your password first.");
     private Button testLogin = new Button("Login");
 
-    public LoginView() { createScene();}
+    public LoginView(boolean onlyPwd) {
+        this.onlyPwd = onlyPwd;
+        createScene();
+    }
 
     @Override
     void createScene() {
 
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
-
+        GridPane pane = createPane();
 
         credentials.setVisible(false);
         pane.add(credentials, 0, 0);
-        pane.add(new Label("Username :"), 0, 1);
-        pane.add(username, 1, 1);
-        pane.add(new Label("Password :"), 0, 2);
-        pane.add(password, 1, 2);
-        pane.add(result, 0, 3);
-        pane.add(testLogin, 1, 3);
+        int pwdRow = 1;
+        if (!onlyPwd) {
+            pane.add(new Label("Username :"), 0, 1);
+            pane.add(username, 1, 1);
+            pwdRow = 2;
+        }
+        pane.add(new Label("Password :"), 0, pwdRow);
+        pane.add(password, 1, pwdRow);
+        pane.add(result, 0, pwdRow+1);
+        pane.add(testLogin, 1, pwdRow+1);
         GridPane.setHalignment(testLogin, HPos.RIGHT);
+
         scene = new Scene(pane);
     }
 

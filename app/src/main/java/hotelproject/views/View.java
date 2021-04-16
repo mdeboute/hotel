@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -26,6 +27,16 @@ public abstract class  View {
         header.setSpacing(5.5);
 
         return header;
+    }
+
+    protected GridPane createPane() {
+        GridPane pane = new GridPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
+        pane.setHgap(5.5);
+        pane.setVgap(5.5);
+
+        return pane;
     }
 
     public Scene getScene() {

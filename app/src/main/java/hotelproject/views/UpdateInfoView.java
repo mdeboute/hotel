@@ -29,11 +29,7 @@ public class UpdateInfoView extends View {
 
     @Override
     void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+        GridPane pane = createPane();
 
         pane.add(changeUsername, 0, 0);
         pane.add(changePwd, 0, 3);

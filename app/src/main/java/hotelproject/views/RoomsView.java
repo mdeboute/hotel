@@ -32,11 +32,7 @@ public class RoomsView extends View {
 
     @Override
     void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+        GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
         title.setStyle("-fx-font-weight: bold;");

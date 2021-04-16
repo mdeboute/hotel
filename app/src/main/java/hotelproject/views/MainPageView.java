@@ -25,11 +25,7 @@ public class MainPageView extends View {
 
     @Override
     void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+        GridPane pane = createPane();
 
         if (user.getU_is_admin() == 1) {
             updateUser = new Button("Update a user");

@@ -33,11 +33,7 @@ public class NewRoomView extends View {
 
     @Override
     void createScene() {
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
-        pane.setHgap(5.5);
-        pane.setVgap(5.5);
+        GridPane pane = createPane();
 
         VBox header = createHeader("New room","Enter the new room specifications");
 
