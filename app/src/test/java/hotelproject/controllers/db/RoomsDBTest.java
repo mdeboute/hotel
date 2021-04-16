@@ -2,48 +2,35 @@ package hotelproject.controllers.db;
 
 import static org.junit.Assert.assertTrue;
 
+import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
 public class RoomsDBTest<Arraylist> {
 
-  /* Oscar, there are a lot of instances here where the conn variable is used to close
-  a connection or create a new statement. You cannot do that anymore as I removed the conn
-  variable, as connections are now handled from the DatabaseManager object, dbm.
-  I have left TODOs down below to assist you. Please ask if you need some help.
-  */
 
   private DatabaseManager dbm;
   private ArrayList<String> log;
-  private String tableName;
-  private RoomType testRoomType;
+  private Room room;
+  private RoomType roomType;
   private String t_name;
+  private int r_num;
 
   @Before
   public void setUp() {
     dbm = new DatabaseManager();
-    tableName = "room_type";
     log = new ArrayList<>();
+    r_num = 666;
     t_name = generateRandomString();
-    testRoomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+    roomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   }
 
-  @After
-  //TODO: Adapt this to the new DatabaseManager class (You don't need to close the connection.)
-  public void tearDown() {
-    try {
-      conn.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
@@ -54,22 +41,14 @@ public class RoomsDBTest<Arraylist> {
   @Test
   public void testAddRoomType() {
 
-    dbm.rdb.addRoomType(testRoomType);
-
+    dbm.rdb.addRoomType(roomType);
     boolean successfulUpdate = false;
 
-    if (dbm.tableExists(tableName, log)) {
-      String sql = String.format("SELECT * FROM `room_type` WHERE t_name = '%s'", t_name);
-      try {
-        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
-        for (RoomType roomType : roomTypes) {
-          if (roomType.equals(testRoomType)) {
-            successfulUpdate = true;
-            break;
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
+    List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+    for (RoomType roomType : roomTypes) {
+      if (roomType.equals(roomType)) {
+        successfulUpdate = true;
+        break;
       }
     }
     assertTrue(successfulUpdate);
@@ -79,6 +58,7 @@ public class RoomsDBTest<Arraylist> {
 
   @Test
   public void testAddRoom() {
+    dbm.rdb.addRoom(room);
   }
 
   @Test
