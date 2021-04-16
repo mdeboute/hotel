@@ -17,22 +17,21 @@ import javafx.scene.text.Font;
 
 import java.util.List;
 
-public class RoomsView {
+public class RoomsView extends View {
 
-    User user;
-    ObservableList<Room> rooms;
-    TableView<Room> roomsTable = new TableView<>();
-    Button addRoom;
-    private Scene scene;
+    private User user;
+    private ObservableList<Room> rooms;
+    private TableView<Room> roomsTable = new TableView<>();
+    private Button addRoom = new Button("New room...");
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
-
         createScene();
     }
 
-    private void createScene() {
+    @Override
+    void createScene() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
@@ -97,7 +96,6 @@ public class RoomsView {
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 
-        addRoom = new Button("New room...");
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
@@ -107,10 +105,6 @@ public class RoomsView {
         }
 
         scene = new Scene(pane);
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public Button getAddRoom() {

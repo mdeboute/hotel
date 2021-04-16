@@ -9,12 +9,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class UpdateInfoView {
+public class UpdateInfoView extends View {
 
     private final TextField username = new TextField();
     private final PasswordField firstPassword = new PasswordField();
     private final PasswordField secondPassword = new PasswordField();
-    Scene scene;
+
     Label usernameL = new Label("Username :");
     Label fstPwdL = new Label("New Password : ");
     Label sndPwdL = new Label("Please enter your new password again : ");
@@ -27,7 +27,8 @@ public class UpdateInfoView {
         createScene();
     }
 
-    private void createScene() {
+    @Override
+    void createScene() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
@@ -59,9 +60,7 @@ public class UpdateInfoView {
         scene = new Scene(pane, 500, 300);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+    /**********************getters*******************/
 
     public Button getSave() {
         return save;
@@ -102,6 +101,8 @@ public class UpdateInfoView {
     public Label getOutput() {
         return output;
     }
+
+    /*******************setter***********************/
 
     public void setOutput(String outputTxt) {
         output.setText(outputTxt);

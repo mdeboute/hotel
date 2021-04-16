@@ -8,20 +8,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class MyPageView {
+public class MyPageView extends View {
 
-    User user;
-    Scene scene;
+    private User user;
 
-    Button updateInfo = new Button("Change personal information");
-    Button quit = new Button("Back");
+    private Button updateInfo = new Button("Change personal information");
+    private Button quit = new Button("Back");
 
     public MyPageView(User user) {
         this.user = user;
         createScene();
     }
 
-    private void createScene() {
+    @Override
+    void createScene() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
@@ -48,10 +48,6 @@ public class MyPageView {
         pane.add(quit, 0, 7);
 
         scene = new Scene(pane);
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public Button getUpdateInfo() {

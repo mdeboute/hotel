@@ -14,8 +14,8 @@ import java.util.List;
 
 public class HotelProject extends Application {
 
-    DatabaseManager dbm = new DatabaseManager();
-    User connectedUser;
+    private DatabaseManager dbm = new DatabaseManager();
+    private User connectedUser;
 
     /**
      * @param args the command line arguments
@@ -153,7 +153,7 @@ public class HotelProject extends Application {
                     throwables.printStackTrace();
                 }
 
-                //TODO: change the login and this method
+                //TODO: change the login and this method to only have the user's password
 
                 myPageDisplay();
                 updateInfoStage.close();
