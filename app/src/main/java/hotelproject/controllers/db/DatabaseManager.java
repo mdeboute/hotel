@@ -28,14 +28,13 @@ public class DatabaseManager {
      * @brief Check connections to the DB between local vs Gitlab environments.
      */
     public Connection CheckAndGetConnection() {
+        Properties connectionProps = new Properties();
+        ConfigManager cm = new ConfigManager("app.properties");
         try {
-            ConfigManager cm = new ConfigManager("app.properties");
-            Properties connectionProps = new Properties();
             connectionProps.put("user", cm.getPValue("db.user"));
             connectionProps.put("password", cm.getPValue("db.password"));
-
             conn = DriverManager.getConnection(cm.getPValue("db.url"), connectionProps);
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error : " + e);
             conn = null;
         }
@@ -43,18 +42,12 @@ public class DatabaseManager {
             return conn;
         } else {
             try {
-                ConfigManager cm = new ConfigManager("app.properties");
-                Properties connectionProps = new Properties();
-                connectionProps.put("user", cm.getPValue("db.user"));
-                connectionProps.put("password", cm.getPValue("db.password"));
-
                 conn = DriverManager.getConnection(cm.getPValue("db.alias"), connectionProps);
             } catch ( SQLException e) {
                 System.err.println("Error : " + e);
                 conn = null;
             }
         }
-
         return conn;
     }
 
