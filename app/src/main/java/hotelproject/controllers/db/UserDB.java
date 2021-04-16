@@ -99,12 +99,12 @@ public class UserDB {
 
     /**
      * @brief Delete a user according to the user name
-     * @param u_name username of the user who will be deleted from the database
+     * @param user object of the user who will be deleted from the database
      */
-    public void deleteUser(String u_name) {
+    public void deleteUser(User user) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM users WHERE u_name = '" + u_name + "'";
+            String sql = "DELETE FROM users WHERE u_name = '" + user.getU_name() + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,25 +120,5 @@ public class UserDB {
             e.printStackTrace();
         }
     }
-    //TODO idk whats going on here, this method gets all users doesn't add user, and it already exists.
-    public ArrayList<User> addUser() {
-
-        Statement stmt;
-        ResultSet rs;
-
-        ArrayList<User> users = new ArrayList<>();
-
-        try {
-            String query = "SELECT * FROM users";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
-                users.add(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
+   
 }
