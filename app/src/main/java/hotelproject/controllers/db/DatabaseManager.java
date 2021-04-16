@@ -4,7 +4,6 @@ import util.ConfigManager;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +17,7 @@ public class DatabaseManager {
      * @brief Creates a connection to the database with default login details.
      */
     public DatabaseManager() {
-        conn = CheckAndGetConnection();
+        conn = checkAndGetConnection();
         rdb = new RoomsDB(conn);
         udb = new UserDB(conn);
     }
@@ -26,14 +25,13 @@ public class DatabaseManager {
     /**
      * @brief Check connections to the DB between local vs Gitlab environments.
      */
-    public Connection CheckAndGetConnection() {
-        Properties connectionProps = new Properties();
+    public Connection checkAndGetConnection() {
         ConfigManager cm = new ConfigManager("app.properties");
         try {
             return DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
         } catch (SQLException e1) {
             try {
-                return DriverManager.getConnection(cm.getPValue("db.alias"), connectionProps);
+                return DriverManager.getConnection(cm.getPValue("db.alias"), cm.getPValue("db.user"), cm.getPValue("db.password"));
             } catch ( SQLException e2) {
                 System.err.println("Error : " + e2);
                 System.err.println("Error : " + e1);
