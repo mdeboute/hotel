@@ -4,17 +4,15 @@ import static org.junit.Assert.assertTrue;
 
 import hotelproject.controllers.objects.RoomType;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class RoomsDBTest {
+public class RoomsDBTest<Arraylist> {
 
   /* Oscar, there are a lot of instances here where the conn variable is used to close
   a connection or create a new statement. You cannot do that anymore as I removed the conn
@@ -25,7 +23,7 @@ public class RoomsDBTest {
   private DatabaseManager dbm;
   private ArrayList<String> log;
   private String tableName;
-  private RoomType roomType;
+  private RoomType testRoomType;
   private String t_name;
 
   @Before
@@ -34,7 +32,7 @@ public class RoomsDBTest {
     tableName = "room_type";
     log = new ArrayList<>();
     t_name = generateRandomString();
-    roomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+    testRoomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   }
 
   @After
@@ -56,17 +54,16 @@ public class RoomsDBTest {
   @Test
   public void testAddRoomType() {
 
-    dbm.rdb.addRoomType(roomType);
+    dbm.rdb.addRoomType(testRoomType);
 
     boolean successfulUpdate = false;
 
     if (dbm.tableExists(tableName, log)) {
       String sql = String.format("SELECT * FROM `room_type` WHERE t_name = '%s'", t_name);
       try {
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()) {
-          if (t_name.equals(rs.getString("t_name"))) {
+        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+        for (RoomType roomType : roomTypes) {
+          if (roomType.equals(testRoomType)) {
             successfulUpdate = true;
             break;
           }
