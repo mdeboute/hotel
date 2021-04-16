@@ -1,29 +1,19 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.User;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import org.junit.runners.MethodSorters;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@FixMethodOrder(value = MethodSorters.NAME_ASCENDING )
 public class UserDBTest {
-
-    /* Oscar, there are a lot of instances here where the conn variable is used to close
-    a connection or create a new statement. You cannot do that anymore as I removed the conn
-    variable, as connections are now handled from the DatabaseManager object, dbm.
-    I have left TODOs down below to assist you. Please ask if you need some help.
-    */
 
     private DatabaseManager dbm;
     private User userIsAdmin;
@@ -40,37 +30,28 @@ public class UserDBTest {
         userIsStaff = new User(u_name_staff,"staff123",0);
     }
 
-//    @After
-//    //TODO: Adapt this to the new DatabaseManager class (You don't need to close the connection.)
-//    public void tearDown() {
-//        try {
-//            conn.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    public String generateRandomString() {
-        byte[] array = new byte[5]; // length is bounded by 7
-        new Random().nextBytes(array);
-        return new String(array, StandardCharsets.UTF_8);
+    @Test
+    public void test_001_IsUserExist(){
+        try {
+            assertTrue(dbm.udb.userExists(new User("admin", "root", 1)));
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Test
-    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
-    public void addUserTest(){
+    public void test_002_addUser(){
         dbm.udb.addUser(userIsAdmin);
         dbm.udb.addUser(userIsStaff);
         try{
             assertEquals(dbm.udb.userExists(userIsAdmin),true);
-            assertEquals(dbm.udb.userExists(userIsStaff),true);
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testGetU_is_admin(){
+    public void test_003_GetU_is_admin(){
         try{
             int isAdmin = dbm.udb.getU_is_admin(userIsAdmin);
             int isStaff = dbm.udb.getU_is_admin(userIsStaff);
@@ -82,8 +63,29 @@ public class UserDBTest {
     }
 
     @Test
-    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
-    public void testUpdateUserInformation(){
+    public void test_004_FindAllUsers(){
+        List<User> allUsersForTest = new ArrayList<>();
+        allUsersForTest.add(new User("admin","root",1));
+        allUsersForTest.add(new User("reception","staff",0));
+        allUsersForTest.add(new User("IsAdmin", "admin123",1));
+        allUsersForTest.add(new User("IsStaff","staff123",0));
+        List<User> allUserInDatabase;
+        int count = 0;
+        allUserInDatabase = dbm.udb.findAllUsers();
+        for (User userInDatabase: allUserInDatabase) {
+            for (User userForTest: allUsersForTest) {
+                if(userInDatabase.getU_name().equals(userForTest.getU_name()) &&
+                        userInDatabase.getU_password().equals(userForTest.getU_password()) &&
+                        userInDatabase.getU_is_admin() == userForTest.getU_is_admin()){
+                    count++;
+                }
+            }
+        }
+        Assert.assertEquals(count,4);
+    }
+
+    @Test
+    public void test_005_UpdateUserInformation(){
         boolean isUpdate = false;
         try{
             dbm.udb.updateUserInformation(userIsAdmin,"userIsBoss","boss123");
@@ -102,20 +104,57 @@ public class UserDBTest {
     }
 
     @Test
-    //TODO: Adapt this to the new DatabaseManager class (You can ask me for help :) )
-    public void testUpdateUserInformation2(){
-//        try{
-//            dbm.udb.updateUserInformation(userIsStaff,"userIsWorker");
-//            String sql = "SELECT * FROM users WHERE u_name = 'userIsWorker'";
-//            Statement stmt = conn.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while(rs.next()){
-//                Assert.assertEquals(rs.getString("u_name"),"userIsWorker");
-//            }
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
+    public void test_006_UpdateUserInformation2(){
+        boolean isUpdate = false;
+        try{
+            dbm.udb.updateUserInformation(userIsStaff,"userIsWorker");
+            List<User> users = dbm.udb.findAllUsers();
+            for (User user : users) {
+                if(user.getU_name().equals("userIsWorker") && user.getU_password().equals("staff123")){
+                    isUpdate = true;
+                } else {
+                    isUpdate = false;
+                }
+            }
+            Assert.assertEquals(isUpdate,true);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
+    @Test
+    public void test_007_DeleteUser(){
+        boolean isDeleted = false;
+        User userForDelete = new User ("userIsWorker", "staff123",0);
+        dbm.udb.deleteUser(userForDelete);
+        List<User> allUsersInDatabase = dbm.udb.findAllUsers();
+        for (User user : allUsersInDatabase) {
+            if(user.getU_name().equals("userIsWorker") &&
+                    user.getU_password().equals("staff123") &&
+                    user.getU_is_admin() == 0){
+                isDeleted = false;
+            } else {
+                isDeleted = true;
+            }
+        }
+        Assert.assertEquals(isDeleted,true);
+    }
+
+    @Test
+    public void test_008_DeleteUser2() {
+        boolean isDeleted = false;
+        dbm.udb.deleteUser(new User("userIsBoss","boss123",1));
+        List<User> allUsersInDatabase = dbm.udb.findAllUsers();
+        for (User user : allUsersInDatabase) {
+            if(user.getU_name().equals("userIsBoss") &&
+                    user.getU_password().equals("boss123") &&
+                    user.getU_is_admin() == 0){
+                isDeleted = false;
+            } else {
+                isDeleted = true;
+            }
+        }
+        Assert.assertEquals(isDeleted,true);
+    }
 
 }
