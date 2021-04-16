@@ -15,11 +15,9 @@ import javafx.scene.text.Font;
 import java.sql.Connection;
 import java.util.List;
 
-public class NewRoomView {
+public class NewRoomView extends View {
 
-    DatabaseManager dbm;
-
-    Scene scene;
+    private DatabaseManager dbm;
 
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
@@ -33,7 +31,8 @@ public class NewRoomView {
         createScene();
     }
 
-    private void createScene() {
+    @Override
+    void createScene() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
@@ -74,26 +73,6 @@ public class NewRoomView {
 
 
         scene = new Scene(paneTwo);
-    }
-
-    private VBox createHeader(String title, String subtitle) {
-        Label titleL = new Label(title);
-        titleL.setStyle("-fx-font-weight: bold;");
-        titleL.setFont(Font.font(18));
-
-        Label subtitleL = new Label(subtitle);
-        subtitleL.setFont(Font.font(14));
-
-        VBox header = new VBox(titleL, subtitleL);
-        header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(10.0, 10.0, 2.0, 10.0));
-        header.setSpacing(5.5);
-
-        return header;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public Button getSubmit() {

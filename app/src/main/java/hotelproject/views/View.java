@@ -10,12 +10,9 @@ import javafx.scene.text.Font;
 public abstract class  View {
     Scene scene;
 
-    public View() {
-        createScene();
-    }
     abstract void createScene();
 
-    VBox createHeader(String title, String subtitle) {
+     protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
         Label titleL = new Label(title);
         titleL.setStyle("-fx-font-weight: bold;");
         titleL.setFont(Font.font(18));

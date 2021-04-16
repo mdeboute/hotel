@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-public class AddRoomTypeView {
+public class AddRoomTypeView extends View {
 
     private final CheckBox hasView = new CheckBox("with view");
     private final CheckBox hasKitchen = new CheckBox("with kitchen");
@@ -18,17 +18,15 @@ public class AddRoomTypeView {
     private final CheckBox hasWorksp = new CheckBox("with a workspace");
     private final CheckBox hasTv = new CheckBox("with TV");
     private final CheckBox hasCoffeeMkr = new CheckBox("with a coffee maker");
-    Scene scene;
     private final TextField name = new TextField();
     private final TextField nbBeds = new TextField();
     private final TextField roomSize = new TextField();
     private final Button submit = new Button("Submit");
 
-    public AddRoomTypeView() {
-        createScene();
-    }
+    public AddRoomTypeView() { createScene();}
 
-    private void createScene() {
+    @Override
+    void createScene() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
@@ -64,10 +62,6 @@ public class AddRoomTypeView {
         pane.add(submit, 2, 12);
 
         scene = new Scene(pane);
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public Button getSubmit() {
