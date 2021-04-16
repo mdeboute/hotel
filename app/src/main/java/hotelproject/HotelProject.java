@@ -242,7 +242,7 @@ public class HotelProject extends Application {
     }
 
     private void roomsDisplay() {
-        List<Room> rooms = dbm.rdb.readRooms();
+        List<Room> rooms = dbm.rdb.findAllRooms();
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
