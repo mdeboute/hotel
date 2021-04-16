@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -22,10 +21,8 @@ public class UserDB {
      * @brief Checks if a user exists in the `users` table in the database.
      * @param user User object whose existence will be checked in the database
      * @return boolean regarding the existence of the user
-     * @throws SQLException
      */
     public boolean userExists(User user) throws SQLException {
-        //TODO fill in the @throws part of the javadoc (idk what to write there)
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM `users`");
         while (rs.next()) {
@@ -40,12 +37,11 @@ public class UserDB {
      * @brief Checks if a user is an administrator in the `users` table in the database.
      * @param user User object whose admin status will be checked
      * @return int that returns 1 if user is admin and 0 if not
-     * @throws SQLException
      */
     public int getU_is_admin(User user) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM `users` WHERE u_name = '%s' AND u_password = '%s'";
-        ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name(), user.getU_password()));
+        String sql = "SELECT * FROM `users` WHERE u_name = '%s'";
+        ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name()));
         rs.next();
         return parseInt(rs.getString("u_is_admin"));
     }
@@ -55,37 +51,33 @@ public class UserDB {
      * @param user User object whose information will be updated in the database
      * @param new_username the new username
      * @param new_password the new password
-     * @throws SQLException
      */
     public void updateUserInformation(User user, String new_username, String new_password) throws SQLException {
         Statement stmt = conn.createStatement();
-        String previousUserName = user.getU_name();
-        String sql = "UPDATE `users` SET u_name = '%s', u_password = '%s' WHERE u_name = '" + previousUserName + "'";
-        stmt.executeUpdate(String.format(sql, new_username, new_password));
+        String sql = "UPDATE `users` SET `u_name` = '%s', `u_password` = '%s' WHERE `u_name` = '%s'";
+        stmt.executeUpdate(String.format(sql, new_username, new_password, user.getU_name()));
     }
 
     /**
      * @brief Updates a row in the `user` table in the database.
      * @param user User object whose information will be updated in the database
      * @param new_username the new username
-     * @throws SQLException
      */
     public void updateUserInformation(User user, String new_username) throws SQLException {
         Statement stmt = conn.createStatement();
-        String previousUserName = user.getU_name();
-        String sql = "UPDATE `users` SET u_name = '%s' WHERE u_name = '" + previousUserName + "'";
-        stmt.executeUpdate(String.format(sql, new_username));
+        String sql = "UPDATE `users` SET `u_name` = '%s' WHERE `u_name` = '%s'";
+        stmt.executeUpdate(String.format(sql, new_username, user.getU_name()));
     }
 
     /**
      * @brief Find all current users in the database
      * @return a list of User objects from all users in the database
      */
-    public List<User> findAllUsers() {
-        List<User> users = new ArrayList<>();
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM users";
+            String sql = "SELECT * FROM `users`";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
@@ -104,8 +96,8 @@ public class UserDB {
     public void deleteUser(User user) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM users WHERE u_name = '" + user.getU_name() + "'";
-            stmt.executeUpdate(sql);
+            String sql = "DELETE FROM `users` WHERE `u_name` = '%s'";
+            stmt.executeUpdate(String.format(sql, user.getU_name()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,8 +106,8 @@ public class UserDB {
     public void addUser(User user) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO users (u_name, u_password, u_is_admin) VALUES ('%s','%s', %d)";
-            stmt.executeUpdate(String.format(sql,user.getU_name(),user.getU_password(),user.getU_is_admin()));
+            String sql = "INSERT INTO `users` (u_name, u_password, u_is_admin) VALUES ('%s','%s', %d)";
+            stmt.executeUpdate(String.format(sql, user.getU_name(), user.getU_password(), user.getU_is_admin()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

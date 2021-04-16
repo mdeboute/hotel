@@ -10,10 +10,9 @@ import java.util.logging.Logger;
 
 
 public class DatabaseManager {
-    private Connection conn;
+    private final Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
-    private String URL;
 
     /**
      * @brief Creates a connection to the database with default login details.
@@ -31,44 +30,16 @@ public class DatabaseManager {
         Properties connectionProps = new Properties();
         ConfigManager cm = new ConfigManager("app.properties");
         try {
-            connectionProps.put("user", cm.getPValue("db.user"));
-            connectionProps.put("password", cm.getPValue("db.password"));
-            conn = DriverManager.getConnection(cm.getPValue("db.url"), connectionProps);
-        } catch (SQLException e) {
-            System.err.println("Error : " + e);
-            conn = null;
-        }
-        if(conn != null) {
-            return conn;
-        } else {
+            return DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
+        } catch (SQLException e1) {
             try {
-                conn = DriverManager.getConnection(cm.getPValue("db.alias"), connectionProps);
-            } catch ( SQLException e) {
-                System.err.println("Error : " + e);
-                conn = null;
+                return DriverManager.getConnection(cm.getPValue("db.alias"), connectionProps);
+            } catch ( SQLException e2) {
+                System.err.println("Error : " + e2);
+                System.err.println("Error : " + e1);
+                return null;
             }
         }
-        return conn;
-    }
-
-    /**
-     * @brief Creates a connection to the database with input login details.
-     * @param url url for the database connection
-     * @param user username for the database connection
-     * @param password password for the database connection
-     */
-    public DatabaseManager(String url, String user, String password) {
-        try {
-            Properties connectionProps = new Properties();
-            connectionProps.put("user", user);
-            connectionProps.put("password", password);
-            conn = DriverManager.getConnection(url, connectionProps);
-        } catch (SQLException e) {
-            System.err.println("Error : " + e);
-            conn = null;
-        }
-        rdb = new RoomsDB(conn);
-        udb = new UserDB(conn);
     }
 
     /**
@@ -102,7 +73,7 @@ public class DatabaseManager {
     public void createTable(String tableName, String body, ArrayList<String> log) {
         try {
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("CREATE TABLE " + tableName + "(" + body + ")");
+            stmt.executeUpdate(String.format("CREATE TABLE `%s` (%s)", tableName, body));
             log.add(tableName + " is created.");
         } catch (SQLException e) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, e);
@@ -117,7 +88,7 @@ public class DatabaseManager {
     public void dropTable(String tableName, ArrayList<String> log) {
         try {
             Statement stmt = conn.createStatement();
-            if (stmt.executeUpdate("DROP TABLE IF EXISTS " + tableName) != 0)
+            if (stmt.executeUpdate(String.format("DROP TABLE IF EXISTS %s", tableName)) != 0)
                 log.add(tableName + " is deleted.");
         } catch (SQLException e) {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, e);
