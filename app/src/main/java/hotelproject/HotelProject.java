@@ -1,8 +1,6 @@
 package hotelproject;
 
 import hotelproject.controllers.db.DatabaseManager;
-import hotelproject.controllers.db.RoomsDB;
-import hotelproject.controllers.db.UserDB;
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
@@ -10,8 +8,6 @@ import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
