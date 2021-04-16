@@ -63,7 +63,7 @@ public class UserDBTest {
     }
 
     @Test
-    public void test_004_FindAllUsers(){
+    public void test_004_GetAllUsers(){
         List<User> allUsersForTest = new ArrayList<>();
         allUsersForTest.add(new User("admin","root",1));
         allUsersForTest.add(new User("reception","staff",0));
@@ -71,7 +71,7 @@ public class UserDBTest {
         allUsersForTest.add(new User("IsStaff","staff123",0));
         List<User> allUserInDatabase;
         int count = 0;
-        allUserInDatabase = dbm.udb.findAllUsers();
+        allUserInDatabase = dbm.udb.getAllUsers();
         for (User userInDatabase: allUserInDatabase) {
             for (User userForTest: allUsersForTest) {
                 if(userInDatabase.getU_name().equals(userForTest.getU_name()) &&
@@ -89,7 +89,7 @@ public class UserDBTest {
         boolean isUpdate = false;
         try{
             dbm.udb.updateUserInformation(userIsAdmin,"userIsBoss","boss123");
-            List<User> users = dbm.udb.findAllUsers();
+            List<User> users = dbm.udb.getAllUsers();
             for (User user : users) {
                 if(user.getU_name().equals("userIsBoss") && user.getU_password().equals("boss123")){
                     isUpdate = true;
@@ -108,7 +108,7 @@ public class UserDBTest {
         boolean isUpdate = false;
         try{
             dbm.udb.updateUserInformation(userIsStaff,"userIsWorker");
-            List<User> users = dbm.udb.findAllUsers();
+            List<User> users = dbm.udb.getAllUsers();
             for (User user : users) {
                 if(user.getU_name().equals("userIsWorker") && user.getU_password().equals("staff123")){
                     isUpdate = true;
@@ -127,7 +127,7 @@ public class UserDBTest {
         boolean isDeleted = false;
         User userForDelete = new User ("userIsWorker", "staff123",0);
         dbm.udb.deleteUser(userForDelete);
-        List<User> allUsersInDatabase = dbm.udb.findAllUsers();
+        List<User> allUsersInDatabase = dbm.udb.getAllUsers();
         for (User user : allUsersInDatabase) {
             if(user.getU_name().equals("userIsWorker") &&
                     user.getU_password().equals("staff123") &&
@@ -144,7 +144,7 @@ public class UserDBTest {
     public void test_008_DeleteUser2() {
         boolean isDeleted = false;
         dbm.udb.deleteUser(new User("userIsBoss","boss123",1));
-        List<User> allUsersInDatabase = dbm.udb.findAllUsers();
+        List<User> allUsersInDatabase = dbm.udb.getAllUsers();
         for (User user : allUsersInDatabase) {
             if(user.getU_name().equals("userIsBoss") &&
                     user.getU_password().equals("boss123") &&
