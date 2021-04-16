@@ -17,8 +17,8 @@ public class RoomsDBTest<Arraylist> {
 
   private DatabaseManager dbm;
   private ArrayList<String> log;
-  private Room room;
-  private RoomType roomType;
+  private Room testRoom;
+  private RoomType testRoomType;
   private String t_name;
   private int r_num;
 
@@ -28,7 +28,7 @@ public class RoomsDBTest<Arraylist> {
     log = new ArrayList<>();
     r_num = 666;
     t_name = generateRandomString();
-    roomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+    testRoomType = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   }
 
 
@@ -41,12 +41,12 @@ public class RoomsDBTest<Arraylist> {
   @Test
   public void testAddRoomType() {
 
-    dbm.rdb.addRoomType(roomType);
+    dbm.rdb.addRoomType(testRoomType);
     boolean successfulUpdate = false;
 
     List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
     for (RoomType roomType : roomTypes) {
-      if (roomType.equals(roomType)) {
+      if (testRoomType.equals(roomType)) {
         successfulUpdate = true;
         break;
       }
@@ -58,7 +58,17 @@ public class RoomsDBTest<Arraylist> {
 
   @Test
   public void testAddRoom() {
-    dbm.rdb.addRoom(room);
+    dbm.rdb.addRoom(testRoom);
+    boolean successfulUpdate = false;
+
+    List<Room> rooms = dbm.rdb.findAllRooms();
+    for (Room room : rooms) {
+      if (room.equals(testRoom)) {
+        successfulUpdate = true;
+        break;
+      }
+    }
+    assertTrue(successfulUpdate);
   }
 
   @Test
