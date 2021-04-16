@@ -7,8 +7,8 @@ stages:
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"  
-  MYSQL_DATABASE_NAME: $MYSQL_DB
-  MYSQL_ROOT_PASSWORD: $MYSQL_PASS
+  MYSQL_DATABASE_NAME: hotel
+  MYSQL_ROOT_PASSWORD: root
 
 services:
   - name: mdeboute/hotel-sql:latest
