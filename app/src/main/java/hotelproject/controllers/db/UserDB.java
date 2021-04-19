@@ -54,7 +54,7 @@ public class UserDB {
     public void updateUserInformation(User user, String old_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "UPDATE `users` SET `u_name` = '%s', `u_password` = '%s' WHERE `u_name` = '%s'";
-        stmt.executeUpdate(String.format(sql, new_username, new_password, old_username));
+        stmt.executeUpdate(String.format(sql, user.getU_name(), user.getU_password(), old_username));
     }
 
     /**
