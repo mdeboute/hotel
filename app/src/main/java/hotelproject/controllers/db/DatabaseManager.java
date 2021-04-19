@@ -12,6 +12,7 @@ public class DatabaseManager {
     private final Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
+    public final BookingsDB bdb;
 
     /**
      * @brief Creates a connection to the database with default login details.
@@ -20,6 +21,7 @@ public class DatabaseManager {
         conn = checkAndGetConnection();
         rdb = new RoomsDB(conn);
         udb = new UserDB(conn);
+        bdb = new BookingsDB(conn);
     }
 
     /**
