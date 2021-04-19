@@ -58,6 +58,11 @@ public class UpdateInfoView extends View {
         scene = new Scene(pane, 500, 300);
     }
 
+    @Override
+    GridPane createBody() {
+        return null;
+    }
+
     /*****************************Getters*********************************/
 
     public Button getSave() {

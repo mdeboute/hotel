@@ -47,6 +47,11 @@ public class MainPageView extends View {
         scene = new Scene(pane);
     }
 
+    @Override
+    GridPane createBody() {
+        return null;
+    }
+
     /*****************************Getters*********************************/
 
     public Button getMyPageButton() {
