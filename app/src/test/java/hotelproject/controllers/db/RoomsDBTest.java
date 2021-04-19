@@ -167,4 +167,11 @@ public class RoomsDBTest {
     assertTrue(Integer.parseInt(roomDetails.get("r_num")) == testRoom1.getR_num());
     assertTrue(roomDetails.get("r_type").equals(testRoom1.getR_type()));
   }
+
+  @Test
+  public void testRoomTypeExists() {
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.addRoomType(testRoomType1);
+    assertTrue(dbm.rdb.roomTypeExists(testRoomType1));
+  }
 }
