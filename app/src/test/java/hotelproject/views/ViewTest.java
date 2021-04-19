@@ -1,5 +1,6 @@
 package hotelproject.views;
 
+import static javafx.application.Application.launch;
 import static org.junit.Assert.*;
 
 import com.sun.javafx.application.PlatformImpl;
@@ -32,7 +33,7 @@ public class ViewTest {
 
   @After
   public void tearDown() {
-    Platform.setImplicitExit(true);
+    Platform.exit();
   }
 
   @Test
