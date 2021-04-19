@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HotelProject extends Application {
 
-    private DatabaseManager dbm = new DatabaseManager();
+    private final DatabaseManager dbm = new DatabaseManager();
     private User connectedUser;
 
     /**

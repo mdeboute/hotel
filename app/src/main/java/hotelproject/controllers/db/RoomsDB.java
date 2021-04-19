@@ -103,7 +103,7 @@ public class RoomsDB {
 
     /**
      * @brief Update the room according to the room number
-     * @param User the user object (checks if user is admin)
+     * @param user the user object (checks if user is admin)
      * @param room the updated Room object (must have the same room number)
      */
     public void updateRoom(User user, Room room, int oldRNum) {
