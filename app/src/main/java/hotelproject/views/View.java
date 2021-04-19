@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -28,6 +30,7 @@ public abstract class View {
      * @return the header in the format VBox
      */
      protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
+
         Label titleL = new Label(title);
         titleL.setStyle("-fx-font-weight: bold;");
         titleL.setFont(Font.font(18));
@@ -42,6 +45,8 @@ public abstract class View {
 
         return header;
     }
+
+    abstract GridPane createBody();
 
     /**
      * @brief create the initial GridPane

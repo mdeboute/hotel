@@ -242,6 +242,10 @@ public class HotelProject extends Application {
             newRoomDisplay(addTypeStage);
         });
 
+        addRoomTypePage.getCancel().setOnAction(e -> {
+            newRoomDisplay(addTypeStage);
+        });
+
         addTypeStage.setScene(addRoomTypePage.getScene());
         addTypeStage.setTitle("Add a new room type");
         addTypeStage.show();
@@ -273,6 +277,11 @@ public class HotelProject extends Application {
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
             dbm.rdb.addRoom(newRoom);
 
+            roomsDisplay();
+            newRoomStage.close();
+        });
+
+        newRoomViewPage.getCancel().setOnAction(e -> {
             roomsDisplay();
             newRoomStage.close();
         });

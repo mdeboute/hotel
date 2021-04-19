@@ -23,6 +23,7 @@ public class AddRoomTypeView extends View {
     private final TextField nbBeds = new TextField();
     private final TextField roomSize = new TextField();
     private final Button submit = new Button("Submit");
+    private final Button cancel = new Button("Cancel");
 
     public AddRoomTypeView() { createScene();}
 
@@ -57,8 +58,14 @@ public class AddRoomTypeView extends View {
         pane.add(hasCoffeeMkr, 0, 10);
 
         pane.add(submit, 2, 12);
+        pane.add(cancel, 2, 13);
 
         scene = new Scene(pane);
+    }
+
+    @Override
+    GridPane createBody() {
+        return null;
     }
 
     /*****************************Getters*********************************/
@@ -125,5 +132,9 @@ public class AddRoomTypeView extends View {
 
     public TextField getRoomSize() {
         return roomSize;
+    }
+
+    public Button getCancel() {
+        return cancel;
     }
 }

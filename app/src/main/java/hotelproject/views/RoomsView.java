@@ -112,6 +112,11 @@ public class RoomsView extends View {
         scene = new Scene(pane);
     }
 
+    @Override
+    GridPane createBody() {
+        return null;
+    }
+
     /**************************Getter**********************/
 
     public Button getAddRoom() {
