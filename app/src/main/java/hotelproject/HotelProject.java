@@ -126,6 +126,7 @@ public class HotelProject extends Application {
         });
 
         updateInfoPage.getSave().setOnAction(e -> {
+            String oldUsername = connectedUser.getU_name();
             String newUsername = updateInfoPage.getUsername().getText();
             String firstPassword = updateInfoPage.getFirstPassword().getText();
             String secondPassword = updateInfoPage.getSecondPassword().getText();
@@ -153,7 +154,7 @@ public class HotelProject extends Application {
 
                 //update db
                 try {
-                    dbm.udb.updateUserInformation(connectedUser, connectedUser.getU_name(), connectedUser.getU_password());
+                    dbm.udb.updateUserInformation(connectedUser, oldUsername);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
