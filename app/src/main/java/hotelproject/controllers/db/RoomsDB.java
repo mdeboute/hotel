@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
+import hotelproject.controllers.objects.User; 
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -64,13 +65,18 @@ public class RoomsDB {
 
     /**
      * @brief Deletes the room according to the room number
+     * @param user the user object which is to be checked whether is admin
      * @param room the number of the room that will be deleted from the database
      */
-    public void deleteRoom(Room room) {
+    public void deleteRoom(User user, Room room) {
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM `room` WHERE `r_num` = '%s'";
-            stmt.executeUpdate(String.format(sql, room.getR_num()));
+            if (user.getU_is_admin() == 1) {
+                Statement stmt = conn.createStatement();
+                String sql = "DELETE FROM `room` WHERE `r_num` = '%s'";
+                stmt.executeUpdate(String.format(sql, room.getR_num()));
+            } else {
+                System.out.println("Process went wrong.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,15 +103,34 @@ public class RoomsDB {
 
     /**
      * @brief Update the room according to the room number
+     * @param User the user object (checks if user is admin)
      * @param room the updated Room object (must have the same room number)
-     * @param oldRNum the room number of the previous state of the room
      */
-    public void updateRoom(Room room, int oldRNum) {
+    public void updateRoom(User user, Room room, int oldRNum) {
+        try {
+            if (user.getU_is_admin() == 1) {
+                Statement stmt = conn.createStatement();
+                String sql = "UPDATE `room` SET `r_num` = %d, `r_floor` = %d, `r_type` = '%s', `booked` = %d WHERE `r_num` = %d";
+                stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(),
+                        room.getBooked(), oldRNum));
+            } else {
+                System.out.println("Process went wrong.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @brief View the room details according to its number
+     * @param room the room object which is to be expected
+     */
+
+    public void viewRoomDetails(Room room) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE `room` SET `r_num` = %d, `r_floor` = %d, `r_type` = '%s', `booked` = %d WHERE `r_num` = %d";
-            stmt.executeUpdate(String.format(sql,  room.getR_num(), room.getR_floor(), room.getR_type(),
-                    room.getBooked(), oldRNum));
+            String sql = "SELECT `r_floor`, `r_type`, `booked` FROM `room` WHERE `r_num` = %d";
+            stmt.executeUpdate(String.format(sql, room.getR_num()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
