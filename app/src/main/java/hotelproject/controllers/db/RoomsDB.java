@@ -129,7 +129,7 @@ public class RoomsDB {
      */
     
     public Hashtable<String, String> viewRoomDetails(Room room) {
-        Hashtable<String, String> roomDetails = new Hashtable<String, String>();
+        Hashtable<String, String> roomDetails = new Hashtable<>();
         String[] roomData = { "r_num", "r_floor", "r_type", "booked" };
 
         try {
