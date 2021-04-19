@@ -14,6 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class LoginView extends View {
 
@@ -23,7 +26,7 @@ public class LoginView extends View {
     private PasswordField password = new PasswordField();
     private Label result = new Label();
     private Label credentials = new Label("Please enter your password.");
-    private Button testLogin = new Button("Login");
+    private Button testLogin = new Button("");
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
@@ -35,13 +38,14 @@ public class LoginView extends View {
         GridPane scenePane = new GridPane();
         VBox header = createHeader();
         scenePane.add(header,0,0);
+        GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
 
         GridPane body = createBody();
         scenePane.add(body,0,1);
-        GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
-        scenePane.setStyle("-fx-background-color: #1e1e1e;");
-        scene = new Scene(scenePane);
+        scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
+        scene = new Scene(scenePane, 476, 610);
     }
 
     private VBox createHeader() {
@@ -57,7 +61,7 @@ public class LoginView extends View {
 
         VBox header = new VBox(logo, welcome);
         header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(10.0, 10.0, 2.0, 10.0));
+        header.setPadding(new Insets(10.0, 10.0, 35.0, 10.0));
         header.setSpacing(5.5);
 
         return header;
@@ -69,22 +73,26 @@ public class LoginView extends View {
 
         int pwdRow = 1;
         if (!onlyPwd) {
-            bodyPane.add(username, 1, pwdRow);
             pwdRow = 2;
+
+            result.setTextFill(Color.RED);
+            bodyPane.add(result, 0, pwdRow-1);
 
             StackPane stack = new StackPane();
 
-            username.setStyle("-fx-background-color: #303030; -fx-text-inner-color: black;"); // #303030
+            username.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            username.setFont(Font.font("Verdana",20));
             username.setAlignment(Pos.CENTER);
             username.setMaxWidth(300);
             username.setTranslateX(60);
-            username.setTranslateY(20);
+            username.setTranslateY(10);
 
-            password.setStyle("-fx-background-color: #303030; -fx-text-inner-color: black;");
+            password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            password.setFont(Font.font("Verdana",20));
             password.setAlignment(Pos.CENTER);
             password.setMaxWidth(300);
             password.setTranslateX(60);
-            password.setTranslateY(55);
+            password.setTranslateY(30);
 
             VBox nodes = new VBox(username, password);
 
@@ -94,14 +102,26 @@ public class LoginView extends View {
 
             stack.getChildren().addAll(login, nodes);
             bodyPane.add(stack, 0, pwdRow);
+            GridPane.setHalignment(stack, HPos.CENTER);
         } else {
             bodyPane.add(credentials, 0, pwdRow-1);
             bodyPane.add(password, 0, pwdRow);
         }
 
-        bodyPane.add(result, 0, pwdRow+1);
-        bodyPane.add(testLogin, 1, pwdRow+1);
-        GridPane.setHalignment(testLogin, HPos.RIGHT);
+        //login button
+        StackPane stack = new StackPane();
+
+        testLogin.setStyle("-fx-opacity: 0;");
+        testLogin.setMinWidth(400);
+        testLogin.setMinHeight(55);
+
+        Image buttonLoginImg = new Image("file:assets/img/ui_dev_pack/login_page/button_login.png");
+        ImageView buttonLogin = new ImageView(buttonLoginImg);
+        buttonLogin.setPreserveRatio(true);
+
+        stack.getChildren().addAll(buttonLogin, testLogin);
+        bodyPane.add(stack, 0, pwdRow+2);
+        GridPane.setHalignment(stack, HPos.CENTER);
 
         return bodyPane;
     }
