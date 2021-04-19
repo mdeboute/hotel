@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class RoomsDB {
@@ -125,17 +126,26 @@ public class RoomsDB {
      * @brief View the room details according to its number
      * @param room the room object which is to be expected
      */
+    
+    public Hashtable<String, String> viewRoomDetails(Room room) {
+        Hashtable<String, String> roomDetails = new Hashtable<String, String>();
+        String[] roomData = { "r_num", "r_floor", "r_type", "booked" };
 
-    public void viewRoomDetails(Room room) {
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT `r_floor`, `r_type`, `booked` FROM `room` WHERE `r_num` = %d";
-            stmt.executeUpdate(String.format(sql, room.getR_num()));
+            String sql = "SELECT * FROM `room` WHERE `r_num` = %d";
+            ResultSet rs = stmt.executeQuery(String.format(sql, room.getR_num()));
+            while (rs.next()) {
+                for (String elem : roomData) {
+                    roomDetails.put(elem, rs.getString(elem));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return roomDetails;
     }
-
+   
     /**
      * @brief Search all current available room types and return as ArrayList
      * @return list filled with all RoomType objects collected from the database
