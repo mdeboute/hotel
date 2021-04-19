@@ -7,6 +7,7 @@ import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import org.junit.Before;
@@ -155,5 +156,22 @@ public class RoomsDBTest {
       }
     }
     assertTrue(successfulUpdate);
+  }
+
+  @Test
+  public void testViewRoomDetails() {
+    dbm.rdb.deleteRoom(user, testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
+    dbm.rdb.addRoom(testRoom1);
+    Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
+    // (r_num,6,"Single", 1);
+    assertTrue(Integer.parseInt(roomDetails.get("r_num")) == testRoom1.getR_num());
+    assertTrue(roomDetails.get("r_type").equals(testRoom1.getR_type()));
+  }
+
+  @Test
+  public void testRoomTypeExists() {
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.addRoomType(testRoomType1);
+    assertTrue(dbm.rdb.roomTypeExists(testRoomType1));
   }
 }
