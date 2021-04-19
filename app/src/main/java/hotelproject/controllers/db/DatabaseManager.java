@@ -1,6 +1,6 @@
 package hotelproject.controllers.db;
 
-import hotelproject.util.ConfigManager;
+import hotelproject.controllers.util.ConfigManager;
 
 import java.sql.*;
 import java.util.ArrayList;

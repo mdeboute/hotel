@@ -1,4 +1,4 @@
-package hotelproject.util;
+package hotelproject.controllers.util;
 
 import java.io.*;
 import java.util.ArrayList;
