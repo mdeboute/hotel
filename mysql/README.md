@@ -1,8 +1,11 @@
 # How to launch the database on your computer ?
 Run this commands in this folder on your terminal (a bash) :
+
+* Maybe you will need to do a `chmod u+x stop_db.sh` before 1. if it doesn't work.
+
 1.  `./start_db.sh` (to start the db)
-2. `./stop_db.sh` (to stop the db)
-3. `./show_db.sh` (to obtain a mysql shell and see/communicate with the db)
+2. `./show_db.sh` (to obtain a mysql shell and see/communicate with the db)
+3. `./stop_db.sh` (to stop the db)
 
 
 ## Docker hub

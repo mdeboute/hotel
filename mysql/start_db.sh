@@ -1,6 +1,6 @@
 #!/bin/bash
 chmod u+x stop_db.sh
-chmod u+x show_vm.sh
+chmod u+x show_db.sh
 if ! docker info >/dev/null 2>&1; then
   echo "Docker does not seem to be running, run it first and retry"
   exit 1
