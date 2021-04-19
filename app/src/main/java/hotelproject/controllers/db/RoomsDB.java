@@ -124,7 +124,8 @@ public class RoomsDB {
 
     /**
      * @brief View the room details according to its number
-     * @param room the room object which is to be expected
+     * @param room the room object which is to be expected  
+     * @return hashtable filled with all of the room details retrieved
      */
     
     public Hashtable<String, String> viewRoomDetails(Room room) {
