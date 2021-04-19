@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
+import hotelproject.controllers.objects.User;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class RoomsDBTest {
   private RoomType testRoomType1;
   private String t_name;
   private int r_num;
+  private User user;
 
   @Before
   public void setUp() {
@@ -30,6 +32,7 @@ public class RoomsDBTest {
     t_name = generateRandomString();
     testRoom1 = new Room(r_num,6,"Single", 1);
     testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+    user = new User("admin", "root", 1);
   }
 
 
@@ -76,7 +79,7 @@ public class RoomsDBTest {
   @Test
   public void testAddRoom() {
     // Have to ensure that testRoom does not already exist in the database
-    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.deleteRoom(user, testRoom1);
     dbm.rdb.addRoom(testRoom1);
     boolean successfulUpdate = false;
 
@@ -93,9 +96,9 @@ public class RoomsDBTest {
   @Test
   public void testDeleteRoom() {
     // Have to ensure that testRoom does exist in the database; hence the reverse order compared to previous test
-    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.deleteRoom(user, testRoom1);
     dbm.rdb.addRoom(testRoom1);
-    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.deleteRoom(user, testRoom1);
     boolean successfulUpdate = true;
 
     List<Room> rooms = dbm.rdb.findAllRooms();
@@ -133,14 +136,14 @@ public class RoomsDBTest {
 
   @Test
   public void testUpdateRoom() {
-    dbm.rdb.deleteRoom(testRoom1);
+    dbm.rdb.deleteRoom(user, testRoom1);
     dbm.rdb.addRoom(testRoom1);
 
     // Update testRoom1, from has r_type "Single" r_type "Double"
     testRoom1.setR_type("Double");
 
     // test
-    dbm.rdb.updateRoom(testRoom1, testRoom1.getR_num());
+    dbm.rdb.updateRoom(user, testRoom1, testRoom1.getR_num());
 
     boolean successfulUpdate = false;
 
