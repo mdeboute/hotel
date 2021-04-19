@@ -98,6 +98,7 @@ public class RoomsDB {
     /**
      * @brief Update the room according to the room number
      * @param room the updated Room object (must have the same room number)
+     * @param oldRNum the room number of the previous state of the room
      */
     public void updateRoom(Room room, int oldRNum) {
         try {
@@ -155,13 +156,18 @@ public class RoomsDB {
      * @param roomType RoomType object that will be searched in the database
      * @return a boolean regarding the existence of the room_type in the database
      */
-    public boolean roomTypeExists(RoomType roomType) throws SQLException {
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM `room_type`");
-        while (rs.next()) {
-            if (rs.getString("t_name").equals(roomType.getT_name()))
-                return true;
+    public boolean roomTypeExists(RoomType roomType) {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `room_type`");
+            while (rs.next()) {
+                if (rs.getString("t_name").equals(roomType.getT_name()))
+                    return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
+
 }
