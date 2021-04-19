@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import com.sun.javafx.application.PlatformImpl;
 import hotelproject.HotelProject;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,6 +28,11 @@ public class ViewTest {
   public void setUp() {
     PlatformImpl.startup(() -> {}); // To avoid: java.lang.IllegalStateException: Toolkit not initialized javafx
     classUnderTest = new InnerView();
+  }
+
+  @After
+  public void tearDown() {
+    Platform.setImplicitExit(true);
   }
 
   @Test
