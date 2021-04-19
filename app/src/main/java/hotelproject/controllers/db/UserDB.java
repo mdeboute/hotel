@@ -49,24 +49,12 @@ public class UserDB {
     /**
      * @brief Updates a row in the `user` table in the database.
      * @param user User object whose information will be updated in the database
-     * @param new_username the new username
-     * @param new_password the new password
+     * @param old_username the old_username of the user whose information will be changed
      */
-    public void updateUserInformation(User user, String new_username, String new_password) throws SQLException {
+    public void updateUserInformation(User user, String old_username) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "UPDATE `users` SET `u_name` = '%s', `u_password` = '%s' WHERE `u_name` = '%s'";
-        stmt.executeUpdate(String.format(sql, new_username, new_password, user.getU_name()));
-    }
-
-    /**
-     * @brief Updates a row in the `user` table in the database.
-     * @param user User object whose information will be updated in the database
-     * @param new_username the new username
-     */
-    public void updateUserInformation(User user, String new_username) throws SQLException {
-        Statement stmt = conn.createStatement();
-        String sql = "UPDATE `users` SET `u_name` = '%s' WHERE `u_name` = '%s'";
-        stmt.executeUpdate(String.format(sql, new_username, user.getU_name()));
+        stmt.executeUpdate(String.format(sql, new_username, new_password, old_username));
     }
 
     /**

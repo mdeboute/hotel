@@ -44,7 +44,7 @@ public class UserDBTest {
         dbm.udb.addUser(userIsAdmin);
         dbm.udb.addUser(userIsStaff);
         try{
-            assertEquals(dbm.udb.userExists(userIsAdmin),true);
+            assertTrue(dbm.udb.userExists(userIsAdmin));
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -88,7 +88,10 @@ public class UserDBTest {
     public void test_005_UpdateUserInformation(){
         boolean isUpdate = false;
         try{
-            dbm.udb.updateUserInformation(userIsAdmin,"userIsBoss","boss123");
+            String old_username = userIsAdmin.getU_name();
+            userIsAdmin.setU_name("userIsBoss");
+            userIsAdmin.setU_password("boss123");
+            dbm.udb.updateUserInformation(userIsAdmin,old_username);
             List<User> users = dbm.udb.getAllUsers();
             for (User user : users) {
                 if(user.getU_name().equals("userIsBoss") && user.getU_password().equals("boss123")){
@@ -97,7 +100,7 @@ public class UserDBTest {
                     isUpdate = false;
                 }
             }
-            Assert.assertEquals(isUpdate,true);
+            assertTrue(isUpdate);
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -106,8 +109,10 @@ public class UserDBTest {
     @Test
     public void test_006_UpdateUserInformation2(){
         boolean isUpdate = false;
+        String old_username = userIsStaff.getU_name();
+        userIsStaff.setU_name("userIsWorker");
         try{
-            dbm.udb.updateUserInformation(userIsStaff,"userIsWorker");
+            dbm.udb.updateUserInformation(userIsStaff,old_username);
             List<User> users = dbm.udb.getAllUsers();
             for (User user : users) {
                 if(user.getU_name().equals("userIsWorker") && user.getU_password().equals("staff123")){
@@ -116,7 +121,7 @@ public class UserDBTest {
                     isUpdate = false;
                 }
             }
-            Assert.assertEquals(isUpdate,true);
+            assertTrue(isUpdate);
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -137,7 +142,7 @@ public class UserDBTest {
                 isDeleted = true;
             }
         }
-        Assert.assertEquals(isDeleted,true);
+        assertTrue(isDeleted);
     }
 
     @Test
@@ -154,7 +159,7 @@ public class UserDBTest {
                 isDeleted = true;
             }
         }
-        Assert.assertEquals(isDeleted,true);
+        assertTrue(isDeleted);
     }
 
 }
