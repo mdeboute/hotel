@@ -17,7 +17,7 @@ public class LoginView extends View {
     private TextField username = new TextField();
     private PasswordField password = new PasswordField();
     private Label result = new Label();
-    private Label credentials = new Label("Please enter your password first.");
+    private Label credentials = new Label("Please enter your credentials.");
     private Button testLogin = new Button("Login");
 
     public LoginView(boolean onlyPwd) {
@@ -30,7 +30,6 @@ public class LoginView extends View {
 
         GridPane pane = createPane();
 
-        credentials.setVisible(false);
         pane.add(credentials, 0, 0);
         int pwdRow = 1;
         if (!onlyPwd) {
