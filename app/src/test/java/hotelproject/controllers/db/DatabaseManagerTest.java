@@ -28,7 +28,7 @@ public class DatabaseManagerTest {
 
     @After
     public void tearDown() {
-        dbm.dropTable(tableName, log); // test
+        dbm.dropTable("test_table", log); // test
     }
 
     @Test
