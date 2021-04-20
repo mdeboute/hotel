@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +37,11 @@ public class RoomsDBTest {
     user = new User("admin", "root", 1);
   }
 
+  @After
+  public void tearDown() {
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.deleteRoom(user, testRoom1);
+  }
 
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
