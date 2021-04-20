@@ -39,7 +39,7 @@ CREATE TABLE `hotel`.`booking` (
 
 CREATE TABLE `hotel`.`customer` (
   `c_ss_number` INT NOT NULL,
-  `c_adress` VARCHAR(500) NULL,
+  `c_address` VARCHAR(500) NULL,
   `c_full_name` VARCHAR(100) NULL,
   `c_phone_num` INT NOT NULL,
   `c_email` VARCHAR(100) NULL,
@@ -51,20 +51,3 @@ CREATE TABLE `hotel`.`customer_booking` (
   PRIMARY KEY (`customer_ss_number`, `booking_id`),
   FOREIGN KEY (`customer_ss_number`) REFERENCES customer(`c_ss_number`),
   FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));
-
-INSERT INTO `hotel`.`users`
-VALUES 
-("admin", "root", 1),
-("reception", "staff", 0);
-
-INSERT INTO `hotel`.`room_type`
-VALUES
-("Single", 1, 27, 0, 0, 1, 0, 1, 1),
-("Double", 2, 45, 1, 1, 1, 1, 1, 1);
-
-INSERT INTO `hotel`.`room`
-VALUES
-(1, 1, "Single", 0),
-(2, 1, "Double", 1);
-
-

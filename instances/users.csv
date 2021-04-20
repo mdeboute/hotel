@@ -1,0 +1,5 @@
+u_name,u_password,u_is_admin
+admin,admin,1
+rstaff,rstaff,0
+toto,root,1
+reception,staff,0

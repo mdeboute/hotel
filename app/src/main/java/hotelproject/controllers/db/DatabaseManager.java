@@ -12,14 +12,24 @@ public class DatabaseManager {
     private final Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
+    public final CSVtoDB csvdb;
 
     /**
      * @brief Creates a connection to the database with default login details.
      */
     public DatabaseManager() {
         conn = checkAndGetConnection();
+
         rdb = new RoomsDB(conn);
         udb = new UserDB(conn);
+        csvdb = new CSVtoDB(conn);
+
+        csvdb.roomTypeQuery();
+        csvdb.roomQuery();
+        csvdb.customerQuery();
+        csvdb.bookingQuery();
+        csvdb.customerBookingQuery();
+        csvdb.userQuery();
     }
 
     /**
@@ -32,7 +42,7 @@ public class DatabaseManager {
         } catch (SQLException e1) {
             try {
                 return DriverManager.getConnection(cm.getPValue("db.alias"), cm.getPValue("db.user"), cm.getPValue("db.password"));
-            } catch ( SQLException e2) {
+            } catch (SQLException e2) {
                 System.err.println("Error : " + e2);
                 System.err.println("Error : " + e1);
                 return null;

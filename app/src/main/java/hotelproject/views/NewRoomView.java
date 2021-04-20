@@ -1,23 +1,17 @@
 package hotelproject.views;
 
 import hotelproject.controllers.db.DatabaseManager;
-import hotelproject.controllers.db.RoomsDB;
 import hotelproject.controllers.objects.RoomType;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class NewRoomView extends View {
 
-    private DatabaseManager dbm;
+    private final DatabaseManager dbm;
 
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
