@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,10 +20,15 @@ public class DatabaseManagerTest {
     private String body;
 
     @Before
-    public void setUp()  {
+    public void setUp() {
         dbm = new DatabaseManager();
         log = new ArrayList<>();
         body = "test_column varchar(255)";
+    }
+
+    @After
+    public void tearDown() {
+        dbm.dropTable(tableName, log); // test
     }
 
     @Test
@@ -36,6 +42,7 @@ public class DatabaseManagerTest {
         tableName = "test_table";
         dbm.createTable(tableName, body, log); // test
         assertTrue(dbm.tableExists(tableName, log));
+        dbm.dropTable(tableName, log); // test
     }
 
     @Test
