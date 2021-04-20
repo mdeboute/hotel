@@ -14,7 +14,7 @@ public class CSVtoDB {
     }
 
     public void roomQuery() {
-        int batchSize = 20; //optimization
+        int batchSize = 20; //optimize the query size
         try {
             conn.setAutoCommit(false);
 
