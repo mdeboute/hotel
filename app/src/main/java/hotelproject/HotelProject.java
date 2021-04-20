@@ -57,13 +57,13 @@ public class HotelProject extends Application {
 
                         mainPageDisplay(primaryStage); //if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("Fail ! Your username and password are wrong.");
+                        loginView.getResult().setText("Fail ! Your username or your password is wrong.");
                     }
                 } else { //pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("Fail !");
+                        loginView.getResult().setText("Fail ! Your input is wrong.");
                     }
                 }
             } catch (SQLException throwables) {

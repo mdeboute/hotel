@@ -12,6 +12,7 @@ public class DatabaseManager {
     private final Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
+    public final BookingsDB bdb;
     public final CSVtoDB csvdb;
 
     /**
@@ -22,6 +23,7 @@ public class DatabaseManager {
 
         rdb = new RoomsDB(conn);
         udb = new UserDB(conn);
+        bdb = new BookingsDB(conn);
         csvdb = new CSVtoDB(conn);
 
         csvdb.roomTypeQuery();
@@ -35,7 +37,7 @@ public class DatabaseManager {
     /**
      * @brief Check connections to the DB between local vs Gitlab environments.
      */
-    public Connection checkAndGetConnection() {
+    private Connection checkAndGetConnection() {
         ConfigManager cm = new ConfigManager("app.properties");
         try {
             return DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));

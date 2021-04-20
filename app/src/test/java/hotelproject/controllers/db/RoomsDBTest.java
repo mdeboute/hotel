@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +37,11 @@ public class RoomsDBTest {
     user = new User("admin", "root", 1);
   }
 
+  @After
+  public void tearDown() {
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.deleteRoom(user, testRoom1);
+  }
 
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
@@ -117,10 +123,10 @@ public class RoomsDBTest {
     dbm.rdb.deleteRoomType(testRoomType1);
     dbm.rdb.addRoomType(testRoomType1);
 
-    // Update testRoomType1, from has bed (1) to does not have bed (0)
+    // Update testRoomType1 object, from has bed (1) to does not have bed (0)
     testRoomType1.setBeds(0);
 
-    // test
+    // test: update the database with new information on 'beds'
     dbm.rdb.updateRoomType(testRoomType1, testRoomType1.getT_name());
 
     boolean successfulUpdate = false;
@@ -128,7 +134,9 @@ public class RoomsDBTest {
     List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
     for (RoomType roomType : roomTypes) {
       if (testRoomType1.getT_name().equals(roomType.getT_name())) {
-        successfulUpdate = true;
+        if (testRoomType1.getBeds() == roomType.getBeds()) {
+          successfulUpdate = true;
+        }
         break;
       }
     }
@@ -151,7 +159,9 @@ public class RoomsDBTest {
     List<Room> rooms = dbm.rdb.findAllRooms();
     for (Room room : rooms) {
       if (testRoom1.getR_num() == room.getR_num()) {
-        successfulUpdate = true;
+        if (testRoom1.getR_type().equals(room.getR_type())) {
+          successfulUpdate = true;
+        }
         break;
       }
     }

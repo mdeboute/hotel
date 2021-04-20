@@ -9,7 +9,6 @@ import org.junit.runners.MethodSorters;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING )
@@ -21,6 +20,9 @@ public class UserDBTest {
     private String u_name_admin;
     private String u_name_staff;
 
+    /**
+     * @brief This method is used to prepare settings for all tests.
+     */
     @Before
     public void setUp() {
         dbm = new DatabaseManager();
@@ -30,6 +32,10 @@ public class UserDBTest {
         userIsStaff = new User(u_name_staff,"staff123",0);
     }
 
+    /**
+     * @brief Test usrExist() method.
+     * @result This user already exists in the database and the result should be true.
+     */
     @Test
     public void test_001_IsUserExist(){
         try {
@@ -39,17 +45,27 @@ public class UserDBTest {
         }
     }
 
+    /**
+     * @brief Test addUser() method.
+     * @result These two user objects should be added in the users table of database. The result should be true.
+     */
     @Test
     public void test_002_addUser(){
         dbm.udb.addUser(userIsAdmin);
         dbm.udb.addUser(userIsStaff);
         try{
             assertTrue(dbm.udb.userExists(userIsAdmin));
+            assertTrue(dbm.udb.userExists(userIsStaff));
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * @brief Test getU_is_admin() method.
+     * @result The user 'userIsAdmin' should return '1'.
+     * @result The user 'userIsStaff' should return '0'.
+     */
     @Test
     public void test_003_GetU_is_admin(){
         try{
@@ -62,6 +78,10 @@ public class UserDBTest {
         }
     }
 
+    /**
+     * @brief Test getAllUsers() method.
+     * @result All four users should be obtained from the database. The result should return true.
+     */
     @Test
     public void test_004_GetAllUsers(){
         List<User> allUsersForTest = new ArrayList<>();
@@ -84,6 +104,10 @@ public class UserDBTest {
         Assert.assertEquals(count,4);
     }
 
+    /**
+     * @brief Test updateUserInformation() method.
+     * @result The user object's attributes should be updated accordingly and should return true.
+     */
     @Test
     public void test_005_UpdateUserInformation(){
         boolean isUpdate = false;
@@ -106,6 +130,10 @@ public class UserDBTest {
         }
     }
 
+    /**
+     * @brief Test updateUserInformation() method.
+     * @result The user object's attributes should be updated accordingly and should return true.
+     */
     @Test
     public void test_006_UpdateUserInformation2(){
         boolean isUpdate = false;
@@ -127,6 +155,10 @@ public class UserDBTest {
         }
     }
 
+    /**
+     * @brief Test deleteUser() method.
+     * @result The user 'userIsWorker' should be found and deleted in the database. The result should return true.
+     */
     @Test
     public void test_007_DeleteUser(){
         boolean isDeleted = false;
@@ -145,6 +177,10 @@ public class UserDBTest {
         assertTrue(isDeleted);
     }
 
+    /**
+     * @brief Test deleteUser() method.
+     * @result The user 'userIsBoss' should be found and deleted in the database. The result should return true.
+     */
     @Test
     public void test_008_DeleteUser2() {
         boolean isDeleted = false;

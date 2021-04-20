@@ -16,7 +16,7 @@ public class BookingsDB {
         ArrayList<Integer> bookings = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT `b_id` FROM `booking` WHERE b_from <= %s AND b_till >= %s";
+            String sql = "SELECT `b_id` FROM `booking` WHERE b_from <= '%s' AND b_till >= '%s'";
             ResultSet rs = stmt.executeQuery(String.format(sql, date, date));
             while (rs.next()) {
                 bookings.add(rs.getInt("b_id"));
