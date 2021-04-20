@@ -27,7 +27,7 @@ public class DatabaseManager {
     /**
      * @brief Check connections to the DB between local vs Gitlab environments.
      */
-    public Connection checkAndGetConnection() {
+    private Connection checkAndGetConnection() {
         ConfigManager cm = new ConfigManager("app.properties");
         try {
             return DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
