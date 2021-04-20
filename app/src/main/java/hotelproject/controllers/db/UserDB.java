@@ -19,8 +19,8 @@ public class UserDB {
 
     /**
      * @brief Checks if a user exists in the `users` table in the database.
-     * @param user User object whose existence will be checked in the database
-     * @return boolean regarding the existence of the user
+     * @param user User object whose existence will be checked in the database.
+     * @return boolean regarding the existence of the user.
      */
     public boolean userExists(User user) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -35,8 +35,8 @@ public class UserDB {
 
     /**
      * @brief Checks if a user is an administrator in the `users` table in the database.
-     * @param user User object whose admin status will be checked
-     * @return int that returns 1 if user is admin and 0 if not
+     * @param user User object whose admin status will be checked.
+     * @return int that returns 1 if user is admin and 0 if not.
      */
     public int getU_is_admin(User user) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -48,8 +48,8 @@ public class UserDB {
 
     /**
      * @brief Updates a row in the `user` table in the database.
-     * @param user User object whose information will be updated in the database
-     * @param old_username the old_username of the user whose information will be changed
+     * @param user User object whose information will be updated in the database.
+     * @param old_username the old_username of the user whose information will be changed.
      */
     public void updateUserInformation(User user, String old_username) throws SQLException {
         Statement stmt = conn.createStatement();
@@ -58,8 +58,8 @@ public class UserDB {
     }
 
     /**
-     * @brief Find all current users in the database
-     * @return a list of User objects from all users in the database
+     * @brief Find all current users in the database.
+     * @return a list of User objects from all users in the database.
      */
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
@@ -78,8 +78,8 @@ public class UserDB {
     }
 
     /**
-     * @brief Delete a user according to the user name
-     * @param user object of the user who will be deleted from the database
+     * @brief Delete a user according to the user name.
+     * @param user object of the user who will be deleted from the database.
      */
     public void deleteUser(User user) {
         try {
@@ -91,6 +91,10 @@ public class UserDB {
         }
     }
 
+    /**
+     * @brief Add a new user to the database.
+     * @param user object of the user who will be added to the database.
+     */
     public void addUser(User user) {
         try {
             Statement stmt = conn.createStatement();
