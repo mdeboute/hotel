@@ -14,6 +14,7 @@ if ! [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     docker stop $CONTAINER_NAME
     docker rm $CONTAINER_NAME
   fi
+  docker pull mdeboute/hotel-sql:latest
   docker run -d -p 3306:3306 --name hotel-sql -e MYSQL_ROOT_PASSWORD=root mdeboute/hotel-sql:latest
 fi
 docker pull mdeboute/hotel-sql:latest
