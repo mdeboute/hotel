@@ -226,6 +226,83 @@ public class HotelProject extends Application {
     }
 
     /**
+     * Delete a room in the database (only for admins)
+     *
+     * @param newRoomStage former stage to close when the new stage is displayed
+     */
+    private void deleteRoomDisplay(Stage dRoomStage) {
+        DeleteRoomView deleteRoomPage = new DeleteRoomView(dbm);
+        Stage deleteRoomStage = new Stage();
+
+        // add the new room type to the database
+        deleteRoomPage.getSubmit().setOnAction(e -> {
+            
+            int roomNb = Integer.parseInt(deleteRoomPage.getNumRoom().getText());
+            int roomFloor = Integer.parseInt(deleteRoomPage.getFloor().getText());
+            String roomType = deleteRoomPage.getRoomType().getValue().toString();
+            int roomBooked = 0;
+            if (deleteRoomPage.getBooked().isSelected()) {
+                roomBooked = 1;
+            }
+
+            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+            dbm.rdb.deleteRoom(connectedUser, newRoom);
+
+            roomsDisplay();
+            deleteRoomStage.close();
+
+            deleteRoomDisplay(deleteRoomStage);
+        });
+
+        deleteRoomPage.getCancel().setOnAction(e -> {
+            newRoomDisplay(deleteRoomStage);
+        });
+
+        deleteRoomStage.setScene(deleteRoomPage.getScene());
+        deleteRoomStage.show();
+        dRoomStage.close();
+    }
+
+    /**
+     * Update a room in the database (only for admins)
+     *
+     * @param newRoomStage former stage to close when the new stage is displayed
+     */
+    private void updateRoomDisplay(Stage uRoomStage) {
+        UpdateRoomView updateRoomPage = new UpdateRoomView(dbm);
+        Stage updateRoomStage = new Stage();
+
+        // add the new room type to the database
+        updateRoomPage.getSubmit().setOnAction(e -> {
+            
+            int oldNumRoom = Integer.parseInt(updateRoomPage.getOldNumRoom().getText());
+            int roomNb = Integer.parseInt(updateRoomPage.getNumRoom().getText());
+            int roomFloor = Integer.parseInt(updateRoomPage.getFloor().getText());
+            String roomType = updateRoomPage.getRoomType().getValue().toString();
+            int roomBooked = 0;
+            if (updateRoomPage.getBooked().isSelected()) {
+                roomBooked = 1;
+            }
+
+            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+            dbm.rdb.updateRoom(connectedUser, newRoom, oldNumRoom);
+
+            roomsDisplay();
+            updateRoomStage.close();
+
+            updateRoomDisplay(updateRoomStage);
+        });
+
+        updateRoomPage.getCancel().setOnAction(e -> {
+            newRoomDisplay(updateRoomStage);
+        });
+
+        updateRoomStage.setScene(updateRoomPage.getScene());
+        updateRoomStage.show();
+        uRoomStage.close();
+    }
+
+    /**
      * Display the page to add a room type in the database (only for admins)
      *
      * @param newRoomStage former stage to close when the new stage is displayed
@@ -351,6 +428,16 @@ public class HotelProject extends Application {
         // admins can add a room
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
+        }
+
+        // admins can delete a room
+        if (connectedUser.getU_is_admin() == 1) {
+            roomsViewPage.getDeleteRoom().setOnAction(e -> deleteRoomDisplay(roomsStage));
+        }
+
+        // admins can update a room
+        if (connectedUser.getU_is_admin() == 1) {
+            roomsViewPage.getUpdateRoom().setOnAction(e -> updateRoomDisplay(roomsStage));
         }
 
         roomsStage.setScene(roomsViewPage.getScene());

@@ -28,6 +28,8 @@ public class RoomsView extends View {
     // The scene's nodes
     private TableView<Room> roomsTable = new TableView<>();
     private Button addRoom = new Button("New room...");
+    private Button deleteRoom = new Button("Delete room..."); 
+    private Button updateRoom = new Button("Update room..."); 
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -107,6 +109,8 @@ public class RoomsView extends View {
         pane.add(roomsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 5);
+            pane.add(deleteRoom, 0, 6); 
+            pane.add(updateRoom, 0, 7); 
         }
 
         scene = new Scene(pane);
@@ -122,4 +126,13 @@ public class RoomsView extends View {
     public Button getAddRoom() {
         return addRoom;
     }
-}
+
+    public Button getDeleteRoom() {
+        return deleteRoom; 
+    }
+
+    public Button getUpdateRoom() {
+        return updateRoom; 
+    }
+
+}   
