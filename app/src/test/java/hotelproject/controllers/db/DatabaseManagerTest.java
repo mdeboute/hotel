@@ -14,7 +14,7 @@ import org.junit.Test;
 public class DatabaseManagerTest {
 
 
-    private DatabaseManager dbm;
+    private DatabaseManager dbm = new DatabaseManager();
     private ArrayList<String> log;
     private String tableName;
     private String body;
@@ -25,7 +25,6 @@ public class DatabaseManagerTest {
      */
     @Before
     public void setUp() {
-        dbm = new DatabaseManager();
         log = new ArrayList<>();
         body = "test_column varchar(255)";
     }
