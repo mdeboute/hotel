@@ -50,7 +50,7 @@ public class UsersView extends View {
         userNCol.setCellValueFactory(new PropertyValueFactory<User, String>("u_name"));
 
         TableColumn userPCol = new TableColumn("User password");
-        userPCol.setMinWidth(100);
+        userPCol.setMinWidth(150);
         userPCol.setCellValueFactory(new PropertyValueFactory<User, String>("u_password"));
 
         TableColumn userIACol = new TableColumn("Is admin");
