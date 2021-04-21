@@ -18,7 +18,11 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (?, ?, ?, ?)";
+            String sql = ("INSERT INTO `hotel`.`room`(`r_num`, `r_floor`, `r_type`, `booked`) " + 
+            "SELECT ?, ?, ?, ? "+ 
+                "FROM dual " + 
+                    "WHERE NOT EXISTS (SELECT 1 FROM `room` WHERE `r_num` = ?)");
+
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/room.csv"));
@@ -40,6 +44,7 @@ public class CSVtoDB {
                 statement.setInt(2, r_floor);
                 statement.setString(3, r_type);
                 statement.setInt(4, booked);
+                statement.setInt(5, r_num); 
 
                 statement.addBatch();
 
@@ -70,7 +75,9 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, `has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = ("INSERT INTO `hotel`.`room_type`(`t_name`,`beds`,`r_size`,`has_view`,`has_kitchen`,`has_bathroom`,`has_workspace`,`has_tv`,`has_coffee_maker`) " + 
+                "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + 
+                    "FROM dual " + "WHERE NOT EXISTS (SELECT 1 FROM `room_type` WHERE `t_name` = ?)");
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/room_type.csv"));
@@ -102,6 +109,7 @@ public class CSVtoDB {
                 statement.setInt(7, has_workspace);
                 statement.setInt(8, has_tv);
                 statement.setInt(9, has_coffee_maker);
+                statement.setString(10, t_name); 
 
                 statement.addBatch();
 
@@ -132,7 +140,10 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`users` (`u_name`, `u_password`, `u_is_admin`) VALUES (?, ?, ?)";
+            String sql = ("INSERT INTO `hotel`.`users`(`u_name`, `u_password`, `u_is_admin`) " + 
+            "SELECT ?, ?, ? "+ 
+                "FROM dual " + 
+                    "WHERE NOT EXISTS (SELECT 1 FROM `users` WHERE `u_name` = ?)");
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/users.csv"));
@@ -152,6 +163,7 @@ public class CSVtoDB {
                 statement.setString(1, u_name);
                 statement.setString(2, u_password);
                 statement.setInt(3, u_is_admin);
+                statement.setString(4, u_name); 
 
                 statement.addBatch();
 
@@ -182,7 +194,8 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`customer_booking` (`customer_ss_number`, `booking_id`) VALUES (?, ?)";
+            String sql = ("INSERT INTO `hotel`.`customer_booking`(`customer_ss_number`, `booking_id`) " + "SELECT ?, ? "
+                    + "FROM dual " + "WHERE NOT EXISTS (SELECT 1 FROM `customer_booking` WHERE `customer_ss_number` = ?)");
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/customer_booking.csv"));
@@ -200,6 +213,7 @@ public class CSVtoDB {
 
                 statement.setInt(1, customer_ss_number);
                 statement.setInt(2, booking_id);
+                statement.setInt(3, customer_ss_number);
 
                 statement.addBatch();
 
@@ -230,7 +244,9 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`customer` (`c_ss_number`, `c_address`, `c_full_name`, `c_phone_num`, `c_email`) VALUES (?, ?, ?, ?, ?)";
+            String sql = ("INSERT INTO `hotel`.`customer`(`c_ss_number`, `c_address`, `c_full_name`, `c_phone_num`, `c_email`) " + "SELECT ?, ?, ?, ?, ? "
+                    + "FROM dual "
+                    + "WHERE NOT EXISTS (SELECT 1 FROM `customer` WHERE `c_ss_number` = ?)");
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/customer.csv"));
@@ -254,6 +270,7 @@ public class CSVtoDB {
                 statement.setString(3, c_full_name);
                 statement.setInt(4, c_phone_num);
                 statement.setString(5, c_email);
+                statement.setInt(6, c_ss_number); 
 
                 statement.addBatch();
 
@@ -284,7 +301,9 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`booking` (`b_id`, `r_num`, `paid_by_card`, `b_from`, `b_till`, `b_fee`, `b_is_paid`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = ("INSERT INTO `hotel`.`booking`(`b_id`, `r_num`, `paid_by_card`, `b_from`, `b_till`, `b_fee`, `b_is_paid`) "
+                    + "SELECT ?, ?, ?, ?, ?, ?, ? " + "FROM dual "
+                    + "WHERE NOT EXISTS (SELECT 1 FROM `booking` WHERE `b_id` = ?)");
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/booking.csv"));
@@ -312,6 +331,7 @@ public class CSVtoDB {
                 statement.setDate(5, b_till);
                 statement.setInt(6, b_fee);
                 statement.setInt(7, b_is_paid);
+                statement.setInt(8, b_id); 
 
                 statement.addBatch();
 
