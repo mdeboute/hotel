@@ -82,14 +82,14 @@ public class LoginView extends View {
 
             username.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
             username.setFont(Font.font("Verdana",20));
-            username.setAlignment(Pos.CENTER);
+            username.setAlignment(Pos.BASELINE_LEFT);
             username.setMaxWidth(300);
             username.setTranslateX(60);
             username.setTranslateY(10);
 
             password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
             password.setFont(Font.font("Verdana",20));
-            password.setAlignment(Pos.CENTER);
+            password.setAlignment(Pos.BASELINE_LEFT);
             password.setMaxWidth(300);
             password.setTranslateX(60);
             password.setTranslateY(30);
