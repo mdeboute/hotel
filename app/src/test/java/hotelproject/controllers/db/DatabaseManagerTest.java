@@ -19,6 +19,10 @@ public class DatabaseManagerTest {
     private String tableName;
     private String body;
 
+    /**
+     * Setting up variables need in test methods
+     * @see DatabaseManager
+     */
     @Before
     public void setUp() {
         dbm = new DatabaseManager();
@@ -26,17 +30,29 @@ public class DatabaseManagerTest {
         body = "test_column varchar(255)";
     }
 
+    /**
+     * Ensures there are no remnants in the database after test session
+     * @see DatabaseManager
+     */
     @After
     public void tearDown() {
         dbm.dropTable("test_table", log); // test
     }
 
+    /**
+     * Tests the 'tableExists()' method, by testing if table 'room_type', known to exist, exists in the SQL database
+     * @see DatabaseManager
+     */
     @Test
-    public void testTableExist() throws Exception {
+    public void testTableExist() {
         tableName = "room_type"; // Exists
         assertTrue(dbm.tableExists(tableName,log));
     }
 
+    /**
+     * Tests 'createTable()' method, by use of the 'tableExists()' method on table 'test_table'
+     * @see DatabaseManager
+     */
     @Test
     public void testCreateTable() {
         tableName = "test_table";
@@ -45,6 +61,10 @@ public class DatabaseManagerTest {
         dbm.dropTable(tableName, log); // test
     }
 
+    /**
+     * Tests 'dropTable()' method, by use of 'tableExists()' method on table 'test_table'
+     * @see DatabaseManager
+     */
     @Test
     public void testDropTable() {
         tableName = "test_table";
