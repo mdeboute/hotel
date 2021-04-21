@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class HotelProject extends Application {
 
     private final DatabaseManager dbm = new DatabaseManager();
@@ -31,11 +30,13 @@ public class HotelProject extends Application {
     }
 
     /**
-     * Displays the Login stage or the password input when the user want to change its pers. info
+     * Displays the Login stage or the password input when the user want to change
+     * its pers. info
      *
      * @param secondaryStage parameter needed to call the updateInfoDisplay method
-     * @param primaryStage stage on which the login view is displayed
-     * @param onlyPwd if true this method displays the password input, otherwise the login page
+     * @param primaryStage   stage on which the login view is displayed
+     * @param onlyPwd        if true this method displays the password input,
+     *                       otherwise the login page
      */
     private void credentialsDisplay(Stage secondaryStage, Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
@@ -47,19 +48,21 @@ public class HotelProject extends Application {
         loginView.getTestLoginButton().setOnAction(e -> {
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
             try {
-                if (!onlyPwd) { //login
-                    if (dbm.udb.userExists(userTest)) { //test if the user exist in the database and has correct password
+                if (!onlyPwd) { // login
+                    if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct
+                                                        // password
                         loginView.getResult().setText("Success !");
                         connectedUser = new User();
                         connectedUser.setU_name(loginView.getUsername().getText());
                         connectedUser.setU_password(loginView.getPassword().getText());
                         connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
 
-                        mainPageDisplay(primaryStage); //if the user succeeded to login we open the main page of the application
+                        mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the
+                                                       // application
                     } else {
                         loginView.getResult().setText("Fail ! Your username or your password is wrong.");
                     }
-                } else { //pwd input
+                } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
@@ -79,16 +82,17 @@ public class HotelProject extends Application {
     /**
      * Displays the main page of the application
      *
-     * @param primaryStage former open stage to close after showing the main page's window
+     * @param primaryStage former open stage to close after showing the main page's
+     *                     window
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
         Stage appStage = new Stage();
 
-        //Set buttons on action
+        // Set buttons on action
 
         mainPageView.getMyPageButton().setOnAction(e -> {
-            //display user info page
+            // display user info page
             myPageDisplay();
         });
 
@@ -99,19 +103,20 @@ public class HotelProject extends Application {
         });
 
         mainPageView.getViewBookingsButton().setOnAction(e -> {
-            //display window with all bookings with search bar
+            // display window with all bookings with search bar
         });
 
         mainPageView.getUpdateButton().setOnAction(e -> {
-            // display window to change or delete a booking --> shouldn't we display this button on the view bookings page ?
+            // display window to change or delete a booking --> shouldn't we display this
+            // button on the view bookings page ?
         });
 
         mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
 
         // only admins can access to this button
         if (connectedUser.getU_is_admin() == 1) {
-            mainPageView.getUpdateUserButton().setOnAction(e -> {
-                //display window to change the information of an user or delete one
+            mainPageView.getViewUsersButton().setOnAction(e -> {
+                // display window to change the information of an user or delete one
             });
         }
 
@@ -124,8 +129,10 @@ public class HotelProject extends Application {
     /**
      * Displays the window where the user can update its pers. info
      *
-     * @param myPageStage former open stage to close after showing updateInfo stage
-     * @param updateInfoStage stage on which the page to change the user's info will appear
+     * @param myPageStage     former open stage to close after showing updateInfo
+     *                        stage
+     * @param updateInfoStage stage on which the page to change the user's info will
+     *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage) {
         UpdateInfoView updateInfoPage = new UpdateInfoView();
@@ -160,9 +167,12 @@ public class HotelProject extends Application {
                 nothingEmpty = false;
             }
 
-            // if the user  clicked on change password but didn't input any character in any textfield
-            if (updateInfoPage.getFirstPassword().isVisible() && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
-                updateInfoPage.setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
+            // if the user clicked on change password but didn't input any character in any
+            // textfield
+            if (updateInfoPage.getFirstPassword().isVisible()
+                    && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
+                updateInfoPage
+                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
                 nothingEmpty = false;
             }
 
@@ -179,7 +189,7 @@ public class HotelProject extends Application {
                     }
                 }
 
-                //update db
+                // update db
                 try {
                     dbm.udb.updateUserInformation(connectedUser, oldUsername);
                 } catch (SQLException throwables) {
@@ -235,8 +245,8 @@ public class HotelProject extends Application {
             int hasTv = addRoomTypePage.getHasTv();
             int hasCoffeeMkr = addRoomTypePage.getHasCoffeeMkr();
 
-            RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView,
-                    hasKitchen, hasBathroom, hasWorksp, hasTv, hasCoffeeMkr);
+            RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
+                    hasTv, hasCoffeeMkr);
             dbm.rdb.addRoomType(newRoomType);
 
             newRoomDisplay(addTypeStage);
@@ -261,7 +271,7 @@ public class HotelProject extends Application {
         NewRoomView newRoomViewPage = new NewRoomView(dbm);
         Stage newRoomStage = new Stage();
 
-        //set buttons on action
+        // set buttons on action
 
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(newRoomStage));
 
@@ -293,6 +303,43 @@ public class HotelProject extends Application {
     }
 
     /**
+     * Displays the page to add a new user in the database (only for admins)
+     *
+     * @param formerStage to close when the new stage is showed
+     */
+    private void newUserDisplay(Stage formerStage) {
+        NewUserView newUserViewPage = new NewUserView(dbm);
+        Stage newUserStage = new Stage();
+
+        // set buttons on action
+
+        newUserViewPage.getSubmit().setOnAction(e -> {
+            String userN = newUserViewPage.getUserName().getText();
+            String userP = newUserViewPage.getUserPassWord().getText();
+            int userIA = 0;
+            if (newUserViewPage.getAdmin().isSelected()) {
+                userIA = 1;
+            }
+
+            User newUser = new User(userN, userP, userIA);
+            dbm.udb.addUser(newUser);
+
+            usersDisplay();
+            newUserStage.close();
+        });
+
+        newUserViewPage.getCancel().setOnAction(e -> {
+            usersDisplay();
+            newUserStage.close();
+        });
+
+        newUserStage.setScene(newUserViewPage.getScene());
+        newUserStage.setTitle("Hotel Manager - New User");
+        newUserStage.show();
+        formerStage.close();
+    }
+
+    /**
      * Displays the page with the hotel's rooms table
      */
     private void roomsDisplay() {
@@ -310,17 +357,33 @@ public class HotelProject extends Application {
         roomsStage.show();
     }
 
+    private void usersDisplay() {
+        List<User> users = dbm.udb.getAllUsers();
+        UsersView usersViewPage = new UsersView(connectedUser, users);
+        Stage usersStage = new Stage();
+
+        // admins can add a user
+        if (connectedUser.getU_is_admin() == 1) {
+            usersViewPage.getAddUser().setOnAction(e -> newUserDisplay(usersStage));
+        }
+
+        usersStage.setScene(usersViewPage.getScene());
+        usersStage.setTitle("Hotel Manager - Users");
+        usersStage.show();
+    }
+
     /**
      * Displays the logout page
      *
-     * @param appStage the main application's page to close after showing logout page
+     * @param appStage the main application's page to close after showing logout
+     *                 page
      */
     private void logoutDisplay(Stage appStage) {
         LogoutView logoutViewPage = new LogoutView();
         Stage logoutStage = new Stage();
 
         logoutViewPage.getLogin().setOnAction(e -> {
-            //display again login window
+            // display again login window
             Stage loginStage = new Stage();
             Stage secondStage = new Stage();
             credentialsDisplay(secondStage, loginStage, false);

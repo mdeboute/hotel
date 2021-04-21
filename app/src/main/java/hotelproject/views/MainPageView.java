@@ -19,7 +19,7 @@ public class MainPageView extends View {
     private Button viewRooms = new Button("View rooms");
     private Button viewBookings = new Button("View bookings");
     private Button update = new Button("Update bookings");
-    private Button updateUser;
+    private Button viewUsers = new Button("View users");
 
     public MainPageView(User user) {
         this.user = user;
@@ -31,7 +31,7 @@ public class MainPageView extends View {
         GridPane pane = createPane();
 
         if (user.getU_is_admin() == 1) {
-            updateUser = new Button("Update a user");
+            viewUsers = new Button("View users");
         }
 
         pane.add(myPage, 1, 0);
@@ -40,7 +40,7 @@ public class MainPageView extends View {
         pane.add(viewBookings, 0, 2);
         pane.add(update, 0, 3);
         if (user.getU_is_admin() == 1) {
-            pane.add(updateUser, 0, 4);
+            pane.add(viewUsers, 0, 4);
         }
         pane.add(viewRooms, 0, 5);
 
@@ -52,7 +52,7 @@ public class MainPageView extends View {
         return null;
     }
 
-    /*****************************Getters*********************************/
+    /***************************** Getters *********************************/
 
     public Button getMyPageButton() {
         return myPage;
@@ -74,8 +74,8 @@ public class MainPageView extends View {
         return update;
     }
 
-    public Button getUpdateUserButton() {
-        return updateUser;
+    public Button getViewUsersButton() {
+        return viewUsers;
     }
 
     public Button getViewRooms() {
