@@ -18,7 +18,7 @@ import org.junit.Test;
 public class RoomsDBTest {
 
 
-  private DatabaseManager dbm;
+  private DatabaseManager dbm = new DatabaseManager();
   private ArrayList<String> log;
   private Room testRoom1;
   private RoomType testRoomType1;
@@ -33,7 +33,6 @@ public class RoomsDBTest {
    */
   @Before
   public void setUp() {
-    dbm = new DatabaseManager();
     log = new ArrayList<>();
     r_num = 666;
     t_name = generateRandomString();
