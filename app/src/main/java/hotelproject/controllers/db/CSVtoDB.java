@@ -182,7 +182,7 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`customer_booking` (`c_ss_number`, `booking_id`) VALUES (?, ?)";
+            String sql = "INSERT INTO `hotel`.`customer_booking` (`customer_ss_number`, `booking_id`) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/customer_booking.csv"));
