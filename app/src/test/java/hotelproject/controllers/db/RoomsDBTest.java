@@ -26,6 +26,11 @@ public class RoomsDBTest {
   private int r_num;
   private User user;
 
+  /**
+   * Setting up variables prior to testing
+   * @see DatabaseManager
+   * @see RoomsDB
+   */
   @Before
   public void setUp() {
     dbm = new DatabaseManager();
@@ -37,18 +42,30 @@ public class RoomsDBTest {
     user = new User("admin", "root", 1);
   }
 
+  /**
+   * Ensure there are no remnants after testing in the SQL database
+   * @see RoomsDB
+   */
   @After
   public void tearDown() {
     dbm.rdb.deleteRoomType(testRoomType1);
     dbm.rdb.deleteRoom(user, testRoom1);
   }
 
+  /**
+   *
+   * @return Object of String type, a random string, thought to be used as name of room type
+   */
   public String generateRandomString() {
     byte[] array = new byte[7]; // length is bounded by 7
     new Random().nextBytes(array);
     return new String(array, StandardCharsets.UTF_8);
   }
 
+  /**
+   * Tests 'addRoomType()' method, by use of 'findAllRoomTypes()' method
+   * @see RoomsDB
+   */
   @Test
   public void testAddRoomType() {
 
@@ -67,6 +84,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests 'deleteRoomType()' method, by use of 'findAllRoomTypes()'
+   * @see RoomsDB
+   */
   @Test
   public void testDeleteRoomType() {
     dbm.rdb.addRoomType(testRoomType1);
@@ -83,6 +104,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests the 'addRoom()' method, by use of the 'findAllRooms()' method
+   * @see RoomsDB
+   */
   @Test
   public void testAddRoom() {
     // Have to ensure that testRoom does not already exist in the database
@@ -100,6 +125,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests 'deleteRoom()' method, by use of 'findAllRooms()' method
+   * @see RoomsDB
+   */
   @Test
   public void testDeleteRoom() {
     // Have to ensure that testRoom does exist in the database; hence the reverse order compared to previous test
@@ -118,6 +147,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests 'updateRoomType()' method, by use of 'findAllRoomTypes()'
+   * @see RoomsDB
+   */
   @Test
   public void testUpdateRoomType() {
     dbm.rdb.deleteRoomType(testRoomType1);
@@ -143,6 +176,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests 'updateRoom()' method, by use of 'findAllRooms()' method
+   * @see RoomsDB
+   */
   @Test
   public void testUpdateRoom() {
     dbm.rdb.deleteRoom(user, testRoom1);
@@ -168,6 +205,10 @@ public class RoomsDBTest {
     assertTrue(successfulUpdate);
   }
 
+  /**
+   * Tests 'viewRoomDetails()' method
+   * @see RoomsDB
+   */
   @Test
   public void testViewRoomDetails() {
     dbm.rdb.deleteRoom(user, testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
@@ -178,6 +219,10 @@ public class RoomsDBTest {
     assertTrue(roomDetails.get("r_type").equals(testRoom1.getR_type()));
   }
 
+  /**
+   * Tests 'roomTypeExists()' method
+   * @see RoomsDB
+   */
   @Test
   public void testRoomTypeExists() {
     dbm.rdb.deleteRoomType(testRoomType1);
