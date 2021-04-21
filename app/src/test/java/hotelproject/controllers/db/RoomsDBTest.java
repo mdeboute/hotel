@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -19,12 +20,12 @@ public class RoomsDBTest {
 
 
   private DatabaseManager dbm = new DatabaseManager();
-  private ArrayList<String> log;
-  private Room testRoom1;
-  private RoomType testRoomType1;
-  private String t_name;
-  private int r_num;
-  private User user;
+  private ArrayList<String> log = new ArrayList<>();
+  private int r_num = 666;
+  private Room testRoom1 = new Room(r_num,6,"Single", 1);
+  private String t_name = generateRandomString();
+  private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+  private User user = new User("admin", "root", 1);
 
   /**
    * Setting up variables prior to testing
@@ -33,12 +34,6 @@ public class RoomsDBTest {
    */
   @Before
   public void setUp() {
-    log = new ArrayList<>();
-    r_num = 666;
-    t_name = generateRandomString();
-    testRoom1 = new Room(r_num,6,"Single", 1);
-    testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
-    user = new User("admin", "root", 1);
   }
 
   /**
@@ -222,6 +217,7 @@ public class RoomsDBTest {
    * Tests 'roomTypeExists()' method
    * @see RoomsDB
    */
+
   @Test
   public void testRoomTypeExists() {
     dbm.rdb.deleteRoomType(testRoomType1);
