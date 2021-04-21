@@ -16,7 +16,11 @@ if ! [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
   fi
   docker pull mdeboute/hotel-sql:latest
   docker run -d -p 3306:3306 --name hotel-sql -e MYSQL_ROOT_PASSWORD=root mdeboute/hotel-sql:latest
+  echo "Wait a second..."
+  sleep 15
+  cd ..
+  java -jar exec/csv_to_db.jar
+  echo "Done !"
+  exit 0
 fi
-docker pull mdeboute/hotel-sql:latest
-echo "Done !"
-exit 0
+exit 1

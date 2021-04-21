@@ -242,9 +242,7 @@ public class HotelProject extends Application {
             newRoomDisplay(addTypeStage);
         });
 
-        addRoomTypePage.getCancel().setOnAction(e -> {
-            newRoomDisplay(addTypeStage);
-        });
+        addRoomTypePage.getCancel().setOnAction(e -> newRoomDisplay(addTypeStage));
 
         addTypeStage.setScene(addRoomTypePage.getScene());
         addTypeStage.setTitle("Add a new room type");

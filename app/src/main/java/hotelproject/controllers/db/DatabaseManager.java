@@ -13,32 +13,23 @@ public class DatabaseManager {
     public final RoomsDB rdb;
     public final UserDB udb;
     public final BookingsDB bdb;
-    public final CSVtoDB csvdb;
 
     /**
      * @brief Creates a connection to the database with default login details.
      */
     public DatabaseManager() {
-        conn = checkAndGetConnection();
+        conn = checkAndGetConnection("app.properties");
 
         rdb = new RoomsDB(conn);
         udb = new UserDB(conn);
         bdb = new BookingsDB(conn);
-        csvdb = new CSVtoDB(conn);
-
-        csvdb.roomTypeQuery();
-        csvdb.roomQuery();
-        csvdb.customerQuery();
-        csvdb.bookingQuery();
-        csvdb.customerBookingQuery();
-        csvdb.userQuery();
     }
 
     /**
      * @brief Check connections to the DB between local vs Gitlab environments.
      */
-    private Connection checkAndGetConnection() {
-        ConfigManager cm = new ConfigManager("app.properties");
+    public static Connection checkAndGetConnection(String filepath) {
+        ConfigManager cm = new ConfigManager(filepath);
         try {
             return DriverManager.getConnection(cm.getPValue("db.url"), cm.getPValue("db.user"), cm.getPValue("db.password"));
         } catch (SQLException e1) {
