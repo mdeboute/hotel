@@ -117,6 +117,7 @@ public class HotelProject extends Application {
         if (connectedUser.getU_is_admin() == 1) {
             mainPageView.getViewUsersButton().setOnAction(e -> {
                 // display window to change the information of an user or delete one
+                usersDisplay();
             });
         }
 
