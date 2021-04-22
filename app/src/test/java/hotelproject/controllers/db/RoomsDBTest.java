@@ -1,5 +1,6 @@
 package hotelproject.controllers.db;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import hotelproject.controllers.objects.Room;
@@ -208,9 +209,9 @@ public class RoomsDBTest {
     dbm.rdb.deleteRoom(user, testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
     dbm.rdb.addRoom(testRoom1);
     Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
-    // (r_num,6,"Single", 1);
-    assertTrue(Integer.parseInt(roomDetails.get("r_num")) == testRoom1.getR_num());
-    assertTrue(roomDetails.get("r_type").equals(testRoom1.getR_type()));
+
+    assertEquals(Integer.parseInt(roomDetails.get("r_num")), testRoom1.getR_num());
+    assertEquals(roomDetails.get("r_type"), testRoom1.getR_type());
   }
 
   /**
