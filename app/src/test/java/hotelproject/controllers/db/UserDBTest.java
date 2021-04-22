@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.User;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -14,23 +13,13 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING )
 public class UserDBTest {
 
-    private DatabaseManager dbm;
-    private User userIsAdmin;
-    private User userIsStaff;
-    private String u_name_admin;
-    private String u_name_staff;
+    private String u_name_admin = "IsAdmin";
+    private String u_name_staff = "IsStaff";
+    private DatabaseManager dbm =  new DatabaseManager();
+    private User userIsAdmin = new User(u_name_admin,"admin123",1);
+    private User userIsStaff = new User(u_name_staff,"staff123",0);
 
-    /**
-     * @brief This method is used to prepare settings for all tests.
-     */
-    @Before
-    public void setUp() {
-        dbm = new DatabaseManager();
-        u_name_admin = "IsAdmin";
-        u_name_staff = "IsStaff";
-        userIsAdmin = new User(u_name_admin,"admin123",1);
-        userIsStaff = new User(u_name_staff,"staff123",0);
-    }
+
 
     /**
      * @brief Test usrExist() method.
@@ -39,7 +28,7 @@ public class UserDBTest {
     @Test
     public void test_001_IsUserExist(){
         try {
-            assertTrue(dbm.udb.userExists(new User("admin", "root", 1)));
+            assertTrue(dbm.udb.userExists(new User("admin", "admin", 1)));
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -85,10 +74,12 @@ public class UserDBTest {
     @Test
     public void test_004_GetAllUsers(){
         List<User> allUsersForTest = new ArrayList<>();
-        allUsersForTest.add(new User("admin","root",1));
-        allUsersForTest.add(new User("reception","staff",0));
-        allUsersForTest.add(new User("IsAdmin", "admin123",1));
+        allUsersForTest.add(new User("admin","admin",1));
+        allUsersForTest.add(new User("IsAdmin","admin123",1));
         allUsersForTest.add(new User("IsStaff","staff123",0));
+        allUsersForTest.add(new User("reception","staff",0));
+        allUsersForTest.add(new User("rstaff", "rstaff",0));
+        allUsersForTest.add(new User("toto","root",1));
         List<User> allUserInDatabase;
         int count = 0;
         allUserInDatabase = dbm.udb.getAllUsers();
@@ -101,7 +92,7 @@ public class UserDBTest {
                 }
             }
         }
-        Assert.assertEquals(count,4);
+        Assert.assertEquals(count,6);
     }
 
     /**
