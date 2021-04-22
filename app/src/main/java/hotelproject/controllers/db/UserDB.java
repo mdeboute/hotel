@@ -3,9 +3,7 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.User;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
@@ -23,8 +21,9 @@ public class UserDB {
      * @return boolean regarding the existence of the user.
      */
     public boolean userExists(User user) throws SQLException {
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM `users`");
+        String sql = "SELECT * FROM `users`";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             if (rs.getString("u_name").equals(user.getU_name()) && rs.getString("u_password").equals(user.getU_password())) {
                 return true;
@@ -39,9 +38,12 @@ public class UserDB {
      * @return int that returns 1 if user is admin and 0 if not.
      */
     public int getU_is_admin(User user) throws SQLException {
-        Statement stmt = conn.createStatement();
-        String sql = "SELECT * FROM `users` WHERE u_name = '%s'";
-        ResultSet rs = stmt.executeQuery(String.format(sql, user.getU_name()));
+        String sql = "SELECT `u_is_admin` FROM `users` WHERE u_name = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1,user.getU_name());
+
+        ResultSet rs = stmt.executeQuery();
         rs.next();
         return parseInt(rs.getString("u_is_admin"));
     }
@@ -52,9 +54,15 @@ public class UserDB {
      * @param old_username the old_username of the user whose information will be changed.
      */
     public void updateUserInformation(User user, String old_username) throws SQLException {
-        Statement stmt = conn.createStatement();
-        String sql = "UPDATE `users` SET `u_name` = '%s', `u_password` = '%s' WHERE `u_name` = '%s'";
-        stmt.executeUpdate(String.format(sql, user.getU_name(), user.getU_password(), old_username));
+        String sql = "UPDATE `users` SET `u_name` = ?, `u_password` = ? WHERE `u_name` = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        stmt.setString(1, user.getU_name());
+        stmt.setString(2, user.getU_password());
+        stmt.setString(3, old_username);
+
+        stmt.executeUpdate();
     }
 
     /**
@@ -64,8 +72,8 @@ public class UserDB {
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM `users`";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 User user = new User(rs.getString(1), rs.getString(2), rs.getInt(3));
@@ -83,9 +91,12 @@ public class UserDB {
      */
     public void deleteUser(User user) {
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM `users` WHERE `u_name` = '%s'";
-            stmt.executeUpdate(String.format(sql, user.getU_name()));
+            String sql = "DELETE FROM `users` WHERE `u_name` = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, user.getU_name());
+
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,9 +108,14 @@ public class UserDB {
      */
     public void addUser(User user) {
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO `users` (u_name, u_password, u_is_admin) VALUES ('%s','%s', %d)";
-            stmt.executeUpdate(String.format(sql, user.getU_name(), user.getU_password(), user.getU_is_admin()));
+            String sql = "INSERT INTO `users` (u_name, u_password, u_is_admin) VALUES (?,?,?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, user.getU_name());
+            stmt.setString(2, user.getU_password());
+            stmt.setInt(3, user.getU_is_admin());
+
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
