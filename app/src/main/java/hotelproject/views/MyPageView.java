@@ -15,7 +15,8 @@ public class MyPageView extends View {
 
     // The scene's nodes
     private Button updateInfo = new Button("Change personal information");
-    private Button quit = new Button("Back");
+    private Button back = new Button("Back");
+    private Button logout = new Button("Logout");
 
     public MyPageView(User user) {
         this.user = user;
@@ -43,7 +44,8 @@ public class MyPageView extends View {
         pane.add(password, 0, 4);
 
         pane.add(updateInfo, 0, 6);
-        pane.add(quit, 0, 7);
+        pane.add(back, 0, 7);
+        pane.add(logout, 0, 8);
 
         scene = new Scene(pane);
     }
@@ -59,7 +61,11 @@ public class MyPageView extends View {
         return updateInfo;
     }
 
-    public Button getQuit() {
-        return quit;
+    public Button getBack() {
+        return back;
+    }
+
+    public Button getLogout() {
+        return logout;
     }
 }

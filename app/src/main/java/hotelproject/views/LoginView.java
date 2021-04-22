@@ -109,19 +109,8 @@ public class LoginView extends View {
         }
 
         //login button
-        StackPane stack = new StackPane();
-
-        testLogin.setStyle("-fx-opacity: 0;");
-        testLogin.setMinWidth(400);
-        testLogin.setMinHeight(55);
-
-        Image buttonLoginImg = new Image("file:assets/img/ui_dev_pack/login_page/button_login.png");
-        ImageView buttonLogin = new ImageView(buttonLoginImg);
-        buttonLogin.setPreserveRatio(true);
-
-        stack.getChildren().addAll(buttonLogin, testLogin);
+        StackPane stack = createButton("file:assets/img/ui_dev_pack/login_page/button_login.png", testLogin, 400, 55);
         bodyPane.add(stack, 0, pwdRow+2);
-        GridPane.setHalignment(stack, HPos.CENTER);
 
         return bodyPane;
     }

@@ -5,7 +5,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public class MainPageView extends View {
 
@@ -14,7 +18,6 @@ public class MainPageView extends View {
 
     // The scene's nodes
     private Button myPage = new Button("My Page");
-    private Button logout = new Button("Logout");
     private Button addBooking = new Button("Add a booking");
     private Button viewRooms = new Button("View rooms");
     private Button viewBookings = new Button("View bookings");
@@ -28,14 +31,40 @@ public class MainPageView extends View {
 
     @Override
     void createScene() {
-        GridPane pane = createPane();
-
         if (user.getU_is_admin() == 1) {
             viewUsers = new Button("View users");
         }
 
-        pane.add(myPage, 1, 0);
-        pane.add(logout, 2, 0);
+        GridPane scenePane = createPane();
+
+        HBox header = createHeader();
+        scenePane.add(header,0,0);
+
+        GridPane body = createBody();
+        scenePane.add(body,0,1);
+        //GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
+
+        scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
+        scene = new Scene(scenePane, 1476, 914);
+    }
+
+    private HBox createHeader() {
+        Image logoImg = new Image("file:assets/img/ui_dev_pack/main_menu/logo_hotel.png");
+        ImageView logo = new ImageView(logoImg);
+        logo.setPreserveRatio(true);
+        logo.setFitWidth(150.0);
+        logo.setFitHeight(175.0);
+
+        StackPane stack = createButton("file:assets/img/ui_dev_pack/main_menu/button_user_details.png", myPage, 176, 47);
+
+        HBox header = new HBox(logo, stack);
+        return header;
+    }
+
+    @Override
+    GridPane createBody() {
+        GridPane pane = createPane();
+
         pane.add(addBooking, 0, 1);
         pane.add(viewBookings, 0, 2);
         pane.add(update, 0, 3);
@@ -44,22 +73,13 @@ public class MainPageView extends View {
         }
         pane.add(viewRooms, 0, 5);
 
-        scene = new Scene(pane);
-    }
-
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /***************************** Getters *********************************/
 
     public Button getMyPageButton() {
         return myPage;
-    }
-
-    public Button getLogoutButton() {
-        return logout;
     }
 
     public Button getAddBookingButton() {
