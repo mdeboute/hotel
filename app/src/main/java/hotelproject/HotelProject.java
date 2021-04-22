@@ -15,6 +15,7 @@ public class HotelProject extends Application {
 
     private final DatabaseManager dbm = new DatabaseManager();
     private User connectedUser;
+    private Stage mainPageStage;
 
     /**
      * @param args the command line arguments
@@ -84,7 +85,7 @@ public class HotelProject extends Application {
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
-        Stage appStage = new Stage();
+        mainPageStage = new Stage();
 
         // Set buttons on action
 
@@ -92,8 +93,6 @@ public class HotelProject extends Application {
             // display user info page
             myPageDisplay();
         });
-
-        mainPageView.getLogoutButton().setOnAction(e -> logoutDisplay(appStage));
 
         mainPageView.getAddBookingButton().setOnAction(e -> {
             // display window with a form for adding a booking
@@ -118,9 +117,9 @@ public class HotelProject extends Application {
             });
         }
 
-        appStage.setScene(mainPageView.getScene());
-        appStage.setTitle("Hotel Manager - Menu");
-        appStage.show();
+        mainPageStage.setScene(mainPageView.getScene());
+        mainPageStage.setTitle("Hotel Manager - Menu");
+        mainPageStage.show();
         primaryStage.close();
     }
 
@@ -215,7 +214,9 @@ public class HotelProject extends Application {
         Stage loginStage = new Stage();
         myPage.getUpdateInfo().setOnAction(e -> credentialsDisplay(myPageStage, loginStage, true));
 
-        myPage.getQuit().setOnAction(e -> myPageStage.close());
+        myPage.getBack().setOnAction(e -> myPageStage.close());
+
+        myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -262,6 +263,7 @@ public class HotelProject extends Application {
 
     /**
      * @brief Update a room in the database (only for admins)
+     *
      * @param uRoomStage former stage to close when the new stage is displayed
      */
     private void updateRoomDisplay(Stage uRoomStage) {
@@ -457,10 +459,10 @@ public class HotelProject extends Application {
     /**
      * Displays the logout page
      *
-     * @param appStage the main application's page to close after showing logout
+     * @param myPageStage the main application's page to close after showing logout
      *                 page
      */
-    private void logoutDisplay(Stage appStage) {
+    private void logoutDisplay(Stage myPageStage) {
         LogoutView logoutViewPage = new LogoutView();
         Stage logoutStage = new Stage();
 
@@ -477,6 +479,7 @@ public class HotelProject extends Application {
         logoutStage.setScene(logoutViewPage.getScene());
         logoutStage.setTitle("Hotel Manager - Logout");
         logoutStage.show();
-        appStage.close();
+        mainPageStage.close();
+        myPageStage.close();
     }
 }
