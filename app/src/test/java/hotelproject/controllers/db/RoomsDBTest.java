@@ -24,7 +24,7 @@ public class RoomsDBTest {
   private ArrayList<String> log = new ArrayList<>();
   private int r_num = 666;
   private Room testRoom1 = new Room(r_num,6,"Single", 1);
-  private String t_name = "Hexagonal"; // generateRandomString();
+  private String t_name = "Single"; // generateRandomString();
   private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   private User user = new User("admin", "root", 1);
 
@@ -35,6 +35,8 @@ public class RoomsDBTest {
    */
   @Before
   public void setUp() {
+    // Because of the constraint on adding a new room that the room type of the room must exist in the room_type table, we must prior to adding a room ensure that the room type is in the room_type table.
+    dbm.rdb.addRoomType(testRoomType1);
   }
 
   /**
