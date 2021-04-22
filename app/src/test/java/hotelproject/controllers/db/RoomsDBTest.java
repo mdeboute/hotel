@@ -23,8 +23,8 @@ public class RoomsDBTest {
   private DatabaseManager dbm = new DatabaseManager();
   private ArrayList<String> log = new ArrayList<>();
   private int r_num = 666;
-  private Room testRoom1 = new Room(r_num,6,"Single", 1);
-  private String t_name = "Single"; // generateRandomString();
+  private Room testRoom1 = new Room(r_num,6,"Hexagonal", 1);
+  private String t_name = "Hexagonal"; // generateRandomString();
   private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   private User user = new User("admin", "root", 1);
 
