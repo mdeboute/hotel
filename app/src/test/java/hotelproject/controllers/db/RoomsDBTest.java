@@ -23,7 +23,7 @@ public class RoomsDBTest {
   private ArrayList<String> log = new ArrayList<>();
   private int r_num = 666;
   private Room testRoom1 = new Room(r_num,6,"Single", 1);
-  private String t_name = generateRandomString();
+  private String t_name = "Hexagonal"; // generateRandomString();
   private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   private User user = new User("admin", "root", 1);
 
@@ -224,4 +224,13 @@ public class RoomsDBTest {
     dbm.rdb.addRoomType(testRoomType1);
     assertTrue(dbm.rdb.roomTypeExists(testRoomType1));
   }
+
+  @Test
+  public void testRoomExists() {
+    dbm.rdb.deleteRoom(user, testRoom1);
+    dbm.rdb.addRoom(testRoom1);
+    assertTrue(dbm.rdb.roomExists(testRoom1));
+  }
+
+
 }
