@@ -24,8 +24,11 @@ public class RoomsDBTest {
   private ArrayList<String> log = new ArrayList<>();
   private int r_num = 666;
   private Room testRoom1 = new Room(r_num,6,"Hexagonal", 1);
-  private String t_name = "Hexagonal"; // generateRandomString();
-  private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
+  private String t_name1 = "Hexagonal"; // generateRandomString();
+  private RoomType testRoomType1 = new RoomType(t_name1, 1, 1, 1, 1, 1, 1, 1, 1);
+  private String t_name2 = "Heptagonal"; // generateRandomString();
+  private RoomType testRoomType2 = new RoomType(t_name2, 1, 1, 1, 1, 1, 1, 1, 1);
+
   private User user = new User("admin", "root", 1);
 
   /**
@@ -37,6 +40,7 @@ public class RoomsDBTest {
   public void setUp() {
     // Because of the constraint on adding a new room that the room type of the room must exist in the room_type table, we must prior to adding a room ensure that the room type is in the room_type table.
     dbm.rdb.addRoomType(testRoomType1);
+    dbm.rdb.addRoomType(testRoomType2);
   }
 
   /**
@@ -182,8 +186,8 @@ public class RoomsDBTest {
     dbm.rdb.deleteRoom(user, testRoom1);
     dbm.rdb.addRoom(testRoom1);
 
-    // Update testRoom1, from has r_type "Single" r_type "Double"
-    testRoom1.setR_type("Double");
+    // Update testRoom1, from has r_type "Hexagonal" r_type "Heptagonal"
+    testRoom1.setR_type("Heptagonal");
 
     // test
     dbm.rdb.updateRoom(user, testRoom1, testRoom1.getR_num());
