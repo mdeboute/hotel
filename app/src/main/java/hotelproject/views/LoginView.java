@@ -11,22 +11,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class LoginView extends View {
 
     boolean onlyPwd;
-
-    private TextField username = new TextField();
-    private PasswordField password = new PasswordField();
-    private Label result = new Label();
-    private Label credentials = new Label("Please enter your password.");
-    private Button testLogin = new Button("");
+    private final TextField username = new TextField();
+    private final PasswordField password = new PasswordField();
+    private final Label result = new Label();
+    private final Label credentials = new Label("Please enter your password.");
+    private final Button testLogin = new Button("");
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
@@ -75,24 +73,27 @@ public class LoginView extends View {
         if (!onlyPwd) {
             pwdRow = 2;
 
-            result.setTextFill(Color.RED);
+            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",12));
+            result.setTextFill(Paint.valueOf("cf6679"));
             bodyPane.add(result, 0, pwdRow-1);
 
             StackPane stack = new StackPane();
 
             username.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            username.setFont(Font.font("Verdana",20));
+            username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",20));
             username.setAlignment(Pos.BASELINE_LEFT);
             username.setMaxWidth(300);
             username.setTranslateX(60);
             username.setTranslateY(10);
+            username.setPromptText("Username");
 
             password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            password.setFont(Font.font("Verdana",20));
+            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",20));
             password.setAlignment(Pos.BASELINE_LEFT);
             password.setMaxWidth(300);
             password.setTranslateX(60);
             password.setTranslateY(30);
+            password.setPromptText("Password");
 
             VBox nodes = new VBox(username, password);
 
@@ -104,7 +105,7 @@ public class LoginView extends View {
             bodyPane.add(stack, 0, pwdRow);
             GridPane.setHalignment(stack, HPos.CENTER);
         } else {
-            bodyPane.add(credentials, 0, pwdRow-1);
+            bodyPane.add(credentials, 0, 0);
             bodyPane.add(password, 0, pwdRow);
         }
 
@@ -138,8 +139,16 @@ public class LoginView extends View {
         return username;
     }
 
+    public String getUsernameString() {
+        return username.toString();
+    }
+
     public PasswordField getPassword() {
         return password;
+    }
+
+    public String getPasswordString() {
+        return password.getText();
     }
 
     public Label getResult() {

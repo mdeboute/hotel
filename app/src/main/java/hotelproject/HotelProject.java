@@ -51,22 +51,19 @@ public class HotelProject extends Application {
                 if (!onlyPwd) { // login
                     if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct
                                                         // password
-                        loginView.getResult().setText("Success !");
-                        connectedUser = new User();
-                        connectedUser.setU_name(loginView.getUsername().getText());
-                        connectedUser.setU_password(loginView.getPassword().getText());
-                        connectedUser.setU_is_admin(dbm.udb.getU_is_admin(userTest));
+                        loginView.getResult().setText("Success!");
+                        connectedUser = new User(loginView.getUsernameString(),loginView.getPasswordString(),dbm.udb.getU_is_admin(userTest));
 
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the
                                                        // application
                     } else {
-                        loginView.getResult().setText("Fail ! Your username or your password is wrong.");
+                        loginView.getResult().setText("Fail! Your username or password is wrong.");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("Fail ! Your input is wrong.");
+                        loginView.getResult().setText("Fail! Incorrect password.");
                     }
                 }
             } catch (SQLException throwables) {
@@ -228,7 +225,7 @@ public class HotelProject extends Application {
     /**
      * Delete a room in the database (only for admins)
      *
-     * @param newRoomStage former stage to close when the new stage is displayed
+     * @param dRoomStage former stage to close when the new stage is displayed
      */
     private void deleteRoomDisplay(Stage dRoomStage) {
         DeleteRoomView deleteRoomPage = new DeleteRoomView(dbm);
@@ -264,9 +261,8 @@ public class HotelProject extends Application {
     }
 
     /**
-     * Update a room in the database (only for admins)
-     *
-     * @param newRoomStage former stage to close when the new stage is displayed
+     * @brief Update a room in the database (only for admins)
+     * @param uRoomStage former stage to close when the new stage is displayed
      */
     private void updateRoomDisplay(Stage uRoomStage) {
         UpdateRoomView updateRoomPage = new UpdateRoomView(dbm);
