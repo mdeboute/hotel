@@ -5,6 +5,7 @@ import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User; 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,10 +28,23 @@ public class RoomsDB {
         try {
             String sql = "INSERT INTO `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, " +
                     "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES " +
-                    "('%s', %d, %d, %d, %d, %d, %d, %d, %d)";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(String.format(sql, room.getT_name(), room.getBeds(), room.getR_size(), room.getHas_view(),
-                    room.getHas_kitchen(), room.getHas_bathroom(), room.getHas_workspace(), room.getHas_tv(), room.getHas_coffee_maker()));
+                    "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            //Statement stmt = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,room.getT_name());
+            statement.setInt(2,room.getBeds());
+            statement.setInt(3,room.getR_size());
+            statement.setInt(4,room.getHas_view());
+            statement.setInt(5,room.getHas_kitchen());
+            statement.setInt(6,room.getHas_bathroom());
+            statement.setInt(7,room.getHas_workspace());
+            statement.setInt(8,room.getHas_tv());
+            statement.setInt(9,room.getHas_coffee_maker());
+
+            statement.executeUpdate();
+
+            //stmt.executeUpdate(String.format(sql, room.getT_name(), room.getBeds(), room.getR_size(), room.getHas_view(),
+            //        room.getHas_kitchen(), room.getHas_bathroom(), room.getHas_workspace(), room.getHas_tv(), room.getHas_coffee_maker()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,9 +56,17 @@ public class RoomsDB {
      */
     public void addRoom(Room room) {
         try {
-            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (%d, %d, '%s', %d)";
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked()));
+            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (?, ?, ?, ?)";
+            //Statement stmt = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,room.getR_num());
+            statement.setInt(2,room.getR_floor());
+            statement.setString(3,room.getR_type());
+            statement.setInt(4,room.getBooked());
+
+            statement.executeUpdate();
+
+            //stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(), room.getBooked()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,9 +78,12 @@ public class RoomsDB {
      */
     public void deleteRoomType(RoomType roomType) {
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM `room_type` WHERE `t_name` = '%s'";
-            stmt.executeUpdate(String.format(sql, roomType.getT_name()));
+            //Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM `room_type` WHERE `t_name` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,roomType.getT_name());
+            //stmt.executeUpdate(String.format(sql, roomType.getT_name()));
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,9 +97,12 @@ public class RoomsDB {
     public void deleteRoom(User user, Room room) {
         try {
             if (user.getU_is_admin() == 1) {
-                Statement stmt = conn.createStatement();
-                String sql = "DELETE FROM `room` WHERE `r_num` = '%s'";
-                stmt.executeUpdate(String.format(sql, room.getR_num()));
+                //Statement stmt = conn.createStatement();
+                String sql = "DELETE FROM `room` WHERE `r_num` = ?";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1,room.getR_num());
+                statement.executeUpdate();
+                //stmt.executeUpdate(String.format(sql, room.getR_num()));
             } else {
                 System.out.println("Process went wrong.");
             }
@@ -90,13 +118,25 @@ public class RoomsDB {
      */
     public void updateRoomType(RoomType roomType, String oldRoomType) {
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "UPDATE `room_type` SET `t_name` ='%s', `beds` = %d, `r_size` = %d, `has_view` = %d, " +
-                    "`has_kitchen` = %d, `has_bathroom` = %d, `has_workspace` = %d, `has_tv` = %d, `has_coffee_maker`" +
-                    " = %d WHERE `t_name` = '%s' ";
-            stmt.executeUpdate(String.format(sql,roomType.getT_name(),roomType.getBeds(),roomType.getR_size(),
-                    roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),
-                    roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),oldRoomType));
+            //Statement stmt = conn.createStatement();
+            String sql = "UPDATE `room_type` SET `t_name` = ?, `beds` = ?, `r_size` = ?, `has_view` = ?, " +
+                    "`has_kitchen` = ?, `has_bathroom` = ?, `has_workspace` = ?, `has_tv` = ?, `has_coffee_maker`" +
+                    " = ? WHERE `t_name` = ? ";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,roomType.getT_name());
+            statement.setInt(2,roomType.getBeds());
+            statement.setInt(3,roomType.getR_size());
+            statement.setInt(4,roomType.getHas_view());
+            statement.setInt(5,roomType.getHas_kitchen());
+            statement.setInt(6,roomType.getHas_bathroom());
+            statement.setInt(7,roomType.getHas_workspace());
+            statement.setInt(8,roomType.getHas_tv());
+            statement.setInt(9,roomType.getHas_coffee_maker());
+            statement.setString(10,oldRoomType);
+            //stmt.executeUpdate(String.format(sql,roomType.getT_name(),roomType.getBeds(),roomType.getR_size(),
+            //        roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),
+            //        roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),oldRoomType));
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,10 +150,18 @@ public class RoomsDB {
     public void updateRoom(User user, Room room, int oldRNum) {
         try {
             if (user.getU_is_admin() == 1) {
-                Statement stmt = conn.createStatement();
-                String sql = "UPDATE `room` SET `r_num` = %d, `r_floor` = %d, `r_type` = '%s', `booked` = %d WHERE `r_num` = %d";
-                stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(),
-                        room.getBooked(), oldRNum));
+                //Statement stmt = conn.createStatement();
+
+                String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ?, `booked` = ? WHERE `r_num` = ?";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setInt(1,room.getR_num());
+                statement.setInt(2,room.getR_floor());
+                statement.setString(3,room.getR_type());
+                statement.setInt(4,room.getBooked());
+                statement.setInt(5,oldRNum);
+                statement.executeUpdate();
+                //stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(), room.getR_type(),
+                //        room.getBooked(), oldRNum));
             } else {
                 System.out.println("Process went wrong.");
             }
@@ -133,9 +181,13 @@ public class RoomsDB {
         String[] roomData = { "r_num", "r_floor", "r_type", "booked" };
 
         try {
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM `room` WHERE `r_num` = %d";
-            ResultSet rs = stmt.executeQuery(String.format(sql, room.getR_num()));
+            //Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM `room` WHERE `r_num` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,room.getR_num());
+
+            //ResultSet rs = stmt.executeQuery(String.format(sql, room.getR_num()));
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 for (String elem : roomData) {
                     roomDetails.put(elem, rs.getString(elem));
@@ -155,6 +207,7 @@ public class RoomsDB {
         List<RoomType> roomTypes = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
+
             String sql = "SELECT * FROM `room_type`";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -198,6 +251,26 @@ public class RoomsDB {
             ResultSet rs = stmt.executeQuery("SELECT * FROM `room_type`");
             while (rs.next()) {
                 if (rs.getString("t_name").equals(roomType.getT_name()))
+                    return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * @brief Checks if the input room exists.
+     * @param room Room object that will be searched in the database
+     * @return a boolean regarding the existence of the room in the database
+     */
+    public boolean roomExists(Room room) {
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `room`");
+            while (rs.next()) {
+                if (Integer.parseInt(rs.getString("r_num")) == room.getR_num())
+                    //System.out.println(rs.getString("r_num"));
                     return true;
             }
         } catch (SQLException e) {

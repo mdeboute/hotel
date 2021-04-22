@@ -1,5 +1,6 @@
 package hotelproject.controllers.db;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import hotelproject.controllers.objects.Room;
@@ -23,7 +24,7 @@ public class RoomsDBTest {
   private ArrayList<String> log = new ArrayList<>();
   private int r_num = 666;
   private Room testRoom1 = new Room(r_num,6,"Single", 1);
-  private String t_name = generateRandomString();
+  private String t_name = "Hexagonal"; // generateRandomString();
   private RoomType testRoomType1 = new RoomType(t_name, 1, 1, 1, 1, 1, 1, 1, 1);
   private User user = new User("admin", "root", 1);
 
@@ -208,9 +209,9 @@ public class RoomsDBTest {
     dbm.rdb.deleteRoom(user, testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
     dbm.rdb.addRoom(testRoom1);
     Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
-    // (r_num,6,"Single", 1);
-    assertTrue(Integer.parseInt(roomDetails.get("r_num")) == testRoom1.getR_num());
-    assertTrue(roomDetails.get("r_type").equals(testRoom1.getR_type()));
+
+    assertEquals(Integer.parseInt(roomDetails.get("r_num")), testRoom1.getR_num());
+    assertEquals(roomDetails.get("r_type"), testRoom1.getR_type());
   }
 
   /**
@@ -224,4 +225,13 @@ public class RoomsDBTest {
     dbm.rdb.addRoomType(testRoomType1);
     assertTrue(dbm.rdb.roomTypeExists(testRoomType1));
   }
+
+  @Test
+  public void testRoomExists() {
+    dbm.rdb.deleteRoom(user, testRoom1);
+    dbm.rdb.addRoom(testRoom1);
+    assertTrue(dbm.rdb.roomExists(testRoom1));
+  }
+
+
 }
