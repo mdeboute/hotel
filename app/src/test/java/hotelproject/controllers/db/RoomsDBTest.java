@@ -50,6 +50,7 @@ public class RoomsDBTest {
   @After
   public void tearDown() {
     dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.deleteRoomType(testRoomType2);
     dbm.rdb.deleteRoom(user, testRoom1);
   }
 
