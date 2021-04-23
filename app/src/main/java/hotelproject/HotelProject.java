@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelProject extends Application {
@@ -438,10 +440,34 @@ public class HotelProject extends Application {
         Stage bookingsStage = new Stage();
 
         DatePicker dated = bookingsViewPage.getDatePicker();
+   
 
         dated.setOnAction(e -> {
+            ListView<Integer> bIDListView = new ListView<Integer>(); 
+
             String datePicked = dated.getEditor().getText();
-            dbm.bdb.getBookingsForSpecificDay(datePicked);
+            ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(datePicked);
+            
+            for (int bID : bookingIDS) {
+                bIDListView.getItems().add(bID);
+            }
+
+            GridPane secBLayout = new GridPane();
+            secBLayout.getChildren().add(bIDListView); 
+
+            Scene secondScene = new Scene(secBLayout, 300, 300);
+
+            // New window (Stage)
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Bookings available");
+            newWindow.setScene(secondScene);
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(bookingsStage.getX() + 200);
+            newWindow.setY(bookingsStage.getY() + 100);
+
+            newWindow.show();
+
         });
 
         bookingsStage.setScene(bookingsViewPage.getScene());
