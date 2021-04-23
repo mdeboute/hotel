@@ -26,10 +26,11 @@ public class BookingsView extends View {
     // The scene's nodes
     private final TableView<Booking> bookingsTable = new TableView<>();
     private final Button addBooking = new Button("New booking...");
+    private final DatePicker date = new DatePicker();
 
     public BookingsView(User user, List<Booking> bookings) {
         this.user = user;
-        this.bookings= FXCollections.observableList(bookings);
+        this.bookings = FXCollections.observableList(bookings);
         createScene();
     }
 
@@ -75,7 +76,8 @@ public class BookingsView extends View {
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList(bookings, p -> true);
         bookingsTable.setItems(flBooking);
-        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
+        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol,
+                bIPCol);
 
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox();
@@ -87,16 +89,17 @@ public class BookingsView extends View {
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) { // Switch on searchBar value
-                case "Booking ID":
-                    flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter table
-                    // by booking id
-                    break;
+            case "Booking ID":
+                flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
+                                                                                                                  // table
+                // by booking id
+                break;
 
-                case "Room number":
-                    flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
-                    // table by
-                    // room number
-                    break;
+            case "Room number":
+                flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+                // table by
+                // room number
+                break;
             }
         });
 
@@ -107,12 +110,16 @@ public class BookingsView extends View {
             }
         });
 
+        date.setPromptText("Select date to view bookings");
+        date.setMaxWidth(300);
+
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
+        pane.add(date, 0, 3);
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             pane.add(addBooking, 0, 5);
@@ -132,4 +139,7 @@ public class BookingsView extends View {
         return addBooking;
     }
 
+    public DatePicker getDatePicker() {
+        return date;
+    }
 }

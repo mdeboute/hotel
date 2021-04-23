@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
@@ -121,6 +122,7 @@ public class HotelProject extends Application {
         });
 
         mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
+        mainPageView.getViewBookingsButton().setOnAction(e -> bookingsDisplay());
 
         // only admins can access to this button
         if (connectedUser.getU_is_admin() == 1) {
@@ -435,16 +437,17 @@ public class HotelProject extends Application {
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
 
-        // admins can add a booking
-        //if (connectedUser.getU_is_admin() == 1) {
-        //bookingsViewPage.getAddBooking().setOnAction(e -> newRoomDisplay(roomsStage));
-        //}
+        DatePicker dated = bookingsViewPage.getDatePicker();
+
+        dated.setOnAction(e -> {
+            String datePicked = dated.getEditor().getText();
+            dbm.bdb.getBookingsForSpecificDay(datePicked);
+        });
 
         bookingsStage.setScene(bookingsViewPage.getScene());
         bookingsStage.setTitle("Hotel Manager - Bookings");
         bookingsStage.show();
     }
-
 
     /**
      * Displays the page with the hotel's rooms table
