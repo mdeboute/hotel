@@ -54,7 +54,7 @@ public class BookingsDB {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
         String[] bookingHeaders = { "b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid" };
         try {
-            String sql = "SELECT * FROM booking WHERE b_id = %d";
+            String sql = "SELECT * FROM booking WHERE b_id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, b_id);
