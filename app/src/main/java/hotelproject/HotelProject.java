@@ -1,6 +1,7 @@
 package hotelproject;
 
 import hotelproject.controllers.db.DatabaseManager;
+import hotelproject.controllers.objects.Booking;
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
@@ -108,6 +109,7 @@ public class HotelProject extends Application {
         });
 
         mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
+        mainPageView.getViewBookingsButton().setOnAction(e -> bookingsDisplay());
 
         // only admins can access to this button
         if (connectedUser.getU_is_admin() == 1) {
@@ -411,6 +413,25 @@ public class HotelProject extends Application {
         newUserStage.setTitle("Hotel Manager - New User");
         newUserStage.show();
         formerStage.close();
+    }
+
+    /** 
+     * Displays the page with the hotel's bookings table
+    */
+
+    private void bookingsDisplay() {
+        List<Booking> bookings = dbm.bdb.findAllBookings();
+        BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
+        Stage bookingsStage = new Stage();
+
+        // admins can add a booking
+        //if (connectedUser.getU_is_admin() == 1) {
+            //bookingsViewPage.getAddBooking().setOnAction(e -> newRoomDisplay(roomsStage));
+        //}
+
+        bookingsStage.setScene(bookingsViewPage.getScene());
+        bookingsStage.setTitle("Hotel Manager - Bookings");
+        bookingsStage.show();
     }
 
     /**
