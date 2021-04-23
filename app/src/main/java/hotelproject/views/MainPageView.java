@@ -18,10 +18,9 @@ public class MainPageView extends View {
 
     // The scene's nodes
     private Button myPage = new Button("My Page");
-    private Button addBooking = new Button("Add a booking");
     private Button viewRooms = new Button("View rooms");
     private Button viewBookings = new Button("View bookings");
-    private Button update = new Button("Update bookings");
+    private Button viewCustomers = new Button("View customers");
     private Button viewUsers = new Button("View users");
 
     public MainPageView(User user) {
@@ -65,9 +64,8 @@ public class MainPageView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
-        pane.add(addBooking, 0, 1);
         pane.add(viewBookings, 0, 2);
-        pane.add(update, 0, 3);
+        pane.add(viewCustomers, 0, 3);
         if (user.getU_is_admin() == 1) {
             pane.add(viewUsers, 0, 4);
         }
@@ -82,16 +80,12 @@ public class MainPageView extends View {
         return myPage;
     }
 
-    public Button getAddBookingButton() {
-        return addBooking;
-    }
-
     public Button getViewBookingsButton() {
         return viewBookings;
     }
 
-    public Button getUpdateButton() {
-        return update;
+    public Button getViewCustomers() {
+        return viewCustomers;
     }
 
     public Button getViewUsersButton() {

@@ -94,17 +94,12 @@ public class HotelProject extends Application {
             myPageDisplay();
         });
 
-        mainPageView.getAddBookingButton().setOnAction(e -> {
-            // display window with a form for adding a booking
-        });
-
         mainPageView.getViewBookingsButton().setOnAction(e -> {
             // display window with all bookings with search bar
         });
 
-        mainPageView.getUpdateButton().setOnAction(e -> {
-            // display window to change or delete a booking --> shouldn't we display this
-            // button on the view bookings page ?
+        mainPageView.getViewCustomers().setOnAction(e -> {
+            // display window to see customers in db
         });
 
         mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
