@@ -110,7 +110,7 @@ public class LoginView extends View {
         }
 
         //login button
-        StackPane stack = createButton("file:assets/img/ui_dev_pack/login_page/button_login.png", testLogin, 400, 55);
+        StackPane stack = createButton("file:assets/img/ui_dev_pack/login_page/idle_button_login.png", testLogin, 401, 55);
         bodyPane.add(stack, 0, pwdRow+2);
 
         return bodyPane;
