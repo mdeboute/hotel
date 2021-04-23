@@ -26,7 +26,8 @@ public class RoomsView extends View {
     private ObservableList<Room> rooms;
 
     // The scene's nodes
-    private TableView<Room> roomsTable = new TableView<>();
+    // roomsTable is temporarily set to public (was private) for RoomsDisplay
+    public TableView<Room> roomsTable = new TableView<>();
     private Button addRoom = new Button("New room...");
     private Button deleteRoom = new Button("Delete room..."); 
     private Button updateRoom = new Button("Update room..."); 

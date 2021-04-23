@@ -7,7 +7,24 @@ import hotelproject.controllers.objects.User;
 import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -411,30 +428,113 @@ public class HotelProject extends Application {
     /**
      * Displays the page with the hotel's rooms table
      */
+    // Sorry to anyone who might have to deal with this shit...
     private void roomsDisplay() {
+
         List<Room> rooms = dbm.rdb.findAllRooms();
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
-        // admins can add a room
-        if (connectedUser.getU_is_admin() == 1) {
-            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
-        }
+        roomsViewPage.roomsTable.setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
+            @Override
+            public TableRow<Room> call(TableView<Room> tableView) {
+                final TableRow<Room> row = new TableRow<>();
+                final ContextMenu rowMenu = new ContextMenu();
+                MenuItem updateItem = new MenuItem("Update");
+                updateItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Stage newWindow = new Stage();
+                        Room u = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
 
-        // admins can delete a room
-        if (connectedUser.getU_is_admin() == 1) {
-            roomsViewPage.getDeleteRoom().setOnAction(e -> deleteRoomDisplay(roomsStage));
-        }
+                        TextField numRoom = new TextField();
+                        Label numRoomL = new Label("New room number : ");
+                        TextField floor = new TextField();
+                        Label floorL = new Label("New room floor : ");
+                        ComboBox type = new ComboBox();
+                        Label typeL = new Label("New room type : ");
+                        CheckBox booked = new CheckBox("Booked");
+                        Label bookedL = new Label("Is booked");
+                        Button submit = new Button("Submit"); 
 
-        // admins can update a room
-        if (connectedUser.getU_is_admin() == 1) {
-            roomsViewPage.getUpdateRoom().setOnAction(e -> updateRoomDisplay(roomsStage));
-        }
+                        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+                        for (RoomType value : roomTypes) {
+                            type.getItems().add(value.getT_name());
+                        }
+                        type.setValue("Single");
+
+                        GridPane secondaryLayout = new GridPane();
+
+                        secondaryLayout.add(numRoomL, 0, 1);
+                        secondaryLayout.add(numRoom, 1, 1);
+                        secondaryLayout.add(floorL, 0, 2);
+                        secondaryLayout.add(floor, 1, 2);
+                        secondaryLayout.add(typeL, 0, 4);
+                        secondaryLayout.add(type, 1, 4);
+                        secondaryLayout.add(bookedL, 0, 6);
+                        secondaryLayout.add(booked, 1, 6);
+                        
+                        submit = new Button("Submit");
+                        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
+                        secondaryLayout.add(submit, 1, 8);
+                        
+                        submit.setOnAction(e -> {
+                            int roomNb = Integer.parseInt(numRoom.getText());
+                            int roomFloor = Integer.parseInt(floor.getText());
+                            String roomType = type.getValue().toString();
+                            int roomBooked = 0;
+                            if (booked.isSelected()) {
+                                roomBooked = 1;
+                            }
+                        Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+                        dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
+                        newWindow.close();
+                    });
+
+                        // Room updatedRoom = new Room(roomNb, roomFloor, rType, roomBooked);
+                        Scene secondScene = new Scene(secondaryLayout, 250, 250);
+
+                        // New window (Stage)
+                        newWindow.setTitle("Update room");
+                        newWindow.setScene(secondScene);
+
+                        // Specifies the modality for new window.
+                        newWindow.initModality(Modality.WINDOW_MODAL);
+
+                        // Specifies the owner Window (parent) for new window
+                        newWindow.initOwner(roomsStage);
+
+                        // Set position of second window, related to primary window.
+                        newWindow.setX(roomsStage.getX() + 200);
+                        newWindow.setY(roomsStage.getY() + 200);
+
+                        newWindow.show();
+                    }
+                });
+
+                MenuItem deleteItem = new MenuItem("Delete");
+                deleteItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Room r = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                        dbm.rdb.deleteRoom(connectedUser, r);
+                    }
+                });
+
+                rowMenu.getItems().addAll(updateItem, deleteItem);
+
+                // only display context menu for non-null items:
+                row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
+                        .otherwise((ContextMenu) null));
+                return row;
+            }
+        });
 
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
     }
+
 
     private void usersDisplay() {
         List<User> users = dbm.udb.getAllUsers();
