@@ -31,6 +31,7 @@ import javafx.util.Callback;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class HotelProject extends Application {
@@ -577,7 +578,38 @@ public class HotelProject extends Application {
                     }
                 });
 
-                rowMenu.getItems().addAll(updateItem, deleteItem);
+                MenuItem detailsItem = new MenuItem("View details");
+                detailsItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Room rD = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                        Stage newWindow = new Stage();
+                        ListView roomDListView = new ListView<>();
+
+                        Hashtable<String, String> roomsDetails = dbm.rdb.viewRoomDetails(rD);
+
+                        for (String keys : roomsDetails.values()) {
+                            roomDListView.getItems().add(keys);
+                        }
+
+                        GridPane secBLayout = new GridPane();
+                        secBLayout.getChildren().add(roomDListView);
+
+                        Scene secondScene = new Scene(secBLayout, 400, 400);
+
+                        // New window (Stage) Stage newWindow = new Stage();
+                        newWindow.setTitle("Bookings available");
+                        newWindow.setScene(secondScene);
+
+                        // Set position of second window, related to primary window.
+                        newWindow.setX(roomsStage.getX() + 200);
+                        newWindow.setY(roomsStage.getY() + 100);
+
+                        newWindow.show();
+                    }
+                });
+
+                rowMenu.getItems().addAll(updateItem, deleteItem, detailsItem);
 
                 // only display context menu for non-null items:
                 row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
