@@ -23,6 +23,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -66,6 +67,12 @@ public class HotelProject extends Application {
         if (onlyPwd) {
             loginView.getCredentials().setText("Please enter your password first.");
         }
+
+        loginView.getPassword().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                loginView.getTestLoginButton().fire();
+            }
+        });
 
         loginView.getTestLoginButton().setOnAction(e -> {
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
