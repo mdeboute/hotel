@@ -113,17 +113,6 @@ public class BookingsView extends View {
 
         date.setPromptText("Select date to view bookings");
         date.setMaxWidth(300);
-
-        date.valueProperty().addListener((obs, oldValue, newValue) -> {
-
-            String datePicked = date.getEditor().getText();
-            java.sql.Date formattedDate = Date.valueOf(datePicked);
-
-            flBooking.setPredicate(p -> ((p.getB_from().equals(formattedDate) | 
-                p.getB_from().before(formattedDate)) & 
-                (p.getB_till().equals(formattedDate) | 
-                p.getB_till().after(formattedDate)) )); 
-        });
         
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
