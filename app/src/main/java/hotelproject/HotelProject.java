@@ -438,37 +438,34 @@ public class HotelProject extends Application {
         List<Booking> bookings = dbm.bdb.findAllBookings();
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
-
-        DatePicker dated = bookingsViewPage.getDatePicker();
    
-
-        dated.setOnAction(e -> {
-            ListView<Integer> bIDListView = new ListView<Integer>(); 
-
-            String datePicked = dated.getEditor().getText();
-            ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(datePicked);
-            
-            for (int bID : bookingIDS) {
-                bIDListView.getItems().add(bID);
-            }
-
-            GridPane secBLayout = new GridPane();
-            secBLayout.getChildren().add(bIDListView); 
-
-            Scene secondScene = new Scene(secBLayout, 300, 300);
-
-            // New window (Stage)
-            Stage newWindow = new Stage();
-            newWindow.setTitle("Bookings available");
-            newWindow.setScene(secondScene);
-
-            // Set position of second window, related to primary window.
-            newWindow.setX(bookingsStage.getX() + 200);
-            newWindow.setY(bookingsStage.getY() + 100);
-
-            newWindow.show();
-
-        });
+        /*
+         * DatePicker dated = bookingsViewPage.getDatePicker();
+         * 
+         * dated.setOnAction(e -> { //ListView<Integer> bIDListView = new
+         * ListView<Integer>();
+         * 
+         * String datePicked = dated.getEditor().getText(); ArrayList<Integer>
+         * bookingIDS = dbm.bdb.getBookingsForSpecificDay(datePicked);
+         * 
+         * for (int bID : bookingIDS) { bIDListView.getItems().add(bID); }
+         * 
+         * GridPane secBLayout = new GridPane();
+         * secBLayout.getChildren().add(bIDListView);
+         * 
+         * Scene secondScene = new Scene(secBLayout, 300, 300);
+         * 
+         * // New window (Stage) Stage newWindow = new Stage();
+         * newWindow.setTitle("Bookings available"); newWindow.setScene(secondScene);
+         * 
+         * // Set position of second window, related to primary window.
+         * newWindow.setX(bookingsStage.getX() + 200);
+         * newWindow.setY(bookingsStage.getY() + 100);
+         * 
+         * newWindow.show();
+         * 
+         * });
+         */
 
         bookingsStage.setScene(bookingsViewPage.getScene());
         bookingsStage.setTitle("Hotel Manager - Bookings");
