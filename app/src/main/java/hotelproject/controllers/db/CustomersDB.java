@@ -12,6 +12,47 @@ public class CustomersDB {
         this.conn = conn;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @brief update customer in the database
      * @param customer The updated Customer object
