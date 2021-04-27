@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+import java.sql.Date;
 import java.util.List;
 
 public class BookingsView extends View {
@@ -112,7 +113,7 @@ public class BookingsView extends View {
 
         date.setPromptText("Select date to view bookings");
         date.setMaxWidth(300);
-
+        
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 

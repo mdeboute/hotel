@@ -23,6 +23,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,6 +31,7 @@ import javafx.util.Callback;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class HotelProject extends Application {
@@ -52,9 +54,8 @@ public class HotelProject extends Application {
     }
 
     /**
-     * Displays the Login stage or the password input when the user want to change
-     * its pers. info
-     *
+     * @brief Displays the login stage or the password input when the user wants to change
+     * their personal info
      * @param secondaryStage parameter needed to call the updateInfoDisplay method
      * @param primaryStage   stage on which the login view is displayed
      * @param onlyPwd        if true this method displays the password input,
@@ -67,6 +68,12 @@ public class HotelProject extends Application {
             loginView.getCredentials().setText("Please enter your password first.");
         }
 
+        loginView.getPassword().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                loginView.getTestLoginButton().fire();
+            }
+        });
+
         loginView.getTestLoginButton().setOnAction(e -> {
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
             try {
@@ -74,18 +81,19 @@ public class HotelProject extends Application {
                     if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct
                                                         // password
                         loginView.getResult().setText("Success!");
-                        connectedUser = new User(loginView.getUsernameString(),loginView.getPasswordString(),dbm.udb.getU_is_admin(userTest));
+                        connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(),
+                                dbm.udb.getU_is_admin(userTest));
 
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the
                                                        // application
                     } else {
-                        loginView.getResult().setText("Fail! Your username or password is wrong.");
+                        loginView.getResult().setText("The username or password you have entered is wrong.");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("Fail! Incorrect password.");
+                        loginView.getResult().setText("The password you have entered is wrong.");
                     }
                 }
             } catch (SQLException throwables) {
@@ -177,7 +185,7 @@ public class HotelProject extends Application {
             boolean nothingEmpty = true;
             // if the user clicked on change username but didn't input any character
             if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
-                updateInfoPage.setOutput("Username field is empty !\n");
+                updateInfoPage.setOutput("Username field is empty!\n");
                 nothingEmpty = false;
             }
 
@@ -186,20 +194,20 @@ public class HotelProject extends Application {
             if (updateInfoPage.getFirstPassword().isVisible()
                     && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
                 updateInfoPage
-                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
+                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly!");
                 nothingEmpty = false;
             }
 
             // if user wrote something in the visible fields
             if (nothingEmpty) {
-                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user choosed to change username
+                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user chose to change username
                     connectedUser.setU_name(newUsername);
                 }
-                if (!updateInfoPage.getChangePwd().isVisible()) { // if user choosed to change password
+                if (!updateInfoPage.getChangePwd().isVisible()) { // if user chose to change password
                     if (firstPassword.equals(secondPassword)) {
                         connectedUser.setU_password(firstPassword);
                     } else {
-                        updateInfoPage.setOutput("First and second input for password are not equal !");
+                        updateInfoPage.setOutput("First and second input for password are not equal!");
                     }
                 }
 
@@ -238,83 +246,6 @@ public class HotelProject extends Application {
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
         myPageStage.show();
-    }
-
-    /**
-     * Delete a room in the database (only for admins)
-     *
-     * @param dRoomStage former stage to close when the new stage is displayed
-     */
-    private void deleteRoomDisplay(Stage dRoomStage) {
-        DeleteRoomView deleteRoomPage = new DeleteRoomView(dbm);
-        Stage deleteRoomStage = new Stage();
-
-        // add the new room type to the database
-        deleteRoomPage.getSubmit().setOnAction(e -> {
-            
-            int roomNb = Integer.parseInt(deleteRoomPage.getNumRoom().getText());
-            int roomFloor = Integer.parseInt(deleteRoomPage.getFloor().getText());
-            String roomType = deleteRoomPage.getRoomType().getValue().toString();
-            int roomBooked = 0;
-            if (deleteRoomPage.getBooked().isSelected()) {
-                roomBooked = 1;
-            }
-
-            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-            dbm.rdb.deleteRoom(connectedUser, newRoom);
-
-            roomsDisplay();
-            deleteRoomStage.close();
-
-            deleteRoomDisplay(deleteRoomStage);
-        });
-
-        deleteRoomPage.getCancel().setOnAction(e -> {
-            newRoomDisplay(deleteRoomStage);
-        });
-
-        deleteRoomStage.setScene(deleteRoomPage.getScene());
-        deleteRoomStage.show();
-        dRoomStage.close();
-    }
-
-    /**
-     * @brief Update a room in the database (only for admins)
-     *
-     * @param uRoomStage former stage to close when the new stage is displayed
-     */
-    private void updateRoomDisplay(Stage uRoomStage) {
-        UpdateRoomView updateRoomPage = new UpdateRoomView(dbm);
-        Stage updateRoomStage = new Stage();
-
-        // add the new room type to the database
-        updateRoomPage.getSubmit().setOnAction(e -> {
-            
-            int oldNumRoom = Integer.parseInt(updateRoomPage.getOldNumRoom().getText());
-            int roomNb = Integer.parseInt(updateRoomPage.getNumRoom().getText());
-            int roomFloor = Integer.parseInt(updateRoomPage.getFloor().getText());
-            String roomType = updateRoomPage.getRoomType().getValue().toString();
-            int roomBooked = 0;
-            if (updateRoomPage.getBooked().isSelected()) {
-                roomBooked = 1;
-            }
-
-            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-            dbm.rdb.updateRoom(connectedUser, newRoom, oldNumRoom);
-
-            roomsDisplay();
-            updateRoomStage.close();
-
-            updateRoomDisplay(updateRoomStage);
-        });
-
-        updateRoomPage.getCancel().setOnAction(e -> {
-            newRoomDisplay(updateRoomStage);
-        });
-
-        updateRoomStage.setScene(updateRoomPage.getScene());
-        updateRoomStage.show();
-        uRoomStage.close();
     }
 
     /**
@@ -440,25 +371,24 @@ public class HotelProject extends Application {
         Stage bookingsStage = new Stage();
 
         DatePicker dated = bookingsViewPage.getDatePicker();
-   
 
         dated.setOnAction(e -> {
-            ListView<Integer> bIDListView = new ListView<Integer>(); 
+            Stage newWindow = new Stage();
+            ListView<Integer> bIDListView = new ListView<Integer>();
 
             String datePicked = dated.getEditor().getText();
             ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(datePicked);
-            
+
             for (int bID : bookingIDS) {
                 bIDListView.getItems().add(bID);
             }
 
             GridPane secBLayout = new GridPane();
-            secBLayout.getChildren().add(bIDListView); 
+            secBLayout.getChildren().add(bIDListView);
 
             Scene secondScene = new Scene(secBLayout, 300, 300);
 
-            // New window (Stage)
-            Stage newWindow = new Stage();
+            // New window (Stage) Stage newWindow = new Stage();
             newWindow.setTitle("Bookings available");
             newWindow.setScene(secondScene);
 
@@ -490,6 +420,7 @@ public class HotelProject extends Application {
             public TableRow<Room> call(TableView<Room> tableView) {
                 final TableRow<Room> row = new TableRow<>();
                 final ContextMenu rowMenu = new ContextMenu();
+
                 MenuItem updateItem = new MenuItem("Update");
                 updateItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -505,7 +436,7 @@ public class HotelProject extends Application {
                         Label typeL = new Label("New room type : ");
                         CheckBox booked = new CheckBox("Booked");
                         Label bookedL = new Label("Is booked");
-                        Button submit = new Button("Submit"); 
+                        Button submit = new Button("Submit");
 
                         List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
                         for (RoomType value : roomTypes) {
@@ -523,11 +454,11 @@ public class HotelProject extends Application {
                         secondaryLayout.add(type, 1, 4);
                         secondaryLayout.add(bookedL, 0, 6);
                         secondaryLayout.add(booked, 1, 6);
-                        
+
                         submit = new Button("Submit");
                         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
                         secondaryLayout.add(submit, 1, 8);
-                        
+
                         submit.setOnAction(e -> {
                             int roomNb = Integer.parseInt(numRoom.getText());
                             int roomFloor = Integer.parseInt(floor.getText());
@@ -536,10 +467,10 @@ public class HotelProject extends Application {
                             if (booked.isSelected()) {
                                 roomBooked = 1;
                             }
-                        Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-                        dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
-                        newWindow.close();
-                    });
+                            Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+                            dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
+                            newWindow.close();
+                        });
 
                         // Room updatedRoom = new Room(roomNb, roomFloor, rType, roomBooked);
                         Scene secondScene = new Scene(secondaryLayout, 250, 250);
@@ -571,7 +502,74 @@ public class HotelProject extends Application {
                     }
                 });
 
-                rowMenu.getItems().addAll(updateItem, deleteItem);
+                MenuItem detailsItem = new MenuItem("View details");
+                detailsItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Stage newWindow = new Stage();
+
+                        Room rD = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                        ListView roomDListView = new ListView<>();
+                        Hashtable<String, String> roomsDetails = dbm.rdb.viewRoomDetails(rD);
+
+                        roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
+                        roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
+                        roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
+
+                        if (roomsDetails.get("has_view").equals("1")) {
+                            roomDListView.getItems().add("It has a view");
+                        } else if (roomsDetails.get("has_view").equals("0")) {
+                            roomDListView.getItems().add("It does not have a view");
+                        }
+
+                        if (roomsDetails.get("has_kitchen").equals("1")) {
+                            roomDListView.getItems().add("It has a kitchen");
+                        } else if (roomsDetails.get("has_kitchen").equals("0")) {
+                            roomDListView.getItems().add("It does not have a kitchen");
+                        }
+
+                        if (roomsDetails.get("has_bathroom").equals("1")) {
+                            roomDListView.getItems().add("It has a bathroom");
+                        } else if (roomsDetails.get("has_bathroom").equals("0")) {
+                            roomDListView.getItems().add("It does not have a bathroom");
+                        }
+
+                        if (roomsDetails.get("has_workspace").equals("1")) {
+                            roomDListView.getItems().add("It has a workspace");
+                        } else if (roomsDetails.get("has_workspace").equals("0")) {
+                            roomDListView.getItems().add("It does not have a workspace");
+                        }
+
+                        if (roomsDetails.get("has_tv").equals("1")) {
+                            roomDListView.getItems().add("It has a TV");
+                        } else if (roomsDetails.get("has_tv").equals("0")) {
+                            roomDListView.getItems().add("It does not have a TV");
+                        }
+
+                        if (roomsDetails.get("has_coffee_maker").equals("1")) {
+                            roomDListView.getItems().add("It has a coffee maker");
+                        } else if (roomsDetails.get("has_view").equals("0")) {
+                            roomDListView.getItems().add("It does not have a coffee maker");
+                        }
+
+                        GridPane secBLayout = new GridPane();
+                        secBLayout.getChildren().add(roomDListView);
+
+                        Scene secondScene = new Scene(secBLayout, 400, 400);
+
+                        // New window (Stage) Stage newWindow = new Stage();
+                        newWindow.setTitle("Details of the room");
+                        newWindow.setScene(secondScene);
+
+                        // Set position of second window, related to primary window.
+                        newWindow.setX(roomsStage.getX() + 200);
+                        newWindow.setY(roomsStage.getY() + 100);
+
+                        newWindow.show();
+                    }
+                });
+
+                rowMenu.getItems().addAll(updateItem, deleteItem, detailsItem);
 
                 // only display context menu for non-null items:
                 row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
@@ -584,7 +582,6 @@ public class HotelProject extends Application {
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
     }
-
 
     private void usersDisplay() {
         List<User> users = dbm.udb.getAllUsers();
@@ -605,7 +602,7 @@ public class HotelProject extends Application {
      * Displays the logout page
      *
      * @param myPageStage the main application's page to close after showing logout
-     *                 page
+     *                    page
      */
     private void logoutDisplay(Stage myPageStage) {
         LogoutView logoutViewPage = new LogoutView();

@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class MainPageView extends View {
 
@@ -44,7 +45,7 @@ public class MainPageView extends View {
         //GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
         scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
-        scene = new Scene(scenePane, 1476, 914);
+        scene = new Scene(scenePane, 775, 658);
     }
 
     private HBox createHeader() {
@@ -54,9 +55,15 @@ public class MainPageView extends View {
         logo.setFitWidth(150.0);
         logo.setFitHeight(175.0);
 
-        StackPane stack = createButton("file:assets/img/ui_dev_pack/main_menu/button_user_details.png", myPage, 176, 47);
+        StackPane stack = createButton("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png", myPage, 176, 47);
+        stack.setAlignment(Pos.BOTTOM_RIGHT);
 
         HBox header = new HBox(logo, stack);
+        header.setAlignment(Pos.CENTER);
+
+        header.getChildren().get(0).setTranslateX(100);
+        header.getChildren().get(1).setTranslateX(195);
+
         return header;
     }
 
@@ -64,12 +71,23 @@ public class MainPageView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
-        pane.add(viewBookings, 0, 2);
-        pane.add(viewCustomers, 0, 3);
+        StackPane roomsStack = createButton("file:assets/img/ui_dev_pack/main_menu/idle_button_rooms.png", viewRooms, 342, 191);
+        StackPane customersStack = createButton("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png", viewCustomers, 342, 191);
+        HBox roomsCustomersButtons = new HBox(roomsStack, customersStack);
+        roomsCustomersButtons.setSpacing(30);
+
+        StackPane bookingsStack = createButton("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png", viewBookings, 342, 191);
+        HBox bookingsUsersButtons = new HBox(bookingsStack);
         if (user.getU_is_admin() == 1) {
-            pane.add(viewUsers, 0, 4);
+            StackPane usersStack = createButton("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png", viewUsers, 342, 191);
+            bookingsUsersButtons.getChildren().add(usersStack);
         }
-        pane.add(viewRooms, 0, 5);
+        bookingsUsersButtons.setSpacing(30);
+        bookingsUsersButtons.setAlignment(Pos.CENTER);
+
+        VBox menuButtons = new VBox(roomsCustomersButtons, bookingsUsersButtons);
+        menuButtons.setSpacing(30);
+        pane.add(menuButtons, 0, 2);
 
         return pane;
     }
