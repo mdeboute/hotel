@@ -220,8 +220,7 @@ public class RoomsDBTest {
     dbm.rdb.addRoom(testRoom1);
     Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
 
-    assertEquals(Integer.parseInt(roomDetails.get("r_num")), testRoom1.getR_num());
-    assertEquals(roomDetails.get("r_type"), testRoom1.getR_type());
+    assertEquals(testRoom1.getR_type(), roomDetails.get("t_name"));
   }
 
   /**
