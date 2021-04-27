@@ -185,7 +185,7 @@ public class HotelProject extends Application {
             boolean nothingEmpty = true;
             // if the user clicked on change username but didn't input any character
             if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
-                updateInfoPage.setOutput("Username field is empty !\n");
+                updateInfoPage.setOutput("Username field is empty!\n");
                 nothingEmpty = false;
             }
 
@@ -194,20 +194,20 @@ public class HotelProject extends Application {
             if (updateInfoPage.getFirstPassword().isVisible()
                     && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
                 updateInfoPage
-                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
+                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly!");
                 nothingEmpty = false;
             }
 
             // if user wrote something in the visible fields
             if (nothingEmpty) {
-                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user choosed to change username
+                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user chose to change username
                     connectedUser.setU_name(newUsername);
                 }
-                if (!updateInfoPage.getChangePwd().isVisible()) { // if user choosed to change password
+                if (!updateInfoPage.getChangePwd().isVisible()) { // if user chose to change password
                     if (firstPassword.equals(secondPassword)) {
                         connectedUser.setU_password(firstPassword);
                     } else {
-                        updateInfoPage.setOutput("First and second input for password are not equal !");
+                        updateInfoPage.setOutput("First and second input for password are not equal!");
                     }
                 }
 
