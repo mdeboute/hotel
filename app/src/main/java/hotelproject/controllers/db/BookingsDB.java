@@ -12,8 +12,8 @@ public class BookingsDB {
     public BookingsDB (Connection conn) { this.conn = conn; }
 
     /**
-     * @brief Search all current available rooms and return as ArrayList
-     * @return list filled with all Room objects collected from the database
+     * @brief Search all current available rooms and return as ArrayList.
+     * @return list filled with all Room objects collected from the database.
      */
     public ArrayList<Booking> findAllBookings() {
         ArrayList<Booking> bookings = new ArrayList<>();
@@ -32,6 +32,11 @@ public class BookingsDB {
         return bookings;
     }
 
+    /**
+     * @brief Search the related booking ids by specific date.
+     * @param date Date string from front-end will be used for checking in database.
+     * @return All booking ids that meet the conditions will be saved in ArrayList.
+     */
     public ArrayList<Integer> getBookingsForSpecificDay(String date) {
         ArrayList<Integer> bookings = new ArrayList<>();
         try {
@@ -50,6 +55,11 @@ public class BookingsDB {
         return bookings;
     }
 
+    /**
+     * @brief Retrieve booking information from database and save it in a hashtable.
+     * @param b_id Booking id is used for checking detail information in the database.
+     * @return Hashtable's keys are table's attributes and value is the related information.
+     */
     public Hashtable<String,String> getBookingDetails(int b_id) {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
         String[] bookingHeaders = { "b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid" };

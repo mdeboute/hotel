@@ -3,14 +3,16 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.Booking;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.sql.Date;
 import java.util.*;
 
 public class BookingsDBTest {
 
     private DatabaseManager dbm = new DatabaseManager();
 
+    /**
+     * @brief Test findAllBookings() method.
+     * @result The method should be able to retrieve all bookings in the database and the result should be 10.
+     */
     @Test
     public void testFindAllBookings(){
         ArrayList<Booking> allBookings;
@@ -27,6 +29,10 @@ public class BookingsDBTest {
         Assert.assertEquals(count,10);
     }
 
+    /**
+     * @brief Test getBookingsForSpecificDay(String date) method.
+     * @result Use two different dates to test this method. The first date should return one record. The second date should return two records.
+     */
     @Test
     public void testGetBookingsForSpecificDay() {
         ArrayList<Integer> bookingsFromTheDay;
@@ -38,11 +44,13 @@ public class BookingsDBTest {
         Assert.assertEquals(bookingsFromTheDay.size(),2);
     }
 
+    /**
+     * @brief Test getBookingDetails(int b_id) method, using "b_id = 1" record to test.
+     * @result TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
+     */
     @Test
     public void testGetBookingDetails(){
         Hashtable<String, String> bookingDetails;
-        Booking booking_1 = new Booking(1,2,1, Date.valueOf("2021-04-10"), Date.valueOf("2021-04-11"),799,0);
-        String[] bookingHeaders = { "b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid" };
         bookingDetails = dbm.bdb.getBookingDetails(1);
         Set set1 = bookingDetails.keySet();
         int trueCount = 0;
