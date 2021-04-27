@@ -49,7 +49,7 @@ public class DatabaseManager {
      * @return DBData object with all db objects
      */
     public DBData createDBObjects() {
-        return new DBData(rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
+        return new DBData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
     }
 
     /**

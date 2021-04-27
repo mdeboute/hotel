@@ -54,9 +54,8 @@ public class HotelProject extends Application {
     }
 
     /**
-     * Displays the Login stage or the password input when the user want to change
-     * its pers. info
-     *
+     * @brief Displays the login stage or the password input when the user wants to change
+     * their personal info
      * @param secondaryStage parameter needed to call the updateInfoDisplay method
      * @param primaryStage   stage on which the login view is displayed
      * @param onlyPwd        if true this method displays the password input,
