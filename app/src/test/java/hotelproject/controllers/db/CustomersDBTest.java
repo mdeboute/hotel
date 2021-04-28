@@ -46,6 +46,20 @@ public class CustomersDBTest {
         Assert.assertEquals(dm.cdb.customerExists(customer_3),true);
     }
 
+    /**
+     * @brief Test deleteCustomer() method.
+     * @result After deleting the customer_2 and customer_3, both records should be removed from database.
+     */
+    @Test
+    public void test_004_DeleteCustomer() {
+        dm.cdb.deleteCustomer(customer_2);
+        dm.cdb.deleteCustomer(customer_3);
+        Assert.assertEquals(dm.cdb.customerExists(customer_2),false);
+        Assert.assertEquals(dm.cdb.customerExists(customer_3),false);
+    }
+
+
+
 
 
 }
