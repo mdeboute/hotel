@@ -5,7 +5,10 @@ import hotelproject.controllers.db.DatabaseManager;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class CSVtoDB {
     private final Connection conn;
@@ -13,6 +16,18 @@ public class CSVtoDB {
 
     public CSVtoDB(Connection conn) {
         this.conn = conn;
+    }
+
+    public static void main(String[] args) {
+        Connection conn = DatabaseManager.checkAndGetConnection("app/app.properties");
+        CSVtoDB csvdb = new CSVtoDB(conn);
+
+        csvdb.roomTypeQuery();
+        csvdb.roomQuery();
+        csvdb.customerQuery();
+        csvdb.bookingQuery();
+        csvdb.customerBookingQuery();
+        csvdb.userQuery();
     }
 
     public void roomQuery() {
@@ -337,18 +352,5 @@ public class CSVtoDB {
                 e.printStackTrace();
             }
         }
-    }
-
-
-    public static void main(String[] args) {
-        Connection conn = DatabaseManager.checkAndGetConnection("app/app.properties");
-        CSVtoDB csvdb = new CSVtoDB(conn);
-
-        csvdb.roomTypeQuery();
-        csvdb.roomQuery();
-        csvdb.customerQuery();
-        csvdb.bookingQuery();
-        csvdb.customerBookingQuery();
-        csvdb.userQuery();
     }
 }

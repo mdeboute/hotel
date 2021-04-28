@@ -1,7 +1,5 @@
 package hotelproject.views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,13 +13,13 @@ public class UpdateInfoView extends View {
     private final TextField username = new TextField();
     private final PasswordField firstPassword = new PasswordField();
     private final PasswordField secondPassword = new PasswordField();
-    private Label usernameL = new Label("Username :");
-    private Label fstPwdL = new Label("New Password : ");
-    private Label sndPwdL = new Label("Please enter your new password again : ");
-    private Button changeUsername = new Button("Change username");
-    private Button changePwd = new Button("Change password");
-    private Button save = new Button("Save");
     private final Label output = new Label();
+    private final Label usernameL = new Label("Username :");
+    private final Label fstPwdL = new Label("New Password : ");
+    private final Label sndPwdL = new Label("Please enter your new password again : ");
+    private final Button changeUsername = new Button("Change username");
+    private final Button changePwd = new Button("Change password");
+    private final Button save = new Button("Save");
 
     public UpdateInfoView() {
         createScene();

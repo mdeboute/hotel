@@ -2,25 +2,27 @@
 
 package hotelproject.controllers.db;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class DatabaseManagerTest {
 
 
-    private DatabaseManager dbm = new DatabaseManager();
+    private final DatabaseManager dbm = new DatabaseManager();
     private ArrayList<String> log;
     private String tableName;
     private String body;
 
     /**
      * Setting up variables need in test methods
+     *
      * @see DatabaseManager
      */
     @Before
@@ -31,6 +33,7 @@ public class DatabaseManagerTest {
 
     /**
      * Ensures there are no remnants in the database after test session
+     *
      * @see DatabaseManager
      */
     @After
@@ -40,16 +43,18 @@ public class DatabaseManagerTest {
 
     /**
      * Tests the 'tableExists()' method, by testing if table 'room_type', known to exist, exists in the SQL database
+     *
      * @see DatabaseManager
      */
     @Test
     public void testTableExist() {
         tableName = "room_type"; // Exists
-        assertTrue(dbm.tableExists(tableName,log));
+        assertTrue(dbm.tableExists(tableName, log));
     }
 
     /**
      * Tests 'createTable()' method, by use of the 'tableExists()' method on table 'test_table'
+     *
      * @see DatabaseManager
      */
     @Test
@@ -62,6 +67,7 @@ public class DatabaseManagerTest {
 
     /**
      * Tests 'dropTable()' method, by use of 'tableExists()' method on table 'test_table'
+     *
      * @see DatabaseManager
      */
     @Test

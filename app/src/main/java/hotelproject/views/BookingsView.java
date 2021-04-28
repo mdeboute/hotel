@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
-import java.sql.Date;
 import java.util.List;
 
 public class BookingsView extends View {
@@ -90,17 +89,14 @@ public class BookingsView extends View {
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) { // Switch on searchBar value
-            case "Booking ID":
-                flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
-                                                                                                                  // table
-                // by booking id
-                break;
+                case "Booking ID" -> flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
 
-            case "Room number":
-                flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+                // table
+                // by booking id
+                case "Room number" -> flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+
                 // table by
                 // room number
-                break;
             }
         });
 
@@ -113,7 +109,7 @@ public class BookingsView extends View {
 
         date.setPromptText("Select date to view bookings");
         date.setMaxWidth(300);
-        
+
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
 

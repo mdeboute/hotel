@@ -20,13 +20,13 @@ import javafx.scene.text.Font;
 
 public class LoginView extends View {
 
-    boolean onlyPwd;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
-    private Label result = new Label();
     private final Label credentials = new Label("Please enter your password.");
-    private Button testLogin = new Button("");
-    private ImageView imgLogin = new ImageView(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
+    boolean onlyPwd;
+    private final Label result = new Label();
+    private final Button testLogin = new Button("");
+    private final ImageView imgLogin = new ImageView(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
@@ -37,11 +37,11 @@ public class LoginView extends View {
     void createScene() {
         GridPane scenePane = new GridPane();
         VBox header = createHeader();
-        scenePane.add(header,0,0);
+        scenePane.add(header, 0, 0);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
 
         GridPane body = createBody();
-        scenePane.add(body,0,1);
+        scenePane.add(body, 0, 1);
         GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
         scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
@@ -75,14 +75,14 @@ public class LoginView extends View {
         if (!onlyPwd) {
             pwdRow = 2;
 
-            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",17));
+            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
             result.setTextFill(Paint.valueOf("cf6679"));
-            bodyPane.add(result, 0, pwdRow-1);
+            bodyPane.add(result, 0, pwdRow - 1);
 
             StackPane stack = new StackPane();
 
             username.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",18));
+            username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 18));
             username.setAlignment(Pos.BASELINE_LEFT);
             username.setMaxWidth(300);
             username.setTranslateX(60);
@@ -90,7 +90,7 @@ public class LoginView extends View {
             username.setPromptText("Username");
 
             password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",18));
+            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 18));
             password.setAlignment(Pos.BASELINE_LEFT);
             password.setMaxWidth(300);
             password.setTranslateX(60);
@@ -114,16 +114,12 @@ public class LoginView extends View {
         //login button
         testLogin.setCursor(Cursor.HAND);
         StackPane loginStack = createButton(imgLogin, testLogin, 401, 55);
-        bodyPane.add(loginStack, 0, pwdRow+2);
+        bodyPane.add(loginStack, 0, pwdRow + 2);
 
         //mouse hovering
-        testLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-            imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/hover_button_login.png"));
-        });
+        testLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/hover_button_login.png")));
 
-        testLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-            imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
-        });
+        testLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png")));
 
         return bodyPane;
     }

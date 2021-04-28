@@ -11,12 +11,12 @@ public class ConfigManager {
         this.configPath = configPath;
     }
 
-    public void setConfigPath(String configPath) {
-        this.configPath = configPath;
-    }
-
     public String getConfigPath() {
         return configPath;
+    }
+
+    public void setConfigPath(String configPath) {
+        this.configPath = configPath;
     }
 
     public String getPValue(String key) {

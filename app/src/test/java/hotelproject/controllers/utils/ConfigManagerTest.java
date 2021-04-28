@@ -1,30 +1,31 @@
 package hotelproject.controllers.utils;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class ConfigManagerTest {
 
-  private ConfigManager configManager;
-  private String configPath;
-  private String key1;
+    private ConfigManager configManager;
+    private String configPath;
+    private String key1;
 
-  @Before
-  public void setUp() {
-    configPath = "app.properties";
-    configManager = new ConfigManager(configPath);
-    key1 = "db.url";
-  }
+    @Before
+    public void setUp() {
+        configPath = "app.properties";
+        configManager = new ConfigManager(configPath);
+        key1 = "db.url";
+    }
 
-  @Test
-  public void testGetConfigPath() {
-    assertTrue(configManager.getConfigPath().equals(configPath));
-  }
+    @Test
+    public void testGetConfigPath() {
+        assertEquals(configManager.getConfigPath(), configPath);
+    }
 
-  @Test
-  public void testGetPValue() {
-    assertTrue(configManager.getPValue(key1) != null);
-  }
+    @Test
+    public void testGetPValue() {
+        assertNotNull(configManager.getPValue(key1));
+    }
 }

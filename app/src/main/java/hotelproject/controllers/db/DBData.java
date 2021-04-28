@@ -12,8 +12,8 @@ public class DBData {
     private final ArrayList<User> users;
     private final ArrayList<Customer> customers;  // Will be integrated later
 
-    public DBData (DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
-                   ArrayList<User> users) {
+    public DBData(DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
+                  ArrayList<User> users) {
         this.dbm = dbm;
         this.rooms = rooms;
         this.roomTypes = roomTypes;

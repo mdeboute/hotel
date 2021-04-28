@@ -26,8 +26,8 @@ public class CustomerBooking {
     }
 
     /**
-     * @brief Returns attribute information as a String
      * @return attribute information as a String
+     * @brief Returns attribute information as a String
      */
     @Override
     public String toString() {

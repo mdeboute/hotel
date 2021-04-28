@@ -1,7 +1,5 @@
 package hotelproject.views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -25,7 +23,9 @@ public class AddRoomTypeView extends View {
     private final Button submit = new Button("Submit");
     private final Button cancel = new Button("Cancel");
 
-    public AddRoomTypeView() { createScene();}
+    public AddRoomTypeView() {
+        createScene();
+    }
 
     @Override
     void createScene() {
@@ -48,7 +48,7 @@ public class AddRoomTypeView extends View {
         pane.add(roomSizeL, 0, 4);
         pane.add(roomSize, 1, 4);
         Label sizeUnit = new Label("m²");
-        pane.add(sizeUnit,2,4);
+        pane.add(sizeUnit, 2, 4);
         //checkboxes
         pane.add(hasView, 0, 5);
         pane.add(hasKitchen, 0, 6);

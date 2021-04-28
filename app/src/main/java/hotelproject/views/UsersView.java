@@ -4,37 +4,35 @@ import hotelproject.controllers.objects.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.util.List;
 
 public class UsersView extends View {
-  
-  // The user connected to the application
-  private User user;
 
-  // Observable list with all the hotel's rooms
-  private ObservableList<User> users;
+    // The user connected to the application
+    private final User user;
 
-  // The scene's nodes
-  private TableView<User> usersTable = new TableView<>();
-  private Button addUser = new Button("Add user...");
+    // Observable list with all the hotel's rooms
+    private final ObservableList<User> users;
 
-  public UsersView(User user, List<User> users) {
-    this.user = user;
-    this.users = FXCollections.observableList(users);
-    createScene();
-  }
+    // The scene's nodes
+    private final TableView<User> usersTable = new TableView<>();
+    private final Button addUser = new Button("Add user...");
 
-  @Override
+    public UsersView(User user, List<User> users) {
+        this.user = user;
+        this.users = FXCollections.observableList(users);
+        createScene();
+    }
+
+    @Override
     void createScene() {
         GridPane pane = createPane();
 
@@ -73,13 +71,9 @@ public class UsersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Username":
-                    flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim())); //filter table by room number
-                    break;
-                case "User password":
-                    flUser.setPredicate(p -> p.getU_password().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
-                    break;
-                  }
+                case "Username" -> flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim())); //filter table by room number
+                case "User password" -> flUser.setPredicate(p -> p.getU_password().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
+            }
         });
 
         //When the new choice is selected we reset

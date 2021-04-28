@@ -1,7 +1,5 @@
 package hotelproject.views;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,8 +9,8 @@ public class LogoutView extends View {
 
     // The scene's nodes
     private final Label title = new Label("You've been logged out successfully");
-    private Button login = new Button("Login page");
-    private Button close = new Button("Close");
+    private final Button login = new Button("Login page");
+    private final Button close = new Button("Close");
 
     public LogoutView() {
         createScene();

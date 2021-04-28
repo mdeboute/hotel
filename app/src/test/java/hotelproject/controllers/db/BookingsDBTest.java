@@ -3,30 +3,33 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.Booking;
 import org.junit.Assert;
 import org.junit.Test;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class BookingsDBTest {
 
-    private DatabaseManager dbm = new DatabaseManager();
+    private final DatabaseManager dbm = new DatabaseManager();
 
     /**
      * @brief Test findAllBookings() method.
      * @result The method should be able to retrieve all bookings in the database and the result should be 10.
      */
     @Test
-    public void testFindAllBookings(){
+    public void testFindAllBookings() {
         ArrayList<Booking> allBookings;
         allBookings = dbm.bdb.findAllBookings();
-        Assert.assertEquals(allBookings.size(),10);
+        Assert.assertEquals(allBookings.size(), 10);
         int i = 1;
         int count = 0;
-        for (Booking booking: allBookings) {
-            if(booking.getB_id() == i){
+        for (Booking booking : allBookings) {
+            if (booking.getB_id() == i) {
                 count++;
             }
             i++;
         }
-        Assert.assertEquals(count,10);
+        Assert.assertEquals(count, 10);
     }
 
     /**
@@ -38,10 +41,10 @@ public class BookingsDBTest {
         ArrayList<Integer> bookingsFromTheDay;
 
         bookingsFromTheDay = dbm.bdb.getBookingsForSpecificDay("2021-04-10");
-        Assert.assertEquals(bookingsFromTheDay.size(),1);
+        Assert.assertEquals(bookingsFromTheDay.size(), 1);
 
         bookingsFromTheDay = dbm.bdb.getBookingsForSpecificDay("2021-05-29");
-        Assert.assertEquals(bookingsFromTheDay.size(),2);
+        Assert.assertEquals(bookingsFromTheDay.size(), 2);
     }
 
     /**
@@ -49,46 +52,49 @@ public class BookingsDBTest {
      * @result TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
      */
     @Test
-    public void testGetBookingDetails(){
+    public void testGetBookingDetails() {
         Hashtable<String, String> bookingDetails;
         bookingDetails = dbm.bdb.getBookingDetails(1);
-        Set set1 = bookingDetails.keySet();
+        Set<String> set1 = bookingDetails.keySet();
         int trueCount = 0;
-        for(Iterator iter = set1.iterator(); iter.hasNext(); ){
-            String key = (String)iter.next();
-            String value = (String)bookingDetails.get(key);
+        for (String o : set1) {
+            String value = bookingDetails.get(o);
 
-            if(key.equals("b_id")) {
-                if (value.equals("1")) {
-                    trueCount++;
-                }
-            } else if (key.equals("r_num")) {
-                if (value.equals("2")) {
-                    trueCount++;
-                }
-            } else if (key.equals("paid_by_card")) {
-                if (value.equals("1")) {
-                    trueCount++;
-                }
-            } else if (key.equals("b_from")){
-                if (value.equals("2021-04-10")) {
-                    trueCount++;
-                }
-            } else if (key.equals("b_till")) {
-                if (value.equals("2021-04-11")) {
-                    trueCount++;
-                }
-            } else if (key.equals("b_fee")) {
-                if (value.equals("799")) {
-                    trueCount++;
-                }
-            } else if (key.equals("b_is_paid")) {
-                if (value.equals("0")) {
-                    trueCount++;
-                }
+            switch (o) {
+                case "b_id":
+                case "paid_by_card":
+                    if (value.equals("1")) {
+                        trueCount++;
+                    }
+                    break;
+                case "r_num":
+                    if (value.equals("2")) {
+                        trueCount++;
+                    }
+                    break;
+                case "b_from":
+                    if (value.equals("2021-04-10")) {
+                        trueCount++;
+                    }
+                    break;
+                case "b_till":
+                    if (value.equals("2021-04-11")) {
+                        trueCount++;
+                    }
+                    break;
+                case "b_fee":
+                    if (value.equals("799")) {
+                        trueCount++;
+                    }
+                    break;
+                case "b_is_paid":
+                    if (value.equals("0")) {
+                        trueCount++;
+                    }
+                    break;
             }
         }
-        Assert.assertEquals(trueCount,7);
+        Assert.assertEquals(trueCount, 7);
     }
 
 }

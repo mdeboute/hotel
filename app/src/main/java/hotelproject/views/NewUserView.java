@@ -11,71 +11,69 @@ import javafx.scene.layout.VBox;
 
 public class NewUserView extends View {
 
-  private final TextField userName = new TextField();
-  private final TextField userPassword = new TextField();
-  private final CheckBox userIA = new CheckBox("Is admin?");
+    private final TextField userName = new TextField();
+    private final TextField userPassword = new TextField();
+    private final CheckBox userIA = new CheckBox("Is admin?");
   private Button submit;
-  private Button cancel;
-  private final DatabaseManager dbm;
+    private Button cancel;
 
-  public NewUserView(DatabaseManager dbm) {
-    this.dbm = dbm;
-    createScene();
-  }
+    public NewUserView(DatabaseManager dbm) {
+      createScene();
+    }
 
-  @Override
-  void createScene() {
-    GridPane pane = createPane();
+    @Override
+    void createScene() {
+        GridPane pane = createPane();
 
-    VBox header = createHeader("New user", "Enter the new user details");
+        VBox header = createHeader("New user", "Enter the new user details");
 
-    Label userNameL = new Label("Username : ");
-    pane.add(userNameL, 0, 2);
-    pane.add(userName, 1, 2);
-    Label userPassL = new Label("User password : ");
-    pane.add(userPassL, 0, 4);
-    pane.add(userPassword, 1, 4);
+        Label userNameL = new Label("Username : ");
+        pane.add(userNameL, 0, 2);
+        pane.add(userName, 1, 2);
+        Label userPassL = new Label("User password : ");
+        pane.add(userPassL, 0, 4);
+        pane.add(userPassword, 1, 4);
 
-    submit = new Button("Submit");
-    GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-    pane.add(submit, 1, 7);
+        submit = new Button("Submit");
+        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
+        pane.add(submit, 1, 7);
 
-    cancel = new Button("Cancel");
-    GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-    pane.add(cancel, 1, 8);
+        cancel = new Button("Cancel");
+        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
+        pane.add(cancel, 1, 8);
 
-    GridPane paneTwo = new GridPane();
-    paneTwo.add(header, 0, 0);
-    paneTwo.add(pane, 0, 1);
-    GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        GridPane paneTwo = new GridPane();
+        paneTwo.add(header, 0, 0);
+        paneTwo.add(pane, 0, 1);
+        GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
 
-    scene = new Scene(paneTwo);
-    
-  }
+        scene = new Scene(paneTwo);
 
-  @Override
-  GridPane createBody() {
-    return null;
-  }
+    }
 
-  public Button getSubmit() {
-    return submit;
-  }
+    @Override
+    GridPane createBody() {
+        return null;
+    }
 
-  public CheckBox getAdmin() {
-    return userIA;
-  }
+    public Button getSubmit() {
+        return submit;
+    }
 
-  public TextField getUserName() {
-    return userName;
-  }
+    public CheckBox getAdmin() {
+        return userIA;
+    }
 
-  public TextField getUserPassWord() {
-    return userPassword;
-  }
+    public TextField getUserName() {
+        return userName;
+    }
 
-  public Button getCancel() {
-    return cancel;
-  }
+    public TextField getUserPassWord() {
+        return userPassword;
+    }
+
+    public Button getCancel() {
+        return cancel;
+    }
 
 }

@@ -4,14 +4,9 @@ import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 public class RoomsDB {
     private final Connection conn;
@@ -21,8 +16,8 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Inserts new row into the `room_type` table in the database.
      * @param room RoomType object that will be added into the database
+     * @brief Inserts new row into the `room_type` table in the database.
      */
     public void addRoomType(RoomType room) {
         try {
@@ -53,8 +48,8 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Inserts new row into the `room` table in the database.
      * @param room Room object that will be added to the database
+     * @brief Inserts new row into the `room` table in the database.
      */
     public void addRoom(Room room) {
         try {
@@ -76,9 +71,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Deletes the room_type according to the room_type name
      * @param roomType object of the room_type that will be deleted from the
      *                 database
+     * @brief Deletes the room_type according to the room_type name
      */
     public void deleteRoomType(RoomType roomType) {
         try {
@@ -94,9 +89,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Deletes the room according to the room number
      * @param user the user object which is to be checked whether is admin
      * @param room the number of the room that will be deleted from the database
+     * @brief Deletes the room according to the room number
      */
     public void deleteRoom(User user, Room room) {
         try {
@@ -116,9 +111,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Update the room_type according to the room type name
      * @param roomType    the updated RoomType object (must have the same name)
      * @param oldRoomType the old room type's name that is to be updated
+     * @brief Update the room_type according to the room type name
      */
     public void updateRoomType(RoomType roomType, String oldRoomType) {
         try {
@@ -147,9 +142,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Update the room according to the room number
      * @param user the user object (checks if user is admin)
      * @param room the updated Room object (must have the same room number)
+     * @brief Update the room according to the room number
      */
     public void updateRoom(User user, Room room, int oldRNum) {
         try {
@@ -176,14 +171,14 @@ public class RoomsDB {
     }
 
     /**
-     * @brief View the room details according to its number
      * @param room the room object which is to be expected
      * @return hashtable filled with all of the room details retrieved
+     * @brief View the room details according to its number
      */
     public Hashtable<String, String> viewRoomDetails(Room room) {
         Hashtable<String, String> roomDetails = new Hashtable<>();
-        String[] roomData = { "t_name", "beds", "r_size", "has_view", "has_kitchen", "has_bathroom", "has_workspace",
-                "has_tv", "has_coffee_maker" };
+        String[] roomData = {"t_name", "beds", "r_size", "has_view", "has_kitchen", "has_bathroom", "has_workspace",
+                "has_tv", "has_coffee_maker"};
         try {
             // Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM room_type WHERE t_name = ?";
@@ -203,8 +198,8 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Search all current available room types and return as ArrayList
      * @return list filled with all RoomType objects collected from the database
+     * @brief Search all current available room types and return as ArrayList
      */
     public ArrayList<RoomType> findAllRoomTypes() {
         ArrayList<RoomType> roomTypes = new ArrayList<>();
@@ -225,8 +220,8 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Search all current available rooms and return as ArrayList
      * @return list filled with all Room objects collected from the database
+     * @brief Search all current available rooms and return as ArrayList
      */
     public ArrayList<Room> findAllRooms() {
         ArrayList<Room> rooms = new ArrayList<>();
@@ -245,9 +240,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Checks if the input room_type exists.
      * @param roomType RoomType object that will be searched in the database
      * @return a boolean regarding the existence of the room_type in the database
+     * @brief Checks if the input room_type exists.
      */
     public boolean roomTypeExists(RoomType roomType) {
         try {
@@ -264,9 +259,9 @@ public class RoomsDB {
     }
 
     /**
-     * @brief Checks if the input room exists.
      * @param room Room object that will be searched in the database
      * @return a boolean regarding the existence of the room in the database
+     * @brief Checks if the input room exists.
      */
     public boolean roomExists(Room room) {
         try {

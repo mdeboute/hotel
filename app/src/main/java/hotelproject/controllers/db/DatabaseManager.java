@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 
 
 public class DatabaseManager {
-    private final Connection conn;
     public final RoomsDB rdb;
     public final UserDB udb;
     public final BookingsDB bdb;
+    private final Connection conn;
 
     /**
      * @brief Creates a connection to the database with default login details.
@@ -45,18 +45,18 @@ public class DatabaseManager {
 
 
     /**
-     * @brief Creates objects after scanning db for all table data
      * @return DBData object with all db objects
+     * @brief Creates objects after scanning db for all table data
      */
     public DBData createDBObjects() {
         return new DBData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
     }
 
     /**
-     * @brief Checks if a table exists.
      * @param tableName name of the table whose existence will be verified
-     * @param log an ArrayList of strings to store audit logs
+     * @param log       an ArrayList of strings to store audit logs
      * @return boolean regarding the existence of the input table
+     * @brief Checks if a table exists.
      */
     public boolean tableExists(String tableName, ArrayList<String> log) {
         try {
@@ -75,10 +75,10 @@ public class DatabaseManager {
     }
 
     /**
-     * @brief Creates a table in the provided database connection.
      * @param tableName name of the table which will be created
-     * @param log an ArrayList of strings to store audit logs
-     * @param body column names for the new table separated by commas
+     * @param log       an ArrayList of strings to store audit logs
+     * @param body      column names for the new table separated by commas
+     * @brief Creates a table in the provided database connection.
      */
     public void createTable(String tableName, String body, ArrayList<String> log) {
         try {
@@ -91,9 +91,9 @@ public class DatabaseManager {
     }
 
     /**
-     * @brief Drops a table in the database if it exists.
      * @param tableName name of the table which will be dropped
-     * @param log an ArrayList of strings to store audit logs
+     * @param log       an ArrayList of strings to store audit logs
+     * @brief Drops a table in the database if it exists.
      */
     public void dropTable(String tableName, ArrayList<String> log) {
         try {

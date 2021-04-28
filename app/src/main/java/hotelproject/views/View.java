@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -26,12 +25,12 @@ public abstract class View {
     abstract void createScene();
 
     /**
-     * @brief create the scene's header, called in createScene
-     * @param title of the header
+     * @param title    of the header
      * @param subtitle of the header
      * @return the header in the format VBox
+     * @brief create the scene's header, called in createScene
      */
-     protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
+    protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
 
         Label titleL = new Label(title);
         titleL.setStyle("-fx-font-weight: bold;");
@@ -51,8 +50,8 @@ public abstract class View {
     abstract GridPane createBody();
 
     /**
-     * @brief create the initial GridPane
      * @return the initial GridPane
+     * @brief create the initial GridPane
      */
     protected GridPane createPane() {
         GridPane pane = new GridPane();
@@ -67,9 +66,9 @@ public abstract class View {
     /**
      * Create a button with the image associated
      *
-     * @param imgPath path of the image associated to the button
-     * @param button the button concerned
-     * @param minWidth minimum width of the button
+     * @param buttonImgView   path of the image associated to the button
+     * @param button    the button concerned
+     * @param minWidth  minimum width of the button
      * @param minHeight minimum height of the button
      * @return a StackPane with the result to add to the scene
      */

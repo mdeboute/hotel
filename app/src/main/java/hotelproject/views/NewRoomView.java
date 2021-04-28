@@ -30,7 +30,7 @@ public class NewRoomView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("New room","Enter the new room specifications");
+        VBox header = createHeader("New room", "Enter the new room specifications");
 
         Label numRoomL = new Label("Room number : ");
         pane.add(numRoomL, 0, 2);

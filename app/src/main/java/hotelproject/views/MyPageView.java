@@ -1,8 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.User;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,12 +9,12 @@ import javafx.scene.layout.GridPane;
 public class MyPageView extends View {
 
     // The user connected to the application
-    private User user;
+    private final User user;
 
     // The scene's nodes
-    private Button updateInfo = new Button("Change personal information");
-    private Button back = new Button("Back");
-    private Button logout = new Button("Logout");
+    private final Button updateInfo = new Button("Change personal information");
+    private final Button back = new Button("Back");
+    private final Button logout = new Button("Logout");
 
     public MyPageView(User user) {
         this.user = user;

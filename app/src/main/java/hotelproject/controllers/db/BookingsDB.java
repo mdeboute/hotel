@@ -2,18 +2,23 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class BookingsDB {
     private final Connection conn;
 
-    public BookingsDB (Connection conn) { this.conn = conn; }
+    public BookingsDB(Connection conn) {
+        this.conn = conn;
+    }
 
     /**
-     * @brief Search all current available rooms and return as ArrayList.
      * @return list filled with all Room objects collected from the database.
+     * @brief Search all current available rooms and return as ArrayList.
      */
     public ArrayList<Booking> findAllBookings() {
         ArrayList<Booking> bookings = new ArrayList<>();
@@ -33,9 +38,9 @@ public class BookingsDB {
     }
 
     /**
-     * @brief Search the related booking ids by specific date.
      * @param date Date string from front-end will be used for checking in database.
      * @return All booking ids that meet the conditions will be saved in ArrayList.
+     * @brief Search the related booking ids by specific date.
      */
     public ArrayList<Integer> getBookingsForSpecificDay(String date) {
         ArrayList<Integer> bookings = new ArrayList<>();
@@ -56,13 +61,13 @@ public class BookingsDB {
     }
 
     /**
-     * @brief Retrieve booking information from database and save it in a hashtable.
      * @param b_id Booking id is used for checking detail information in the database.
      * @return Hashtable's keys are table's attributes and value is the related information.
+     * @brief Retrieve booking information from database and save it in a hashtable.
      */
-    public Hashtable<String,String> getBookingDetails(int b_id) {
+    public Hashtable<String, String> getBookingDetails(int b_id) {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
-        String[] bookingHeaders = { "b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid" };
+        String[] bookingHeaders = {"b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid"};
         try {
             String sql = "SELECT * FROM booking WHERE b_id = ?";
 
