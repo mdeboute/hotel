@@ -39,6 +39,9 @@ public class RoomsDBTest {
   @Before
   public void setUp() {
     // Because of the constraint on adding a new room that the room type of the room must exist in the room_type table, we must prior to adding a room ensure that the room type is in the room_type table.
+
+    dbm.rdb.deleteRoomType(testRoomType1);
+    dbm.rdb.deleteRoomType(testRoomType2);
     dbm.rdb.addRoomType(testRoomType1);
     dbm.rdb.addRoomType(testRoomType2);
   }
@@ -49,9 +52,9 @@ public class RoomsDBTest {
    */
   @After
   public void tearDown() {
+    dbm.rdb.deleteRoom(user, testRoom1); // Because of constraints, and dependencies on room_type, rooms have to be deleted prior to deletion of room_type
     dbm.rdb.deleteRoomType(testRoomType1);
     dbm.rdb.deleteRoomType(testRoomType2);
-    dbm.rdb.deleteRoom(user, testRoom1);
   }
 
   /**
@@ -217,8 +220,7 @@ public class RoomsDBTest {
     dbm.rdb.addRoom(testRoom1);
     Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
 
-    assertEquals(Integer.parseInt(roomDetails.get("r_num")), testRoom1.getR_num());
-    assertEquals(roomDetails.get("r_type"), testRoom1.getR_type());
+    assertEquals(testRoom1.getR_type(), roomDetails.get("t_name"));
   }
 
   /**

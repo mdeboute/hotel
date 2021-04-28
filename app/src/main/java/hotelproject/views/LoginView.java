@@ -3,6 +3,7 @@ package hotelproject.views;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -75,26 +75,26 @@ public class LoginView extends View {
         if (!onlyPwd) {
             pwdRow = 2;
 
-            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",12));
+            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",17));
             result.setTextFill(Paint.valueOf("cf6679"));
             bodyPane.add(result, 0, pwdRow-1);
 
             StackPane stack = new StackPane();
 
             username.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",20));
+            username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",18));
             username.setAlignment(Pos.BASELINE_LEFT);
             username.setMaxWidth(300);
             username.setTranslateX(60);
-            username.setTranslateY(10);
+            username.setTranslateY(11);
             username.setPromptText("Username");
 
             password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",20));
+            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf",18));
             password.setAlignment(Pos.BASELINE_LEFT);
             password.setMaxWidth(300);
             password.setTranslateX(60);
-            password.setTranslateY(30);
+            password.setTranslateY(37.5);
             password.setPromptText("Password");
 
             VBox nodes = new VBox(username, password);
@@ -112,7 +112,7 @@ public class LoginView extends View {
         }
 
         //login button
-
+        testLogin.setCursor(Cursor.HAND);
         StackPane loginStack = createButton(imgLogin, testLogin, 401, 55);
         bodyPane.add(loginStack, 0, pwdRow+2);
 

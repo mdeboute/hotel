@@ -36,11 +36,20 @@ public class DatabaseManager {
             try {
                 return DriverManager.getConnection(cm.getPValue("db.alias"), cm.getPValue("db.user"), cm.getPValue("db.password"));
             } catch (SQLException e2) {
-                System.err.println("Error : " + e2);
-                System.err.println("Error : " + e1);
+                System.err.println("Error: " + e2);
+                System.err.println("Error: " + e1);
                 return null;
             }
         }
+    }
+
+
+    /**
+     * @brief Creates objects after scanning db for all table data
+     * @return DBData object with all db objects
+     */
+    public DBData createDBObjects() {
+        return new DBData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
     }
 
     /**

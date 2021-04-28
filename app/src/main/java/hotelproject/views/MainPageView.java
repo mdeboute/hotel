@@ -3,6 +3,7 @@ package hotelproject.views;
 import hotelproject.controllers.objects.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -31,6 +32,16 @@ public class MainPageView extends View {
     private Button viewUsers = new Button("View users");
 
     public MainPageView(User user) {
+        myPage = new Button("My Page");
+        viewRooms = new Button("View rooms");
+        viewBookings = new Button("View bookings");
+        viewCustomers = new Button("View customers");
+
+        myPage.setCursor(Cursor.HAND);
+        viewBookings.setCursor(Cursor.HAND);
+        viewCustomers.setCursor(Cursor.HAND);
+        viewRooms.setCursor(Cursor.HAND);
+
         this.user = user;
         createScene();
     }
@@ -39,6 +50,7 @@ public class MainPageView extends View {
     void createScene() {
         if (user.getU_is_admin() == 1) {
             viewUsers = new Button("View users");
+            viewUsers.setCursor(Cursor.HAND);
         }
 
         GridPane scenePane = createPane();
@@ -61,6 +73,16 @@ public class MainPageView extends View {
         logo.setFitWidth(150.0);
         logo.setFitHeight(175.0);
 
+        myPage.setCursor(Cursor.HAND);
+
+        //mouse hovering
+        myPage.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            imgMyPage.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_user_settings.png"));
+        });
+        myPage.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            imgMyPage.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png"));
+        });
+
         StackPane stack = createButton(imgMyPage, myPage, 176, 47);
         stack.setAlignment(Pos.BOTTOM_RIGHT);
 
@@ -76,6 +98,11 @@ public class MainPageView extends View {
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
+
+        viewUsers.setCursor(Cursor.HAND);
+        viewBookings.setCursor(Cursor.HAND);
+        viewCustomers.setCursor(Cursor.HAND);
+        viewRooms.setCursor(Cursor.HAND);
 
         StackPane roomsStack = createButton(imgRooms, viewRooms, 342, 191);
         StackPane customersStack = createButton(imgCustomers, viewCustomers, 342, 191);

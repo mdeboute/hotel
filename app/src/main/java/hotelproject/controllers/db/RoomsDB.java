@@ -206,8 +206,8 @@ public class RoomsDB {
      * @brief Search all current available room types and return as ArrayList
      * @return list filled with all RoomType objects collected from the database
      */
-    public List<RoomType> findAllRoomTypes() {
-        List<RoomType> roomTypes = new ArrayList<>();
+    public ArrayList<RoomType> findAllRoomTypes() {
+        ArrayList<RoomType> roomTypes = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
 
@@ -228,8 +228,8 @@ public class RoomsDB {
      * @brief Search all current available rooms and return as ArrayList
      * @return list filled with all Room objects collected from the database
      */
-    public List<Room> findAllRooms() {
-        List<Room> rooms = new ArrayList<>();
+    public ArrayList<Room> findAllRooms() {
+        ArrayList<Room> rooms = new ArrayList<>();
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM `room`";

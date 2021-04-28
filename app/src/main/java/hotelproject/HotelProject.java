@@ -14,7 +14,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -35,6 +38,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -59,9 +63,8 @@ public class HotelProject extends Application {
     }
 
     /**
-     * Displays the Login stage or the password input when the user want to change
-     * its pers. info
-     *
+     * @brief Displays the login stage or the password input when the user wants to change
+     * their personal info
      * @param secondaryStage parameter needed to call the updateInfoDisplay method
      * @param primaryStage   stage on which the login view is displayed
      * @param onlyPwd        if true this method displays the password input,
@@ -94,13 +97,13 @@ public class HotelProject extends Application {
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the
                                                        // application
                     } else {
-                        loginView.getResult().setText("Fail! Your username or password is wrong.");
+                        loginView.getResult().setText("The username or password you have entered is wrong.");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("Fail! Incorrect password.");
+                        loginView.getResult().setText("The password you have entered is wrong.");
                     }
                 }
             } catch (SQLException throwables) {
@@ -193,7 +196,7 @@ public class HotelProject extends Application {
             boolean nothingEmpty = true;
             // if the user clicked on change username but didn't input any character
             if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
-                updateInfoPage.setOutput("Username field is empty !\n");
+                updateInfoPage.setOutput("Username field is empty!\n");
                 nothingEmpty = false;
             }
 
@@ -202,20 +205,20 @@ public class HotelProject extends Application {
             if (updateInfoPage.getFirstPassword().isVisible()
                     && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
                 updateInfoPage
-                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
+                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly!");
                 nothingEmpty = false;
             }
 
             // if user wrote something in the visible fields
             if (nothingEmpty) {
-                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user choosed to change username
+                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user chose to change username
                     connectedUser.setU_name(newUsername);
                 }
-                if (!updateInfoPage.getChangePwd().isVisible()) { // if user choosed to change password
+                if (!updateInfoPage.getChangePwd().isVisible()) { // if user chose to change password
                     if (firstPassword.equals(secondPassword)) {
                         connectedUser.setU_password(firstPassword);
                     } else {
-                        updateInfoPage.setOutput("First and second input for password are not equal !");
+                        updateInfoPage.setOutput("First and second input for password are not equal!");
                     }
                 }
 
@@ -423,6 +426,9 @@ public class HotelProject extends Application {
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
+        if (connectedUser.getU_is_admin() == 1) {
+            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
+        }
         roomsViewPage.roomsTable.setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
             @Override
             public TableRow<Room> call(TableView<Room> tableView) {
@@ -444,7 +450,6 @@ public class HotelProject extends Application {
                         Label typeL = new Label("New room type : ");
                         CheckBox booked = new CheckBox("Booked");
                         Label bookedL = new Label("Is booked");
-                        Button submit = new Button("Submit");
 
                         List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
                         for (RoomType value : roomTypes) {
@@ -463,23 +468,31 @@ public class HotelProject extends Application {
                         secondaryLayout.add(bookedL, 0, 6);
                         secondaryLayout.add(booked, 1, 6);
 
-                        submit = new Button("Submit");
+                        Button submit = new Button("Submit");
                         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
                         secondaryLayout.add(submit, 1, 8);
 
-                        submit.setOnAction(e -> {
-                            int roomNb = Integer.parseInt(numRoom.getText());
-                            int roomFloor = Integer.parseInt(floor.getText());
-                            String roomType = type.getValue().toString();
-                            int roomBooked = 0;
-                            if (booked.isSelected()) {
-                                roomBooked = 1;
-                            }
-                            Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-                            dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
-                            newWindow.close();
-                        });
+                        Alert alert = new Alert(AlertType.INFORMATION, "Before updated, make sure it has no booking!");
+                        alert.showAndWait().ifPresent(response -> {
+                            if (response == ButtonType.OK) {
+                                
+                                    submit.setOnAction(e -> {
+                                    int roomNb = Integer.parseInt(numRoom.getText());
+                                    int roomFloor = Integer.parseInt(floor.getText());
+                                    String roomType = type.getValue().toString();
+                                    int roomBooked = 0;
+                                    if (booked.isSelected()) {
+                                        roomBooked = 1;
+                                    }
+                                    Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+                                    dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
 
+                                    newWindow.close();
+                                    roomsViewPage.roomsTable.refresh();
+
+                                });
+                            }
+                        });
                         // Room updatedRoom = new Room(roomNb, roomFloor, rType, roomBooked);
                         Scene secondScene = new Scene(secondaryLayout, 250, 250);
 
@@ -505,8 +518,14 @@ public class HotelProject extends Application {
                 deleteItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Room r = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
-                        dbm.rdb.deleteRoom(connectedUser, r);
+                        Alert alert = new Alert(AlertType.INFORMATION, "Before deleted, make sure it has no booking!");
+                        alert.showAndWait().ifPresent(response -> {
+                            if (response == ButtonType.OK) {
+                                Room r = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                                dbm.rdb.deleteRoom(connectedUser, r);
+                                roomsViewPage.roomsTable.refresh();
+                            }
+                        });
                     }
                 });
 
@@ -585,7 +604,7 @@ public class HotelProject extends Application {
                 return row;
             }
         });
-
+        
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
