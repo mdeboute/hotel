@@ -418,8 +418,9 @@ public class HotelProject extends Application {
         List<Room> rooms = dbm.rdb.findAllRooms();
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
-        if(connectedUser.getU_is_admin() == 1 ){
-            
+
+        if (connectedUser.getU_is_admin() == 1) {
+            roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
         }
         roomsViewPage.roomsTable.setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
             @Override
