@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 public class LogoutView extends View {
 
     // The scene's nodes
-    private Label title = new Label("You've been logged out successfully");
+    private final Label title = new Label("You've been logged out successfully");
     private Button login = new Button("Login page");
     private Button close = new Button("Close");
 

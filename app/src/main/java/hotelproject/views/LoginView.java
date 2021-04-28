@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -22,9 +23,10 @@ public class LoginView extends View {
     boolean onlyPwd;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
-    private final Label result = new Label();
+    private Label result = new Label();
     private final Label credentials = new Label("Please enter your password.");
-    private final Button testLogin = new Button("");
+    private Button testLogin = new Button("");
+    private ImageView imgLogin = new ImageView(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
@@ -110,8 +112,18 @@ public class LoginView extends View {
         }
 
         //login button
-        StackPane stack = createButton("file:assets/img/ui_dev_pack/login_page/idle_button_login.png", testLogin, 401, 55);
-        bodyPane.add(stack, 0, pwdRow+2);
+
+        StackPane loginStack = createButton(imgLogin, testLogin, 401, 55);
+        bodyPane.add(loginStack, 0, pwdRow+2);
+
+        //mouse hovering
+        testLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/hover_button_login.png"));
+        });
+
+        testLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
+        });
 
         return bodyPane;
     }

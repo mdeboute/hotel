@@ -73,15 +73,13 @@ public abstract class View {
      * @param minHeight minimum height of the button
      * @return a StackPane with the result to add to the scene
      */
-    protected StackPane createButton(String imgPath, Button button, double minWidth, double minHeight) {
+    protected StackPane createButton(ImageView buttonImgView, Button button, double minWidth, double minHeight) {
         StackPane stack = new StackPane();
 
         button.setStyle("-fx-opacity: 0;");
         button.setMinWidth(minWidth);
-        button.setMinHeight(minHeight);
+        button.setMaxHeight(minHeight);
 
-        Image buttonImg = new Image(imgPath);
-        ImageView buttonImgView = new ImageView(buttonImg);
         buttonImgView.setPreserveRatio(true);
 
         stack.getChildren().addAll(buttonImgView, button);
