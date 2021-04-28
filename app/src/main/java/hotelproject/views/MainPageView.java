@@ -3,6 +3,7 @@ package hotelproject.views;
 import hotelproject.controllers.objects.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -18,13 +19,23 @@ public class MainPageView extends View {
     private final User user;
 
     // The scene's nodes
-    private Button myPage = new Button("My Page");
-    private Button viewRooms = new Button("View rooms");
-    private Button viewBookings = new Button("View bookings");
-    private Button viewCustomers = new Button("View customers");
-    private Button viewUsers = new Button("View users");
+    private Button myPage;
+    private Button viewRooms;
+    private Button viewBookings;
+    private Button viewCustomers;
+    private Button viewUsers;
 
     public MainPageView(User user) {
+        myPage = new Button("My Page");
+        viewRooms = new Button("View rooms");
+        viewBookings = new Button("View bookings");
+        viewCustomers = new Button("View customers");
+
+        myPage.setCursor(Cursor.HAND);
+        viewBookings.setCursor(Cursor.HAND);
+        viewCustomers.setCursor(Cursor.HAND);
+        viewRooms.setCursor(Cursor.HAND);
+
         this.user = user;
         createScene();
     }
@@ -33,6 +44,7 @@ public class MainPageView extends View {
     void createScene() {
         if (user.getU_is_admin() == 1) {
             viewUsers = new Button("View users");
+            viewUsers.setCursor(Cursor.HAND);
         }
 
         GridPane scenePane = createPane();

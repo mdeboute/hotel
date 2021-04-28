@@ -3,6 +3,7 @@ package hotelproject.views;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -109,6 +110,7 @@ public class LoginView extends View {
         }
 
         //login button
+        testLogin.setCursor(Cursor.HAND);
         StackPane stack = createButton("file:assets/img/ui_dev_pack/login_page/idle_button_login.png", testLogin, 401, 55);
         bodyPane.add(stack, 0, pwdRow+2);
 
