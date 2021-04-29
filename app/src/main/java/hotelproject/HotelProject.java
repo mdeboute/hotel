@@ -17,7 +17,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -359,6 +362,7 @@ public class HotelProject extends Application {
         List<Booking> bookings = dbm.bdb.findAllBookings();
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         DatePicker dated = bookingsViewPage.getDatePicker();
 
@@ -366,8 +370,11 @@ public class HotelProject extends Application {
             Stage newWindow = new Stage();
             ListView<Integer> bIDListView = new ListView<>();
 
-            String datePicked = dated.getEditor().getText();
-            ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(datePicked);
+            LocalDate datePicked = dated.getValue();
+            Date sqlDate = java.sql.Date.valueOf(datePicked);
+
+            String formattedDate = formatter.format(sqlDate); 
+            ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(formattedDate);
 
             for (int bID : bookingIDS) {
                 bIDListView.getItems().add(bID);
