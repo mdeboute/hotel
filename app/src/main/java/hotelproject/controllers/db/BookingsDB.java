@@ -1,6 +1,7 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +13,13 @@ import java.util.List;
 public class BookingsDB {
     private final Connection conn;
 
-    public BookingsDB (Connection conn) { this.conn = conn; }
+    public BookingsDB(Connection conn) {
+        this.conn = conn;
+    }
 
     /**
-     * @brief Search all current available rooms and return as ArrayList
      * @return list filled with all Room objects collected from the database
+     * @brief Search all current available rooms and return as ArrayList
      */
     public List<Booking> findAllBookings() {
         List<Booking> bookings = new ArrayList<>();
@@ -49,9 +52,9 @@ public class BookingsDB {
         return bookings;
     }
 
-    public Hashtable<String,String> getBookingDetails(int b_id) {
+    public Hashtable<String, String> getBookingDetails(int b_id) {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
-        String[] bookingHeaders = { "b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid" };
+        String[] bookingHeaders = {"b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid"};
         try {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM booking WHERE b_id = %d";
