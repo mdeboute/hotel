@@ -32,6 +32,13 @@ dependencies {
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
 
     testImplementation 'org.mockito:mockito-core:3.9.0'
+
+    // TestFX dependencies
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile "junit:junit:4.13-beta-3"
+    testCompile 'org.testfx:testfx-junit:4.0+'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testRuntime 'org.testfx:openjfx-monocle:8u76-b04'
 }
 
 application {
