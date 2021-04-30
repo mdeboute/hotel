@@ -45,3 +45,7 @@ application {
     // Define the main class for the application.
     mainClass = 'hotelproject.HotelProject'
 }
+
+tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('--enable-preview')
+}
