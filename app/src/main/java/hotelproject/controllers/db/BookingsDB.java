@@ -3,6 +3,7 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.Booking;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +16,30 @@ public class BookingsDB {
 
     public BookingsDB(Connection conn) {
         this.conn = conn;
+    }
+
+    /**
+     * @param booking Booking object that will be added to the database
+     * @brief Inserts new row into the `booking` table in the database.
+     */
+    public void addBooking(Booking booking) {
+        try {
+            String sql = "INSERT INTO `booking` VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, booking.getB_id());
+            statement.setInt(2, booking.getR_num());
+            statement.setInt(3, booking.getPaid_by_card());
+            statement.setDate(4, booking.getB_from());
+            statement.setDate(5, booking.getB_till());
+            statement.setInt(6, booking.getB_fee());
+            statement.setInt(7, booking.getB_is_paid());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
