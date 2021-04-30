@@ -1,10 +1,7 @@
 package hotelproject;
 
 import hotelproject.controllers.db.DatabaseManager;
-import hotelproject.controllers.objects.Booking;
-import hotelproject.controllers.objects.Room;
-import hotelproject.controllers.objects.RoomType;
-import hotelproject.controllers.objects.User;
+import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 
 import javafx.application.Application;
@@ -29,6 +26,7 @@ import java.util.List;
 public class HotelProject extends Application {
 
     private final DatabaseManager dbm = new DatabaseManager();
+    private final HotelData hdata = dbm.createDBObjects();
     private User connectedUser;
     private Stage mainPageStage;
 
