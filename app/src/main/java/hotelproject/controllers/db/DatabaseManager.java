@@ -1,5 +1,6 @@
 package hotelproject.controllers.db;
 
+import hotelproject.controllers.objects.HotelData;
 import hotelproject.controllers.utils.ConfigManager;
 
 import java.sql.*;
@@ -48,8 +49,8 @@ public class DatabaseManager {
      * @return DBData object with all db objects
      * @brief Creates objects after scanning db for all table data
      */
-    public DBData createDBObjects() {
-        return new DBData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
+    public HotelData createDBObjects() {
+        return new HotelData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
     }
 
     /**

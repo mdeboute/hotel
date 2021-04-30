@@ -6,6 +6,7 @@ import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
 import hotelproject.controllers.objects.User;
 import hotelproject.views.*;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;

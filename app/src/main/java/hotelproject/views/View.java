@@ -66,10 +66,10 @@ public abstract class View {
     /**
      * Create a button with the image associated
      *
-     * @param buttonImgView   path of the image associated to the button
-     * @param button    the button concerned
-     * @param minWidth  minimum width of the button
-     * @param minHeight minimum height of the button
+     * @param buttonImgView path of the image associated to the button
+     * @param button        the button concerned
+     * @param minWidth      minimum width of the button
+     * @param minHeight     minimum height of the button
      * @return a StackPane with the result to add to the scene
      */
     protected StackPane createButton(ImageView buttonImgView, Button button, double minWidth, double minHeight) {

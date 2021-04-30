@@ -1,10 +1,11 @@
-package hotelproject.controllers.db;
+package hotelproject.controllers.objects;
 
+import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.*;
 
 import java.util.ArrayList;
 
-public class DBData {
+public class HotelData {
     public final DatabaseManager dbm;
     private final ArrayList<Room> rooms;
     private final ArrayList<RoomType> roomTypes;
@@ -12,8 +13,8 @@ public class DBData {
     private final ArrayList<User> users;
     private final ArrayList<Customer> customers;  // Will be integrated later
 
-    public DBData(DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
-                  ArrayList<User> users) {
+    public HotelData(DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
+                     ArrayList<User> users) {
         this.dbm = dbm;
         this.rooms = rooms;
         this.roomTypes = roomTypes;
