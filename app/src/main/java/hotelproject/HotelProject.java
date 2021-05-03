@@ -485,7 +485,7 @@ public class HotelProject extends Application {
                 Label numRoomL = new Label("New room number : ");
                 TextField floor = new TextField();
                 Label floorL = new Label("New room floor : ");
-                ComboBox type = new ComboBox();
+                ComboBox<String> type = new ComboBox<>();
                 Label typeL = new Label("New room type : ");
                 CheckBox booked = new CheckBox("Booked");
                 Label bookedL = new Label("Is booked");
@@ -518,7 +518,7 @@ public class HotelProject extends Application {
                         submit.setOnAction(e -> {
                             int roomNb = Integer.parseInt(numRoom.getText());
                             int roomFloor = Integer.parseInt(floor.getText());
-                            String roomType = type.getValue().toString();
+                            String roomType = type.getValue();
                             int roomBooked = 0;
                             if (booked.isSelected()) {
                                 roomBooked = 1;
@@ -569,7 +569,7 @@ public class HotelProject extends Application {
                 Stage newWindow = new Stage();
 
                 Room rD = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
-                ListView roomDListView = new ListView<>();
+                ListView<String> roomDListView = new ListView<>();
                 Hashtable<String, String> roomsDetails = dbm.rdb.viewRoomDetails(rD);
 
                 roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
