@@ -13,6 +13,15 @@ public class HotelData {
     private final ArrayList<User> users;
     private final ArrayList<Customer> customers;  // Will be integrated later
 
+    public HotelData() {
+        dbm = new DatabaseManager();
+        rooms = dbm.rdb.findAllRooms();
+        roomTypes = dbm.rdb.findAllRoomTypes();
+        bookings = dbm.bdb.findAllBookings();
+        users = dbm.udb.getAllUsers();
+        customers = null;
+    }
+
     public HotelData(DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
                      ArrayList<User> users) {
         this.dbm = dbm;
@@ -41,5 +50,10 @@ public class HotelData {
 
     public ArrayList<User> getUsers() {
         return users;
+    }
+
+    public void addRoom(Room room) {
+        rooms.add(room);
+        dbm.rdb.addRoom(room);
     }
 }

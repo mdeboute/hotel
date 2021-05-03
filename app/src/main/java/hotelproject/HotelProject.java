@@ -465,7 +465,7 @@ public class HotelProject extends Application {
     // Sorry to anyone who might have to deal with this shit...
     private void roomsDisplay() {
 
-        List<Room> rooms = dbm.rdb.findAllRooms();
+        ArrayList<Room> rooms = hdata.getRooms();
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
         Stage roomsStage = new Stage();
 
