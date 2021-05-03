@@ -139,4 +139,5 @@ public class BookingsView extends View {
     public DatePicker getDatePicker() {
         return date;
     }
+
 }

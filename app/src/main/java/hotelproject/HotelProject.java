@@ -3,7 +3,6 @@ package hotelproject;
 import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -19,6 +18,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -322,7 +322,7 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newUserDisplay(Stage formerStage) {
-        NewUserView newUserViewPage = new NewUserView(dbm);
+        NewUserView newUserViewPage = new NewUserView();
         Stage newUserStage = new Stage();
 
         // set buttons on action
@@ -354,6 +354,59 @@ public class HotelProject extends Application {
     }
 
     /**
+     * Displays the page to add a new booking in the database (only for admins)
+     *
+     * @param formerStage to close when the new stage is showed
+     */
+    private void newBookingDisplay(Stage formerStage) {
+        NewBookingView newBookingViewPage = new NewBookingView();
+        Stage newBookingStage = new Stage();
+
+        // set buttons on action
+
+        newBookingViewPage.getSubmit().setOnAction(e -> {
+            int bookingID = Integer.parseInt(newBookingViewPage.getBookingID().getText());
+            int roomNb = Integer.parseInt(newBookingViewPage.getNumRoom().getText());
+            int paidByCard = 0;
+            if (newBookingViewPage.getPaidByCard().isSelected()) {
+                paidByCard = 1;
+            }
+            // Getting the datepicker dates
+            DatePicker checkInDP = newBookingViewPage.getCheckIn();
+            LocalDate datePicked = checkInDP.getValue();
+            String formattedDate = datePicked.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Date sqlDate = java.sql.Date.valueOf(formattedDate);
+
+            DatePicker checkOutDP = newBookingViewPage.getCheckOut();
+            LocalDate secondDatePicked = checkOutDP.getValue();
+            String secondFormattedDate = secondDatePicked.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Date secondSQLDate = java.sql.Date.valueOf(secondFormattedDate);
+
+            int bookingFee = Integer.parseInt(newBookingViewPage.getBookingFee().getText());
+            int isPaid = 0;
+            if (newBookingViewPage.getIsPaid().isSelected()) {
+                isPaid = 1;
+            }
+
+            Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid);
+            dbm.bdb.addBooking(newBooking);
+
+            bookingsDisplay();
+            newBookingStage.close();
+        });
+
+        newBookingViewPage.getCancel().setOnAction(e -> {
+            bookingsDisplay();
+            newBookingStage.close();
+        });
+
+        newBookingStage.setScene(newBookingViewPage.getScene());
+        newBookingStage.setTitle("Hotel Manager - New Booking");
+        newBookingStage.show();
+        formerStage.close();
+    }
+
+    /**
      * Displays the page with the hotel's bookings table
      */
 
@@ -372,7 +425,7 @@ public class HotelProject extends Application {
             LocalDate datePicked = dated.getValue();
             Date sqlDate = java.sql.Date.valueOf(datePicked);
 
-            String formattedDate = formatter.format(sqlDate); 
+            String formattedDate = formatter.format(sqlDate);
             ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(formattedDate);
 
             for (int bID : bookingIDS) {

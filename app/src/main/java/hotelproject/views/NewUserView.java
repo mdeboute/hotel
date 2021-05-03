@@ -1,6 +1,5 @@
 package hotelproject.views;
 
-import hotelproject.controllers.db.DatabaseManager;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -17,7 +16,7 @@ public class NewUserView extends View {
   private Button submit;
     private Button cancel;
 
-    public NewUserView(DatabaseManager dbm) {
+    public NewUserView() {
       createScene();
     }
 

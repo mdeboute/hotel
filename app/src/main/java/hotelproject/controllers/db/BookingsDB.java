@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
 
-import hotelproject.controllers.objects.Room;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +38,30 @@ public class BookingsDB {
     }
 
     /**
+     * @param booking Booking object that will be added to the database
+     * @brief Inserts new row into the `booking` table in the database.
+     */
+    public void addBooking(Booking booking) {
+        try {
+            String sql = "INSERT INTO `booking` VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, booking.getB_id());
+            statement.setInt(2, booking.getR_num());
+            statement.setInt(3, booking.getPaid_by_card());
+            statement.setDate(4, booking.getB_from());
+            statement.setDate(5, booking.getB_till());
+            statement.setInt(6, booking.getB_fee());
+            statement.setInt(7, booking.getB_is_paid());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * @param date Date string from front-end will be used for checking in database.
      * @return All booking ids that meet the conditions will be saved in ArrayList.
      * @brief Search the related booking ids by specific date.
@@ -60,6 +83,7 @@ public class BookingsDB {
         }
         return bookings;
     }
+
 
     /**
      * @param b_id Booking id is used for checking detail information in the database.
