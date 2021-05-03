@@ -125,6 +125,7 @@ public class HotelProject extends Application {
 
         mainPageView.getViewRooms().setOnAction(e -> roomsDisplay());
         mainPageView.getViewBookingsButton().setOnAction(e -> bookingsDisplay());
+        mainPageView.getViewCustomers().setOnAction(e -> customersDisplay());
 
         // only admins can access to this button
         if (connectedUser.getU_is_admin() == 1) {
@@ -649,6 +650,21 @@ public class HotelProject extends Application {
         usersStage.setScene(usersViewPage.getScene());
         usersStage.setTitle("Hotel Manager - Users");
         usersStage.show();
+    }
+
+    private void customersDisplay() {
+        List<Customer> customers = hdata.getCustomers();
+        CustomersView customersViewPage = new CustomersView(connectedUser, customers);
+        Stage customerStage = new Stage();
+
+        // admins can add a user
+        //if (connectedUser.getU_is_admin() == 1) {
+            //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
+        //}
+
+        customerStage.setScene(customersViewPage.getScene());
+        customerStage.setTitle("Hotel Manager - Users");
+        customerStage.show();
     }
 
     /**
