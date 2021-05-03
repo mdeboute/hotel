@@ -416,6 +416,11 @@ public class HotelProject extends Application {
         Stage bookingsStage = new Stage();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
+        // admins can add a booking
+        if (connectedUser.getU_is_admin() == 1) {
+            bookingsViewPage.getAddBooking().setOnAction(e -> newBookingDisplay(bookingsStage));
+        }
+
         DatePicker dated = bookingsViewPage.getDatePicker();
 
         dated.setOnAction(e -> {
