@@ -2,6 +2,7 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,6 +26,10 @@ public class RoomsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final Button addRoom = new Button("New room...");
+    private final Button deleteRoom = new Button("Delete room...");
+    private final Button updateRoom = new Button("Update room...");
+    private final Button viewDetails = new Button("View details...");
+
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -73,17 +78,19 @@ public class RoomsView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue()) //Switch on searchBar value
+            switch (whatToSearch.getValue()) // Switch on searchBar value
             {
-                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Room number" -> flRoom
+                        .setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
+                case "Floor" -> flRoom
+                        .setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
+                case "Room type" -> flRoom
+                        .setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
             }
         });
 
-        //When the new choice is selected we reset
-        whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {
+        // When the new choice is selected we reset
+        whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 searchBar.setText("");
             }
@@ -98,7 +105,14 @@ public class RoomsView extends View {
         pane.add(roomsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 5);
+            pane.add(deleteRoom, 0, 6);
+            pane.add(updateRoom, 0, 7); 
+            pane.add(viewDetails, 0, 8); 
         }
+
+        deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+        updateRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+        viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
 
         scene = new Scene(pane);
     }
@@ -108,10 +122,21 @@ public class RoomsView extends View {
         return null;
     }
 
-    /**************************Getter**********************/
+    /************************** Getter **********************/
 
     public Button getAddRoom() {
         return addRoom;
     }
 
-}   
+    public Button getDeleteRoom() {
+        return deleteRoom;
+    }
+
+    public Button getUpdateRoom() {
+        return updateRoom; 
+    }
+
+    public Button getViewDetails() {
+        return viewDetails;
+    }
+}
