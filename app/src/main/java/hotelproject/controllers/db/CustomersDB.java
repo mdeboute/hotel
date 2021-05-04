@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class CustomersDB {
 
@@ -102,5 +104,25 @@ public class CustomersDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @return list filled with all Customer objects collected from the database
+     * @brief Search all current customers and return as ArrayList
+     */
+    public ArrayList<Customer> findAllCustomers() {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM `customer`";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Customer customer = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
     }
 }
