@@ -34,8 +34,11 @@ public class CustomersView extends View {
         GridPane bodyPane = createBody();
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
-        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        bodyPane.getStyleClass().add("body-pane");
+        customersTable.getStyleClass().add("table-view");
+
         scene = new Scene(bodyPane);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override

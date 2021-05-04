@@ -46,8 +46,11 @@ public class RoomsView extends View {
         //roomsTable.setTextFill(Paint.valueOf("white"));
         //roomsTable.setStyle("-fx-background-color: #121212;");
 
-        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        bodyPane.getStyleClass().add("body-pane");
+        roomsTable.getStyleClass().add("table-view");
+
         scene = new Scene(bodyPane);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override
