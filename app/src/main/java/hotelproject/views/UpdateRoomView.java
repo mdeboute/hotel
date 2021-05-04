@@ -13,7 +13,6 @@ public class UpdateRoomView extends View {
 
     private final DatabaseManager dbm;
 
-    private final TextField oldNumRoom = new TextField();
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox roomType = new ComboBox();
@@ -32,18 +31,14 @@ public class UpdateRoomView extends View {
 
         VBox header = createHeader("Update room", "Enter room specifics to update");
 
-
-        Label oldNumRoomL = new Label("Old room number : ");
-        pane.add(oldNumRoomL, 0, 1);
-        pane.add(oldNumRoom, 1, 1);
         Label numRoomL = new Label("New room number : ");
-        pane.add(numRoomL, 0, 2);
-        pane.add(numRoom, 1, 2);
+        pane.add(numRoomL, 0, 1);
+        pane.add(numRoom, 1, 1);
         Label floorL = new Label("New floor : ");
-        pane.add(floorL, 0, 3);
-        pane.add(floor, 1, 3);
+        pane.add(floorL, 0, 2);
+        pane.add(floor, 1, 2);
         Label type = new Label("Room type : ");
-        pane.add(type, 0, 4);
+        pane.add(type, 0, 3);
 
         List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
         for (RoomType value : roomTypes) {
@@ -52,16 +47,16 @@ public class UpdateRoomView extends View {
         }
         roomType.setValue("Single");
 
-        pane.add(roomType, 1, 4);
-        // pane.add(booked, 0, 5);
+        pane.add(roomType, 1, 3);
+        pane.add(booked, 0, 4);
 
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 6);
+        pane.add(submit, 1, 5);
 
         cancel = new Button("Cancel");
         GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 7);
+        pane.add(cancel, 1, 6);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
@@ -86,10 +81,6 @@ public class UpdateRoomView extends View {
 
     public TextField getFloor() {
         return floor;
-    }
-
-    public TextField getOldNumRoom() {
-        return oldNumRoom;
     }
 
     public TextField getNumRoom() {

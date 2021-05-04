@@ -61,4 +61,15 @@ public class HotelData {
         rooms.remove(room); 
         dbm.rdb.deleteRoom(room);
     }
+
+    public void updateRoom(Room room, int oldRNum) {
+        for (Room r : rooms) {
+            if (oldRNum == r.getR_num()) {
+                int index = rooms.indexOf(r);
+                rooms.set(index, room);
+                dbm.rdb.updateRoom(room, oldRNum);
+                break;
+            }
+        }
+    }
 }

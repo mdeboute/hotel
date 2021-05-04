@@ -300,7 +300,7 @@ public class HotelProject extends Application {
             }
 
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-            dbm.rdb.addRoom(newRoom);
+            hdata.addRoom(newRoom);
 
             roomsDisplay();
             newRoomStage.close();
@@ -471,11 +471,52 @@ public class HotelProject extends Application {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
             roomsViewPage.getDeleteRoom().setOnAction(
                     e -> deleteRoomDisplay(roomsStage, roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
+            roomsViewPage.getUpdateRoom().setOnAction(
+                e -> updateRoomDisplay(roomsStage,
+                    roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));       
         }
 
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
+    }
+
+    /**
+     * Displays the page to update a room in the database (only for admins)
+     *
+     * @param formerStage to close when the new stage is showed
+     */
+    private void updateRoomDisplay(Stage formerStage, Room room) {
+
+        UpdateRoomView updateRoomViewPage = new UpdateRoomView(dbm);
+        Stage updateRoomStage = new Stage();
+
+        updateRoomViewPage.getSubmit().setOnAction(e -> {
+            int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());
+            int roomFloor = Integer.parseInt(updateRoomViewPage.getFloor().getText());
+            String roomType = updateRoomViewPage.getRoomType().getValue().toString();
+
+            int roomBooked = 0;
+            if (updateRoomViewPage.getBooked().isSelected()) {
+                roomBooked = 1;
+            }
+
+            Room updateRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+
+            hdata.updateRoom(updateRoom, room.getR_num());
+            roomsDisplay();
+            updateRoomStage.close();
+        });
+
+        updateRoomViewPage.getCancel().setOnAction(e -> {
+            roomsDisplay();
+            updateRoomStage.close();
+        });
+
+        updateRoomStage.setScene(updateRoomViewPage.getScene());
+        updateRoomStage.setTitle("Hotel Manager - Updating Room");
+        updateRoomStage.show();
+        formerStage.close();
     }
 
     /**
