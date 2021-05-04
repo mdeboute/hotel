@@ -252,7 +252,7 @@ public class RoomsDBTest {
     }
 
 
-  public ArrayList<String> getLog() {
-    return log;
-  }
+    public ArrayList<String> getLog() {
+        return log;
+    }
 }
