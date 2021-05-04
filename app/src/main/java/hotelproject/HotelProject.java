@@ -469,11 +469,38 @@ public class HotelProject extends Application {
 
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
+            roomsViewPage.getDeleteRoom().setOnAction(
+                    e -> deleteRoomDisplay(roomsStage, roomsViewPage.roomsTable.getSelectionModel().getSelectedItem()));
         }
-       
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
+    }
+
+    /**
+     * Display to delete the selected room
+     */
+    private void deleteRoomDisplay(Stage formerStage, Room room) {
+
+        DeleteRoomView deleteRoomViewPage = new DeleteRoomView(dbm);
+        Stage deleteRoomStage = new Stage();
+
+        deleteRoomViewPage.getSubmit().setOnAction(e -> {
+
+            hdata.deleteRoom(room);
+            roomsDisplay();
+            deleteRoomStage.close();
+        });
+
+        deleteRoomViewPage.getCancel().setOnAction(e -> {
+            roomsDisplay();
+            deleteRoomStage.close();
+        });
+
+        deleteRoomStage.setScene(deleteRoomViewPage.getScene());
+        deleteRoomStage.setTitle("Hotel Manager - Deleting Room");
+        deleteRoomStage.show();
+        formerStage.close();
     }
 
     private void usersDisplay() {
