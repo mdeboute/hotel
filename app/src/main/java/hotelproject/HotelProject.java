@@ -525,13 +525,15 @@ public class HotelProject extends Application {
                             }
                             Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
                             dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
+                            Alert secondAlert = new Alert(AlertType.INFORMATION, "Room has been updated.");
+                            secondAlert.show();
 
                             newWindow.close();
-                            roomsViewPage.roomsTable.refresh();
 
                         });
                     }
                 });
+
                 // Room updatedRoom = new Room(roomNb, roomFloor, rType, roomBooked);
                 Scene secondScene = new Scene(secondaryLayout, 250, 250);
 
@@ -559,7 +561,8 @@ public class HotelProject extends Application {
                     if (response == ButtonType.OK) {
                         Room r = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
                         dbm.rdb.deleteRoom(connectedUser, r);
-                        roomsViewPage.roomsTable.refresh();
+                        Alert thirdAlert = new Alert(AlertType.INFORMATION, "Room has been deleted.");
+                        thirdAlert.show();
                     }
                 });
             });
