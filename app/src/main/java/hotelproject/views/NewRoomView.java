@@ -50,7 +50,7 @@ public class NewRoomView extends View {
 
         pane.add(roomType, 1, 4);
         pane.add(addRoomType, 2, 4);
-        //pane.add(booked, 0, 5);
+        pane.add(booked, 0, 5);
 
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
