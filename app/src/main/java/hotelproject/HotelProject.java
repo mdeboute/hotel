@@ -335,10 +335,8 @@ public class HotelProject extends Application {
             if (newUserViewPage.getAdmin().isSelected()) {
                 userIA = 1;
             }
-
             User newUser = new User(userN, userP, userIA);
             dbm.udb.addUser(newUser);
-
             usersDisplay();
             newUserStage.close();
         });
@@ -667,7 +665,7 @@ public class HotelProject extends Application {
 
         // admins can add a user
         //if (connectedUser.getU_is_admin() == 1) {
-            //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
+        //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
         //}
 
         customerStage.setScene(customersViewPage.getScene());
