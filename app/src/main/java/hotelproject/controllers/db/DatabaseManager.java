@@ -52,7 +52,7 @@ public class DatabaseManager {
      * @brief Creates objects after scanning db for all table data
      */
     public HotelData createDBObjects() {
-        return new HotelData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers());
+        return new HotelData(this, rdb.findAllRooms(), rdb.findAllRoomTypes(), bdb.findAllBookings(), udb.getAllUsers(), cdb.findAllCustomers());
     }
 
     /**

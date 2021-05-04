@@ -2,14 +2,14 @@ package hotelproject.controllers.objects;
 
 public class Customer {
     private int c_ss_number;
-    private String c_adress;
+    private String c_address;
     private String c_full_name;
     private int c_phone_num;
     private String c_email;
 
-    public Customer(int c_ss_number, String c_adress, String c_full_name, int c_phone_num, String c_email) {
+    public Customer(int c_ss_number, String c_address, String c_full_name, int c_phone_num, String c_email) {
         this.c_ss_number = c_ss_number;
-        this.c_adress = c_adress;
+        this.c_address = c_address;
         this.c_full_name = c_full_name;
         this.c_phone_num = c_phone_num;
         this.c_email = c_email;
@@ -23,12 +23,12 @@ public class Customer {
         this.c_ss_number = c_ss_number;
     }
 
-    public String getC_adress() {
-        return c_adress;
+    public String getC_address() {
+        return c_address;
     }
 
-    public void setC_adress(String c_adress) {
-        this.c_adress = c_adress;
+    public void setC_address(String c_adress) {
+        this.c_address = c_adress;
     }
 
     public String getC_full_name() {
@@ -63,7 +63,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "c_ss_number=" + c_ss_number +
-                ", c_adress='" + c_adress + '\'' +
+                ", c_address='" + c_address + '\'' +
                 ", c_full_name='" + c_full_name + '\'' +
                 ", c_phone_num=" + c_phone_num +
                 ", c_email='" + c_email + '\'' +

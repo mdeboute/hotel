@@ -19,17 +19,17 @@ public class HotelData {
         roomTypes = dbm.rdb.findAllRoomTypes();
         bookings = dbm.bdb.findAllBookings();
         users = dbm.udb.getAllUsers();
-        customers = null;
+        customers = dbm.cdb.findAllCustomers();
     }
 
     public HotelData(DatabaseManager dbm, ArrayList<Room> rooms, ArrayList<RoomType> roomTypes, ArrayList<Booking> bookings,
-                     ArrayList<User> users) {
+                     ArrayList<User> users, ArrayList<Customer> customers) {
         this.dbm = dbm;
         this.rooms = rooms;
         this.roomTypes = roomTypes;
         this.bookings = bookings;
         this.users = users;
-        this.customers = null;
+        this.customers = customers;
     }
 
     public ArrayList<Booking> getBookings() {

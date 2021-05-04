@@ -44,7 +44,7 @@ public class CustomersView extends View {
         cSSNumCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_ss_number"));
 
         TableColumn cAddressCol = new TableColumn("Address");
-        cAddressCol.setMinWidth(150);
+        cAddressCol.setMinWidth(200);
         cAddressCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("c_address"));
 
         TableColumn cFullNameCol = new TableColumn("Full name");

@@ -49,7 +49,7 @@ public class CustomersDB {
                 PreparedStatement statement = conn.prepareStatement(sql);
 
                 statement.setInt(1, customer.getC_ss_number());
-                statement.setString(2, customer.getC_adress());
+                statement.setString(2, customer.getC_address());
                 statement.setString(3, customer.getC_full_name());
                 statement.setInt(4, customer.getC_phone_num());
                 statement.setString(5, customer.getC_email());
@@ -74,7 +74,7 @@ public class CustomersDB {
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setInt(1, customer.getC_ss_number());
-            statement.setString(2, customer.getC_adress());
+            statement.setString(2, customer.getC_address());
             statement.setString(3, customer.getC_full_name());
             statement.setInt(4, customer.getC_phone_num());
             statement.setString(5, customer.getC_email());

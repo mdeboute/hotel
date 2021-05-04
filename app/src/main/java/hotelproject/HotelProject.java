@@ -671,7 +671,7 @@ public class HotelProject extends Application {
         //}
 
         customerStage.setScene(customersViewPage.getScene());
-        customerStage.setTitle("Hotel Manager - Users");
+        customerStage.setTitle("Hotel Manager - Customers");
         customerStage.show();
     }
 
