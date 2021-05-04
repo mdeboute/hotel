@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 public class CSVtoDB {
     private final Connection conn;
+    private final PasswordAuth passwordAuth = new PasswordAuth();
     private final String FILE_PATH = "instances";
 
     public CSVtoDB(Connection conn) {
@@ -22,6 +23,7 @@ public class CSVtoDB {
         Connection conn = DatabaseManager.checkAndGetConnection("app/app.properties");
         CSVtoDB csvdb = new CSVtoDB(conn);
 
+        // order is important due to foreign keys of the architecture of the db
         csvdb.roomTypeQuery();
         csvdb.roomQuery();
         csvdb.customerQuery();
@@ -167,7 +169,7 @@ public class CSVtoDB {
                 count++;
 
                 statement.setString(1, u_name);
-                statement.setString(2, u_password);
+                statement.setString(2, passwordAuth.hash(u_password));
                 statement.setInt(3, u_is_admin);
 
                 statement.addBatch();

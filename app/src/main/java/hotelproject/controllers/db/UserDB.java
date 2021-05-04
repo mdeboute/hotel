@@ -1,6 +1,7 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.User;
+import hotelproject.controllers.utils.PasswordAuth;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import static java.lang.Integer.parseInt;
 
 public class UserDB {
     private final Connection conn;
+    private final PasswordAuth passwordAuth = new PasswordAuth();
 
     public UserDB(Connection conn) {
         this.conn = conn;
@@ -27,7 +29,7 @@ public class UserDB {
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            if (rs.getString("u_name").equals(user.getU_name()) && rs.getString("u_password").equals(user.getU_password())) {
+            if (rs.getString("u_name").equals(user.getU_name()) && passwordAuth.authenticate(user.getU_password(), rs.getString("u_password"))) {
                 return true;
             }
         }
@@ -61,7 +63,7 @@ public class UserDB {
         PreparedStatement stmt = conn.prepareStatement(sql);
 
         stmt.setString(1, user.getU_name());
-        stmt.setString(2, user.getU_password());
+        stmt.setString(2, passwordAuth.hash(user.getU_password()));
         stmt.setString(3, old_username);
 
         stmt.executeUpdate();
@@ -114,7 +116,7 @@ public class UserDB {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, user.getU_name());
-            stmt.setString(2, user.getU_password());
+            stmt.setString(2, passwordAuth.hash(user.getU_password()));
             stmt.setInt(3, user.getU_is_admin());
 
             stmt.executeUpdate();

@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS hotel;
 
 CREATE TABLE `hotel`.`users` (
   `u_name` VARCHAR(30) NOT NULL,
-  `u_password` VARCHAR(30) NULL,
+  `u_password` VARCHAR(50) NULL,
   `u_is_admin` TINYINT NULL,
   PRIMARY KEY (`u_name`));
 
