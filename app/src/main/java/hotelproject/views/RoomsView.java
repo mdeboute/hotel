@@ -2,6 +2,7 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -18,13 +20,17 @@ import java.util.List;
 public class RoomsView extends View {
 
     // The scene's nodes
-    // roomsTable is temporarily set to public (was private) for RoomsDisplay
-    public TableView<Room> roomsTable = new TableView<>();
+
     // The user connected to the application
     private final User user;
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
+    private TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
+    private final Button deleteRoom = new Button("Delete room...");
+    private final Button updateRoom = new Button("Update room...");
+    private final Button viewDetails = new Button("View details...");
+
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -34,11 +40,28 @@ public class RoomsView extends View {
 
     @Override
     void createScene() {
+        GridPane bodyPane = createBody();
+        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+
+        //roomsTable.setTextFill(Paint.valueOf("white"));
+        //roomsTable.setStyle("-fx-background-color: #121212;");
+
+        bodyPane.getStyleClass().add("body-pane");
+        roomsTable.getStyleClass().add("table-view");
+
+        scene = new Scene(bodyPane);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
+        //title.setFont(Font.font(18));
+        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         roomsTable.setEditable(true);
 
@@ -73,17 +96,16 @@ public class RoomsView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue()) //Switch on searchBar value
+            switch (whatToSearch.getValue()) // Switch on searchBar value
             {
-                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Room number" : flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
+                case "Floor" : flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
+                case "Room type" : flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
             }
         });
 
-        //When the new choice is selected we reset
-        whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {
+        // When the new choice is selected we reset
+        whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 searchBar.setText("");
             }
@@ -98,20 +120,40 @@ public class RoomsView extends View {
         pane.add(roomsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 5);
+            
+            deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+            pane.add(deleteRoom, 0, 6);
+
+            updateRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+            pane.add(updateRoom, 0, 7); 
+            
+            viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+            pane.add(viewDetails, 0, 8); 
         }
 
-        scene = new Scene(pane);
+
+        return pane;
     }
 
-    @Override
-    GridPane createBody() {
-        return null;
-    }
-
-    /**************************Getter**********************/
+    /************************** Getter **********************/
 
     public Button getAddRoom() {
         return addRoom;
     }
 
-}   
+    public TableView<Room> getRoomsTable() {
+        return roomsTable;
+    }
+
+    public Button getDeleteRoom() {
+        return deleteRoom;
+    }
+
+    public Button getUpdateRoom() {
+        return updateRoom; 
+    }
+
+    public Button getViewDetails() {
+        return viewDetails;
+    }
+}

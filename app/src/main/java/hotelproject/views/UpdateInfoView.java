@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 public class UpdateInfoView extends View {
 
@@ -27,7 +29,29 @@ public class UpdateInfoView extends View {
 
     @Override
     void createScene() {
+        GridPane pane = createBody();
+        GridPane.setHalignment(pane, javafx.geometry.HPos.CENTER);
+
+        pane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scene = new Scene(pane, 500, 300);
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
+
+        //font and color of labels
+        output.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        output.setTextFill(Paint.valueOf("cf6679"));
+
+        usernameL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        usernameL.setTextFill(Paint.valueOf("white"));
+
+        fstPwdL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        fstPwdL.setTextFill(Paint.valueOf("white"));
+
+        sndPwdL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        sndPwdL.setTextFill(Paint.valueOf("white"));
 
         // let the user decide what information they want to change
         pane.add(changeUsername, 0, 0);
@@ -53,12 +77,7 @@ public class UpdateInfoView extends View {
         pane.add(save, 1, 9);
         pane.add(output, 0, 10);
 
-        scene = new Scene(pane, 500, 300);
-    }
-
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /*****************************Getters*********************************/

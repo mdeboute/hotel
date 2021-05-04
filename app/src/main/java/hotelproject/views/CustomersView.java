@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -30,11 +31,24 @@ public class CustomersView extends View {
 
     @Override
     void createScene() {
+        GridPane bodyPane = createBody();
+        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+
+        bodyPane.getStyleClass().add("body-pane");
+        customersTable.getStyleClass().add("table-view");
+
+        scene = new Scene(bodyPane);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel customers");
+        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         customersTable.setEditable(true);
 
@@ -75,9 +89,9 @@ public class CustomersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Customer's social security number" -> flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
-                case "Full name" -> flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
-                case "Phone number" -> flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
+                case "Customer's social security number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
+                case "Full name" : flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Phone number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
             }
         });
 
@@ -99,12 +113,8 @@ public class CustomersView extends View {
         if (user.getU_is_admin() == 1) {
             pane.add(addCustomer, 0, 5);
         }
-        scene = new Scene(pane);
-    }
 
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /**************************Getter**********************/

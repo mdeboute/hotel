@@ -89,22 +89,17 @@ public class RoomsDB {
     }
 
     /**
-     * @param user the user object which is to be checked whether is admin
      * @param room the number of the room that will be deleted from the database
      * @brief Deletes the room according to the room number
      */
-    public void deleteRoom(User user, Room room) {
+    public void deleteRoom(Room room) {
         try {
-            if (user.getU_is_admin() == 1) {
-                // Statement stmt = conn.createStatement();
-                String sql = "DELETE FROM `room` WHERE `r_num` = ?";
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setInt(1, room.getR_num());
-                statement.executeUpdate();
-                // stmt.executeUpdate(String.format(sql, room.getR_num()));
-            } else {
-                System.out.println("Process went wrong.");
-            }
+            // Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM `room` WHERE `r_num` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, room.getR_num());
+            statement.executeUpdate();
+            // stmt.executeUpdate(String.format(sql, room.getR_num()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,29 +137,24 @@ public class RoomsDB {
     }
 
     /**
-     * @param user the user object (checks if user is admin)
      * @param room the updated Room object (must have the same room number)
      * @brief Update the room according to the room number
      */
-    public void updateRoom(User user, Room room, int oldRNum) {
+    public void updateRoom(Room room, int oldRNum) {
         try {
-            if (user.getU_is_admin() == 1) {
-                // Statement stmt = conn.createStatement();
+            // Statement stmt = conn.createStatement();
 
-                String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ?, `booked` = ? WHERE `r_num` = ?";
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setInt(1, room.getR_num());
-                statement.setInt(2, room.getR_floor());
-                statement.setString(3, room.getR_type());
-                statement.setInt(4, room.getBooked());
-                statement.setInt(5, oldRNum);
-                statement.executeUpdate();
+            String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ?, `booked` = ? WHERE `r_num` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, room.getR_num());
+            statement.setInt(2, room.getR_floor());
+            statement.setString(3, room.getR_type());
+            statement.setInt(4, room.getBooked());
+            statement.setInt(5, oldRNum);
+            statement.executeUpdate();
                 // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
                 // room.getR_type(),
                 // room.getBooked(), oldRNum));
-            } else {
-                System.out.println("Process went wrong.");
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

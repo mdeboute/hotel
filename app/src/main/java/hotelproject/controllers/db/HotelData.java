@@ -3,6 +3,7 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.*;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class HotelData {
     public final DatabaseManager dbm;
@@ -55,4 +56,25 @@ public class HotelData {
         rooms.add(room);
         dbm.rdb.addRoom(room);
     }
+
+    public void deleteRoom(Room room) {
+        rooms.remove(room); 
+        dbm.rdb.deleteRoom(room);
+    }
+
+    public void updateRoom(Room room, int oldRNum) {
+        for (Room r : rooms) {
+            if (oldRNum == r.getR_num()) {
+                int index = rooms.indexOf(r);
+                rooms.set(index, room);
+                dbm.rdb.updateRoom(room, oldRNum);
+                break;
+            }
+        }
+    }
+
+    public Hashtable<String, String> viewDetails(Room room) {
+        return dbm.rdb.viewRoomDetails(room);
+    }
+
 }

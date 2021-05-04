@@ -44,7 +44,7 @@ public class LoginView extends View {
         scenePane.add(body, 0, 1);
         GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
-        scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
+        scenePane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
         scene = new Scene(scenePane, 476, 610);
     }
 
@@ -71,12 +71,13 @@ public class LoginView extends View {
     GridPane createBody() {
         GridPane bodyPane = createPane();
 
+        result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        result.setTextFill(Paint.valueOf("cf6679"));
+
         int pwdRow = 1;
         if (!onlyPwd) {
             pwdRow = 2;
 
-            result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
-            result.setTextFill(Paint.valueOf("cf6679"));
             bodyPane.add(result, 0, pwdRow - 1);
 
             StackPane stack = new StackPane();
@@ -137,7 +138,7 @@ public class LoginView extends View {
     }
 
     public String getUsernameString() {
-        return username.toString();
+        return username.getText();
     }
 
     public PasswordField getPassword() {
