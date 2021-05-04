@@ -61,7 +61,7 @@ public class MainPageView extends View {
         scenePane.add(body, 0, 1);
         //GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
-        scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
+        scenePane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
         scene = new Scene(scenePane, 775, 658);
     }
 

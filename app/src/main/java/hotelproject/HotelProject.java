@@ -473,14 +473,14 @@ public class HotelProject extends Application {
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
         }
-        roomsViewPage.roomsTable.setRowFactory(tableView -> {
+        roomsViewPage.getRoomsTable().setRowFactory(tableView -> {
             final TableRow<Room> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
 
             MenuItem updateItem = new MenuItem("Update");
             updateItem.setOnAction(event -> {
                 Stage newWindow = new Stage();
-                Room u = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                Room u = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
 
                 TextField numRoom = new TextField();
                 Label numRoomL = new Label("New room number : ");
@@ -560,7 +560,7 @@ public class HotelProject extends Application {
                 Alert alert = new Alert(AlertType.INFORMATION, "Before deleted, make sure it has no booking!");
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        Room r = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                        Room r = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
                         dbm.rdb.deleteRoom(connectedUser, r);
                         Alert thirdAlert = new Alert(AlertType.INFORMATION, "Room has been deleted.");
                         thirdAlert.show();
@@ -572,7 +572,7 @@ public class HotelProject extends Application {
             detailsItem.setOnAction(event -> {
                 Stage newWindow = new Stage();
 
-                Room rD = roomsViewPage.roomsTable.getSelectionModel().getSelectedItem();
+                Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
                 ListView<String> roomDListView = new ListView<>();
                 Hashtable<String, String> roomsDetails = dbm.rdb.viewRoomDetails(rD);
 

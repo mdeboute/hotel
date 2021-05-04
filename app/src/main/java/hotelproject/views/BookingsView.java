@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -36,11 +37,21 @@ public class BookingsView extends View {
 
     @Override
     void createScene() {
+        GridPane bodyPane = createBody();
+        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+
+        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scene = new Scene(bodyPane);
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel bookings");
+        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         bookingsTable.setEditable(true);
 
@@ -89,14 +100,14 @@ public class BookingsView extends View {
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) { // Switch on searchBar value
-                case "Booking ID" -> flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
+                case "Booking ID" : flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
 
-                // table
-                // by booking id
-                case "Room number" -> flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+                    // table
+                    // by booking id
+                case "Room number" : flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
 
-                // table by
-                // room number
+                    // table by
+                    // room number
             }
         });
 
@@ -117,17 +128,13 @@ public class BookingsView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(date, 0, 3);
+        GridPane.setHalignment(date, javafx.geometry.HPos.CENTER);
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             pane.add(addBooking, 0, 5);
         }
 
-        scene = new Scene(pane);
-    }
-
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /************************** Getter **********************/

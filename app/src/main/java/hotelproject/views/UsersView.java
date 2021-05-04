@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -34,11 +35,21 @@ public class UsersView extends View {
 
     @Override
     void createScene() {
+        GridPane bodyPane = createBody();
+        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+
+        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scene = new Scene(bodyPane);
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel users");
+        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         usersTable.setEditable(true);
 
@@ -71,8 +82,8 @@ public class UsersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Username" -> flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim())); //filter table by room number
-                case "User password" -> flUser.setPredicate(p -> p.getU_password().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
+                case "Username" : flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim())); //filter table by room number
+                case "User password" : flUser.setPredicate(p -> p.getU_password().toLowerCase().contains(newValue.toLowerCase().trim())); //filter table by room type
             }
         });
 
@@ -95,12 +106,7 @@ public class UsersView extends View {
             pane.add(addUser, 0, 5);
         }
 
-        scene = new Scene(pane);
-    }
-
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /**************************Getter**********************/

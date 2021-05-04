@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -18,12 +19,12 @@ import java.util.List;
 public class RoomsView extends View {
 
     // The scene's nodes
-    // roomsTable is temporarily set to public (was private) for RoomsDisplay
-    public TableView<Room> roomsTable = new TableView<>();
+
     // The user connected to the application
     private final User user;
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
+    private TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
 
     public RoomsView(User user, List<Room> rooms) {
@@ -34,11 +35,25 @@ public class RoomsView extends View {
 
     @Override
     void createScene() {
+        GridPane bodyPane = createBody();
+        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+
+        //roomsTable.setTextFill(Paint.valueOf("white"));
+        //roomsTable.setStyle("-fx-background-color: #121212;");
+
+        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scene = new Scene(bodyPane);
+    }
+
+    @Override
+    GridPane createBody() {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
+        //title.setFont(Font.font(18));
+        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         roomsTable.setEditable(true);
 
@@ -75,9 +90,9 @@ public class RoomsView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Room number" -> flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor" -> flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type" -> flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Room number" : flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
+                case "Floor" : flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
+                case "Room type" : flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
             }
         });
 
@@ -100,12 +115,7 @@ public class RoomsView extends View {
             pane.add(addRoom, 0, 5);
         }
 
-        scene = new Scene(pane);
-    }
-
-    @Override
-    GridPane createBody() {
-        return null;
+        return pane;
     }
 
     /**************************Getter**********************/
@@ -114,4 +124,7 @@ public class RoomsView extends View {
         return addRoom;
     }
 
-}   
+    public TableView<Room> getRoomsTable() {
+        return roomsTable;
+    }
+}
