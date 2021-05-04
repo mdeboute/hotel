@@ -300,7 +300,7 @@ public class HotelProject extends Application {
             }
 
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-            dbm.rdb.addRoom(newRoom);
+            hdata.addRoom(newRoom);
 
             roomsDisplay();
             newRoomStage.close();
