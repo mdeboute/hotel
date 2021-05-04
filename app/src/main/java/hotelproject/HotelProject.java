@@ -476,6 +476,70 @@ public class HotelProject extends Application {
                     roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));       
         }
 
+        roomsViewPage.getViewDetails().setOnAction(e -> {
+            Stage newWindow = new Stage();
+
+            Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
+            ListView<String> roomDListView = new ListView<>();
+            Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
+            ;
+
+            roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
+            roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
+            roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
+
+            if (roomsDetails.get("has_view").equals("1")) {
+                roomDListView.getItems().add("It has a view");
+            } else if (roomsDetails.get("has_view").equals("0")) {
+                roomDListView.getItems().add("It does not have a view");
+            }
+
+            if (roomsDetails.get("has_kitchen").equals("1")) {
+                roomDListView.getItems().add("It has a kitchen");
+            } else if (roomsDetails.get("has_kitchen").equals("0")) {
+                roomDListView.getItems().add("It does not have a kitchen");
+            }
+
+            if (roomsDetails.get("has_bathroom").equals("1")) {
+                roomDListView.getItems().add("It has a bathroom");
+            } else if (roomsDetails.get("has_bathroom").equals("0")) {
+                roomDListView.getItems().add("It does not have a bathroom");
+            }
+
+            if (roomsDetails.get("has_workspace").equals("1")) {
+                roomDListView.getItems().add("It has a workspace");
+            } else if (roomsDetails.get("has_workspace").equals("0")) {
+                roomDListView.getItems().add("It does not have a workspace");
+            }
+
+            if (roomsDetails.get("has_tv").equals("1")) {
+                roomDListView.getItems().add("It has a TV");
+            } else if (roomsDetails.get("has_tv").equals("0")) {
+                roomDListView.getItems().add("It does not have a TV");
+            }
+
+            if (roomsDetails.get("has_coffee_maker").equals("1")) {
+                roomDListView.getItems().add("It has a coffee maker");
+            } else if (roomsDetails.get("has_view").equals("0")) {
+                roomDListView.getItems().add("It does not have a coffee maker");
+            }
+
+            GridPane secBLayout = new GridPane();
+            secBLayout.getChildren().add(roomDListView);
+
+            Scene secondScene = new Scene(secBLayout, 250, 250);
+
+            // New window (Stage) Stage newWindow = new Stage();
+            newWindow.setTitle("Details");
+            newWindow.setScene(secondScene);
+
+            // Set position of second window, related to primary window.
+            newWindow.setX(roomsStage.getX());
+            newWindow.setY(roomsStage.getY());
+
+            newWindow.show();
+        });
+
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();

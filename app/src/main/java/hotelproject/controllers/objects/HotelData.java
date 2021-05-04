@@ -4,6 +4,7 @@ import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.*;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class HotelData {
     public final DatabaseManager dbm;
@@ -72,4 +73,9 @@ public class HotelData {
             }
         }
     }
+
+    public Hashtable<String, String> viewDetails(Room room) {
+        return dbm.rdb.viewRoomDetails(room);
+    }
+
 }
