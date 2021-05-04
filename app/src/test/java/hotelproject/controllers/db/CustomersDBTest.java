@@ -1,19 +1,20 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Customer;
-import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-@FixMethodOrder(value = MethodSorters.NAME_ASCENDING )
+import java.util.ArrayList;
+
+@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class CustomersDBTest {
 
-    private DatabaseManager dm = new DatabaseManager();
-    private Customer customer_1 = new Customer( 72091719,"Sivliden 71","Patrik Wikstrom", 761404361, "patrik.wikstrom@hotmail.com");
-    private Customer customer_2 = new Customer( 11111111,"Street 1","James Green", 12345678, "james.green@hotmail.com");
-    private Customer customer_3 = new Customer( 22222222,"Street 2","Lisa Green", 87654321, "lisa.green@hotmail.com");
+    private final DatabaseManager dm = new DatabaseManager();
+    private final Customer customer_1 = new Customer(72091719, "Sivliden 71", "Patrik Wikstrom", 761404361, "patrik.wikstrom@hotmail.com");
+    private final Customer customer_2 = new Customer(11111111, "Street 1", "James Green", 12345678, "james.green@hotmail.com");
+    private final Customer customer_3 = new Customer(22222222, "Street 2", "Lisa Green", 87654321, "lisa.green@hotmail.com");
 
     /**
      * @brief Test customerExists() method.
@@ -21,9 +22,9 @@ public class CustomersDBTest {
      */
     @Test
     public void test_001_UserExists() {
-        Assert.assertEquals(dm.cdb.customerExists(customer_1),true);
-        Assert.assertEquals(dm.cdb.customerExists(customer_2),false);
-        Assert.assertEquals(dm.cdb.customerExists(customer_3),false);
+        Assert.assertTrue(dm.cdb.customerExists(customer_1));
+        Assert.assertFalse(dm.cdb.customerExists(customer_2));
+        Assert.assertFalse(dm.cdb.customerExists(customer_3));
     }
 
     /**
@@ -32,9 +33,9 @@ public class CustomersDBTest {
      */
     @Test
     public void test_002_AddCustomer() {
-        Assert.assertEquals(dm.cdb.customerExists(customer_2),false);
+        Assert.assertFalse(dm.cdb.customerExists(customer_2));
         dm.cdb.addCustomer(customer_2);
-        Assert.assertEquals(dm.cdb.customerExists(customer_2),true);
+        Assert.assertTrue(dm.cdb.customerExists(customer_2));
     }
 
     /**
@@ -43,8 +44,8 @@ public class CustomersDBTest {
      */
     @Test
     public void test_003_UpdateCustomer() {
-        dm.cdb.updateCustomer(customer_3,11111111);
-        Assert.assertEquals(dm.cdb.customerExists(customer_3),true);
+        dm.cdb.updateCustomer(customer_3, 11111111);
+        Assert.assertTrue(dm.cdb.customerExists(customer_3));
     }
 
     /**
@@ -55,8 +56,8 @@ public class CustomersDBTest {
     public void test_004_DeleteCustomer() {
         dm.cdb.deleteCustomer(customer_2);
         dm.cdb.deleteCustomer(customer_3);
-        Assert.assertEquals(dm.cdb.customerExists(customer_2),false);
-        Assert.assertEquals(dm.cdb.customerExists(customer_3),false);
+        Assert.assertFalse(dm.cdb.customerExists(customer_2));
+        Assert.assertFalse(dm.cdb.customerExists(customer_3));
     }
 
     @Test
@@ -64,7 +65,6 @@ public class CustomersDBTest {
         ArrayList<Customer> customers = dm.cdb.findAllCustomers();
         Assert.assertTrue(customers.size() != 0);
     }
-
 
 
 }

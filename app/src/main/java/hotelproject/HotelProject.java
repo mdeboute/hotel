@@ -335,10 +335,8 @@ public class HotelProject extends Application {
             if (newUserViewPage.getAdmin().isSelected()) {
                 userIA = 1;
             }
-
             User newUser = new User(userN, userP, userIA);
             dbm.udb.addUser(newUser);
-
             usersDisplay();
             newUserStage.close();
         });
@@ -463,7 +461,6 @@ public class HotelProject extends Application {
     /**
      * Displays the page with the hotel's rooms table
      */
-    // Sorry to anyone who might have to deal with this shit...
     private void roomsDisplay() {
 
         ArrayList<Room> rooms = hdata.getRooms();
@@ -472,177 +469,39 @@ public class HotelProject extends Application {
 
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
+            roomsViewPage.getDeleteRoom().setOnAction(
+                    e -> deleteRoomDisplay(roomsStage, roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
         }
-        roomsViewPage.getRoomsTable().setRowFactory(tableView -> {
-            final TableRow<Room> row = new TableRow<>();
-            final ContextMenu rowMenu = new ContextMenu();
-
-            MenuItem updateItem = new MenuItem("Update");
-            updateItem.setOnAction(event -> {
-                Stage newWindow = new Stage();
-                Room u = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-
-                TextField numRoom = new TextField();
-                Label numRoomL = new Label("New room number : ");
-                TextField floor = new TextField();
-                Label floorL = new Label("New room floor : ");
-                ComboBox<String> type = new ComboBox<>();
-                Label typeL = new Label("New room type : ");
-                CheckBox booked = new CheckBox("Booked");
-                Label bookedL = new Label("Is booked");
-
-                List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
-                for (RoomType value : roomTypes) {
-                    type.getItems().add(value.getT_name());
-                }
-                type.setValue("Single");
-
-                GridPane secondaryLayout = new GridPane();
-
-                secondaryLayout.add(numRoomL, 0, 1);
-                secondaryLayout.add(numRoom, 1, 1);
-                secondaryLayout.add(floorL, 0, 2);
-                secondaryLayout.add(floor, 1, 2);
-                secondaryLayout.add(typeL, 0, 4);
-                secondaryLayout.add(type, 1, 4);
-                secondaryLayout.add(bookedL, 0, 6);
-                secondaryLayout.add(booked, 1, 6);
-
-                Button submit = new Button("Submit");
-                GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-                secondaryLayout.add(submit, 1, 8);
-
-                Alert alert = new Alert(AlertType.INFORMATION, "Before updated, make sure it has no booking!");
-                alert.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.OK) {
-
-                        submit.setOnAction(e -> {
-                            int roomNb = Integer.parseInt(numRoom.getText());
-                            int roomFloor = Integer.parseInt(floor.getText());
-                            String roomType = type.getValue();
-                            int roomBooked = 0;
-                            if (booked.isSelected()) {
-                                roomBooked = 1;
-                            }
-                            Room updatedRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
-                            dbm.rdb.updateRoom(connectedUser, updatedRoom, u.getR_num());
-                            Alert secondAlert = new Alert(AlertType.INFORMATION, "Room has been updated.");
-                            secondAlert.show();
-
-                            newWindow.close();
-
-                        });
-                    }
-                });
-
-                // Room updatedRoom = new Room(roomNb, roomFloor, rType, roomBooked);
-                Scene secondScene = new Scene(secondaryLayout, 250, 250);
-
-                // New window (Stage)
-                newWindow.setTitle("Update room");
-                newWindow.setScene(secondScene);
-
-                // Specifies the modality for new window.
-                newWindow.initModality(Modality.WINDOW_MODAL);
-
-                // Specifies the owner Window (parent) for new window
-                newWindow.initOwner(roomsStage);
-
-                // Set position of second window, related to primary window.
-                newWindow.setX(roomsStage.getX() + 200);
-                newWindow.setY(roomsStage.getY() + 200);
-
-                newWindow.show();
-            });
-
-            MenuItem deleteItem = new MenuItem("Delete");
-            deleteItem.setOnAction(event -> {
-                Alert alert = new Alert(AlertType.INFORMATION, "Before deleted, make sure it has no booking!");
-                alert.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.OK) {
-                        Room r = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                        dbm.rdb.deleteRoom(connectedUser, r);
-                        Alert thirdAlert = new Alert(AlertType.INFORMATION, "Room has been deleted.");
-                        thirdAlert.show();
-                    }
-                });
-            });
-
-            MenuItem detailsItem = new MenuItem("View details");
-            detailsItem.setOnAction(event -> {
-                Stage newWindow = new Stage();
-
-                Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                ListView<String> roomDListView = new ListView<>();
-                Hashtable<String, String> roomsDetails = dbm.rdb.viewRoomDetails(rD);
-
-                roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
-                roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
-                roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
-
-                if (roomsDetails.get("has_view").equals("1")) {
-                    roomDListView.getItems().add("It has a view");
-                } else if (roomsDetails.get("has_view").equals("0")) {
-                    roomDListView.getItems().add("It does not have a view");
-                }
-
-                if (roomsDetails.get("has_kitchen").equals("1")) {
-                    roomDListView.getItems().add("It has a kitchen");
-                } else if (roomsDetails.get("has_kitchen").equals("0")) {
-                    roomDListView.getItems().add("It does not have a kitchen");
-                }
-
-                if (roomsDetails.get("has_bathroom").equals("1")) {
-                    roomDListView.getItems().add("It has a bathroom");
-                } else if (roomsDetails.get("has_bathroom").equals("0")) {
-                    roomDListView.getItems().add("It does not have a bathroom");
-                }
-
-                if (roomsDetails.get("has_workspace").equals("1")) {
-                    roomDListView.getItems().add("It has a workspace");
-                } else if (roomsDetails.get("has_workspace").equals("0")) {
-                    roomDListView.getItems().add("It does not have a workspace");
-                }
-
-                if (roomsDetails.get("has_tv").equals("1")) {
-                    roomDListView.getItems().add("It has a TV");
-                } else if (roomsDetails.get("has_tv").equals("0")) {
-                    roomDListView.getItems().add("It does not have a TV");
-                }
-
-                if (roomsDetails.get("has_coffee_maker").equals("1")) {
-                    roomDListView.getItems().add("It has a coffee maker");
-                } else if (roomsDetails.get("has_view").equals("0")) {
-                    roomDListView.getItems().add("It does not have a coffee maker");
-                }
-
-                GridPane secBLayout = new GridPane();
-                secBLayout.getChildren().add(roomDListView);
-
-                Scene secondScene = new Scene(secBLayout, 400, 400);
-
-                // New window (Stage) Stage newWindow = new Stage();
-                newWindow.setTitle("Details of the room");
-                newWindow.setScene(secondScene);
-
-                // Set position of second window, related to primary window.
-                newWindow.setX(roomsStage.getX() + 200);
-                newWindow.setY(roomsStage.getY() + 100);
-
-                newWindow.show();
-            });
-
-            rowMenu.getItems().addAll(updateItem, deleteItem, detailsItem);
-
-            // only display context menu for non-null items:
-            row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
-                    .otherwise((ContextMenu) null));
-            return row;
-        });
 
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
         roomsStage.show();
+    }
+
+    /**
+     * Display to delete the selected room
+     */
+    private void deleteRoomDisplay(Stage formerStage, Room room) {
+
+        DeleteRoomView deleteRoomViewPage = new DeleteRoomView(dbm);
+        Stage deleteRoomStage = new Stage();
+
+        deleteRoomViewPage.getSubmit().setOnAction(e -> {
+
+            hdata.deleteRoom(room);
+            roomsDisplay();
+            deleteRoomStage.close();
+        });
+
+        deleteRoomViewPage.getCancel().setOnAction(e -> {
+            roomsDisplay();
+            deleteRoomStage.close();
+        });
+
+        deleteRoomStage.setScene(deleteRoomViewPage.getScene());
+        deleteRoomStage.setTitle("Hotel Manager - Deleting Room");
+        deleteRoomStage.show();
+        formerStage.close();
     }
 
     private void usersDisplay() {
@@ -667,7 +526,7 @@ public class HotelProject extends Application {
 
         // admins can add a user
         //if (connectedUser.getU_is_admin() == 1) {
-            //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
+        //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
         //}
 
         customerStage.setScene(customersViewPage.getScene());

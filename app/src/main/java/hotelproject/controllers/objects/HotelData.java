@@ -56,4 +56,9 @@ public class HotelData {
         rooms.add(room);
         dbm.rdb.addRoom(room);
     }
+
+    public void deleteRoom(Room room) {
+        rooms.remove(room); 
+        dbm.rdb.deleteRoom(room);
+    }
 }
