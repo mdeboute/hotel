@@ -1,5 +1,3 @@
-//TODO: This is broken, fix pls
-
 package hotelproject.controllers.db;
 
 import org.junit.After;

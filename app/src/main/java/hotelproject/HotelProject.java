@@ -1,6 +1,7 @@
 package hotelproject;
 
 import hotelproject.controllers.db.DatabaseManager;
+import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 import javafx.application.Application;

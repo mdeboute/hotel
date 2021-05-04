@@ -1,6 +1,5 @@
-package hotelproject.controllers.objects;
+package hotelproject.controllers.db;
 
-import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.*;
 
 import java.util.ArrayList;
