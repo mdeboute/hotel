@@ -1,6 +1,7 @@
 package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Customer;
+import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -58,7 +59,11 @@ public class CustomersDBTest {
         Assert.assertEquals(dm.cdb.customerExists(customer_3),false);
     }
 
-
+    @Test
+    public void test_005_findAllCustomers() {
+        ArrayList<Customer> customers = dm.cdb.findAllCustomers();
+        Assert.assertTrue(customers.size() != 0);
+    }
 
 
 
