@@ -15,7 +15,7 @@ public class UpdateRoomView extends View {
 
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
-    private final ComboBox roomType = new ComboBox();
+    private final ComboBox<String> roomType = new ComboBox<>();
     private final CheckBox booked = new CheckBox("Booked");
     private Button submit;
     private Button cancel;
@@ -87,7 +87,7 @@ public class UpdateRoomView extends View {
         return numRoom;
     }
 
-    public ComboBox getRoomType() {
+    public ComboBox<String> getRoomType() {
         return roomType;
     }
 
