@@ -630,14 +630,43 @@ public class HotelProject extends Application {
         CustomersView customersViewPage = new CustomersView(connectedUser, customers);
         Stage customerStage = new Stage();
 
-        // admins can add a user
-        //if (connectedUser.getU_is_admin() == 1) {
-        //customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage);
-        //}
+        customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
+
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
         customerStage.show();
+    }
+
+    private void newCustomerDisplay(Stage formerStage) {
+        NewCustomerView newCustomerViewPage = new NewCustomerView(dbm);
+        Stage newCustomerStage = new Stage();
+
+        // set buttons on action
+
+        newCustomerViewPage.getSubmit().setOnAction(e -> {
+            int cSSNum = Integer.parseInt(newCustomerViewPage.getCSSNum().getText());
+            String cAddress =newCustomerViewPage.getCAddress().getText().toString();
+            String cFullName = newCustomerViewPage.getCFullName().getText().toString();
+            int cPhoneNum = Integer.parseInt(newCustomerViewPage.getCPhoneNum().getText());
+            String cEmail = newCustomerViewPage.getCEmail().getText().toString();
+
+            Customer newCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
+            hdata.addCustomer(newCustomer);
+
+            customersDisplay();
+            newCustomerStage.close();
+        });
+
+        newCustomerViewPage.getCancel().setOnAction(e -> {
+            customersDisplay();
+            newCustomerStage.close();
+        });
+
+        newCustomerStage.setScene(newCustomerViewPage.getScene());
+        newCustomerStage.setTitle("Hotel Manager - New Customer");
+        newCustomerStage.show();
+        formerStage.close();
     }
 
     /**
