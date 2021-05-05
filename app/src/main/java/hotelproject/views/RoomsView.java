@@ -96,15 +96,13 @@ public class RoomsView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue()) // Switch on searchBar value
-            {
-                case "Room number":
-                    flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor":
-                    flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type":
-                    flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
-            }
+        if (whatToSearch.getValue() == "Room number") {
+            flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
+        } else if (whatToSearch.getValue() == "Floor") {
+            flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
+        } else if (whatToSearch.getValue() == "Room type") {
+            flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+        }
         });
 
         // When the new choice is selected we reset

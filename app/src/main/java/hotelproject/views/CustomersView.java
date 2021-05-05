@@ -86,14 +86,12 @@ public class CustomersView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue()) //Switch on searchBar value
-            {
-                case "Customer's social security number":
-                    flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
-                case "Full name":
-                    flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
-                case "Phone number":
-                    flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
+            if (whatToSearch.getValue() == "Customer's social security number") {
+                flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
+            } else if (whatToSearch.getValue() == "Full name") {
+                flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
+            } else if (whatToSearch.getValue() == "Phone number") {
+                flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
             }
         });
 
