@@ -2,12 +2,15 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
 
+@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class BookingsDBTest {
 
     private final DatabaseManager dbm = new DatabaseManager();
@@ -17,7 +20,7 @@ public class BookingsDBTest {
      * @result The method should be able to retrieve all bookings in the database and the result should be 10.
      */
     @Test
-    public void testFindAllBookings() {
+    public void test_001_findAllBookings() {
         ArrayList<Booking> allBookings;
         allBookings = dbm.bdb.findAllBookings();
         Assert.assertEquals(allBookings.size(), 10);
@@ -37,7 +40,7 @@ public class BookingsDBTest {
      * @result Use two different dates to test this method. The first date should return one record. The second date should return two records.
      */
     @Test
-    public void testGetBookingsForSpecificDay() {
+    public void test_002_getBookingsForSpecificDay() {
         ArrayList<Integer> bookingsFromTheDay;
 
         bookingsFromTheDay = dbm.bdb.getBookingsForSpecificDay("2021-05-29");
@@ -49,7 +52,7 @@ public class BookingsDBTest {
      * @result TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
      */
     @Test
-    public void testGetBookingDetails() {
+    public void test_003_getBookingDetails() {
         Hashtable<String, String> bookingDetails;
         bookingDetails = dbm.bdb.getBookingDetails(1);
         Set<String> set1 = bookingDetails.keySet();
