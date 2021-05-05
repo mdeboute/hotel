@@ -108,12 +108,9 @@ public final class PasswordAuth {
     /**
      * Hash a password in an immutable {@code String}.
      *
-     * <p>Passwords should be stored in a {@code char[]} so that it can be filled
+     * Passwords should be stored in a {@code char[]} so that it can be filled
      * with zeros after use instead of lingering on the heap and elsewhere.
-     *
-     * @deprecated Use {@link #hash(char[])} instead
      */
-    @Deprecated
     public String hash(String password) {
         return hash(password.toCharArray());
     }
@@ -123,9 +120,7 @@ public final class PasswordAuth {
      * password token.
      *
      * @see #hash(String)
-     * @deprecated Use {@link #authenticate(char[], String)} instead.
      */
-    @Deprecated
     public boolean authenticate(String password, String token) {
         return authenticate(password.toCharArray(), token);
     }
