@@ -83,7 +83,7 @@ public class UserDBTest {
      * @brief Test getAllUsers() method.
      * @result All four users should be obtained from the database. The result should return true.
      */
-    //@Test
+    @Test
     public void test_004_GetAllUsers() {
         List<User> allUsersForTest = new ArrayList<>();
         allUsersForTest.add(new User("admin", "admin", 1));
@@ -98,7 +98,7 @@ public class UserDBTest {
         for (User userInDatabase : allUserInDatabase) {
             for (User userForTest : allUsersForTest) {
                 if (userInDatabase.getU_name().equals(userForTest.getU_name()) &&
-                        userInDatabase.getU_password().equals(userForTest.getU_password()) &&
+                        passwordAuth.authenticate(userForTest.getU_password(),userInDatabase.getU_password()) &&
                         userInDatabase.getU_is_admin() == userForTest.getU_is_admin()) {
                     count++;
                 }
