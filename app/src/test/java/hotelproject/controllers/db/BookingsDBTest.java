@@ -58,13 +58,17 @@ public class BookingsDBTest {
             String value = bookingDetails.get(o);
 
             switch (o) {
-                case "paid_by_card":
+                case "b_id":
                     if (value.equals("1")) {
                         trueCount++;
                     }
-                    break;
                 case "r_num":
                     if (value.equals("2")) {
+                        trueCount++;
+                    }
+                    break;
+                case "paid_by_card":
+                    if (value.equals("1")) {
                         trueCount++;
                     }
                     break;
@@ -90,7 +94,7 @@ public class BookingsDBTest {
                     break;
             }
         }
-        Assert.assertEquals(trueCount, 6);
+        Assert.assertEquals(trueCount, 7);
     }
 
 }
