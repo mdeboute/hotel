@@ -85,7 +85,7 @@ public class UsersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Username" -> flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));
+                case "Username" : flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));
             }
         });
 
