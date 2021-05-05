@@ -3,11 +3,9 @@ package hotelproject.controllers.db;
 import hotelproject.controllers.objects.User;
 import hotelproject.controllers.utils.PasswordAuth;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +23,6 @@ public class UserDBTest {
     private final PasswordAuth passwordAuth = new PasswordAuth();
 
 
-    @Before
-    public void setUp() {
-    }
-
     /**
      * @brief Test usrExist() method.
      * @result This user already exists in the database and the result should be true.
@@ -36,9 +30,7 @@ public class UserDBTest {
     @Test
     public void test_001_IsUserExist() {
         try {
-            dbm.udb.addUser(userIsAdmin);
-            //assertTrue(dbm.udb.userExists(new User("admin", "admin", 1)));
-            assertTrue(dbm.udb.userExists(userIsAdmin));
+            assertTrue(dbm.udb.userExists(new User("admin", "root", 1)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,9 +42,7 @@ public class UserDBTest {
      */
     @Test
     public void test_002_addUser() {
-        dbm.udb.deleteUser(userIsAdmin); // To avoid: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'IsAdmin' for key 'users.PRIMARY'
-        dbm.udb.deleteUser(userIsStaff);
-        dbm.udb.addUser(userIsAdmin); // java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'IsAdmin' for key 'users.PRIMARY'
+        dbm.udb.addUser(userIsAdmin);
         dbm.udb.addUser(userIsStaff);
         try {
             assertTrue(dbm.udb.userExists(userIsAdmin));
@@ -86,12 +76,10 @@ public class UserDBTest {
     @Test
     public void test_004_GetAllUsers() {
         List<User> allUsersForTest = new ArrayList<>();
-        allUsersForTest.add(new User("admin", "admin", 1));
+        allUsersForTest.add(new User("admin", "root", 1));
+        allUsersForTest.add(new User("rstaff", "rstaff", 0));
         allUsersForTest.add(new User("IsAdmin", "admin123", 1));
         allUsersForTest.add(new User("IsStaff", "staff123", 0));
-        allUsersForTest.add(new User("reception", "staff", 0));
-        allUsersForTest.add(new User("rstaff", "rstaff", 0));
-        allUsersForTest.add(new User("toto", "root", 1));
         List<User> allUserInDatabase;
         int count = 0;
         allUserInDatabase = dbm.udb.getAllUsers();
@@ -104,7 +92,7 @@ public class UserDBTest {
                 }
             }
         }
-        Assert.assertEquals(count, 6);
+        Assert.assertEquals(count, 4);
     }
 
     /**
@@ -165,10 +153,8 @@ public class UserDBTest {
         for (User user : allUsersInDatabase) {
             if(user.getU_name().equals("userIsWorker")) {
                 isDeleted = false;
+                break;
             }
-            //isDeleted = !user.getU_name().equals("userIsWorker") ||
-                    //!user.getU_password().equals("staff123") ||
-                    //user.getU_is_admin() != 0;
         }
         assertTrue(isDeleted);
     }
@@ -185,10 +171,8 @@ public class UserDBTest {
         for (User user : allUsersInDatabase) {
             if(user.getU_name().equals("userIsBoss")) {
                 isDeleted = false;
+                break;
             }
-            //isDeleted = !user.getU_name().equals("userIsBoss") ||
-                    //!user.getU_password().equals("boss123") ||
-                    //user.getU_is_admin() != 0;
         }
         assertTrue(isDeleted);
     }
