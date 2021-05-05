@@ -77,4 +77,20 @@ public class HotelData {
         return dbm.rdb.viewRoomDetails(room);
     }
 
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+        dbm.cdb.addCustomer(customer);
+    }
+
+    public void updateCustomer(Customer customer, int oldCSSNum) {
+        for (Customer c : customers) {
+            if (oldCSSNum == c.getC_ss_number()) {
+                int index = customers.indexOf(c);
+                customers.set(index, customer);
+                dbm.cdb.updateCustomer(customer, oldCSSNum);
+                break;
+            }
+        }
+    }
+
 }
