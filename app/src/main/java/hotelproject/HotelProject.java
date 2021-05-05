@@ -68,14 +68,10 @@ public class HotelProject extends Application {
             User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
             try {
                 if (!onlyPwd) { // login
-                    if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct
-                        // password
-                        loginView.getResult().setText("Success!");
-                        connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(),
-                                dbm.udb.getU_is_admin(userTest));
-
-                        mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the
-                        // application
+                    if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct password
+                        loginView.getResult().setText("Success !");
+                        connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
+                        mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
                         loginView.getResult().setText("The username or password you have entered is wrong.");
                     }
