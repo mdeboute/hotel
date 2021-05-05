@@ -207,7 +207,7 @@ public class HotelProject extends Application {
 
                 // update db
                 try {
-                    dbm.udb.updateUserInformation(connectedUser, oldUsername);
+                    hdata.updateUserInformation(connectedUser, oldUsername);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -337,7 +337,7 @@ public class HotelProject extends Application {
                 userIA = 1;
             }
             User newUser = new User(userN, userP, userIA);
-            dbm.udb.addUser(newUser);
+            hdata.addUser(newUser);
             usersDisplay();
             newUserStage.close();
         });

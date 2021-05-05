@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -88,6 +89,22 @@ public class HotelData {
                 int index = customers.indexOf(c);
                 customers.set(index, customer);
                 dbm.cdb.updateCustomer(customer, oldCSSNum);
+                break;
+            }
+        }
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+        dbm.udb.addUser(user);
+    }
+
+    public void updateUserInformation(User user, String oldUName) throws SQLException {
+        for (User u : users) {
+            if (oldUName == u.getU_name()) {
+                int index = users.indexOf(u);
+                users.set(index, user);
+                dbm.udb.updateUserInformation(user, oldUName);
                 break;
             }
         }
