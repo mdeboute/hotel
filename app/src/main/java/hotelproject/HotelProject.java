@@ -6,13 +6,11 @@ import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -473,8 +471,8 @@ public class HotelProject extends Application {
             roomsViewPage.getDeleteRoom().setOnAction(
                     e -> deleteRoomDisplay(roomsStage, roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
             roomsViewPage.getUpdateRoom().setOnAction(
-                e -> updateRoomDisplay(roomsStage,
-                    roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));       
+                    e -> updateRoomDisplay(roomsStage,
+                            roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
         }
 
         roomsViewPage.getViewDetails().setOnAction(e -> {
@@ -483,7 +481,6 @@ public class HotelProject extends Application {
             Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
             ListView<String> roomDListView = new ListView<>();
             Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
-            ;
 
             roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
             roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
@@ -648,10 +645,10 @@ public class HotelProject extends Application {
 
         newCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(newCustomerViewPage.getCSSNum().getText());
-            String cAddress =newCustomerViewPage.getCAddress().getText().toString();
-            String cFullName = newCustomerViewPage.getCFullName().getText().toString();
+            String cAddress = newCustomerViewPage.getCAddress().getText();
+            String cFullName = newCustomerViewPage.getCFullName().getText();
             int cPhoneNum = Integer.parseInt(newCustomerViewPage.getCPhoneNum().getText());
-            String cEmail = newCustomerViewPage.getCEmail().getText().toString();
+            String cEmail = newCustomerViewPage.getCEmail().getText();
 
             Customer newCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
             hdata.addCustomer(newCustomer);
@@ -683,10 +680,10 @@ public class HotelProject extends Application {
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(updateCustomerViewPage.getCSSNum().getText());
-            String cAddress = updateCustomerViewPage.getCAddress().getText().toString();
-            String cFullName = updateCustomerViewPage.getCFullName().getText().toString();
+            String cAddress = updateCustomerViewPage.getCAddress().getText();
+            String cFullName = updateCustomerViewPage.getCFullName().getText();
             int cPhoneNum = Integer.parseInt(updateCustomerViewPage.getCPhoneNum().getText());
-            String cEmail = updateCustomerViewPage.getCEmail().getText().toString();
+            String cEmail = updateCustomerViewPage.getCEmail().getText();
 
             Customer updatedCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
             hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
