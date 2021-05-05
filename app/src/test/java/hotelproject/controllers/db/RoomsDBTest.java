@@ -54,7 +54,7 @@ public class RoomsDBTest {
      */
     @After
     public void tearDown() {
-        dbm.rdb.deleteRoom(user, testRoom1); // Because of constraints, and dependencies on room_type, rooms have to be deleted prior to deletion of room_type
+        dbm.rdb.deleteRoom(testRoom1); // Because of constraints, and dependencies on room_type, rooms have to be deleted prior to deletion of room_type
         dbm.rdb.deleteRoomType(testRoomType1);
         dbm.rdb.deleteRoomType(testRoomType2);
     }
@@ -120,7 +120,7 @@ public class RoomsDBTest {
     @Test
     public void testAddRoom() {
         // Have to ensure that testRoom does not already exist in the database
-        dbm.rdb.deleteRoom(user, testRoom1);
+        dbm.rdb.deleteRoom(testRoom1);
         dbm.rdb.addRoom(testRoom1);
         boolean successfulUpdate = false;
 
@@ -142,9 +142,9 @@ public class RoomsDBTest {
     @Test
     public void testDeleteRoom() {
         // Have to ensure that testRoom does exist in the database; hence the reverse order compared to previous test
-        dbm.rdb.deleteRoom(user, testRoom1);
+        dbm.rdb.deleteRoom(testRoom1);
         dbm.rdb.addRoom(testRoom1);
-        dbm.rdb.deleteRoom(user, testRoom1);
+        dbm.rdb.deleteRoom(testRoom1);
         boolean successfulUpdate = true;
 
         List<Room> rooms = dbm.rdb.findAllRooms();
@@ -194,14 +194,14 @@ public class RoomsDBTest {
      */
     @Test
     public void testUpdateRoom() {
-        dbm.rdb.deleteRoom(user, testRoom1);
+        dbm.rdb.deleteRoom(testRoom1);
         dbm.rdb.addRoom(testRoom1);
 
         // Update testRoom1, from has r_type "Hexagonal" r_type "Heptagonal"
         testRoom1.setR_type("Heptagonal");
 
         // test
-        dbm.rdb.updateRoom(user, testRoom1, testRoom1.getR_num());
+        dbm.rdb.updateRoom(testRoom1, testRoom1.getR_num());
 
         boolean successfulUpdate = false;
 
@@ -224,7 +224,7 @@ public class RoomsDBTest {
      */
     @Test
     public void testViewRoomDetails() {
-        dbm.rdb.deleteRoom(user, testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
+        dbm.rdb.deleteRoom(testRoom1); // To avoid: SQLIntegrityConstraintViolationException: Duplicate entry '666' for key 'room.PRIMARY'
         dbm.rdb.addRoom(testRoom1);
         Hashtable<String, String> roomDetails = dbm.rdb.viewRoomDetails(testRoom1);
 
@@ -246,7 +246,7 @@ public class RoomsDBTest {
 
     @Test
     public void testRoomExists() {
-        dbm.rdb.deleteRoom(user, testRoom1);
+        dbm.rdb.deleteRoom(testRoom1);
         dbm.rdb.addRoom(testRoom1);
         assertTrue(dbm.rdb.roomExists(testRoom1));
     }
