@@ -60,31 +60,32 @@ public class BookingsView extends View {
 
         // Create column in the table
         TableColumn bookIDCol = new TableColumn("Booking ID");
-        bookIDCol.setMinWidth(100);
+        //bookIDCol.setMinWidth(100);
+        bookIDCol.setPrefWidth(80.0F);
         bookIDCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_id"));
 
         TableColumn roomNumCol = new TableColumn("Room number");
-        roomNumCol.setMinWidth(100);
+        roomNumCol.setPrefWidth(80.0F);
         roomNumCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("r_num"));
 
         TableColumn paidBCCol = new TableColumn("Paid by card");
-        paidBCCol.setMinWidth(100);
+        paidBCCol.setPrefWidth(80.0F);
         paidBCCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("paid_by_card"));
 
         TableColumn bookFromCol = new TableColumn("From");
-        bookFromCol.setMinWidth(100);
+        bookFromCol.setPrefWidth(80.0F);
         bookFromCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_from"));
 
         TableColumn bookTillCol = new TableColumn("Till");
-        bookTillCol.setMinWidth(100);
+        bookTillCol.setPrefWidth(80.0F);
         bookTillCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_till"));
 
         TableColumn bookFeeCol = new TableColumn("Booking fee");
-        bookFeeCol.setMinWidth(100);
+        bookFeeCol.setPrefWidth(80.0F);
         bookFeeCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_fee"));
 
         TableColumn bIPCol = new TableColumn("Is paid");
-        bIPCol.setMinWidth(100);
+        bIPCol.setPrefWidth(80.0F);
         bIPCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_is_paid"));
 
         // Create a filtered list to put the rooms as items in the table
