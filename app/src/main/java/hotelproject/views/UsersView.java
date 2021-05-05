@@ -57,25 +57,25 @@ public class UsersView extends View {
         usersTable.setEditable(true);
 
         // Create column in the table
-        TableColumn userNCol = new TableColumn("Username");
+        TableColumn<User, String> userNCol = new TableColumn<>("Username");
         userNCol.setMinWidth(100);
-        userNCol.setCellValueFactory(new PropertyValueFactory<User, String>("u_name"));
+        userNCol.setCellValueFactory(new PropertyValueFactory<>("u_name"));
 
-        TableColumn userPCol = new TableColumn("User password");
+        TableColumn<User, String> userPCol = new TableColumn<>("User password");
         userPCol.setMinWidth(150);
-        userPCol.setCellValueFactory(new PropertyValueFactory<User, String>("u_password"));
+        userPCol.setCellValueFactory(new PropertyValueFactory<>("u_password"));
 
-        TableColumn userIACol = new TableColumn("Is admin");
+        TableColumn<User, String> userIACol = new TableColumn<>("Is admin");
         userIACol.setMinWidth(100);
-        userIACol.setCellValueFactory(new PropertyValueFactory<User, Integer>("u_is_admin"));
+        userIACol.setCellValueFactory(new PropertyValueFactory<>("u_is_admin"));
 
         // Create a filtered list to put the users as items in the table
-        FilteredList<User> flUser = new FilteredList(users, p -> true);
+        FilteredList<User> flUser = new FilteredList<>(users, p -> true);
         usersTable.setItems(flUser);
         usersTable.getColumns().addAll(userNCol, userPCol, userIACol);
 
         // Create choice box so the user can choose on the column they are searching in
-        ChoiceBox<String> whatToSearch = new ChoiceBox();
+        ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Username", "User password");
         whatToSearch.setValue("Username"); // default search
 
