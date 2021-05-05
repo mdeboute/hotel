@@ -36,9 +36,9 @@ public class MyPageView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
-        String userStatus = "Reception staff";
+        String userStatus = "reception staff";
         if (user.getU_is_admin() == 1) {
-            userStatus = "Administrator";
+            userStatus = "administrator";
         }
 
         Label title = new Label("My Page");

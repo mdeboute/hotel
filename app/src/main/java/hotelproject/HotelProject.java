@@ -7,7 +7,8 @@ import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -470,8 +471,8 @@ public class HotelProject extends Application {
             roomsViewPage.getDeleteRoom().setOnAction(
                     e -> deleteRoomDisplay(roomsStage, roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
             roomsViewPage.getUpdateRoom().setOnAction(
-                e -> updateRoomDisplay(roomsStage,
-                    roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));       
+                    e -> updateRoomDisplay(roomsStage,
+                            roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
         }
 
         roomsViewPage.getViewDetails().setOnAction(e -> {
@@ -644,7 +645,7 @@ public class HotelProject extends Application {
 
         newCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(newCustomerViewPage.getCSSNum().getText());
-            String cAddress =newCustomerViewPage.getCAddress().getText();
+            String cAddress = newCustomerViewPage.getCAddress().getText();
             String cFullName = newCustomerViewPage.getCFullName().getText();
             int cPhoneNum = Integer.parseInt(newCustomerViewPage.getCPhoneNum().getText());
             String cEmail = newCustomerViewPage.getCEmail().getText();

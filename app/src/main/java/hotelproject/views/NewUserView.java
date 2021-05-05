@@ -12,12 +12,12 @@ public class NewUserView extends View {
 
     private final TextField userName = new TextField();
     private final TextField userPassword = new TextField();
-    private final CheckBox userIA = new CheckBox("Is admin?");
+    private final CheckBox userIA = new CheckBox("Is admin ?");
     private Button submit;
     private Button cancel;
 
     public NewUserView() {
-      createScene();
+        createScene();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class NewUserView extends View {
         Label userPassL = new Label("User password : ");
         pane.add(userPassL, 0, 4);
         pane.add(userPassword, 1, 4);
-        pane.add(userIA, 0, 5); 
+        pane.add(userIA, 0, 5);
 
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
