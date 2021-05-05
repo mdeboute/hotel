@@ -40,9 +40,6 @@ public class BookingsDBTest {
     public void testGetBookingsForSpecificDay() {
         ArrayList<Integer> bookingsFromTheDay;
 
-        bookingsFromTheDay = dbm.bdb.getBookingsForSpecificDay("2021-04-10");
-        Assert.assertEquals(bookingsFromTheDay.size(), 1);
-
         bookingsFromTheDay = dbm.bdb.getBookingsForSpecificDay("2021-05-29");
         Assert.assertEquals(bookingsFromTheDay.size(), 2);
     }
@@ -61,7 +58,6 @@ public class BookingsDBTest {
             String value = bookingDetails.get(o);
 
             switch (o) {
-                case "b_id":
                 case "paid_by_card":
                     if (value.equals("1")) {
                         trueCount++;
@@ -94,7 +90,7 @@ public class BookingsDBTest {
                     break;
             }
         }
-        Assert.assertEquals(trueCount, 7);
+        Assert.assertEquals(trueCount, 6);
     }
 
 }
