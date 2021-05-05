@@ -23,7 +23,7 @@ public class CustomersView extends View {
     private final User user;
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
-    private final Button updateCustomer = new Button("Update customer..."); 
+    private final Button updateCustomer = new Button("Update customer...");
 
     public CustomersView(User user, List<Customer> customers) {
         this.user = user;
@@ -55,33 +55,33 @@ public class CustomersView extends View {
         customersTable.setEditable(true);
 
         // Create column in the table
-        TableColumn cSSNumCol = new TableColumn("Customer's social security number");
+        TableColumn<Customer, Integer> cSSNumCol = new TableColumn<>("Customer's social security number");
         cSSNumCol.setMinWidth(200);
-        cSSNumCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_ss_number"));
+        cSSNumCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
 
-        TableColumn cAddressCol = new TableColumn("Address");
+        TableColumn<Customer, String> cAddressCol = new TableColumn<>("Address");
         cAddressCol.setMinWidth(200);
-        cAddressCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("c_address"));
+        cAddressCol.setCellValueFactory(new PropertyValueFactory<>("c_address"));
 
-        TableColumn cFullNameCol = new TableColumn("Full name");
+        TableColumn<Customer, String> cFullNameCol = new TableColumn<>("Full name");
         cFullNameCol.setMinWidth(200);
-        cFullNameCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_full_name"));
+        cFullNameCol.setCellValueFactory(new PropertyValueFactory<>("c_full_name"));
 
-        TableColumn cNumCol = new TableColumn("Phone number");
+        TableColumn<Customer, Integer> cNumCol = new TableColumn<>("Phone number");
         cNumCol.setMinWidth(150);
-        cNumCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_phone_num"));
+        cNumCol.setCellValueFactory(new PropertyValueFactory<>("c_phone_num"));
 
-        TableColumn cEmailCol = new TableColumn("Email");
+        TableColumn<Customer, String> cEmailCol = new TableColumn<>("Email");
         cEmailCol.setMinWidth(200);
-        cEmailCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("c_email"));
+        cEmailCol.setCellValueFactory(new PropertyValueFactory<>("c_email"));
 
         // Create a filtered list to put the rooms as items in the table
-        FilteredList<Customer> flCustomer = new FilteredList(customers, p -> true);
+        FilteredList<Customer> flCustomer = new FilteredList<>(customers, p -> true);
         customersTable.setItems(flCustomer);
         customersTable.getColumns().addAll(cSSNumCol, cAddressCol, cFullNameCol, cNumCol, cEmailCol);
 
         // Create choice box so the user can choose on the column he's searching in
-        ChoiceBox<String> whatToSearch = new ChoiceBox();
+        ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Customer's social security number", "Full name", "Phone number");
         whatToSearch.setValue("Full name"); // default search
 
