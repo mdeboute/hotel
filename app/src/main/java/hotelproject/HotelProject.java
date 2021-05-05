@@ -6,13 +6,11 @@ import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -473,8 +471,8 @@ public class HotelProject extends Application {
             roomsViewPage.getDeleteRoom().setOnAction(
                     e -> deleteRoomDisplay(roomsStage, roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
             roomsViewPage.getUpdateRoom().setOnAction(
-                e -> updateRoomDisplay(roomsStage,
-                    roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));       
+                    e -> updateRoomDisplay(roomsStage,
+                            roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem()));
         }
 
         roomsViewPage.getViewDetails().setOnAction(e -> {
@@ -483,7 +481,6 @@ public class HotelProject extends Application {
             Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
             ListView<String> roomDListView = new ListView<>();
             Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
-            ;
 
             roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
             roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");

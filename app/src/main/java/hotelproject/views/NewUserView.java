@@ -12,7 +12,7 @@ public class NewUserView extends View {
 
     private final TextField userName = new TextField();
     private final TextField userPassword = new TextField();
-    private final CheckBox userIA = new CheckBox("Is admin?");
+    private final CheckBox userIA = new CheckBox("Is admin ?");
   private Button submit;
     private Button cancel;
 
