@@ -126,6 +126,10 @@ public class CustomersView extends View {
         return addCustomer;
     }
 
+    public TableView<Customer> getCustomersTable() {
+        return customersTable;
+    }
+
     public Button getUpdateCustomer() {
         return updateCustomer; 
     }
