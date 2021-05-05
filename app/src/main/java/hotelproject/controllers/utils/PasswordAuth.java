@@ -107,7 +107,6 @@ public final class PasswordAuth {
 
     /**
      * Hash a password in an immutable {@code String}.
-     *
      * Passwords should be stored in a {@code char[]} so that it can be filled
      * with zeros after use instead of lingering on the heap and elsewhere.
      */

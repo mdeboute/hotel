@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.Customer;
-import hotelproject.controllers.objects.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +18,12 @@ import java.util.List;
 
 public class CustomersView extends View {
 
-    public TableView<Customer> customersTable = new TableView<>();
-    private final User user;
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
-    private final Button updateCustomer = new Button("Update customer..."); 
+    private final Button updateCustomer = new Button("Update customer...");
+    public TableView<Customer> customersTable = new TableView<>();
 
-    public CustomersView(User user, List<Customer> customers) {
-        this.user = user;
+    public CustomersView(List<Customer> customers) {
         this.customers = FXCollections.observableList(customers);
         createScene();
     }
@@ -55,33 +52,33 @@ public class CustomersView extends View {
         customersTable.setEditable(true);
 
         // Create column in the table
-        TableColumn cSSNumCol = new TableColumn("Customer's social security number");
+        TableColumn<Customer, Integer> cSSNumCol = new TableColumn<>("Customer's social security number");
         cSSNumCol.setMinWidth(200);
-        cSSNumCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_ss_number"));
+        cSSNumCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
 
-        TableColumn cAddressCol = new TableColumn("Address");
+        TableColumn<Customer, String> cAddressCol = new TableColumn<>("Address");
         cAddressCol.setMinWidth(200);
-        cAddressCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("c_address"));
+        cAddressCol.setCellValueFactory(new PropertyValueFactory<>("c_address"));
 
-        TableColumn cFullNameCol = new TableColumn("Full name");
+        TableColumn<Customer, String> cFullNameCol = new TableColumn<>("Full name");
         cFullNameCol.setMinWidth(200);
-        cFullNameCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_full_name"));
+        cFullNameCol.setCellValueFactory(new PropertyValueFactory<>("c_full_name"));
 
-        TableColumn cNumCol = new TableColumn("Phone number");
+        TableColumn<Customer, Integer> cNumCol = new TableColumn<>("Phone number");
         cNumCol.setMinWidth(150);
-        cNumCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("c_phone_num"));
+        cNumCol.setCellValueFactory(new PropertyValueFactory<>("c_phone_num"));
 
-        TableColumn cEmailCol = new TableColumn("Email");
+        TableColumn<Customer, String> cEmailCol = new TableColumn<>("Email");
         cEmailCol.setMinWidth(200);
-        cEmailCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("c_email"));
+        cEmailCol.setCellValueFactory(new PropertyValueFactory<>("c_email"));
 
         // Create a filtered list to put the rooms as items in the table
-        FilteredList<Customer> flCustomer = new FilteredList(customers, p -> true);
+        FilteredList<Customer> flCustomer = new FilteredList<>(customers, p -> true);
         customersTable.setItems(flCustomer);
         customersTable.getColumns().addAll(cSSNumCol, cAddressCol, cFullNameCol, cNumCol, cEmailCol);
 
         // Create choice box so the user can choose on the column he's searching in
-        ChoiceBox<String> whatToSearch = new ChoiceBox();
+        ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Customer's social security number", "Full name", "Phone number");
         whatToSearch.setValue("Full name"); // default search
 
@@ -91,9 +88,12 @@ public class CustomersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Customer's social security number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
-                case "Full name" : flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
-                case "Phone number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
+                case "Customer's social security number":
+                    flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
+                case "Full name":
+                    flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Phone number":
+                    flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
             }
         });
 
@@ -111,11 +111,11 @@ public class CustomersView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
-        pane.add(customersTable, 0, 4);        
+        pane.add(customersTable, 0, 4);
         pane.add(addCustomer, 0, 5);
-        
+
         updateCustomer.disableProperty().bind(Bindings.isEmpty(customersTable.getSelectionModel().getSelectedItems()));
-        pane.add(updateCustomer, 0, 6); 
+        pane.add(updateCustomer, 0, 6);
 
         return pane;
     }
@@ -131,7 +131,7 @@ public class CustomersView extends View {
     }
 
     public Button getUpdateCustomer() {
-        return updateCustomer; 
+        return updateCustomer;
     }
 
 }   

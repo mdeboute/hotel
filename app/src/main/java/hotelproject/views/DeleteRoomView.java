@@ -1,20 +1,16 @@
 package hotelproject.views;
 
-import hotelproject.controllers.db.DatabaseManager;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class DeleteRoomView extends View {
 
-    private final DatabaseManager dbm;
-
     private Button submit;
     private Button cancel;
 
-    public DeleteRoomView(DatabaseManager dbm) {
-        this.dbm = dbm;
+    public DeleteRoomView() {
         createScene();
     }
 

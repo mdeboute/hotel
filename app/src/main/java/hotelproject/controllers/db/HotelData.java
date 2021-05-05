@@ -59,7 +59,7 @@ public class HotelData {
     }
 
     public void deleteRoom(Room room) {
-        rooms.remove(room); 
+        rooms.remove(room);
         dbm.rdb.deleteRoom(room);
     }
 
@@ -101,7 +101,7 @@ public class HotelData {
 
     public void updateUserInformation(User user, String oldUName) throws SQLException {
         for (User u : users) {
-            if (oldUName == u.getU_name()) {
+            if (oldUName.equals(u.getU_name())) {
                 int index = users.indexOf(u);
                 users.set(index, user);
                 dbm.udb.updateUserInformation(user, oldUName);

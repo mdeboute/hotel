@@ -23,10 +23,10 @@ public class LoginView extends View {
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password.");
-    boolean onlyPwd;
     private final Label result = new Label();
     private final Button testLogin = new Button("");
     private final ImageView imgLogin = new ImageView(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
+    boolean onlyPwd;
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;

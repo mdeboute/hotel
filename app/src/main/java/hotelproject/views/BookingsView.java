@@ -59,43 +59,43 @@ public class BookingsView extends View {
         bookingsTable.setEditable(true);
 
         // Create column in the table
-        TableColumn bookIDCol = new TableColumn("Booking ID");
+        TableColumn<Booking, Integer> bookIDCol = new TableColumn<>("Booking ID");
         //bookIDCol.setMinWidth(100);
         bookIDCol.setPrefWidth(80.0F);
-        bookIDCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_id"));
+        bookIDCol.setCellValueFactory(new PropertyValueFactory<>("b_id"));
 
-        TableColumn roomNumCol = new TableColumn("Room number");
+        TableColumn<Booking, Integer> roomNumCol = new TableColumn<>("Room number");
         roomNumCol.setPrefWidth(80.0F);
-        roomNumCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("r_num"));
+        roomNumCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
-        TableColumn paidBCCol = new TableColumn("Paid by card");
+        TableColumn<Booking, Integer> paidBCCol = new TableColumn<>("Paid by card");
         paidBCCol.setPrefWidth(80.0F);
-        paidBCCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("paid_by_card"));
+        paidBCCol.setCellValueFactory(new PropertyValueFactory<>("paid_by_card"));
 
-        TableColumn bookFromCol = new TableColumn("From");
+        TableColumn<Booking, Integer> bookFromCol = new TableColumn<>("From");
         bookFromCol.setPrefWidth(80.0F);
-        bookFromCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_from"));
+        bookFromCol.setCellValueFactory(new PropertyValueFactory<>("b_from"));
 
-        TableColumn bookTillCol = new TableColumn("Till");
+        TableColumn<Booking, Integer> bookTillCol = new TableColumn<>("Till");
         bookTillCol.setPrefWidth(80.0F);
-        bookTillCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_till"));
+        bookTillCol.setCellValueFactory(new PropertyValueFactory<>("b_till"));
 
-        TableColumn bookFeeCol = new TableColumn("Booking fee");
+        TableColumn<Booking, Integer> bookFeeCol = new TableColumn<>("Booking fee");
         bookFeeCol.setPrefWidth(80.0F);
-        bookFeeCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_fee"));
+        bookFeeCol.setCellValueFactory(new PropertyValueFactory<>("b_fee"));
 
-        TableColumn bIPCol = new TableColumn("Is paid");
+        TableColumn<Booking, Integer> bIPCol = new TableColumn<>("Is paid");
         bIPCol.setPrefWidth(80.0F);
-        bIPCol.setCellValueFactory(new PropertyValueFactory<Booking, Integer>("b_is_paid"));
+        bIPCol.setCellValueFactory(new PropertyValueFactory<>("b_is_paid"));
 
         // Create a filtered list to put the rooms as items in the table
-        FilteredList<Booking> flBooking = new FilteredList(bookings, p -> true);
+        FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
         bookingsTable.setItems(flBooking);
         bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol,
                 bIPCol);
 
         // Create choice box so the user can choose on the column he's searching in
-        ChoiceBox<String> whatToSearch = new ChoiceBox();
+        ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Booking ID", "Room number");
         whatToSearch.setValue("Booking ID"); // default search
 
@@ -104,11 +104,13 @@ public class BookingsView extends View {
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) { // Switch on searchBar value
-                case "Booking ID" : flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
+                case "Booking ID":
+                    flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); // filter
 
                     // table
                     // by booking id
-                case "Room number" : flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+                case "Room number":
+                    flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
 
                     // table by
                     // room number
