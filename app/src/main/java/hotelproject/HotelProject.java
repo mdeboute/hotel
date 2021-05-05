@@ -632,6 +632,8 @@ public class HotelProject extends Application {
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
 
+        customersViewPage.getUpdateCustomer().setOnAction(e -> updateCustomerDisplay(customerStage,
+        customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem()));
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
@@ -666,6 +668,41 @@ public class HotelProject extends Application {
         newCustomerStage.setScene(newCustomerViewPage.getScene());
         newCustomerStage.setTitle("Hotel Manager - New Customer");
         newCustomerStage.show();
+        formerStage.close();
+    }
+
+    /**
+     * Displays the page to update a customer in the database
+     *
+     * @param formerStage to close when the new stage is showed
+     */
+    private void updateCustomerDisplay(Stage formerStage, Customer customer) {
+
+        UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView(dbm);
+        Stage updateCustomerStage = new Stage();
+
+        updateCustomerViewPage.getSubmit().setOnAction(e -> {
+            int cSSNum = Integer.parseInt(updateCustomerViewPage.getCSSNum().getText());
+            String cAddress = updateCustomerViewPage.getCAddress().getText().toString();
+            String cFullName = updateCustomerViewPage.getCFullName().getText().toString();
+            int cPhoneNum = Integer.parseInt(updateCustomerViewPage.getCPhoneNum().getText());
+            String cEmail = updateCustomerViewPage.getCEmail().getText().toString();
+
+            Customer updatedCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
+            hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
+
+            customersDisplay();
+            updateCustomerStage.close();
+        });
+
+        updateCustomerViewPage.getCancel().setOnAction(e -> {
+            customersDisplay();
+            updateCustomerStage.close();
+        });
+
+        updateCustomerStage.setScene(updateCustomerViewPage.getScene());
+        updateCustomerStage.setTitle("Hotel Manager - Updating Customer");
+        updateCustomerStage.show();
         formerStage.close();
     }
 
