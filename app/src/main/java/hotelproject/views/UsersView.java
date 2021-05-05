@@ -76,16 +76,16 @@ public class UsersView extends View {
 
         // Create choice box so the user can choose on the column they are searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
-        whatToSearch.getItems().addAll("Username", "User password");
+        whatToSearch.getItems().addAll("Username");
         whatToSearch.setValue("Username"); // default search
 
+        // Create search bar with listener to update according to the user's input
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (whatToSearch.getValue()) //Switch on searchBar value
-            {
-                case "Username" : flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));
+            if (whatToSearch.getValue() == "Username") {
+                flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));                                                                                        // number
             }
         });
 
