@@ -2,14 +2,13 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Set;
+//import java.util.Hashtable;
+//import java.util.Set;
 
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
