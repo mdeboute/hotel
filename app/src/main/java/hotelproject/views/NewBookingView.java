@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class NewBookingView extends View {
 
-  private final TextField bookingID = new TextField();
+    private final TextField bookingID = new TextField();
     private final TextField numRoom = new TextField();
     private final CheckBox paidByCard = new CheckBox("Paid by card?");
     private final DatePicker checkIn = new DatePicker();
@@ -18,7 +18,7 @@ public class NewBookingView extends View {
     private Button cancel;
 
     public NewBookingView() {
-      createScene();
+        createScene();
     }
 
     @Override

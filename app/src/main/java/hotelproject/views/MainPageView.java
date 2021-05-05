@@ -24,11 +24,11 @@ public class MainPageView extends View {
     private final ImageView imgBookings = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png"));
     private final ImageView imgCustomers = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png"));
     private final ImageView imgUsers = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png"));
-    private Button myPage = new Button("My Page");
-    private Button viewRooms = new Button("View rooms");
-    private Button viewBookings = new Button("View bookings");
-    private Button viewCustomers = new Button("View customers");
-    private Button viewUsers = new Button("View users");
+    private final Button myPage;
+    private final Button viewRooms;
+    private final Button viewBookings;
+    private final Button viewCustomers;
+    private Button viewUsers;
 
     public MainPageView(User user) {
         myPage = new Button("My Page");

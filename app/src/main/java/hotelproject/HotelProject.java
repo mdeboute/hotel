@@ -292,7 +292,7 @@ public class HotelProject extends Application {
         newRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(newRoomViewPage.getNumRoom().getText());
             int roomFloor = Integer.parseInt(newRoomViewPage.getFloor().getText());
-            String roomType = newRoomViewPage.getRoomType().getValue().toString();
+            String roomType = newRoomViewPage.getRoomType().getValue();
             int roomBooked = 0;
             if (newRoomViewPage.getBooked().isSelected()) {
                 roomBooked = 1;
@@ -556,7 +556,7 @@ public class HotelProject extends Application {
         updateRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());
             int roomFloor = Integer.parseInt(updateRoomViewPage.getFloor().getText());
-            String roomType = updateRoomViewPage.getRoomType().getValue().toString();
+            String roomType = updateRoomViewPage.getRoomType().getValue();
 
             int roomBooked = 0;
             if (updateRoomViewPage.getBooked().isSelected()) {
@@ -586,7 +586,7 @@ public class HotelProject extends Application {
      */
     private void deleteRoomDisplay(Stage formerStage, Room room) {
 
-        DeleteRoomView deleteRoomViewPage = new DeleteRoomView(dbm);
+        DeleteRoomView deleteRoomViewPage = new DeleteRoomView();
         Stage deleteRoomStage = new Stage();
 
         deleteRoomViewPage.getSubmit().setOnAction(e -> {
@@ -624,13 +624,13 @@ public class HotelProject extends Application {
 
     private void customersDisplay() {
         List<Customer> customers = hdata.getCustomers();
-        CustomersView customersViewPage = new CustomersView(connectedUser, customers);
+        CustomersView customersViewPage = new CustomersView(customers);
         Stage customerStage = new Stage();
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
 
         customersViewPage.getUpdateCustomer().setOnAction(e -> updateCustomerDisplay(customerStage,
-        customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem()));
+                customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem()));
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
@@ -638,7 +638,7 @@ public class HotelProject extends Application {
     }
 
     private void newCustomerDisplay(Stage formerStage) {
-        NewCustomerView newCustomerViewPage = new NewCustomerView(dbm);
+        NewCustomerView newCustomerViewPage = new NewCustomerView();
         Stage newCustomerStage = new Stage();
 
         // set buttons on action
@@ -675,7 +675,7 @@ public class HotelProject extends Application {
      */
     private void updateCustomerDisplay(Stage formerStage, Customer customer) {
 
-        UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView(dbm);
+        UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView();
         Stage updateCustomerStage = new Stage();
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {

@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.Customer;
-import hotelproject.controllers.objects.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +18,12 @@ import java.util.List;
 
 public class CustomersView extends View {
 
-    public TableView<Customer> customersTable = new TableView<>();
-    private final User user;
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
     private final Button updateCustomer = new Button("Update customer...");
+    public TableView<Customer> customersTable = new TableView<>();
 
-    public CustomersView(User user, List<Customer> customers) {
-        this.user = user;
+    public CustomersView(List<Customer> customers) {
         this.customers = FXCollections.observableList(customers);
         createScene();
     }
@@ -91,9 +88,12 @@ public class CustomersView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) //Switch on searchBar value
             {
-                case "Customer's social security number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
-                case "Full name" : flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
-                case "Phone number" : flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
+                case "Customer's social security number":
+                    flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
+                case "Full name":
+                    flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Phone number":
+                    flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
             }
         });
 
@@ -111,11 +111,11 @@ public class CustomersView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
-        pane.add(customersTable, 0, 4);        
+        pane.add(customersTable, 0, 4);
         pane.add(addCustomer, 0, 5);
-        
+
         updateCustomer.disableProperty().bind(Bindings.isEmpty(customersTable.getSelectionModel().getSelectedItems()));
-        pane.add(updateCustomer, 0, 6); 
+        pane.add(updateCustomer, 0, 6);
 
         return pane;
     }
@@ -131,7 +131,7 @@ public class CustomersView extends View {
     }
 
     public Button getUpdateCustomer() {
-        return updateCustomer; 
+        return updateCustomer;
     }
 
 }   

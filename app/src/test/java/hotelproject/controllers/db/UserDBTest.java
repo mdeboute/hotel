@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class UserDBTest {
         for (User userInDatabase : allUserInDatabase) {
             for (User userForTest : allUsersForTest) {
                 if (userInDatabase.getU_name().equals(userForTest.getU_name()) &&
-                        passwordAuth.authenticate(userForTest.getU_password(),userInDatabase.getU_password()) &&
+                        passwordAuth.authenticate(userForTest.getU_password(), userInDatabase.getU_password()) &&
                         userInDatabase.getU_is_admin() == userForTest.getU_is_admin()) {
                     count++;
                 }
@@ -110,7 +111,7 @@ public class UserDBTest {
             List<User> users = dbm.udb.getAllUsers();
             for (User user : users) {
                 isUpdate = user.getU_name().equals("userIsBoss") &&
-                    passwordAuth.authenticate("boss123", user.getU_password());
+                        passwordAuth.authenticate("boss123", user.getU_password());
             }
             assertTrue(isUpdate);
         } catch (SQLException e) {
@@ -151,7 +152,7 @@ public class UserDBTest {
         dbm.udb.deleteUser(userForDelete);
         List<User> allUsersInDatabase = dbm.udb.getAllUsers();
         for (User user : allUsersInDatabase) {
-            if(user.getU_name().equals("userIsWorker")) {
+            if (user.getU_name().equals("userIsWorker")) {
                 isDeleted = false;
                 break;
             }
@@ -169,7 +170,7 @@ public class UserDBTest {
         dbm.udb.deleteUser(new User("userIsBoss", "boss123", 1));
         List<User> allUsersInDatabase = dbm.udb.getAllUsers();
         for (User user : allUsersInDatabase) {
-            if(user.getU_name().equals("userIsBoss")) {
+            if (user.getU_name().equals("userIsBoss")) {
                 isDeleted = false;
                 break;
             }

@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
-import hotelproject.controllers.objects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -152,9 +151,9 @@ public class RoomsDB {
             statement.setInt(4, room.getBooked());
             statement.setInt(5, oldRNum);
             statement.executeUpdate();
-                // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
-                // room.getR_type(),
-                // room.getBooked(), oldRNum));
+            // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
+            // room.getR_type(),
+            // room.getBooked(), oldRNum));
         } catch (SQLException e) {
             e.printStackTrace();
         }

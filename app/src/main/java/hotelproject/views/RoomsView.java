@@ -66,19 +66,19 @@ public class RoomsView extends View {
         roomsTable.setEditable(true);
 
         // Create column in the table
-        TableColumn<Room,String> roomNbCol = new TableColumn<>("Room number");
+        TableColumn<Room, String> roomNbCol = new TableColumn<>("Room number");
         roomNbCol.setMinWidth(100);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
-        TableColumn<Room,String> roomFloorCol = new TableColumn<>("Floor");
+        TableColumn<Room, String> roomFloorCol = new TableColumn<>("Floor");
         roomFloorCol.setMinWidth(100);
         roomFloorCol.setCellValueFactory(new PropertyValueFactory<>("r_floor"));
 
-        TableColumn<Room,String> roomTypeCol = new TableColumn<>("Room type");
+        TableColumn<Room, String> roomTypeCol = new TableColumn<>("Room type");
         roomTypeCol.setMinWidth(100);
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<>("r_type"));
 
-        TableColumn<Room,String> roomIsBookedCol = new TableColumn<>("Booked");
+        TableColumn<Room, String> roomIsBookedCol = new TableColumn<>("Booked");
         roomIsBookedCol.setMinWidth(100);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<>("booked"));
 
@@ -98,9 +98,12 @@ public class RoomsView extends View {
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             switch (whatToSearch.getValue()) // Switch on searchBar value
             {
-                case "Room number" : flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
-                case "Floor" : flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
-                case "Room type" : flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Room number":
+                    flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
+                case "Floor":
+                    flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
+                case "Room type":
+                    flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
             }
         });
 
@@ -156,7 +159,7 @@ public class RoomsView extends View {
     }
 
     public Button getUpdateRoom() {
-        return updateRoom; 
+        return updateRoom;
     }
 
     public Button getViewDetails() {
