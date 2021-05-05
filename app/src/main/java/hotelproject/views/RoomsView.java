@@ -25,7 +25,7 @@ public class RoomsView extends View {
     private final User user;
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
-    private TableView<Room> roomsTable = new TableView<>();
+    private final TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
     private final Button deleteRoom = new Button("Delete room...");
     private final Button updateRoom = new Button("Update room...");
@@ -66,29 +66,29 @@ public class RoomsView extends View {
         roomsTable.setEditable(true);
 
         // Create column in the table
-        TableColumn roomNbCol = new TableColumn("Room number");
+        TableColumn<Room,String> roomNbCol = new TableColumn<>("Room number");
         roomNbCol.setMinWidth(100);
-        roomNbCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("r_num"));
+        roomNbCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
-        TableColumn roomFloorCol = new TableColumn("Floor");
+        TableColumn<Room,String> roomFloorCol = new TableColumn<>("Floor");
         roomFloorCol.setMinWidth(100);
-        roomFloorCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("r_floor"));
+        roomFloorCol.setCellValueFactory(new PropertyValueFactory<>("r_floor"));
 
-        TableColumn roomTypeCol = new TableColumn("Room type");
+        TableColumn<Room,String> roomTypeCol = new TableColumn<>("Room type");
         roomTypeCol.setMinWidth(100);
-        roomTypeCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("r_type"));
+        roomTypeCol.setCellValueFactory(new PropertyValueFactory<>("r_type"));
 
-        TableColumn roomIsBookedCol = new TableColumn("Booked");
+        TableColumn<Room,String> roomIsBookedCol = new TableColumn<>("Booked");
         roomIsBookedCol.setMinWidth(100);
-        roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("booked"));
+        roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<>("booked"));
 
         // Create a filtered list to put the rooms as items in the table
-        FilteredList<Room> flRoom = new FilteredList(rooms, p -> true);
+        FilteredList<Room> flRoom = new FilteredList<>(rooms, p -> true);
         roomsTable.setItems(flRoom);
         roomsTable.getColumns().addAll(roomNbCol, roomFloorCol, roomTypeCol, roomIsBookedCol);
 
         // Create choice box so the user can choose on the column he's searching in
-        ChoiceBox<String> whatToSearch = new ChoiceBox();
+        ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Room number", "Floor", "Room type");
         whatToSearch.setValue("Room number"); // default search
 
