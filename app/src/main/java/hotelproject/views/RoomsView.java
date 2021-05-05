@@ -118,19 +118,25 @@ public class RoomsView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(roomsTable, 0, 4);
+        addRoom.setVisible(false);
+        deleteRoom.setVisible(false);
+        updateRoom.setVisible(false);
+
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 5);
-            
+            addRoom.setVisible(true);
+
             deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
             pane.add(deleteRoom, 0, 6);
+            deleteRoom.setVisible(true);
 
             updateRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(updateRoom, 0, 7); 
-            
-            viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(viewDetails, 0, 8); 
+            pane.add(updateRoom, 0, 7);
+            updateRoom.setVisible(true);
         }
 
+        viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
+        pane.add(viewDetails, 0, 8);
 
         return pane;
     }

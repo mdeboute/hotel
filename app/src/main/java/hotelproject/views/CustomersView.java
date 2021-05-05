@@ -2,6 +2,7 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Customer;
 import hotelproject.controllers.objects.User;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -22,6 +23,7 @@ public class CustomersView extends View {
     private final User user;
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
+    private final Button updateCustomer = new Button("Update customer..."); 
 
     public CustomersView(User user, List<Customer> customers) {
         this.user = user;
@@ -109,10 +111,11 @@ public class CustomersView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
-        pane.add(customersTable, 0, 4);
-        if (user.getU_is_admin() == 1) {
-            pane.add(addCustomer, 0, 5);
-        }
+        pane.add(customersTable, 0, 4);        
+        pane.add(addCustomer, 0, 5);
+        
+        updateCustomer.disableProperty().bind(Bindings.isEmpty(customersTable.getSelectionModel().getSelectedItems()));
+        pane.add(updateCustomer, 0, 6); 
 
         return pane;
     }
@@ -121,6 +124,10 @@ public class CustomersView extends View {
 
     public Button getAddCustomer() {
         return addCustomer;
+    }
+
+    public Button getUpdateCustomer() {
+        return updateCustomer; 
     }
 
 }   
