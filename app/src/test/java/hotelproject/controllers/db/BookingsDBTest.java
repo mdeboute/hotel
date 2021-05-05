@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Booking;
 import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -9,6 +10,7 @@ import org.junit.runners.MethodSorters;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Set;
+
 
 @FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class BookingsDBTest {
@@ -57,6 +59,7 @@ public class BookingsDBTest {
         bookingDetails = dbm.bdb.getBookingDetails(1);
         Set<String> set1 = bookingDetails.keySet();
         int trueCount = 0;
+        boolean flag = false;
         for (String o : set1) {
             String value = bookingDetails.get(o);
 
@@ -97,7 +100,10 @@ public class BookingsDBTest {
                     break;
             }
         }
-        Assert.assertEquals(trueCount, 7);
+        if (trueCount == 7) {
+            flag = true;
+        }
+        assertTrue(flag);
     }
 
 }
