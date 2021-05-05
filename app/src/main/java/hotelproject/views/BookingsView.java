@@ -103,9 +103,9 @@ public class BookingsView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (whatToSearch.getValue() == "Booking ID") {
-                flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim())); 
-            } else if (whatToSearch.getValue() == "Room number") {
+            if (whatToSearch.getValue().equals("Booking ID")) {
+                flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim()));
+            } else if (whatToSearch.getValue().equals("Room number")) {
                 flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
 
             }

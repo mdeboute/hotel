@@ -86,11 +86,11 @@ public class CustomersView extends View {
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (whatToSearch.getValue() == "Customer's social security number") {
+            if (whatToSearch.getValue().equals("Customer's social security number")) {
                 flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
-            } else if (whatToSearch.getValue() == "Full name") {
+            } else if (whatToSearch.getValue().equals("Full name")) {
                 flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));
-            } else if (whatToSearch.getValue() == "Phone number") {
+            } else if (whatToSearch.getValue().equals("Phone number")) {
                 flCustomer.setPredicate(p -> String.valueOf(p.getC_phone_num()).contains(newValue.toLowerCase().trim()));
             }
         });

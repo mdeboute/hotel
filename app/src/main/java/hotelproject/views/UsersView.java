@@ -80,11 +80,10 @@ public class UsersView extends View {
         whatToSearch.setValue("Username"); // default search
 
         // Create search bar with listener to update according to the user's input
-        // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here!");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (whatToSearch.getValue() == "Username") {
+            if (whatToSearch.getValue().equals("Username")) {
                 flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));                                                                                        // number
             }
         });
