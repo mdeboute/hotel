@@ -620,7 +620,7 @@ public class HotelProject extends Application {
 
     private void customersDisplay() {
         List<Customer> customers = hdata.getCustomers();
-        CustomersView customersViewPage = new CustomersView(customers);
+        CustomersView customersViewPage = new CustomersView(connectedUser, customers);
         Stage customerStage = new Stage();
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
