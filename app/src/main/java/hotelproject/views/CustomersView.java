@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.Customer;
-import hotelproject.controllers.objects.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +18,12 @@ import java.util.List;
 
 public class CustomersView extends View {
 
-    private final User user;
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
     private final Button updateCustomer = new Button("Update customer...");
     public TableView<Customer> customersTable = new TableView<>();
 
-    public CustomersView(User user, List<Customer> customers) {
-        this.user = user; 
+    public CustomersView(List<Customer> customers) {
         this.customers = FXCollections.observableList(customers);
         createScene();
     }

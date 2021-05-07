@@ -29,18 +29,13 @@ public class MainPageView extends View {
             new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png"));
     private final ImageView imgUsers = new ImageView(
             new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png"));
-    private Button myPage = new Button("My Page");
-    private Button viewRooms = new Button("View rooms");
-    private Button viewBookings = new Button("View bookings");
-    private Button viewCustomers = new Button("View customers");
-    private Button viewUsers = new Button("View users");
+    private final Button myPage = new Button("My Page");
+    private final Button viewRooms = new Button("View rooms");
+    private final Button viewBookings = new Button("View bookings");
+    private final Button viewCustomers = new Button("View customers");
+    private final Button viewUsers = new Button("View users");
 
     public MainPageView(User user) {
-        myPage = new Button("My Page");
-        viewRooms = new Button("View rooms");
-        viewBookings = new Button("View bookings");
-        viewCustomers = new Button("View customers");
-
         myPage.setCursor(Cursor.HAND);
         viewBookings.setCursor(Cursor.HAND);
         viewCustomers.setCursor(Cursor.HAND);
@@ -53,7 +48,6 @@ public class MainPageView extends View {
     @Override
     void createScene() {
         if (user.getU_is_admin() == 1) {
-            viewUsers = new Button("View users");
             viewUsers.setCursor(Cursor.HAND);
         }
 
