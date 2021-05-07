@@ -1,0 +1,41 @@
+~~~~~~GENERAL~~~~~~
+* Parent window non functional when using child
+
+~~~~~~USER SETTINGS~~~~~~
+* General layout of text
+* Buttons
+* Enter password should look same as in the welcome page but without the username
+* Changing username and password needs a better layout
+
+~~~~~~ROOMS~~~~~~
+* No scroll wheel at the bottom, perhaps also not on the side also
+* Buttons need to be changed
+* Update room needs to display old info
+* View details screen according to plan
+* Delete room screen should look better and maybe not close the previous window
+* New room should be the only button, other buttons should be a right clicking option
+
+~~~~~~CUSTOMERS~~~~~~
+* Better buttons
+* No scroll wheel on the bottom (also maybe on the side)
+* Buttons should look better
+* When adding a new customer or updating their info, info should not say "new", simply "address:, name:, etc..."
+* Update customer should be a right clicking option
+* Update customer should display old info
+
+~~~~~~USERS~~~~~~
+* Add new users layout, color and font should be better
+* Buttons should be better
+* You don't need to choose username for search, since it's the only option
+
+~~~~~~BOOKINGS~~~~~~
+* Calender search should select 2 date inputs
+* Calender search should update table
+* Buttons should look better
+* New booking should not ask for booking number
+* New booking layout, color and font should be better
+* Calender should accept 2 inputs
+* You shouldn't be able to book back in time
+
+
+
