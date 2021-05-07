@@ -19,16 +19,21 @@ public class MainPageView extends View {
     private final User user;
 
     // The scene's nodes
-    private final ImageView imgMyPage = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png"));
-    private final ImageView imgRooms = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_rooms.png"));
-    private final ImageView imgBookings = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png"));
-    private final ImageView imgCustomers = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png"));
-    private final ImageView imgUsers = new ImageView(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png"));
-    private final Button myPage;
-    private final Button viewRooms;
-    private final Button viewBookings;
-    private final Button viewCustomers;
-    private Button viewUsers;
+    private final ImageView imgMyPage = new ImageView(
+            new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png"));
+    private final ImageView imgRooms = new ImageView(
+            new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_rooms.png"));
+    private final ImageView imgBookings = new ImageView(
+            new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png"));
+    private final ImageView imgCustomers = new ImageView(
+            new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png"));
+    private final ImageView imgUsers = new ImageView(
+            new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png"));
+    private Button myPage = new Button("My Page");
+    private Button viewRooms = new Button("View rooms");
+    private Button viewBookings = new Button("View bookings");
+    private Button viewCustomers = new Button("View customers");
+    private Button viewUsers = new Button("View users");
 
     public MainPageView(User user) {
         myPage = new Button("My Page");
@@ -59,7 +64,7 @@ public class MainPageView extends View {
 
         GridPane body = createBody();
         scenePane.add(body, 0, 1);
-        //GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
+        // GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
         scenePane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
         scene = new Scene(scenePane, 775, 658);
@@ -74,9 +79,11 @@ public class MainPageView extends View {
 
         myPage.setCursor(Cursor.HAND);
 
-        //mouse hovering
-        myPage.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgMyPage.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_user_settings.png")));
-        myPage.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgMyPage.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png")));
+        // mouse hovering
+        myPage.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgMyPage
+                .setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_user_settings.png")));
+        myPage.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgMyPage
+                .setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_user_settings.png")));
 
         StackPane stack = createButton(imgMyPage, myPage, 176, 47);
         stack.setAlignment(Pos.BOTTOM_RIGHT);
@@ -119,21 +126,29 @@ public class MainPageView extends View {
 
         // mouse hovering buttons
 
-        //rooms button
-        viewRooms.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgRooms.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_rooms.png")));
-        viewRooms.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgRooms.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_rooms.png")));
+        // rooms button
+        viewRooms.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                e -> imgRooms.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_rooms.png")));
+        viewRooms.addEventHandler(MouseEvent.MOUSE_EXITED,
+                e -> imgRooms.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_rooms.png")));
 
-        //customers button
-        viewCustomers.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgCustomers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_customers.png")));
-        viewCustomers.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgCustomers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png")));
+        // customers button
+        viewCustomers.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgCustomers
+                .setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_customers.png")));
+        viewCustomers.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgCustomers
+                .setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_customers.png")));
 
-        //bookings button
-        viewBookings.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgBookings.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_bookings.png")));
-        viewBookings.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgBookings.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png")));
+        // bookings button
+        viewBookings.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgBookings
+                .setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_bookings.png")));
+        viewBookings.addEventHandler(MouseEvent.MOUSE_EXITED,
+                e -> imgBookings.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_bookings.png")));
 
-        //users button
-        viewUsers.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgUsers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_users.png")));
-        viewUsers.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgUsers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png")));
+        // users button
+        viewUsers.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                e -> imgUsers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/hover_button_users.png")));
+        viewUsers.addEventHandler(MouseEvent.MOUSE_EXITED,
+                e -> imgUsers.setImage(new Image("file:assets/img/ui_dev_pack/main_menu/idle_button_users.png")));
 
         return pane;
     }
