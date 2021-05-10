@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 
 public class NewBookingView extends View {
 
-    private final TextField bookingID = new TextField();
     private final TextField numRoom = new TextField();
     private final CheckBox paidByCard = new CheckBox("Paid by card?");
     private final DatePicker checkIn = new DatePicker();
@@ -27,29 +26,24 @@ public class NewBookingView extends View {
 
         VBox header = createHeader("New booking", "Enter the new booking specifications");
 
-        Label bookingIDL = new Label("Booking number : ");
-        pane.add(bookingIDL, 0, 1);
-        pane.add(bookingID, 1, 1);
         Label numRoomL = new Label("Room number : ");
-        pane.add(numRoomL, 0, 2);
-        pane.add(numRoom, 1, 2);
-        Label type = new Label("Room type : ");
-        pane.add(type, 0, 3);
-        pane.add(checkIn, 0, 3);
-        pane.add(checkOut, 1, 3);
+        pane.add(numRoomL, 0, 1);
+        pane.add(numRoom, 1, 1); 
+        pane.add(checkIn, 0, 2);
+        pane.add(checkOut, 1, 2);
         Label bookingFeeL = new Label("Booking fee : ");
-        pane.add(bookingFeeL, 0, 4);
-        pane.add(bookingFee, 1, 4);
-        pane.add(paidByCard, 0, 5);
-        pane.add(isPaid, 0, 6);
+        pane.add(bookingFeeL, 0, 3);
+        pane.add(bookingFee, 1, 3);
+        pane.add(paidByCard, 0, 4);
+        pane.add(isPaid, 0, 5);
 
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 8);
+        pane.add(submit, 1, 7);
 
         cancel = new Button("Cancel");
         GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 9);
+        pane.add(cancel, 1, 8);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
@@ -66,10 +60,6 @@ public class NewBookingView extends View {
 
     public Button getSubmit() {
         return submit;
-    }
-
-    public TextField getBookingID() {
-        return bookingID;
     }
 
     public TextField getNumRoom() {

@@ -110,4 +110,13 @@ public class HotelData {
         }
     }
 
+    public int getBookingAutoID() {
+        Booking lastBID = bookings.get(bookings.size() - 1);
+        return (lastBID.getB_id() + 1);
+    }
+
+    public void addBooking(Booking newBooking) {
+        bookings.add(newBooking); 
+        dbm.bdb.addBooking(newBooking);
+    }
 }

@@ -359,7 +359,7 @@ public class HotelProject extends Application {
         // set buttons on action
 
         newBookingViewPage.getSubmit().setOnAction(e -> {
-            int bookingID = Integer.parseInt(newBookingViewPage.getBookingID().getText());
+            int bookingID = hdata.getBookingAutoID();
             int roomNb = Integer.parseInt(newBookingViewPage.getNumRoom().getText());
             int paidByCard = 0;
             if (newBookingViewPage.getPaidByCard().isSelected()) {
@@ -383,7 +383,7 @@ public class HotelProject extends Application {
             }
 
             Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid);
-            dbm.bdb.addBooking(newBooking);
+            hdata.addBooking(newBooking);
 
             bookingsDisplay();
             newBookingStage.close();
@@ -405,7 +405,7 @@ public class HotelProject extends Application {
      */
 
     private void bookingsDisplay() {
-        List<Booking> bookings = dbm.bdb.findAllBookings();
+        List<Booking> bookings = hdata.getBookings();
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
