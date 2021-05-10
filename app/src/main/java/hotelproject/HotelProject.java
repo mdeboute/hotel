@@ -7,6 +7,7 @@ import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import javafx.util.Callback;
 
 public class HotelProject extends Application {
 
@@ -372,6 +374,7 @@ public class HotelProject extends Application {
             Date sqlDate = java.sql.Date.valueOf(formattedDate);
 
             DatePicker checkOutDP = newBookingViewPage.getCheckOut();
+
             LocalDate secondDatePicked = checkOutDP.getValue();
             String secondFormattedDate = secondDatePicked.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             Date secondSQLDate = java.sql.Date.valueOf(secondFormattedDate);
