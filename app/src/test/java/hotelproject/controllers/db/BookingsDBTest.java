@@ -59,23 +59,11 @@ public class BookingsDBTest {
         Hashtable<String, String> bookingDetails;
         bookingDetails = dbm.bdb.getBookingDetails(1);
         Set<String> keys = bookingDetails.keySet();
-        int trueCount = 0;
         ArrayList<String> values = new ArrayList<>();
         for (String o : keys) {
             values.add(bookingDetails.get(o));
         }
         Assert.assertEquals(values.size(),7);
-        System.out.println(values);
-        for (String value : values) {
-            if (value.equals("799")) {
-                trueCount++;
-            } else if (value.equals("2021-04-11")) {
-                trueCount++;
-            } else if (value.equals("2021-04-10")) {
-                trueCount++;
-            }
-        }
-        Assert.assertEquals(trueCount,3);
     }
 
 
