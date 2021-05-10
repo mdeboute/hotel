@@ -60,40 +60,38 @@ public class BookingsDBTest {
 
         Set<String> keys = bookingDetails.keySet();
         System.out.println(keys);
-        ArrayList<String> allValues = new ArrayList<>();
         int trueCount = 0;
-        for (String key : keys) {
-            allValues.add(bookingDetails.get(key));
-//            String value = bookingDetails.get(o);
-//            if (o.equals("b_id")) {
-//                if (value.equals("1")){
-//                    trueCount++;
-//                }
-//            } else if (o.equals("r_rum")){
-//                if (value.equals("2")) {
-//                    trueCount++;
-//                }
-//            } else if (o.equals("paid_by_card")){
-//                if (value.equals("1")) {
-//                    trueCount++;
-//                }
-//            } else if (o.equals("b_from")){
-//                if (value.equals("2021-04-10")) {
-//                    trueCount++;
-//                }
-//            } else if (o.equals("b_till")){
-//                if (value.equals("2021-04-11")) {
-//                    trueCount++;
-//                }
-//            } else if (o.equals("b_fee")){
-//                if (value.equals("799")) {
-//                    trueCount++;
-//                }
-//            } else if (o.equals("b_is_paid")){
-//                if (value.equals("0")) {
-//                    trueCount++;
-//                }
-//            }
+        for (String o : keys) {
+            String value = bookingDetails.get(o);
+            if (o.equals("b_id")) {
+                if (value.equals("1")){
+                    trueCount++;
+                }
+            } else if (o.equals("r_num")){
+                if (value.equals("2")) {
+                    trueCount++;
+                }
+            } else if (o.equals("paid_by_card")){
+                if (value.equals("1")) {
+                    trueCount++;
+                }
+            } else if (o.equals("b_from")){
+                if (value.equals("2021-04-10")) {
+                    trueCount++;
+                }
+            } else if (o.equals("b_till")){
+                if (value.equals("2021-04-11")) {
+                    trueCount++;
+                }
+            } else if (o.equals("b_fee")){
+                if (value.equals("799")) {
+                    trueCount++;
+                }
+            } else if (o.equals("b_is_paid")){
+                if (value.equals("0")) {
+                    trueCount++;
+                }
+            }
 
 //            switch (o) {
 //                case "b_id":
@@ -133,24 +131,8 @@ public class BookingsDBTest {
 //                    break;
 //            }
         }
-//        Assert.assertEquals(trueCount,7);
-//        System.out.println(trueCount);
-        for (String value: allValues) {
-            if (value.equals("1")) {
-                trueCount++;
-            } else if (value.equals("2")) {
-                trueCount++;
-            } else if (value.equals("0")) {
-                trueCount++;
-            } else if (value.equals("799")) {
-                trueCount++;
-            } else if (value.equals("2021-04-11")) {
-                trueCount++;
-            } else if (value.equals("2021-04-10")) {
-                trueCount++;
-            }
-        }
         Assert.assertEquals(trueCount,7);
+        System.out.println(trueCount);
     }
 
 }
