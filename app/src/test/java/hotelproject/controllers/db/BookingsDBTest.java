@@ -59,63 +59,24 @@ public class BookingsDBTest {
         Hashtable<String, String> bookingDetails;
         bookingDetails = dbm.bdb.getBookingDetails(1);
         Set<String> keys = bookingDetails.keySet();
+        int trueCount = 0;
         ArrayList<String> values = new ArrayList<>();
-////        int trueCount = 0;
         for (String o : keys) {
             values.add(bookingDetails.get(o));
-
-//            String value = bookingDetails.get(o);
-//
-//            switch (o) {
-//                case "b_id":
-//                    Assert.assertEquals(value, "1");
-//                    break;
-//                case "r_num":
-//                    Assert.assertEquals(value, "2");
-//                    break;
-////                    if (value.equals("2")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//                case "paid_by_card":
-//                    Assert.assertEquals(value, "1");
-//                    break;
-////                    if (value.equals("1")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//                case "b_from":
-//                    Assert.assertEquals(value, "2021-04-10");
-//                    break;
-////                    if (value.equals("2021-04-10")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//                case "b_till":
-//                    Assert.assertEquals(value, "2021-04-11");
-//                    break;
-////                    if (value.equals("2021-04-11")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//                case "b_fee":
-//                    Assert.assertEquals(value, "799");
-//                    break;
-////                    if (value.equals("799")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//                case "b_is_paid":
-//                    Assert.assertEquals(value, "0");
-//                    break;
-////                    if (value.equals("0")) {
-////                        trueCount++;
-////                    }
-////                    break;
-//
-            }
-        Assert.assertEquals(values.size(),7);
-
         }
+        Assert.assertEquals(values.size(),7);
+        System.out.println(values);
+        for (String value : values) {
+            if (value.equals("799")) {
+                trueCount++;
+            } else if (value.equals("2021-04-11")) {
+                trueCount++;
+            } else if (value.equals("2021-04-10")) {
+                trueCount++;
+            }
+        }
+        Assert.assertEquals(trueCount,3);
+    }
+
 
 }
