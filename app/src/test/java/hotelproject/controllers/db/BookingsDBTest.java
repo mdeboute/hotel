@@ -48,7 +48,6 @@ public class BookingsDBTest {
         Assert.assertEquals(bookingsFromTheDay.size(), 2);
     }
 
-    //TODO adapt this test to pipeline
     /**
      * @brief Test getBookingDetails(int b_id) method, using "b_id = 1" record to test.
      * @result TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
