@@ -8,6 +8,7 @@ import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Set;
 
 
@@ -57,41 +58,20 @@ public class BookingsDBTest {
     public void test_003_getBookingDetails() {
         Hashtable<String, String> bookingDetails;
         bookingDetails = dbm.bdb.getBookingDetails(1);
+        ArrayList<String> testValues = new ArrayList<>();
+        testValues.add("1");
+        testValues.add("2");
+        testValues.add("2021-04-10");
+        testValues.add("2021-04-11");
+        testValues.add("799");
+        testValues.add("0");
 
         Set<String> keys = bookingDetails.keySet();
-        System.out.println(keys);
+        ArrayList<String> values = new ArrayList<>();
         int trueCount = 0;
         for (String o : keys) {
-            String value = bookingDetails.get(o);
-            if (o.equals("b_id")) {
-                if (value.equals("1")){
-                    trueCount++;
-                }
-            } else if (o.equals("r_num")){
-                if (value.equals("2")) {
-                    trueCount++;
-                }
-            } else if (o.equals("paid_by_card")){
-                if (value.equals("1")) {
-                    trueCount++;
-                }
-            } else if (o.equals("b_from")){
-                if (value.equals("2021-04-10")) {
-                    trueCount++;
-                }
-            } else if (o.equals("b_till")){
-                if (value.equals("2021-04-11")) {
-                    trueCount++;
-                }
-            } else if (o.equals("b_fee")){
-                if (value.equals("799")) {
-                    trueCount++;
-                }
-            } else if (o.equals("b_is_paid")){
-                if (value.equals("0")) {
-                    trueCount++;
-                }
-            }
+            values.add(bookingDetails.get(o));
+//            String value = bookingDetails.get(o);
 
 //            switch (o) {
 //                case "b_id":
@@ -129,8 +109,17 @@ public class BookingsDBTest {
 //                        trueCount++;
 //                    }
 //                    break;
-//            }
+
+            }
+        for (String value : values) {
+            for (String testValue : testValues) {
+                if (testValue.equals(value)) {
+                    trueCount++;
+                }
+            }
+
         }
+
         Assert.assertEquals(trueCount,7);
         System.out.println(trueCount);
     }
