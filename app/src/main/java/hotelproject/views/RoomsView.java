@@ -70,19 +70,19 @@ public class RoomsView extends View {
         roomsTable.setEditable(true);
         // Create column in the table
         TableColumn<Room, String> roomNbCol = new TableColumn<>("Room number");
-        roomNbCol.setMinWidth(100);
+        roomNbCol.setPrefWidth(120.0F);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
         TableColumn<Room, String> roomFloorCol = new TableColumn<>("Floor");
-        roomNbCol.setMinWidth(100);
+        roomFloorCol.setPrefWidth(100.0F);
         roomFloorCol.setCellValueFactory(new PropertyValueFactory<>("r_floor"));
 
         TableColumn<Room, String> roomTypeCol = new TableColumn<>("Room type");
-        roomNbCol.setMinWidth(100);
+        roomTypeCol.setPrefWidth(100.0F);
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<>("r_type"));
 
         TableColumn<Room, String> roomIsBookedCol = new TableColumn<>("Booked");
-        roomNbCol.setMinWidth(100);
+        roomIsBookedCol.setPrefWidth(80.0F);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<>("booked"));
 
         // Create a filtered list to put the rooms as items in the table
