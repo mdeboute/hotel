@@ -576,7 +576,6 @@ public class HotelProject extends Application {
 
     // reception staff can only view details through the context menu
     if (connectedUser.getU_is_admin() == 0) {
-        roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
         roomsViewPage.getRoomsTable().setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
             @Override
             public TableRow<Room> call(TableView<Room> tableView) {
