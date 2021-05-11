@@ -71,12 +71,12 @@ public class MyPageView extends View {
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
 
-        updateInfo = createButton(35, idleUrlUpdate, hoverUrlUpdate);
-        logOut = createButton(35, idleUrlLogOut, hoverUrlLogOut);
+        updateInfo = createButton(30, idleUrlUpdate, hoverUrlUpdate);
+        logOut = createButton(30, idleUrlLogOut, hoverUrlLogOut);
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(updateInfo, logOut);
-        buttons.setSpacing(7);
+        buttons.setSpacing(15);
 
         pane.add(buttons, 0, 6);
 
