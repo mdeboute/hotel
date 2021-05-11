@@ -2,7 +2,6 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,8 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
@@ -29,10 +26,6 @@ public class RoomsView extends View {
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
-    private final Button deleteRoom = new Button("Delete room...");
-    private final Button updateRoom = new Button("Update room...");
-    private final Button viewDetails = new Button("View details...");
-
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -122,41 +115,10 @@ public class RoomsView extends View {
         pane.add(search, 0, 2);
         pane.add(roomsTable, 0, 4);
         addRoom.setVisible(false);
-        deleteRoom.setVisible(false);
-        updateRoom.setVisible(false);
-        viewDetails.setVisible(false);
 
         if (user.getU_is_admin() == 1) {
             pane.add(addRoom, 0, 5);
             addRoom.setVisible(true);
-
-            deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(deleteRoom, 0, 6);
-
-            updateRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(updateRoom, 0, 7);  
-            
-            viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(viewDetails, 0, 8);
-            
-            roomsTable.setOnMouseClicked((MouseEvent event) -> {
-                if (event.getButton().equals(MouseButton.PRIMARY)) {
-                    deleteRoom.setVisible(true);
-                    updateRoom.setVisible(true);
-                    viewDetails.setVisible(true);
-                }
-            });
-        }
-
-        if(user.getU_is_admin() == 0 ) {
-            viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(viewDetails, 0, 8);
-            
-            roomsTable.setOnMouseClicked((MouseEvent event) -> {
-                if (event.getButton().equals(MouseButton.PRIMARY)) {
-                    viewDetails.setVisible(true);
-                }
-            });
         }
 
         return pane;
@@ -170,17 +132,5 @@ public class RoomsView extends View {
 
     public TableView<Room> getRoomsTable() {
         return roomsTable;
-    }
-
-    public Button getDeleteRoom() {
-        return deleteRoom;
-    }
-
-    public Button getUpdateRoom() {
-        return updateRoom;
-    }
-
-    public Button getViewDetails() {
-        return viewDetails;
     }
 }
