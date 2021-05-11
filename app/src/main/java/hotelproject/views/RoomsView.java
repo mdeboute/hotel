@@ -29,8 +29,9 @@ public class RoomsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
-    private final Button addRoom = new Button("New room...");
-    private final ImageView imgAddRoom = new ImageView(new Image("file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png"));
+    private Button addRoom;
+    private String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
+    private String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -119,13 +120,13 @@ public class RoomsView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(roomsTable, 0, 4);
-        addRoom.setCursor(Cursor.HAND);
-        StackPane addRoomStackP = createButton(imgAddRoom, addRoom, 200, 35);
+        addRoom = createButton(35, idlePathAddRoom, hoverPathAddRoom);
         addRoom.setVisible(false);
 
         if (user.getU_is_admin() == 1) {
-            pane.add(addRoomStackP, 0, 5);
+            pane.add(addRoom, 0, 5);
             addRoom.setVisible(true);
+            GridPane.setHalignment(addRoom, javafx.geometry.HPos.CENTER);
         }
 
         return pane;

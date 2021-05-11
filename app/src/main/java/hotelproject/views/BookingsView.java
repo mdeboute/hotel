@@ -30,8 +30,9 @@ public class BookingsView extends View {
 
     // The scene's nodes
     private final TableView<Booking> bookingsTable = new TableView<>();
-    private final Button addBooking = new Button("New booking...");
-    private final ImageView imgAddBooking= new ImageView(new Image("file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png"));
+    private Button addBooking;
+    private String idlePathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
+    private String hoverPathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
     private final DatePicker date = new DatePicker();
 
     public BookingsView(User user, List<Booking> bookings) {
@@ -136,9 +137,9 @@ public class BookingsView extends View {
         GridPane.setHalignment(date, javafx.geometry.HPos.CENTER);
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
-            addBooking.setCursor(Cursor.HAND);
-            StackPane addBookingStack = createButton(imgAddBooking, addBooking, 200, 35);
-            pane.add(addBookingStack, 0, 5);
+            addBooking = createButton(35, idlePathAddBooking, hoverPathAddBooking);
+            pane.add(addBooking, 0, 5);
+            GridPane.setHalignment(addBooking, javafx.geometry.HPos.CENTER);
         }
 
         return pane;

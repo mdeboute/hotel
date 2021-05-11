@@ -29,9 +29,9 @@ public class UsersView extends View {
 
     // The scene's nodes
     private final TableView<User> usersTable = new TableView<>();
-    private final Button addUser = new Button("Add user...");
-    Image img;
-    private final ImageView imgAddUser = new ImageView(new Image("file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png"));
+    private Button addUser;
+    private String idlePathAddUser = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
+    private String hoverPathAddUser = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
 
     public UsersView(User user, List<User> users) {
         this.user = user;
@@ -110,10 +110,10 @@ public class UsersView extends View {
         pane.add(search, 0, 2);
         pane.add(usersTable, 0, 4);
 
-        addUser.setCursor(Cursor.HAND);
-        StackPane addUserStackPane = createButton(imgAddUser, addUser, 200, 35);
+        addUser = createButton(35, idlePathAddUser, hoverPathAddUser);
         if (user.getU_is_admin() == 1) {
-            pane.add(addUserStackPane, 0, 5);
+            pane.add(addUser, 0, 5);
+            GridPane.setHalignment(addUser, javafx.geometry.HPos.CENTER);
         }
 
         return pane;

@@ -24,8 +24,9 @@ public class LoginView extends View {
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password.");
     private final Label result = new Label();
-    private final Button testLogin = new Button("");
-    private final ImageView imgLogin = new ImageView(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png"));
+    private Button testLogin;
+    private String idlePathTestLogin = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
+    private String hoverPathTestLogin = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
     boolean onlyPwd;
 
     public LoginView(boolean onlyPwd) {
@@ -123,14 +124,8 @@ public class LoginView extends View {
         }
 
         //login button
-        testLogin.setCursor(Cursor.HAND);
-        StackPane loginStack = createButton(imgLogin, testLogin, 401, 55);
-        bodyPane.add(loginStack, 0, 2);
-
-        //mouse hovering
-        testLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/hover_button_login.png")));
-
-        testLogin.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/idle_button_login.png")));
+        testLogin = createButton(55, idlePathTestLogin, hoverPathTestLogin);
+        bodyPane.add(testLogin, 0, 2);
 
         return bodyPane;
     }
