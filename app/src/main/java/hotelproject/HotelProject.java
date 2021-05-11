@@ -226,8 +226,6 @@ public class HotelProject extends Application {
         Stage loginStage = new Stage();
         myPage.getUpdateInfo().setOnAction(e -> credentialsDisplay(myPageStage, loginStage, true));
 
-        myPage.getBack().setOnAction(e -> myPageStage.close());
-
         myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
 
         myPageStage.setScene(myPage.getScene());

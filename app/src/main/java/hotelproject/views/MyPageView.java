@@ -1,12 +1,20 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.User;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+
+import java.awt.*;
 
 public class MyPageView extends View {
 
@@ -14,9 +22,12 @@ public class MyPageView extends View {
     private final User user;
 
     // The scene's nodes
-    private final Button updateInfo = new Button("Change personal information");
-    private final Button back = new Button("Back");
-    private final Button logout = new Button("Logout");
+    String idleUrlUpdate = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_update.png";
+    String hoverUrlUpdate = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_update.png";
+    String idleUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
+    String hoverUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
+    private Button updateInfo;
+    private Button logOut;
 
     public MyPageView(User user) {
         this.user = user;
@@ -28,7 +39,7 @@ public class MyPageView extends View {
         GridPane bodyPane = createBody();
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
-        bodyPane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        bodyPane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
         scene = new Scene(bodyPane);
     }
 
@@ -60,9 +71,14 @@ public class MyPageView extends View {
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
 
-        pane.add(updateInfo, 0, 6);
-        pane.add(back, 0, 7);
-        pane.add(logout, 0, 8);
+        updateInfo = createButton(35, idleUrlUpdate, hoverUrlUpdate);
+        logOut = createButton(35, idleUrlLogOut, hoverUrlLogOut);
+
+        HBox buttons = new HBox();
+        buttons.getChildren().addAll(updateInfo, logOut);
+        buttons.setSpacing(7);
+
+        pane.add(buttons, 0, 6);
 
         return pane;
     }
@@ -73,11 +89,7 @@ public class MyPageView extends View {
         return updateInfo;
     }
 
-    public Button getBack() {
-        return back;
-    }
-
     public Button getLogout() {
-        return logout;
+        return logOut;
     }
 }

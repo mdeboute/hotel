@@ -82,7 +82,7 @@ public class LoginView extends View {
         password.setTranslateX(60);
         password.setTranslateY(1);
         password.setPromptText("Password");
-        
+
         if (!onlyPwd) {
 
             bodyPane.add(result, 0, 0);
