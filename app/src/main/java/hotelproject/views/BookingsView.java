@@ -2,9 +2,11 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Booking;
 import hotelproject.controllers.objects.User;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -19,6 +21,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
+import javafx.util.Callback;
 
 public class BookingsView extends View {
 
@@ -33,7 +36,8 @@ public class BookingsView extends View {
     private Button addBooking;
     private String idlePathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
     private String hoverPathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
-    private final DatePicker date = new DatePicker();
+    private final DatePicker startDatePicker = new DatePicker(); // private final DatePicker date = new DatePicker();
+    private final DatePicker endDatePicker = new DatePicker();
 
     public BookingsView(User user, List<Booking> bookings) {
         this.user = user;
@@ -61,6 +65,32 @@ public class BookingsView extends View {
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
         title.setTextFill(Paint.valueOf("bb86fc"));
+
+        startDatePicker.setValue(LocalDate.now().minusMonths(1));
+        endDatePicker.setValue(LocalDate.now().plusMonths(1));
+
+        startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            final Callback<DatePicker, DateCell> dayCellFactory =
+                new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (item.isBefore(
+                                    startDatePicker.getValue())
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
+                            }
+                        };
+                    }
+                };
+            endDatePicker.setDayCellFactory(dayCellFactory);
+        });
 
         bookingsTable.setEditable(true);
 
@@ -96,7 +126,58 @@ public class BookingsView extends View {
 
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
+
+
+        endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            flBooking.setPredicate(item -> {
+                // If filter text is empty, display all items.
+                LocalDate from = item.getB_from().toLocalDate();
+                LocalDate to = item.getB_till().toLocalDate();
+                LocalDate leftEndpoint = startDatePicker.getValue();
+                LocalDate rightEndpoint = endDatePicker.getValue();
+
+                if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
+                    return true;
+                }
+                if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
+                    return true;
+                }
+                if (from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            flBooking.setPredicate(item -> {
+                // If filter text is empty, display all items.
+                LocalDate from = item.getB_from().toLocalDate();
+                LocalDate to = item.getB_till().toLocalDate();
+                LocalDate leftEndpoint = startDatePicker.getValue();
+                LocalDate rightEndpoint = endDatePicker.getValue();
+
+                if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
+                    return true;
+                }
+                if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
+                    return true;
+                }
+                if (from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        // Wrap the FilteredList in a SortedList.
+        SortedList<Booking> sortedData = new SortedList<>(flBooking);
+
+        // Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(bookingsTable.comparatorProperty());
+
         bookingsTable.setItems(flBooking);
+
         bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol,
                 bIPCol);
 
@@ -124,8 +205,15 @@ public class BookingsView extends View {
             }
         });
 
-        date.setPromptText("Select date to view bookings");
-        date.setMaxWidth(300);
+        //date.setPromptText("Select date to view bookings");
+        startDatePicker.setPromptText("FROM");
+        endDatePicker.setPromptText("TO");
+        startDatePicker.setMaxWidth(200);
+        endDatePicker.setMaxWidth(200);
+        //date.setMaxWidth(300);
+        HBox dateRange = new HBox(startDatePicker, endDatePicker);
+        dateRange.setAlignment(Pos.CENTER);
+        pane.add(dateRange,0,3);
 
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
@@ -133,8 +221,7 @@ public class BookingsView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
-        pane.add(date, 0, 3);
-        GridPane.setHalignment(date, javafx.geometry.HPos.CENTER);
+
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
             addBooking = createButton(35, idlePathAddBooking, hoverPathAddBooking);
@@ -152,7 +239,7 @@ public class BookingsView extends View {
     }
 
     public DatePicker getDatePicker() {
-        return date;
+        return startDatePicker;
     }
 
 }
