@@ -6,6 +6,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -41,7 +42,7 @@ public class RoomsView extends View {
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
-        GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
+        GridPane.setHalignment(bodyPane, HPos.CENTER);
 
         //roomsTable.setTextFill(Paint.valueOf("white"));
         //roomsTable.setStyle("-fx-background-color: #121212;");
@@ -51,6 +52,9 @@ public class RoomsView extends View {
 
         scene = new Scene(bodyPane);
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
+
+        // Disable horizontal scroll bar in TableView
+        scene.getStylesheets().add("file:assets/css/JavaFx2HideTableViewHScrollBar.css");
     }
 
     @Override
@@ -64,22 +68,21 @@ public class RoomsView extends View {
         title.setTextFill(Paint.valueOf("bb86fc"));
 
         roomsTable.setEditable(true);
-
         // Create column in the table
         TableColumn<Room, String> roomNbCol = new TableColumn<>("Room number");
-        roomNbCol.setMinWidth(100);
+        roomNbCol.setPrefWidth(120.0F);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
         TableColumn<Room, String> roomFloorCol = new TableColumn<>("Floor");
-        roomFloorCol.setMinWidth(100);
+        roomFloorCol.setPrefWidth(100.0F);
         roomFloorCol.setCellValueFactory(new PropertyValueFactory<>("r_floor"));
 
         TableColumn<Room, String> roomTypeCol = new TableColumn<>("Room type");
-        roomTypeCol.setMinWidth(100);
+        roomTypeCol.setPrefWidth(100.0F);
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<>("r_type"));
 
         TableColumn<Room, String> roomIsBookedCol = new TableColumn<>("Booked");
-        roomIsBookedCol.setMinWidth(100);
+        roomIsBookedCol.setPrefWidth(80.0F);
         roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<>("booked"));
 
         // Create a filtered list to put the rooms as items in the table
@@ -116,7 +119,7 @@ public class RoomsView extends View {
         search.setAlignment(Pos.CENTER);
 
         pane.add(title, 0, 0);
-        GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
+        GridPane.setHalignment(title, HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(roomsTable, 0, 4);
         addRoom.setVisible(false);
