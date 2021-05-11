@@ -7,11 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -27,6 +31,7 @@ public class RoomsView extends View {
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
+    private final ImageView imgAddRoom = new ImageView(new Image("file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png"));
     private final Button deleteRoom = new Button("Delete room...");
     private final Button updateRoom = new Button("Update room...");
     private final Button viewDetails = new Button("View details...");
@@ -119,13 +124,15 @@ public class RoomsView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(roomsTable, 0, 4);
+        addRoom.setCursor(Cursor.HAND);
+        StackPane addRoomStackP = createButton(imgAddRoom, addRoom, 200, 35);
         addRoom.setVisible(false);
         deleteRoom.setVisible(false);
         updateRoom.setVisible(false);
 
         if (user.getU_is_admin() == 1) {
-            pane.add(addRoom, 0, 5);
-            addRoom.setVisible(true);
+            pane.add(addRoomStackP, 0, 5);
+            addRoomStackP.setVisible(true);
 
             deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
             pane.add(deleteRoom, 0, 6);

@@ -6,11 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -27,6 +31,7 @@ public class BookingsView extends View {
     // The scene's nodes
     private final TableView<Booking> bookingsTable = new TableView<>();
     private final Button addBooking = new Button("New booking...");
+    private final ImageView imgAddBooking= new ImageView(new Image("file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png"));
     private final DatePicker date = new DatePicker();
 
     public BookingsView(User user, List<Booking> bookings) {
@@ -131,7 +136,9 @@ public class BookingsView extends View {
         GridPane.setHalignment(date, javafx.geometry.HPos.CENTER);
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
-            pane.add(addBooking, 0, 5);
+            addBooking.setCursor(Cursor.HAND);
+            StackPane addBookingStack = createButton(imgAddBooking, addBooking, 200, 35);
+            pane.add(addBookingStack, 0, 5);
         }
 
         return pane;

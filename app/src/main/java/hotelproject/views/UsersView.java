@@ -5,11 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -26,6 +30,8 @@ public class UsersView extends View {
     // The scene's nodes
     private final TableView<User> usersTable = new TableView<>();
     private final Button addUser = new Button("Add user...");
+    Image img;
+    private final ImageView imgAddUser = new ImageView(new Image("file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png"));
 
     public UsersView(User user, List<User> users) {
         this.user = user;
@@ -103,8 +109,11 @@ public class UsersView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(usersTable, 0, 4);
+
+        addUser.setCursor(Cursor.HAND);
+        StackPane addUserStackPane = createButton(imgAddUser, addUser, 200, 35);
         if (user.getU_is_admin() == 1) {
-            pane.add(addUser, 0, 5);
+            pane.add(addUserStackPane, 0, 5);
         }
 
         return pane;

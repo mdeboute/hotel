@@ -6,11 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -20,6 +24,7 @@ public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
     private final Button addCustomer = new Button("New customer...");
+    private final ImageView imgAddCustomer = new ImageView(new Image("file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png"));
     private final Button updateCustomer = new Button("Update customer...");
     public TableView<Customer> customersTable = new TableView<>();
 
@@ -110,7 +115,9 @@ public class CustomersView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(customersTable, 0, 4);
-        pane.add(addCustomer, 0, 5);
+        addCustomer.setCursor(Cursor.HAND);
+        StackPane addCustomerStack = createButton(imgAddCustomer, addCustomer, 200, 35);
+        pane.add(addCustomerStack, 0, 5);
 
         updateCustomer.disableProperty().bind(Bindings.isEmpty(customersTable.getSelectionModel().getSelectedItems()));
         pane.add(updateCustomer, 0, 6);
