@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 /**
@@ -36,15 +37,17 @@ public abstract class View {
     protected VBox createHeader(String title, String subtitle) { //use createHeader in every view
 
         Label titleL = new Label(title);
+        titleL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 30));
         titleL.setStyle("-fx-font-weight: bold;");
-        titleL.setFont(Font.font(18));
+        titleL.setTextFill(Paint.valueOf("bb86fc"));
 
         Label subtitleL = new Label(subtitle);
-        subtitleL.setFont(Font.font(14));
+        subtitleL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 21));
+        subtitleL.setTextFill(Paint.valueOf("silver"));
 
         VBox header = new VBox(titleL, subtitleL);
-        //header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(10.0, 10.0, 2.0, 10.0));
+        header.setAlignment(Pos.CENTER);
+        header.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
         header.setSpacing(5.5);
 
         return header;
@@ -103,6 +106,13 @@ public abstract class View {
         button.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgView.setImage(new Image(idleUrl)));
 
         return button;
+    }
+
+    protected Label changeLabelDesign(Label label,String font, int size, String color) {
+        label.setFont(Font.loadFont(font, size));
+        label.setTextFill(Paint.valueOf(color));
+
+        return label;
     }
 
     public Scene getScene() {

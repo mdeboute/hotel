@@ -119,8 +119,6 @@ public class LoginView extends View {
 
             bodyPane.add(login, 0, 1);
             bodyPane.add(password, 0, 1);
-
-
         }
 
         //login button
