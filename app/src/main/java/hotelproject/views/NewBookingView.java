@@ -29,29 +29,6 @@ public class NewBookingView extends View {
 
         VBox header = createHeader("New booking", "Enter the new booking specifications");
 
-        checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
-            final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
-
-                                if (item.isBefore(
-                                    checkIn.getValue().plusDays(1))
-                                ) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
-                                }
-                            }
-                        };
-                    }
-                };
-            checkOut.setDayCellFactory(dayCellFactory);
-            checkOut.setValue(checkIn.getValue().plusDays(1));
-        });
 
         Label bookingIDL = new Label("Booking number : ");
         pane.add(bookingIDL, 0, 1);
