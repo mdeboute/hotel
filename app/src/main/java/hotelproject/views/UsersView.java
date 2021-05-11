@@ -1,19 +1,16 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.User;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -29,9 +26,9 @@ public class UsersView extends View {
 
     // The scene's nodes
     private final TableView<User> usersTable = new TableView<>();
+    private final String idlePathAddUser = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
+    private final String hoverPathAddUser = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
     private Button addUser;
-    private String idlePathAddUser = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
-    private String hoverPathAddUser = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
 
     public UsersView(User user, List<User> users) {
         this.user = user;
@@ -67,13 +64,13 @@ public class UsersView extends View {
         userNCol.setMinWidth(100);
         userNCol.setCellValueFactory(new PropertyValueFactory<>("u_name"));
 
-        TableColumn<User, String> userPCol = new TableColumn<>("User password");
-        userPCol.setMinWidth(150);
-        userPCol.setCellValueFactory(new PropertyValueFactory<>("u_password"));
+        TableColumn<User, String> userPCol = new TableColumn<>("Password");
+        userPCol.setMinWidth(200);
+        userPCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("*".repeat(20)));
 
         TableColumn<User, String> userIACol = new TableColumn<>("Is admin");
         userIACol.setMinWidth(100);
-        userIACol.setCellValueFactory(new PropertyValueFactory<>("u_is_admin"));
+        userIACol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_admin()));
 
         // Create a filtered list to put the users as items in the table
         FilteredList<User> flUser = new FilteredList<>(users, p -> true);
@@ -83,14 +80,18 @@ public class UsersView extends View {
         // Create choice box so the user can choose on the column they are searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Username");
+        whatToSearch.getItems().addAll("Admin");
         whatToSearch.setValue("Username"); // default search
+
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
-        searchBar.setPromptText("Search here!");
+        searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Username")) {
                 flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));                                                                                        // number
+            } else if (whatToSearch.getValue().equals("Admin")) {
+                flUser.setPredicate(p -> p.is_admin().contains(newValue.toLowerCase().trim()));                                                                                        // number
             }
         });
 

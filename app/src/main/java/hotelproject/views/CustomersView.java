@@ -6,15 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -23,11 +19,11 @@ import java.util.List;
 public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
-    private Button addCustomer;
     private final String idlePathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
     private final String hoverPathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
     private final Button updateCustomer = new Button("Update customer...");
     public TableView<Customer> customersTable = new TableView<>();
+    private Button addCustomer;
 
     public CustomersView(List<Customer> customers) {
         this.customers = FXCollections.observableList(customers);

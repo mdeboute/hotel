@@ -43,6 +43,11 @@ public class User {
         this.u_is_admin = u_is_admin;
     }
 
+    public String is_admin() {
+        if (u_is_admin == 1) return "yes";
+        return "no";
+    }
+
     /**
      * @return attribute information as a String
      * @brief Returns attribute information as a String

@@ -3,7 +3,6 @@ package hotelproject.views;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -24,10 +22,10 @@ public class LoginView extends View {
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password.");
     private final Label result = new Label();
-    private Button testLogin;
-    private String idlePathTestLogin = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
-    private String hoverPathTestLogin = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
+    private final String idlePathTestLogin = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
+    private final String hoverPathTestLogin = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
     boolean onlyPwd;
+    private Button testLogin;
 
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
@@ -40,7 +38,9 @@ public class LoginView extends View {
         VBox header = createHeader();
         scenePane.add(header, 0, 0);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
-        if (onlyPwd) {scenePane.setVgap(60);};
+        if (onlyPwd) {
+            scenePane.setVgap(60);
+        }
 
         GridPane body = createBody();
         scenePane.add(body, 0, 1);
