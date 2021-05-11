@@ -52,22 +52,14 @@ public class MyPageView extends View {
             userStatus = "administrator";
         }
 
-        Label title = new Label("My Page");
-        title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
-        title.setTextFill(Paint.valueOf("white"));
-        Label status = new Label("Your status is : " + userStatus);
-        status.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
-        status.setTextFill(Paint.valueOf("white"));
+        Label title = changeLabelDesign(new Label("My Page"), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label status = changeLabelDesign(new Label("Your status is : " + userStatus), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(title, 0, 0);
         pane.add(status, 0, 1);
 
-        Label username = new Label("Username : " + user.getU_name());
-        username.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
-        username.setTextFill(Paint.valueOf("white"));
+        Label username = changeLabelDesign(new Label("Username : " + user.getU_name()), "file:assets/font/SF_Pro.ttf", 20, "white");
         String pwd = user.getU_password();
-        Label password = new Label("Password : " + "*".repeat(pwd.length()));
-        password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
-        password.setTextFill(Paint.valueOf("white"));
+        Label password = changeLabelDesign(new Label("Password : " + "*".repeat(pwd.length())), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
 

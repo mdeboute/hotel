@@ -1,10 +1,15 @@
 package hotelproject.views;
 
 import java.time.LocalDate;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.util.Callback;
 
 public class NewBookingView extends View {
@@ -16,6 +21,8 @@ public class NewBookingView extends View {
     private final TextField bookingFee = new TextField();
     private final CheckBox isPaid = new CheckBox("Is paid?");
     private Button submit;
+    private String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button cancel;
 
     public NewBookingView() {
@@ -27,63 +34,78 @@ public class NewBookingView extends View {
         GridPane pane = createPane();
 
         VBox header = createHeader("New booking", "Enter the new booking specifications");
+        GridPane bodyPane = createBody();
+        VBox footer = createFooter();
+
+        pane.add(header, 0, 0);
+        pane.add(bodyPane, 0, 1);
+        pane.add(footer, 0, 2);
+        GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        GridPane.setHalignment(footer, javafx.geometry.HPos.CENTER);
+
+        pane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scene = new Scene(pane);
+    }
+
+    @Override
+    GridPane createBody() {
+        GridPane pane = createPane();
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
+                    new Callback<DatePicker, DateCell>() {
+                        @Override
+                        public DateCell call(final DatePicker datePicker) {
+                            return new DateCell() {
+                                @Override
+                                public void updateItem(LocalDate item, boolean empty) {
+                                    super.updateItem(item, empty);
 
-                                if (item.isBefore(
-                                    checkIn.getValue().plusDays(1))
-                                ) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
+                                    if (item.isBefore(
+                                            checkIn.getValue().plusDays(1))
+                                    ) {
+                                        setDisable(true);
+                                        setStyle("-fx-background-color: #ffc0cb;");
+                                    }
                                 }
-                            }
-                        };
-                    }
-                };
+                            };
+                        }
+                    };
             checkOut.setDayCellFactory(dayCellFactory);
             checkOut.setValue(checkIn.getValue().plusDays(1));
         });
         checkIn.setPromptText("DD/MM/YYYY");
         checkOut.setPromptText("DD/MM/YYYY");
 
-        Label numRoomL = new Label("Room number : ");
+        Label numRoomL = changeLabelDesign(new Label("Room number : "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(numRoomL, 0, 1);
-        pane.add(numRoom, 1, 1); 
+        pane.add(numRoom, 1, 1);
         pane.add(checkIn, 0, 2);
         pane.add(checkOut, 1, 2);
-        Label bookingFeeL = new Label("Booking fee : ");
+        Label bookingFeeL = changeLabelDesign(new Label("Booking fee : "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(bookingFeeL, 0, 3);
         pane.add(bookingFee, 1, 3);
+        paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        paidByCard.setTextFill(Paint.valueOf("white"));
         pane.add(paidByCard, 0, 4);
+        isPaid.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        isPaid.setTextFill(Paint.valueOf("white"));
         pane.add(isPaid, 0, 5);
 
-        submit = new Button("Submit");
-        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 7);
-
-        cancel = new Button("Cancel");
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 8);
-
-        GridPane paneTwo = new GridPane();
-        paneTwo.add(header, 0, 0);
-        paneTwo.add(pane, 0, 1);
-        GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
-
-        scene = new Scene(paneTwo);
+        //pane.getChildren().forEach(e -> e.setPadding(new Insets(15, 15, 25, 15)));
+        return pane;
     }
 
-    @Override
-    GridPane createBody() {
-        return null;
+    private VBox createFooter() {
+        submit = createButton(35, idleSubmit, hoverSubmit);
+        cancel = new Button("Cancel");
+
+        VBox footer = new VBox(submit, cancel);
+        footer.setAlignment(Pos.CENTER);
+        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
+        footer.setSpacing(5.5);
+
+        return footer;
     }
 
     public Button getSubmit() {
