@@ -51,6 +51,8 @@ public class NewBookingView extends View {
             checkOut.setDayCellFactory(dayCellFactory);
             checkOut.setValue(checkIn.getValue().plusDays(1));
         });
+        checkIn.setPromptText("DD/MM/YYY");
+        checkOut.setPromptText("DD/MM/YYY");
 
         Label numRoomL = new Label("Room number : ");
         pane.add(numRoomL, 0, 1);
