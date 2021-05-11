@@ -412,6 +412,7 @@ public class HotelProject extends Application {
             bookingsViewPage.getAddBooking().setOnAction(e -> newBookingDisplay(bookingsStage));
         }
 
+        /*
         DatePicker dated = bookingsViewPage.getDatePicker();
 
         dated.setOnAction(e -> {
@@ -428,7 +429,7 @@ public class HotelProject extends Application {
                 bIDListView.getItems().add(bID);
             }
 
-            /*
+
             GridPane secBLayout = new GridPane();
             secBLayout.getChildren().add(bIDListView);
 
@@ -444,9 +445,11 @@ public class HotelProject extends Application {
 
             newWindow.show();
 
-             */
+
 
         });
+
+        */
 
         bookingsStage.setScene(bookingsViewPage.getScene());
         bookingsStage.setTitle("Hotel Manager - Bookings");
