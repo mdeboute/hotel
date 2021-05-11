@@ -39,12 +39,13 @@ public class LoginView extends View {
         VBox header = createHeader();
         scenePane.add(header, 0, 0);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        if (onlyPwd) {scenePane.setVgap(60);};
 
         GridPane body = createBody();
         scenePane.add(body, 0, 1);
         GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
-        scenePane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
+        scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
         scene = new Scene(scenePane, 476, 610);
     }
 
@@ -74,11 +75,17 @@ public class LoginView extends View {
         result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         result.setTextFill(Paint.valueOf("cf6679"));
 
-        int pwdRow = 1;
+        password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+        password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 18));
+        password.setAlignment(Pos.BASELINE_LEFT);
+        password.setMaxWidth(300);
+        password.setTranslateX(60);
+        password.setTranslateY(1);
+        password.setPromptText("Password");
+        
         if (!onlyPwd) {
-            pwdRow = 2;
 
-            bodyPane.add(result, 0, pwdRow - 1);
+            bodyPane.add(result, 0, 0);
 
             StackPane stack = new StackPane();
 
@@ -90,13 +97,7 @@ public class LoginView extends View {
             username.setTranslateY(11);
             username.setPromptText("Username");
 
-            password.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
-            password.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 18));
-            password.setAlignment(Pos.BASELINE_LEFT);
-            password.setMaxWidth(300);
-            password.setTranslateX(60);
             password.setTranslateY(37.5);
-            password.setPromptText("Password");
 
             VBox nodes = new VBox(username, password);
 
@@ -105,17 +106,26 @@ public class LoginView extends View {
             login.setPreserveRatio(true);
 
             stack.getChildren().addAll(login, nodes);
-            bodyPane.add(stack, 0, pwdRow);
+            bodyPane.add(stack, 0, 1);
             GridPane.setHalignment(stack, HPos.CENTER);
         } else {
-            bodyPane.add(credentials, 0, 0);
-            bodyPane.add(password, 0, pwdRow);
+            password.setTranslateY(1);
+            bodyPane.add(result, 0, 0);
+
+            Image loginImg = new Image("file:assets/img/ui_dev_pack/login_page/box_password.png");
+            ImageView login = new ImageView(loginImg);
+            login.setPreserveRatio(true);
+
+            bodyPane.add(login, 0, 1);
+            bodyPane.add(password, 0, 1);
+
+
         }
 
         //login button
         testLogin.setCursor(Cursor.HAND);
         StackPane loginStack = createButton(imgLogin, testLogin, 401, 55);
-        bodyPane.add(loginStack, 0, pwdRow + 2);
+        bodyPane.add(loginStack, 0, 2);
 
         //mouse hovering
         testLogin.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgLogin.setImage(new Image("file:assets/img/ui_dev_pack/login_page/hover_button_login.png")));
