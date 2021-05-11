@@ -33,7 +33,7 @@ public abstract class View {
      * @return the header in the format VBox
      * @brief create the scene's header, called in createScene
      */
-    protected VBox createHeader(String title, String subtitle) { //TODO: use createHeader in every view
+    protected VBox createHeader(String title, String subtitle) { //use createHeader in every view
 
         Label titleL = new Label(title);
         titleL.setStyle("-fx-font-weight: bold;");
