@@ -2,7 +2,6 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,10 +31,6 @@ public class RoomsView extends View {
     private final TableView<Room> roomsTable = new TableView<>();
     private final Button addRoom = new Button("New room...");
     private final ImageView imgAddRoom = new ImageView(new Image("file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png"));
-    private final Button deleteRoom = new Button("Delete room...");
-    private final Button updateRoom = new Button("Update room...");
-    private final Button viewDetails = new Button("View details...");
-
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;
@@ -127,24 +122,11 @@ public class RoomsView extends View {
         addRoom.setCursor(Cursor.HAND);
         StackPane addRoomStackP = createButton(imgAddRoom, addRoom, 200, 35);
         addRoom.setVisible(false);
-        deleteRoom.setVisible(false);
-        updateRoom.setVisible(false);
 
         if (user.getU_is_admin() == 1) {
             pane.add(addRoomStackP, 0, 5);
-            addRoomStackP.setVisible(true);
-
-            deleteRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(deleteRoom, 0, 6);
-            deleteRoom.setVisible(true);
-
-            updateRoom.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-            pane.add(updateRoom, 0, 7);
-            updateRoom.setVisible(true);
+            addRoom.setVisible(true);
         }
-
-        viewDetails.disableProperty().bind(Bindings.isEmpty(roomsTable.getSelectionModel().getSelectedItems()));
-        pane.add(viewDetails, 0, 8);
 
         return pane;
     }
@@ -157,17 +139,5 @@ public class RoomsView extends View {
 
     public TableView<Room> getRoomsTable() {
         return roomsTable;
-    }
-
-    public Button getDeleteRoom() {
-        return deleteRoom;
-    }
-
-    public Button getUpdateRoom() {
-        return updateRoom;
-    }
-
-    public Button getViewDetails() {
-        return viewDetails;
     }
 }
