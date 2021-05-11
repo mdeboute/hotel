@@ -57,9 +57,9 @@ public class NewBookingView extends View {
 
         Label bookingIDL = new Label("Booking number : ");
         pane.add(bookingIDL, 0, 1);
-        pane.add(bookingIDL, 1, 1);
+        //pane.add(bookingIDL, 1, 1);
         Label numRoomL = new Label("Room number : ");
-        pane.add(numRoomL, 0, 1);
+        //pane.add(numRoomL, 0, 1);
         pane.add(numRoom, 1, 1);
         pane.add(checkIn, 0, 2);
         pane.add(checkOut, 1, 2);
