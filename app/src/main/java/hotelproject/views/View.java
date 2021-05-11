@@ -2,10 +2,13 @@ package hotelproject.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -84,6 +87,22 @@ public abstract class View {
         stack.getChildren().addAll(buttonImgView, button);
         stack.setAlignment(Pos.CENTER);
         return stack;
+    }
+
+    protected Button createButton(double fitHeight, String idleUrl, String hoverUrl) {
+        Button button = new Button();
+        ImageView imgView = new ImageView(new Image(idleUrl));
+
+        button.setGraphic(imgView);
+        button.setCursor(Cursor.HAND);
+        button.setStyle("-fx-padding: 0; -fx-background-color: transparent;");
+        imgView.setFitHeight(fitHeight);
+        imgView.setPreserveRatio(true);
+
+        button.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imgView.setImage(new Image(hoverUrl)));
+        button.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imgView.setImage(new Image(idleUrl)));
+
+        return button;
     }
 
     public Scene getScene() {

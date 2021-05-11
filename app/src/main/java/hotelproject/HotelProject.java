@@ -62,7 +62,7 @@ public class HotelProject extends Application {
         LoginView loginView = new LoginView(onlyPwd);
 
         if (onlyPwd) {
-            loginView.getCredentials().setText("Please enter your password first.");
+
         }
 
         loginView.getPassword().setOnKeyPressed(e -> {
@@ -77,7 +77,6 @@ public class HotelProject extends Application {
             try {
                 if (!onlyPwd) { // login
                     if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct password
-                        loginView.getResult().setText("Success !");
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
@@ -234,8 +233,6 @@ public class HotelProject extends Application {
 
         Stage loginStage = new Stage();
         myPage.getUpdateInfo().setOnAction(e -> credentialsDisplay(myPageStage, loginStage, true));
-
-        myPage.getBack().setOnAction(e -> myPageStage.close());
 
         myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
 
