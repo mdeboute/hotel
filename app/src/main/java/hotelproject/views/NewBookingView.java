@@ -1,11 +1,12 @@
 package hotelproject.views;
 
-import java.time.LocalDate;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+
+import java.time.LocalDate;
 
 public class NewBookingView extends View {
 
@@ -30,33 +31,36 @@ public class NewBookingView extends View {
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
+                    new Callback<>() {
+                        @Override
+                        public DateCell call(final DatePicker datePicker) {
+                            return new DateCell() {
+                                @Override
+                                public void updateItem(LocalDate item, boolean empty) {
+                                    super.updateItem(item, empty);
 
-                                if (item.isBefore(
-                                    checkIn.getValue().plusDays(1))
-                                ) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
+                                    if (item.isBefore(
+                                            checkIn.getValue().plusDays(1))
+                                    ) {
+                                        setDisable(true);
+                                        setStyle("-fx-background-color: #ffc0cb;");
+                                    }
                                 }
-                            }
-                        };
-                    }
-                };
+                            };
+                        }
+                    };
             checkOut.setDayCellFactory(dayCellFactory);
             checkOut.setValue(checkIn.getValue().plusDays(1));
         });
         checkIn.setPromptText("DD/MM/YYYY");
         checkOut.setPromptText("DD/MM/YYYY");
 
+        Label bookingIDL = new Label("Booking number : ");
+        pane.add(bookingIDL, 0, 1);
+        pane.add(bookingIDL, 1, 1);
         Label numRoomL = new Label("Room number : ");
         pane.add(numRoomL, 0, 1);
-        pane.add(numRoom, 1, 1); 
+        pane.add(numRoom, 1, 1);
         pane.add(checkIn, 0, 2);
         pane.add(checkOut, 1, 2);
         Label bookingFeeL = new Label("Booking fee : ");
