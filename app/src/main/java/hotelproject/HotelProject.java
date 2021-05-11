@@ -436,6 +436,7 @@ public class HotelProject extends Application {
                 bIDListView.getItems().add(bID);
             }
 
+            /*
             GridPane secBLayout = new GridPane();
             secBLayout.getChildren().add(bIDListView);
 
@@ -450,6 +451,8 @@ public class HotelProject extends Application {
             newWindow.setY(bookingsStage.getY() + 100);
 
             newWindow.show();
+
+             */
 
         });
 
