@@ -2,7 +2,6 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.RoomType;
-import hotelproject.controllers.objects.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +27,6 @@ public class RoomsDBTest {
     private final RoomType testRoomType1 = new RoomType(t_name1, 1, 1, 1, 1, 1, 1, 1, 1);
     private final String t_name2 = "Heptagonal"; // generateRandomString();
     private final RoomType testRoomType2 = new RoomType(t_name2, 1, 1, 1, 1, 1, 1, 1, 1);
-
-    private final User user = new User("admin", "root", 1);
 
     /**
      * Setting up variables prior to testing
