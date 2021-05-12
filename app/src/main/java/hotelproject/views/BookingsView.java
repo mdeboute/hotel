@@ -97,36 +97,37 @@ public class BookingsView extends View {
         // Create column in the table
         TableColumn<Booking, Integer> bookIDCol = new TableColumn<>("Booking ID");
         //bookIDCol.setMinWidth(100);
-        bookIDCol.setPrefWidth(80.0F);
+        bookIDCol.setMinWidth(100);
         bookIDCol.setCellValueFactory(new PropertyValueFactory<>("b_id"));
 
         TableColumn<Booking, Integer> roomNumCol = new TableColumn<>("Room number");
-        roomNumCol.setPrefWidth(80.0F);
+        roomNumCol.setMinWidth(100);
         roomNumCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
         TableColumn<Booking, Integer> paidBCCol = new TableColumn<>("Paid by card");
-        paidBCCol.setPrefWidth(80.0F);
+        paidBCCol.setMinWidth(100);
         paidBCCol.setCellValueFactory(new PropertyValueFactory<>("paid_by_card"));
 
         TableColumn<Booking, Integer> bookFromCol = new TableColumn<>("From");
-        bookFromCol.setPrefWidth(80.0F);
+        bookFromCol.setMinWidth(100);
         bookFromCol.setCellValueFactory(new PropertyValueFactory<>("b_from"));
 
         TableColumn<Booking, Integer> bookTillCol = new TableColumn<>("Till");
-        bookTillCol.setPrefWidth(80.0F);
+        bookTillCol.setMinWidth(100);
         bookTillCol.setCellValueFactory(new PropertyValueFactory<>("b_till"));
 
         TableColumn<Booking, Integer> bookFeeCol = new TableColumn<>("Booking fee");
-        bookFeeCol.setPrefWidth(80.0F);
+        bookFeeCol.setMinWidth(100);
         bookFeeCol.setCellValueFactory(new PropertyValueFactory<>("b_fee"));
 
         TableColumn<Booking, Integer> bIPCol = new TableColumn<>("Is paid");
-        bIPCol.setPrefWidth(80.0F);
+        bIPCol.setMinWidth(100);
         bIPCol.setCellValueFactory(new PropertyValueFactory<>("b_is_paid"));
 
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
-
+        bookingsTable.setItems(flBooking);
+        bookingsTable.getColumns().addAll(bookIDCol,roomNumCol,paidBCCol,bookFromCol,bookTillCol,bookFeeCol,bIPCol);
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
@@ -184,8 +185,7 @@ public class BookingsView extends View {
 
         bookingsTable.setItems(flBooking);
 
-        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol,
-                bIPCol);
+        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
 
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
