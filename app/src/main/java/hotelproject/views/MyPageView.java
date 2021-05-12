@@ -43,12 +43,12 @@ public class MyPageView extends View {
             userStatus = "administrator";
         }
 
-        Label status = changeLabelDesign(new Label("Your status is : " + userStatus), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label status = changeLabelDesign(new Label("Your status is: " + userStatus), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(status, 0, 1);
 
-        Label username = changeLabelDesign(new Label("Username : " + user.getU_name()), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label username = changeLabelDesign(new Label("Username: " + user.getU_name()), "file:assets/font/SF_Pro.ttf", 20, "white");
         String pwd = user.getU_password();
-        Label password = changeLabelDesign(new Label("Password : " + "*".repeat(pwd.length())), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label password = changeLabelDesign(new Label("Password: " + "*".repeat(pwd.length())), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
 
