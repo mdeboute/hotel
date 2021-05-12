@@ -645,6 +645,17 @@ public class HotelProject extends Application {
 
         UpdateRoomView updateRoomViewPage = new UpdateRoomView(dbm);
         Stage updateRoomStage = new Stage();
+        String currentRoomNumber = String.valueOf(room.getR_num());
+        String currentFloor = String.valueOf(room.getR_floor());
+
+        updateRoomViewPage.getNumRoom().setText(currentRoomNumber);
+        updateRoomViewPage.getFloor().setText(currentFloor);
+        updateRoomViewPage.getRoomType().setValue(room.getR_type());
+        if(room.getBooked() == 1) {
+            updateRoomViewPage.getBooked().setSelected(true);
+        } else {
+            updateRoomViewPage.getBooked().setSelected(false);
+        }
 
         updateRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());
@@ -663,9 +674,9 @@ public class HotelProject extends Application {
             updateRoomStage.close();
         });
 
-        updateRoomViewPage.getCancel().setOnAction(e -> {
-            roomsDisplay();
+        updateRoomStage.setOnCloseRequest(e -> {
             updateRoomStage.close();
+            roomsDisplay();
         });
 
         updateRoomStage.setScene(updateRoomViewPage.getScene());

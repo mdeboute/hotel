@@ -18,7 +18,6 @@ public class UpdateRoomView extends View {
     private final ComboBox<String> roomType = new ComboBox<>();
     private final CheckBox booked = new CheckBox("Is booked ?");
     private Button submit;
-    private Button cancel;
 
     public UpdateRoomView(DatabaseManager dbm) {
         this.dbm = dbm;
@@ -54,10 +53,6 @@ public class UpdateRoomView extends View {
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 5);
 
-        cancel = new Button("Cancel");
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 6);
-
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
@@ -89,10 +84,6 @@ public class UpdateRoomView extends View {
 
     public ComboBox<String> getRoomType() {
         return roomType;
-    }
-
-    public Button getCancel() {
-        return cancel;
     }
 
 }
