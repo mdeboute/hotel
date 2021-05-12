@@ -674,9 +674,9 @@ public class HotelProject extends Application {
             updateRoomStage.close();
         });
 
-        updateRoomViewPage.getCancel().setOnAction(e -> {
-            roomsDisplay();
+        updateRoomStage.setOnCloseRequest(e -> {
             updateRoomStage.close();
+            roomsDisplay();
         });
 
         updateRoomStage.setScene(updateRoomViewPage.getScene());
