@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -666,19 +667,23 @@ public class HotelProject extends Application {
             Room updateRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
 
             hdata.updateRoom(updateRoom, room.getR_num());
-            roomsDisplay();
             updateRoomStage.close();
+            formerStage.close();
+            roomsDisplay();
         });
 
         updateRoomStage.setOnCloseRequest(e -> {
             updateRoomStage.close();
-            roomsDisplay();
         });
 
         updateRoomStage.setScene(updateRoomViewPage.getScene());
         updateRoomStage.setTitle("Hotel Manager - Updating Room");
+
+        // Specifies the modality for new window and the owner of window
+        updateRoomStage.initOwner(formerStage);
+        updateRoomStage.initModality(Modality.WINDOW_MODAL);
+
         updateRoomStage.show();
-        formerStage.close();
     }
 
     /**
