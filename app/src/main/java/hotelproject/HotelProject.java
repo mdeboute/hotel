@@ -696,21 +696,21 @@ public class HotelProject extends Application {
         Stage deleteRoomStage = new Stage();
 
         deleteRoomViewPage.getSubmit().setOnAction(e -> {
-
             hdata.deleteRoom(room);
-            roomsDisplay();
             deleteRoomStage.close();
+            formerStage.close();
+            roomsDisplay();
         });
 
-        deleteRoomViewPage.getCancel().setOnAction(e -> {
-            roomsDisplay();
-            deleteRoomStage.close();
-        });
+        deleteRoomStage.setOnCloseRequest(e -> deleteRoomStage.close());
+
+        // Specifies the modality for new window and the owner of window
+        deleteRoomStage.initOwner(formerStage);
+        deleteRoomStage.initModality(Modality.WINDOW_MODAL);
 
         deleteRoomStage.setScene(deleteRoomViewPage.getScene());
         deleteRoomStage.setTitle("Hotel Manager - Deleting Room");
         deleteRoomStage.show();
-        formerStage.close();
     }
 
     private void usersDisplay() {
