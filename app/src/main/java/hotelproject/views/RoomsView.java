@@ -7,15 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -30,9 +26,9 @@ public class RoomsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
+    private final String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
+    private final String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
     private Button addRoom;
-    private String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
-    private String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
 
     public RoomsView(User user, List<Room> rooms) {
         this.user = user;

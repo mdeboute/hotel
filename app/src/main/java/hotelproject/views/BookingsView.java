@@ -2,26 +2,22 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Booking;
 import hotelproject.controllers.objects.User;
-import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-
-import java.util.List;
 import javafx.util.Callback;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class BookingsView extends View {
 
@@ -33,11 +29,11 @@ public class BookingsView extends View {
 
     // The scene's nodes
     private final TableView<Booking> bookingsTable = new TableView<>();
-    private Button addBooking;
-    private String idlePathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
-    private String hoverPathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
     private final DatePicker startDatePicker = new DatePicker(); // private final DatePicker date = new DatePicker();
     private final DatePicker endDatePicker = new DatePicker();
+    private final String idlePathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
+    private final String hoverPathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
+    private Button addBooking;
 
     public BookingsView(User user, List<Booking> bookings) {
         this.user = user;
@@ -71,24 +67,24 @@ public class BookingsView extends View {
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
-                new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
+                    new Callback<>() {
+                        @Override
+                        public DateCell call(final DatePicker datePicker) {
+                            return new DateCell() {
+                                @Override
+                                public void updateItem(LocalDate item, boolean empty) {
+                                    super.updateItem(item, empty);
 
-                                if (item.isBefore(
-                                    startDatePicker.getValue())
-                                ) {
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #ffc0cb;");
+                                    if (item.isBefore(
+                                            startDatePicker.getValue())
+                                    ) {
+                                        setDisable(true);
+                                        setStyle("-fx-background-color: #ffc0cb;");
+                                    }
                                 }
-                            }
-                        };
-                    }
-                };
+                            };
+                        }
+                    };
             endDatePicker.setDayCellFactory(dayCellFactory);
         });
 
@@ -145,10 +141,7 @@ public class BookingsView extends View {
                 if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
                     return true;
                 }
-                if (from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint)) {
-                    return true;
-                }
-                return false;
+                return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
             });
         });
 
@@ -169,10 +162,7 @@ public class BookingsView extends View {
                 if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
                     return true;
                 }
-                if (from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint)) {
-                    return true;
-                }
-                return false;
+                return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
             });
         });
 
@@ -219,7 +209,7 @@ public class BookingsView extends View {
         //date.setMaxWidth(300);
         HBox dateRange = new HBox(startDatePicker, endDatePicker);
         dateRange.setAlignment(Pos.CENTER);
-        pane.add(dateRange,0,3);
+        pane.add(dateRange, 0, 3);
 
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);

@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class NewCustomerView extends View {
 
-  private final TextField cSSNum = new TextField();
+    private final TextField cSSNum = new TextField();
     private final TextField cAddress = new TextField();
     private final TextField cFullName = new TextField();
     private final TextField cPhoneNum = new TextField();
@@ -19,7 +19,7 @@ public class NewCustomerView extends View {
     private Button cancel;
 
     public NewCustomerView() {
-      createScene();
+        createScene();
     }
 
     @Override
