@@ -1,7 +1,5 @@
 package hotelproject.views;
 
-import java.time.LocalDate;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,8 +21,8 @@ public class NewBookingView extends View {
     private final TextField bookingFee = new TextField();
     private final CheckBox isPaid = new CheckBox("Is paid?");
     private Button submit;
-    private String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private final String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button cancel;
 
     public NewBookingView() {

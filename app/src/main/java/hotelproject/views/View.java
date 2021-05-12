@@ -108,7 +108,7 @@ public abstract class View {
         return button;
     }
 
-    protected Label changeLabelDesign(Label label,String font, int size, String color) {
+    protected Label changeLabelDesign(Label label, String font, int size, String color) {
         label.setFont(Font.loadFont(font, size));
         label.setTextFill(Paint.valueOf(color));
 
