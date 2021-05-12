@@ -51,10 +51,18 @@ public class NewBookingView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
-        checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (checkIn.getValue().isAfter(checkOut.getValue())) {
+        checkIn.setOnAction(e -> {
+            if (checkOut.getValue() != null && checkOut.getValue().isBefore(checkIn.getValue())) {
                 checkOut.setValue(checkIn.getValue().plusDays(1));
             }
+        });
+        checkOut.setOnAction(e -> {
+            if (checkIn.getValue() != null && checkIn.getValue().isAfter(checkOut.getValue())) {
+                checkIn.setValue(checkOut.getValue().minusDays(1));
+            }
+        });
+
+        checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
                     new Callback<>() {
                         @Override
@@ -75,7 +83,7 @@ public class NewBookingView extends View {
                         }
                     };
             checkOut.setDayCellFactory(dayCellFactory);
-            checkOut.setValue(checkIn.getValue().plusDays(1));
+            //checkOut.setValue(checkIn.getValue().plusDays(1));
         });
         checkIn.setPromptText("DD/MM/YYYY");
         checkOut.setPromptText("DD/MM/YYYY");

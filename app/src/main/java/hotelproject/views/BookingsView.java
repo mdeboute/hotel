@@ -123,7 +123,22 @@ public class BookingsView extends View {
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
         bookingsTable.setItems(flBooking);
-        bookingsTable.getColumns().addAll(bookIDCol,roomNumCol,paidBCCol,bookFromCol,bookTillCol,bookFeeCol,bIPCol);
+        //bookingsTable.getColumns().addAll(bookIDCol,roomNumCol,paidBCCol,bookFromCol,bookTillCol,bookFeeCol,bIPCol);
+
+        startDatePicker.setOnAction(e -> {
+            if (endDatePicker.getValue() != null) {
+                if (endDatePicker.getValue().isBefore(startDatePicker.getValue())) {
+                    endDatePicker.setValue(startDatePicker.getValue());
+                }
+            }
+        });
+        endDatePicker.setOnAction(e -> {
+            if (startDatePicker.getValue() != null) {
+                if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+                    startDatePicker.setValue(endDatePicker.getValue());
+                }
+            }
+        });
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
