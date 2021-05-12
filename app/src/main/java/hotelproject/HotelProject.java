@@ -7,18 +7,14 @@ import hotelproject.views.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -405,7 +401,7 @@ public class HotelProject extends Application {
         List<Booking> bookings = hdata.getBookings();
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         // admins can add a booking
         if (connectedUser.getU_is_admin() == 1) {
@@ -468,189 +464,171 @@ public class HotelProject extends Application {
         // admins can add, update or delete a room through the context menu
         if (connectedUser.getU_is_admin() == 1) {
             roomsViewPage.getAddRoom().setOnAction(e -> newRoomDisplay(roomsStage));
-            roomsViewPage.getRoomsTable().setRowFactory(new Callback<>() {
-                @Override
-                public TableRow<Room> call(TableView<Room> tableView) {
-                    final TableRow<Room> row = new TableRow<>();
-                    final ContextMenu rowMenu = new ContextMenu();
+            roomsViewPage.getRoomsTable().setRowFactory(tableView -> {
+                final TableRow<Room> row = new TableRow<>();
+                final ContextMenu rowMenu = new ContextMenu();
 
-                    MenuItem updateItem = new MenuItem("Update");
-                    updateItem.setOnAction(new EventHandler<>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            Room u = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                            updateRoomDisplay(roomsStage, u);
-                        }
-                    });
+                MenuItem updateItem = new MenuItem("Update");
+                updateItem.setOnAction(event -> {
+                    Room u = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
+                    updateRoomDisplay(roomsStage, u);
+                });
 
-                    MenuItem deleteItem = new MenuItem("Delete");
-                    deleteItem.setOnAction(new EventHandler<>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            Room r = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                            deleteRoomDisplay(roomsStage, r);
-                        }
-                    });
+                MenuItem deleteItem = new MenuItem("Delete");
+                deleteItem.setOnAction(event -> {
+                    Room r = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
+                    deleteRoomDisplay(roomsStage, r);
+                });
 
-                    MenuItem viewItem = new MenuItem("View details");
-                    viewItem.setOnAction(new EventHandler<>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            Stage newWindow = new Stage();
+                MenuItem viewItem = new MenuItem("View details");
+                viewItem.setOnAction(event -> {
+                    Stage newWindow = new Stage();
 
-                            Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                            ListView<String> roomDListView = new ListView<>();
-                            Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
+                    Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
+                    ListView<String> roomDListView = new ListView<>();
+                    Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
 
-                            roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
-                            roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
-                            roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
+                    roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
+                    roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
+                    roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
 
-                            if (roomsDetails.get("has_view").equals("1")) {
-                                roomDListView.getItems().add("It has a view");
-                            } else if (roomsDetails.get("has_view").equals("0")) {
-                                roomDListView.getItems().add("It does not have a view");
-                            }
+                    if (roomsDetails.get("has_view").equals("1")) {
+                        roomDListView.getItems().add("It has a view");
+                    } else if (roomsDetails.get("has_view").equals("0")) {
+                        roomDListView.getItems().add("It does not have a view");
+                    }
 
-                            if (roomsDetails.get("has_kitchen").equals("1")) {
-                                roomDListView.getItems().add("It has a kitchen");
-                            } else if (roomsDetails.get("has_kitchen").equals("0")) {
-                                roomDListView.getItems().add("It does not have a kitchen");
-                            }
+                    if (roomsDetails.get("has_kitchen").equals("1")) {
+                        roomDListView.getItems().add("It has a kitchen");
+                    } else if (roomsDetails.get("has_kitchen").equals("0")) {
+                        roomDListView.getItems().add("It does not have a kitchen");
+                    }
 
-                            if (roomsDetails.get("has_bathroom").equals("1")) {
-                                roomDListView.getItems().add("It has a bathroom");
-                            } else if (roomsDetails.get("has_bathroom").equals("0")) {
-                                roomDListView.getItems().add("It does not have a bathroom");
-                            }
+                    if (roomsDetails.get("has_bathroom").equals("1")) {
+                        roomDListView.getItems().add("It has a bathroom");
+                    } else if (roomsDetails.get("has_bathroom").equals("0")) {
+                        roomDListView.getItems().add("It does not have a bathroom");
+                    }
 
-                            if (roomsDetails.get("has_workspace").equals("1")) {
-                                roomDListView.getItems().add("It has a workspace");
-                            } else if (roomsDetails.get("has_workspace").equals("0")) {
-                                roomDListView.getItems().add("It does not have a workspace");
-                            }
+                    if (roomsDetails.get("has_workspace").equals("1")) {
+                        roomDListView.getItems().add("It has a workspace");
+                    } else if (roomsDetails.get("has_workspace").equals("0")) {
+                        roomDListView.getItems().add("It does not have a workspace");
+                    }
 
-                            if (roomsDetails.get("has_tv").equals("1")) {
-                                roomDListView.getItems().add("It has a TV");
-                            } else if (roomsDetails.get("has_tv").equals("0")) {
-                                roomDListView.getItems().add("It does not have a TV");
-                            }
+                    if (roomsDetails.get("has_tv").equals("1")) {
+                        roomDListView.getItems().add("It has a TV");
+                    } else if (roomsDetails.get("has_tv").equals("0")) {
+                        roomDListView.getItems().add("It does not have a TV");
+                    }
 
-                            if (roomsDetails.get("has_coffee_maker").equals("1")) {
-                                roomDListView.getItems().add("It has a coffee maker");
-                            } else if (roomsDetails.get("has_view").equals("0")) {
-                                roomDListView.getItems().add("It does not have a coffee maker");
-                            }
+                    if (roomsDetails.get("has_coffee_maker").equals("1")) {
+                        roomDListView.getItems().add("It has a coffee maker");
+                    } else if (roomsDetails.get("has_view").equals("0")) {
+                        roomDListView.getItems().add("It does not have a coffee maker");
+                    }
 
-                            GridPane secBLayout = new GridPane();
-                            secBLayout.getChildren().add(roomDListView);
+                    GridPane secBLayout = new GridPane();
+                    secBLayout.getChildren().add(roomDListView);
 
-                            Scene secondScene = new Scene(secBLayout, 250, 250);
+                    Scene secondScene = new Scene(secBLayout, 250, 250);
 
-                            // New window (Stage) Stage newWindow = new Stage();
-                            newWindow.setTitle("Details");
-                            newWindow.setScene(secondScene);
+                    // New window (Stage) Stage newWindow = new Stage();
+                    newWindow.setTitle("Details");
+                    newWindow.setScene(secondScene);
 
-                            // Set position of second window, related to primary window.
-                            newWindow.setX(roomsStage.getX());
-                            newWindow.setY(roomsStage.getY());
+                    // Set position of second window, related to primary window.
+                    newWindow.setX(roomsStage.getX());
+                    newWindow.setY(roomsStage.getY());
 
-                            newWindow.show();
-                        }
-                    });
+                    newWindow.show();
+                });
 
-                    rowMenu.getItems().addAll(updateItem, deleteItem, viewItem);
+                rowMenu.getItems().addAll(updateItem, deleteItem, viewItem);
 
-                    // only display context menu for non-null items:
-                    row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
-                            .otherwise((ContextMenu) null));
-                    return row;
-                }
+                // only display context menu for non-null items:
+                row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
+                        .otherwise((ContextMenu) null));
+                return row;
             });
         }
 
         // reception staff can only view details through the context menu
         if (connectedUser.getU_is_admin() == 0) {
-            roomsViewPage.getRoomsTable().setRowFactory(new Callback<>() {
-                @Override
-                public TableRow<Room> call(TableView<Room> tableView) {
-                    final TableRow<Room> row = new TableRow<>();
-                    final ContextMenu rowMenu = new ContextMenu();
+            roomsViewPage.getRoomsTable().setRowFactory(tableView -> {
+                final TableRow<Room> row = new TableRow<>();
+                final ContextMenu rowMenu = new ContextMenu();
 
-                    MenuItem viewItem = new MenuItem("View details");
-                    viewItem.setOnAction(new EventHandler<>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            Stage newWindow = new Stage();
+                MenuItem viewItem = new MenuItem("View details");
+                viewItem.setOnAction(event -> {
+                    Stage newWindow = new Stage();
 
-                            Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                            ListView<String> roomDListView = new ListView<>();
-                            Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
+                    Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
+                    ListView<String> roomDListView = new ListView<>();
+                    Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
 
-                            roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
-                            roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
-                            roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
+                    roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
+                    roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
+                    roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
 
-                            if (roomsDetails.get("has_view").equals("1")) {
-                                roomDListView.getItems().add("It has a view");
-                            } else if (roomsDetails.get("has_view").equals("0")) {
-                                roomDListView.getItems().add("It does not have a view");
-                            }
+                    if (roomsDetails.get("has_view").equals("1")) {
+                        roomDListView.getItems().add("It has a view");
+                    } else if (roomsDetails.get("has_view").equals("0")) {
+                        roomDListView.getItems().add("It does not have a view");
+                    }
 
-                            if (roomsDetails.get("has_kitchen").equals("1")) {
-                                roomDListView.getItems().add("It has a kitchen");
-                            } else if (roomsDetails.get("has_kitchen").equals("0")) {
-                                roomDListView.getItems().add("It does not have a kitchen");
-                            }
+                    if (roomsDetails.get("has_kitchen").equals("1")) {
+                        roomDListView.getItems().add("It has a kitchen");
+                    } else if (roomsDetails.get("has_kitchen").equals("0")) {
+                        roomDListView.getItems().add("It does not have a kitchen");
+                    }
 
-                            if (roomsDetails.get("has_bathroom").equals("1")) {
-                                roomDListView.getItems().add("It has a bathroom");
-                            } else if (roomsDetails.get("has_bathroom").equals("0")) {
-                                roomDListView.getItems().add("It does not have a bathroom");
-                            }
+                    if (roomsDetails.get("has_bathroom").equals("1")) {
+                        roomDListView.getItems().add("It has a bathroom");
+                    } else if (roomsDetails.get("has_bathroom").equals("0")) {
+                        roomDListView.getItems().add("It does not have a bathroom");
+                    }
 
-                            if (roomsDetails.get("has_workspace").equals("1")) {
-                                roomDListView.getItems().add("It has a workspace");
-                            } else if (roomsDetails.get("has_workspace").equals("0")) {
-                                roomDListView.getItems().add("It does not have a workspace");
-                            }
+                    if (roomsDetails.get("has_workspace").equals("1")) {
+                        roomDListView.getItems().add("It has a workspace");
+                    } else if (roomsDetails.get("has_workspace").equals("0")) {
+                        roomDListView.getItems().add("It does not have a workspace");
+                    }
 
-                            if (roomsDetails.get("has_tv").equals("1")) {
-                                roomDListView.getItems().add("It has a TV");
-                            } else if (roomsDetails.get("has_tv").equals("0")) {
-                                roomDListView.getItems().add("It does not have a TV");
-                            }
+                    if (roomsDetails.get("has_tv").equals("1")) {
+                        roomDListView.getItems().add("It has a TV");
+                    } else if (roomsDetails.get("has_tv").equals("0")) {
+                        roomDListView.getItems().add("It does not have a TV");
+                    }
 
-                            if (roomsDetails.get("has_coffee_maker").equals("1")) {
-                                roomDListView.getItems().add("It has a coffee maker");
-                            } else if (roomsDetails.get("has_view").equals("0")) {
-                                roomDListView.getItems().add("It does not have a coffee maker");
-                            }
+                    if (roomsDetails.get("has_coffee_maker").equals("1")) {
+                        roomDListView.getItems().add("It has a coffee maker");
+                    } else if (roomsDetails.get("has_view").equals("0")) {
+                        roomDListView.getItems().add("It does not have a coffee maker");
+                    }
 
-                            GridPane secBLayout = new GridPane();
-                            secBLayout.getChildren().add(roomDListView);
+                    GridPane secBLayout = new GridPane();
+                    secBLayout.getChildren().add(roomDListView);
 
-                            Scene secondScene = new Scene(secBLayout, 250, 250);
+                    Scene secondScene = new Scene(secBLayout, 250, 250);
 
-                            // New window (Stage) Stage newWindow = new Stage();
-                            newWindow.setTitle("Details");
-                            newWindow.setScene(secondScene);
+                    // New window (Stage) Stage newWindow = new Stage();
+                    newWindow.setTitle("Details");
+                    newWindow.setScene(secondScene);
 
-                            // Set position of second window, related to primary window.
-                            newWindow.setX(roomsStage.getX());
-                            newWindow.setY(roomsStage.getY());
+                    // Set position of second window, related to primary window.
+                    newWindow.setX(roomsStage.getX());
+                    newWindow.setY(roomsStage.getY());
 
-                            newWindow.show();
-                        }
-                    });
+                    newWindow.show();
+                });
 
-                    rowMenu.getItems().addAll(viewItem);
+                rowMenu.getItems().addAll(viewItem);
 
-                    // only display context menu for non-null items:
-                    row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
-                            .otherwise((ContextMenu) null));
-                    return row;
-                }
+                // only display context menu for non-null items:
+                row.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu)
+                        .otherwise((ContextMenu) null));
+                return row;
             });
         }
         roomsStage.setScene(roomsViewPage.getScene());
