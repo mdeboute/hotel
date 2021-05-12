@@ -51,16 +51,17 @@ public class NewBookingView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
-        checkIn.setOnAction(e -> {
+        checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (checkOut.getValue() != null && checkOut.getValue().isBefore(checkIn.getValue())) {
                 checkOut.setValue(checkIn.getValue().plusDays(1));
             }
         });
-        checkOut.setOnAction(e -> {
+        checkOut.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (checkIn.getValue() != null && checkIn.getValue().isAfter(checkOut.getValue())) {
                 checkIn.setValue(checkOut.getValue().minusDays(1));
             }
         });
+
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =

@@ -64,8 +64,8 @@ public class BookingsView extends View {
         title.setStyle("-fx-font-weight: bold;");
         title.setTextFill(Paint.valueOf("bb86fc"));
 
-        startDatePicker.setValue(LocalDate.now().minusMonths(1));
-        endDatePicker.setValue(LocalDate.now().plusMonths(1));
+        //startDatePicker.setValue(LocalDate.now().minusMonths(1));
+        //endDatePicker.setValue(LocalDate.now().plusMonths(1));
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
@@ -128,45 +128,48 @@ public class BookingsView extends View {
         bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+            if (startDatePicker.getValue() != null && startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
                 startDatePicker.setValue(endDatePicker.getValue());
             }
-            flBooking.setPredicate(item -> {
-                // If filter text is empty, display all items.
-                LocalDate from = item.getB_from().toLocalDate();
-                LocalDate to = item.getB_till().toLocalDate();
-                LocalDate leftEndpoint = startDatePicker.getValue();
-                LocalDate rightEndpoint = endDatePicker.getValue();
+            if (startDatePicker.getValue() != null) {
+                flBooking.setPredicate(item -> {
+                    // If filter text is empty, display all items.
+                    LocalDate from = item.getB_from().toLocalDate();
+                    LocalDate to = item.getB_till().toLocalDate();
+                    LocalDate leftEndpoint = startDatePicker.getValue();
+                    LocalDate rightEndpoint = endDatePicker.getValue();
 
-                if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
-                    return true;
-                }
-                if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
-                    return true;
-                }
-                return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
-            });
+                    if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
+                        return true;
+                    }
+                    if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
+                        return true;
+                    }
+                    return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
+                });
+            }
         });
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (endDatePicker.getValue().isBefore(startDatePicker.getValue())) {
+            if (endDatePicker.getValue() != null && endDatePicker.getValue().isBefore(startDatePicker.getValue())) {
                 endDatePicker.setValue(startDatePicker.getValue());
             }
-            flBooking.setPredicate(item -> {
-                // If filter text is empty, display all items.
-                LocalDate from = item.getB_from().toLocalDate();
-                LocalDate to = item.getB_till().toLocalDate();
-                LocalDate leftEndpoint = startDatePicker.getValue();
-                LocalDate rightEndpoint = endDatePicker.getValue();
+            if (endDatePicker.getValue() != null) {
+                flBooking.setPredicate(item -> {
+                    LocalDate from = item.getB_from().toLocalDate();
+                    LocalDate to = item.getB_till().toLocalDate();
+                    LocalDate leftEndpoint = startDatePicker.getValue();
+                    LocalDate rightEndpoint = endDatePicker.getValue();
 
-                if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
-                    return true;
-                }
-                if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
-                    return true;
-                }
-                return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
-            });
+                    if ((to.equals(leftEndpoint) | to.isAfter(leftEndpoint)) & (to.equals(rightEndpoint) | to.isBefore(rightEndpoint))) {
+                        return true;
+                    }
+                    if ((from.equals(leftEndpoint) | from.isAfter(leftEndpoint)) & (from.equals(rightEndpoint) | from.isBefore(rightEndpoint))) {
+                        return true;
+                    }
+                    return from.isBefore(leftEndpoint) & to.isAfter(rightEndpoint);
+                });
+            }
         });
 
         // Wrap the FilteredList in a SortedList.
