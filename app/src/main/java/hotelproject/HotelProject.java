@@ -68,13 +68,13 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong");
+                        loginView.getResult().setText("The username or password you have entered is wrong !");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong");
+                        loginView.getResult().setText("The password you have entered is wrong !");
                     }
                 }
             } catch (SQLException throwables) {
@@ -672,9 +672,7 @@ public class HotelProject extends Application {
             roomsDisplay();
         });
 
-        updateRoomStage.setOnCloseRequest(e -> {
-            updateRoomStage.close();
-        });
+        updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
 
         updateRoomStage.setScene(updateRoomViewPage.getScene());
         updateRoomStage.setTitle("Hotel Manager - Updating Room");
