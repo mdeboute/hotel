@@ -54,6 +54,9 @@ public class NewBookingView extends View {
         GridPane pane = createPane();
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (checkIn.getValue().isAfter(checkOut.getValue())) {
+                checkOut.setValue(checkIn.getValue().plusDays(1));
+            }
             final Callback<DatePicker, DateCell> dayCellFactory =
                     new Callback<>() {
                         @Override
