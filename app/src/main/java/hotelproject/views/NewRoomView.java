@@ -17,7 +17,7 @@ public class NewRoomView extends View {
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
     private final Button addRoomType = new Button("Add type");
-    private final CheckBox booked = new CheckBox("Booked");
+    private final CheckBox booked = new CheckBox("Is booked ?");
     private Button submit;
     private Button cancel;
 

@@ -15,14 +15,14 @@ import java.time.LocalDate;
 public class NewBookingView extends View {
 
     private final TextField numRoom = new TextField();
-    private final CheckBox paidByCard = new CheckBox("Paid by card?");
+    private final CheckBox paidByCard = new CheckBox("Paid by card ?");
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
-    private final CheckBox isPaid = new CheckBox("Is paid?");
-    private Button submit;
+    private final CheckBox isPaid = new CheckBox("Is paid ?");
     private final String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private Button submit;
     private Button cancel;
 
     public NewBookingView() {

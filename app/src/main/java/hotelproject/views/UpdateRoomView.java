@@ -16,7 +16,7 @@ public class UpdateRoomView extends View {
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
-    private final CheckBox booked = new CheckBox("Booked");
+    private final CheckBox booked = new CheckBox("Is booked ?");
     private Button submit;
     private Button cancel;
 

@@ -48,6 +48,11 @@ public class Room {
         this.booked = booked;
     }
 
+    public String is_booked() {
+        if (booked == 1) return "yes";
+        return "no";
+    }
+
     /**
      * @return attribute information as a String
      * @brief Returns attribute information as a String

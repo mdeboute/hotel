@@ -2,6 +2,7 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Booking;
 import hotelproject.controllers.objects.User;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -91,7 +93,7 @@ public class BookingsView extends View {
         bookingsTable.setEditable(true);
 
         // Create column in the table
-        TableColumn<Booking, Integer> bookIDCol = new TableColumn<>("Booking ID");
+        TableColumn<Booking, Integer> bookIDCol = new TableColumn<>("Booking number");
         //bookIDCol.setMinWidth(100);
         bookIDCol.setMinWidth(100);
         bookIDCol.setCellValueFactory(new PropertyValueFactory<>("b_id"));
@@ -100,15 +102,15 @@ public class BookingsView extends View {
         roomNumCol.setMinWidth(100);
         roomNumCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
-        TableColumn<Booking, Integer> paidBCCol = new TableColumn<>("Paid by card");
+        TableColumn<Booking, String> paidBCCol = new TableColumn<>("Paid by card");
         paidBCCol.setMinWidth(100);
-        paidBCCol.setCellValueFactory(new PropertyValueFactory<>("paid_by_card"));
+        paidBCCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_cc()));
 
-        TableColumn<Booking, Integer> bookFromCol = new TableColumn<>("From");
+        TableColumn<Booking, Date> bookFromCol = new TableColumn<>("From");
         bookFromCol.setMinWidth(100);
         bookFromCol.setCellValueFactory(new PropertyValueFactory<>("b_from"));
 
-        TableColumn<Booking, Integer> bookTillCol = new TableColumn<>("Till");
+        TableColumn<Booking, Date> bookTillCol = new TableColumn<>("Till");
         bookTillCol.setMinWidth(100);
         bookTillCol.setCellValueFactory(new PropertyValueFactory<>("b_till"));
 
@@ -116,14 +118,14 @@ public class BookingsView extends View {
         bookFeeCol.setMinWidth(100);
         bookFeeCol.setCellValueFactory(new PropertyValueFactory<>("b_fee"));
 
-        TableColumn<Booking, Integer> bIPCol = new TableColumn<>("Is paid");
+        TableColumn<Booking, String> bIPCol = new TableColumn<>("Is paid");
         bIPCol.setMinWidth(100);
-        bIPCol.setCellValueFactory(new PropertyValueFactory<>("b_is_paid"));
+        bIPCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_paid()));
 
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
         bookingsTable.setItems(flBooking);
-        bookingsTable.getColumns().addAll(bookIDCol,roomNumCol,paidBCCol,bookFromCol,bookTillCol,bookFeeCol,bIPCol);
+        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
@@ -173,24 +175,21 @@ public class BookingsView extends View {
         // Bind the SortedList comparator to the TableView comparator.
         sortedData.comparatorProperty().bind(bookingsTable.comparatorProperty());
 
-        bookingsTable.setItems(flBooking);
-
-        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
-
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
-        whatToSearch.getItems().addAll("Booking ID", "Room number");
-        whatToSearch.setValue("Booking ID"); // default search
+        whatToSearch.getItems().addAll("Booking number", "Room number", "Paid");
+        whatToSearch.setValue("Booking number"); // default search
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
-        searchBar.setPromptText("Search here!");
+        searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (whatToSearch.getValue().equals("Booking ID")) {
+            if (whatToSearch.getValue().equals("Booking number")) {
                 flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Room number")) {
                 flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
-
+            } else if (whatToSearch.getValue().equals("Paid")) {
+                flBooking.setPredicate(p -> p.is_paid().contains(newValue.toLowerCase().trim())); // filter
             }
         });
 

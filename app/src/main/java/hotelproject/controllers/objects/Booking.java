@@ -78,6 +78,16 @@ public class Booking {
         this.b_is_paid = b_is_paid;
     }
 
+    public String is_paid() {
+        if (b_is_paid == 1) return "yes";
+        return "no";
+    }
+
+    public String is_cc() {
+        if (paid_by_card == 1) return "yes";
+        return "no";
+    }
+
     /**
      * @return attribute information as a String
      * @brief Returns attribute information as a String

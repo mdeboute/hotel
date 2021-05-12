@@ -21,7 +21,7 @@ public class CustomersView extends View {
     private final ObservableList<Customer> customers;
     private final String idlePathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
     private final String hoverPathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
-    private final Button updateCustomer = new Button("Update customer...");
+    private final Button updateCustomer = new Button("Update customer");
     public TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
@@ -54,7 +54,7 @@ public class CustomersView extends View {
         customersTable.setEditable(true);
 
         // Create column in the table
-        TableColumn<Customer, Integer> cSSNumCol = new TableColumn<>("Customer's social security number");
+        TableColumn<Customer, Integer> cSSNumCol = new TableColumn<>("Social security number");
         cSSNumCol.setMinWidth(200);
         cSSNumCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
 
@@ -81,14 +81,14 @@ public class CustomersView extends View {
 
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
-        whatToSearch.getItems().addAll("Customer's social security number", "Full name", "Phone number");
+        whatToSearch.getItems().addAll("Full name", "Phone number", "Social security number");
         whatToSearch.setValue("Full name"); // default search
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
-        searchBar.setPromptText("Search here!");
+        searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
-            if (whatToSearch.getValue().equals("Customer's social security number")) {
+            if (whatToSearch.getValue().equals("Social security number")) {
                 flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Full name")) {
                 flCustomer.setPredicate(p -> p.getC_full_name().toLowerCase().contains(newValue.toLowerCase().trim()));

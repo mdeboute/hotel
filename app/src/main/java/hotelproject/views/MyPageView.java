@@ -43,9 +43,7 @@ public class MyPageView extends View {
             userStatus = "administrator";
         }
 
-        Label title = changeLabelDesign(new Label("My Page"), "file:assets/font/SF_Pro.ttf", 20, "white");
         Label status = changeLabelDesign(new Label("Your status is : " + userStatus), "file:assets/font/SF_Pro.ttf", 20, "white");
-        pane.add(title, 0, 0);
         pane.add(status, 0, 1);
 
         Label username = changeLabelDesign(new Label("Username : " + user.getU_name()), "file:assets/font/SF_Pro.ttf", 20, "white");

@@ -2,6 +2,7 @@ package hotelproject.views;
 
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -66,11 +67,11 @@ public class RoomsView extends View {
 
         roomsTable.setEditable(true);
         // Create column in the table
-        TableColumn<Room, String> roomNbCol = new TableColumn<>("Room number");
+        TableColumn<Room, Integer> roomNbCol = new TableColumn<>("Room number");
         roomNbCol.setPrefWidth(120.0F);
         roomNbCol.setCellValueFactory(new PropertyValueFactory<>("r_num"));
 
-        TableColumn<Room, String> roomFloorCol = new TableColumn<>("Floor");
+        TableColumn<Room, Integer> roomFloorCol = new TableColumn<>("Floor");
         roomFloorCol.setPrefWidth(100.0F);
         roomFloorCol.setCellValueFactory(new PropertyValueFactory<>("r_floor"));
 
@@ -78,9 +79,9 @@ public class RoomsView extends View {
         roomTypeCol.setPrefWidth(100.0F);
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<>("r_type"));
 
-        TableColumn<Room, String> roomIsBookedCol = new TableColumn<>("Booked");
+        TableColumn<Room, String> roomIsBookedCol = new TableColumn<>("Is booked");
         roomIsBookedCol.setPrefWidth(80.0F);
-        roomIsBookedCol.setCellValueFactory(new PropertyValueFactory<>("booked"));
+        roomIsBookedCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_booked()));
 
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Room> flRoom = new FilteredList<>(rooms, p -> true);
@@ -89,12 +90,12 @@ public class RoomsView extends View {
 
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
-        whatToSearch.getItems().addAll("Room number", "Floor", "Room type");
+        whatToSearch.getItems().addAll("Room number", "Floor", "Room type", "Booked");
         whatToSearch.setValue("Room number"); // default search
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
-        searchBar.setPromptText("Search here!");
+        searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Room number")) {
                 flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
@@ -102,6 +103,8 @@ public class RoomsView extends View {
                 flRoom.setPredicate(p -> String.valueOf(p.getR_floor()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Room type")) {
                 flRoom.setPredicate(p -> p.getR_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+            } else if (whatToSearch.getValue().equals("Booked")) {
+                flRoom.setPredicate(p -> p.is_booked().toLowerCase().contains(newValue.toLowerCase().trim()));
             }
         });
 

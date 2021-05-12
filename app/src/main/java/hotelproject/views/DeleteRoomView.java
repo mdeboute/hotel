@@ -18,7 +18,7 @@ public class DeleteRoomView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("Delete selected room?", "Select an answer!");
+        VBox header = createHeader("Delete selected room ?", "Select an answer");
 
         submit = new Button("Yes");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
