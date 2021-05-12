@@ -67,13 +67,13 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong.");
+                        loginView.getResult().setText("The username or password you have entered is wrong");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(secondaryStage, primaryStage);
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong.");
+                        loginView.getResult().setText("The password you have entered is wrong");
                     }
                 }
             } catch (SQLException throwables) {
@@ -167,7 +167,7 @@ public class HotelProject extends Application {
             boolean nothingEmpty = true;
             // if the user clicked on change username but didn't input any character
             if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
-                updateInfoPage.setOutput("Username field is empty!\n");
+                updateInfoPage.setOutput("Username field is empty !\n");
                 nothingEmpty = false;
             }
 
@@ -176,7 +176,7 @@ public class HotelProject extends Application {
             if (updateInfoPage.getFirstPassword().isVisible()
                     && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
                 updateInfoPage
-                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly!");
+                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
                 nothingEmpty = false;
             }
 
@@ -189,7 +189,7 @@ public class HotelProject extends Application {
                     if (firstPassword.equals(secondPassword)) {
                         connectedUser.setU_password(firstPassword);
                     } else {
-                        updateInfoPage.setOutput("First and second input for password are not equal!");
+                        updateInfoPage.setOutput("First and second input for password are not equal !");
                     }
                 }
 
@@ -651,11 +651,7 @@ public class HotelProject extends Application {
         updateRoomViewPage.getNumRoom().setText(currentRoomNumber);
         updateRoomViewPage.getFloor().setText(currentFloor);
         updateRoomViewPage.getRoomType().setValue(room.getR_type());
-        if(room.getBooked() == 1) {
-            updateRoomViewPage.getBooked().setSelected(true);
-        } else {
-            updateRoomViewPage.getBooked().setSelected(false);
-        }
+        updateRoomViewPage.getBooked().setSelected(room.getBooked() == 1);
 
         updateRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());

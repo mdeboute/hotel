@@ -26,10 +26,10 @@ public class NewUserView extends View {
 
         VBox header = createHeader("New user", "Enter the new user details");
 
-        Label userNameL = new Label("Username : ");
+        Label userNameL = new Label("Username: ");
         pane.add(userNameL, 0, 2);
         pane.add(userName, 1, 2);
-        Label userPassL = new Label("User password : ");
+        Label userPassL = new Label("User password: ");
         pane.add(userPassL, 0, 4);
         pane.add(userPassword, 1, 4);
         pane.add(userIA, 0, 5);

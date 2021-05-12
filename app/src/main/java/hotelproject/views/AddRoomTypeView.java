@@ -36,15 +36,15 @@ public class AddRoomTypeView extends View {
         title.setStyle("-fx-font-weight: bold;");
         title.setFont(Font.font(18));
 
-        Label subtitle = new Label("Please enter the new room type parameters : ");
+        Label subtitle = new Label("Please enter the new room type parameters: ");
         pane.add(subtitle, 0, 0);
-        Label nameL = new Label("Type name : ");
+        Label nameL = new Label("Type name: ");
         pane.add(nameL, 0, 2);
         pane.add(name, 1, 2);
-        Label nbBedsL = new Label("Number of beds : ");
+        Label nbBedsL = new Label("Number of beds: ");
         pane.add(nbBedsL, 0, 3);
         pane.add(nbBeds, 1, 3);
-        Label roomSizeL = new Label("Room size : ");
+        Label roomSizeL = new Label("Room size: ");
         pane.add(roomSizeL, 0, 4);
         pane.add(roomSize, 1, 4);
         Label sizeUnit = new Label("m²");

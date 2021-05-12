@@ -30,13 +30,13 @@ public class UpdateRoomView extends View {
 
         VBox header = createHeader("Update room", "Enter room specifics to update");
 
-        Label numRoomL = new Label("New room number : ");
+        Label numRoomL = new Label("New room number: ");
         pane.add(numRoomL, 0, 1);
         pane.add(numRoom, 1, 1);
-        Label floorL = new Label("New floor : ");
+        Label floorL = new Label("New floor: ");
         pane.add(floorL, 0, 2);
         pane.add(floor, 1, 2);
-        Label type = new Label("Room type : ");
+        Label type = new Label("Room type: ");
         pane.add(type, 0, 3);
 
         List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();

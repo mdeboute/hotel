@@ -32,13 +32,13 @@ public class NewRoomView extends View {
 
         VBox header = createHeader("New room", "Enter the new room specifications");
 
-        Label numRoomL = new Label("Room number : ");
+        Label numRoomL = new Label("Room number: ");
         pane.add(numRoomL, 0, 2);
         pane.add(numRoom, 1, 2);
-        Label floorL = new Label("Floor : ");
+        Label floorL = new Label("Floor: ");
         pane.add(floorL, 0, 3);
         pane.add(floor, 1, 3);
-        Label type = new Label("Room type : ");
+        Label type = new Label("Room type: ");
         pane.add(type, 0, 4);
 
         List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();

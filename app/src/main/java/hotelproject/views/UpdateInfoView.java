@@ -16,9 +16,9 @@ public class UpdateInfoView extends View {
     private final PasswordField firstPassword = new PasswordField();
     private final PasswordField secondPassword = new PasswordField();
     private final Label output = new Label();
-    private final Label usernameL = new Label("Username :");
-    private final Label fstPwdL = new Label("New Password : ");
-    private final Label sndPwdL = new Label("Please enter your new password again : ");
+    private final Label usernameL = new Label("Username:");
+    private final Label fstPwdL = new Label("New Password: ");
+    private final Label sndPwdL = new Label("Please enter your new password again: ");
     private final Button changeUsername = new Button("Change username");
     private final Button changePwd = new Button("Change password");
     private final Button save = new Button("Save");

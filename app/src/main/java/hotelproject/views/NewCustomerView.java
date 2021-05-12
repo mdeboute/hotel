@@ -28,19 +28,19 @@ public class NewCustomerView extends View {
 
         VBox header = createHeader("New customer", "Enter the new customer specifications");
 
-        Label cSSNumL = new Label("New personal number (8 digits) : ");
+        Label cSSNumL = new Label("New personal number (8 digits): ");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
-        Label cAddressL = new Label("New address : ");
+        Label cAddressL = new Label("New address: ");
         pane.add(cAddressL, 0, 2);
         pane.add(cAddress, 1, 2);
-        Label cFullNameL = new Label("New name : ");
+        Label cFullNameL = new Label("New name: ");
         pane.add(cFullNameL, 0, 3);
         pane.add(cFullName, 1, 3);
-        Label cPhoneNumL = new Label("New phone number (9 digits) : ");
+        Label cPhoneNumL = new Label("New phone number (9 digits): ");
         pane.add(cPhoneNumL, 0, 4);
         pane.add(cPhoneNum, 1, 4);
-        Label cEmailL = new Label("New email : ");
+        Label cEmailL = new Label("New email: ");
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
 

@@ -20,7 +20,7 @@ public class LoginView extends View {
 
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
-    private final Label credentials = new Label("Please enter your password.");
+    private final Label credentials = new Label("Please enter your password");
     private final Label result = new Label();
     private final String idlePathTestLogin = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
     private final String hoverPathTestLogin = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
