@@ -203,12 +203,12 @@ public class BookingsView extends View {
             }
         });
 
-        //date.setPromptText("Select date to view bookings");
-        startDatePicker.setPromptText("FROM");
-        endDatePicker.setPromptText("TO");
+
+        startDatePicker.setPromptText("FROM (DD/MM/YYYY)");
+        endDatePicker.setPromptText("TO (DD/MM/YYYY)");
         startDatePicker.setMaxWidth(200);
         endDatePicker.setMaxWidth(200);
-        //date.setMaxWidth(300);
+
         HBox dateRange = new HBox(startDatePicker, endDatePicker);
         dateRange.setAlignment(Pos.CENTER);
         pane.add(dateRange, 0, 3);

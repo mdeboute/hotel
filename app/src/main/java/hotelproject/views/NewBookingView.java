@@ -84,10 +84,9 @@ public class NewBookingView extends View {
                         }
                     };
             checkOut.setDayCellFactory(dayCellFactory);
-            //checkOut.setValue(checkIn.getValue().plusDays(1));
         });
-        checkIn.setPromptText("DD/MM/YYYY");
-        checkOut.setPromptText("DD/MM/YYYY");
+        checkIn.setPromptText("FROM (DD/MM/YYYY)");
+        checkOut.setPromptText("TO (DD/MM/YYYY)");
 
         Label bookingIDL = new Label("Booking number: ");
         //pane.add(bookingIDL, 0, 1);
