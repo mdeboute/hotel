@@ -541,6 +541,9 @@ public class HotelProject extends Application {
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);
 
+                    newWindow.initOwner(roomsStage);
+                    newWindow.initModality(Modality.WINDOW_MODAL);
+
                     // Set position of second window, related to primary window.
                     newWindow.setX(roomsStage.getX());
                     newWindow.setY(roomsStage.getY());
@@ -619,6 +622,9 @@ public class HotelProject extends Application {
                     // New window (Stage) Stage newWindow = new Stage();
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);
+
+                    newWindow.initOwner(roomsStage);
+                    newWindow.initModality(Modality.WINDOW_MODAL);
 
                     // Set position of second window, related to primary window.
                     newWindow.setX(roomsStage.getX());
