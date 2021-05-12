@@ -19,7 +19,6 @@ public class NewRoomView extends View {
     private final Button addRoomType = new Button("Add type");
     private final CheckBox booked = new CheckBox("Is booked ?");
     private Button submit;
-    private Button cancel;
 
     public NewRoomView(DatabaseManager dbm) {
         this.dbm = dbm;
@@ -55,10 +54,6 @@ public class NewRoomView extends View {
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 7);
-
-        cancel = new Button("Cancel");
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 8);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
@@ -98,7 +93,4 @@ public class NewRoomView extends View {
         return addRoomType;
     }
 
-    public Button getCancel() {
-        return cancel;
-    }
 }

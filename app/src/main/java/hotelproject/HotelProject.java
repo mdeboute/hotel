@@ -290,19 +290,22 @@ public class HotelProject extends Application {
             Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
             hdata.addRoom(newRoom);
 
-            roomsDisplay();
             newRoomStage.close();
+            formerStage.close();
+            roomsDisplay();
         });
 
-        newRoomViewPage.getCancel().setOnAction(e -> {
-            roomsDisplay();
-            newRoomStage.close();
-        });
+        newRoomStage.setOnCloseRequest(e -> newRoomStage.close());
+
+        // Specifies the modality for new window and the owner of window
+        newRoomStage.initOwner(formerStage);
+        newRoomStage.initModality(Modality.WINDOW_MODAL);
+
+        newRoomStage.show();
 
         newRoomStage.setScene(newRoomViewPage.getScene());
         newRoomStage.setTitle("Hotel Manager - New Room");
         newRoomStage.show();
-        formerStage.close();
     }
 
     /**
