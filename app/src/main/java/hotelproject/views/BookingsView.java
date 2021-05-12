@@ -129,6 +129,9 @@ public class BookingsView extends View {
 
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+                startDatePicker.setValue(endDatePicker.getValue());
+            }
             flBooking.setPredicate(item -> {
                 // If filter text is empty, display all items.
                 LocalDate from = item.getB_from().toLocalDate();
@@ -150,6 +153,9 @@ public class BookingsView extends View {
         });
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (endDatePicker.getValue().isBefore(startDatePicker.getValue())) {
+                endDatePicker.setValue(startDatePicker.getValue());
+            }
             flBooking.setPredicate(item -> {
                 // If filter text is empty, display all items.
                 LocalDate from = item.getB_from().toLocalDate();
