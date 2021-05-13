@@ -1,9 +1,12 @@
 package hotelproject.views;
 
 import hotelproject.controllers.objects.User;
+import hotelproject.controllers.utils.Default;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -13,11 +16,12 @@ public class MyPageView extends View {
     private final User user;
 
     // The scene's nodes
-    String idleUrlUpdate = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_update.png";
-    String hoverUrlUpdate = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_update.png";
-    String idleUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
-    String hoverUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
-    private Button updateInfo;
+    private String idleUrlChange = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
+    private String hoverUrlChange = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
+    private String idleUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
+    private String hoverUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
+    private Button chUser;
+    private Button chPwd;
     private Button logOut;
 
     public MyPageView(User user) {
@@ -38,36 +42,40 @@ public class MyPageView extends View {
     GridPane createBody() {
         GridPane pane = createPane();
 
+        String SFPath = Default.SFPath;
+        String pwd = user.getU_password();
         String userStatus = "reception staff";
         if (user.getU_is_admin() == 1) {
             userStatus = "administrator";
         }
 
-        Label status = changeLabelDesign(new Label("Your status is: " + userStatus), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label status = changeLabelDesign(new Label("Your status is: " + userStatus), SFPath, 20, "white");
         pane.add(status, 0, 1);
+        Label username = changeLabelDesign(new Label("Username: " + user.getU_name()), SFPath, 20, "white");
+        Label password = changeLabelDesign(new Label("Password: " + "*".repeat(pwd.length())), SFPath, 20, "white");
+        chUser = createButton(25, idleUrlChange, hoverUrlChange);
+        chPwd = createButton(25, idleUrlChange, hoverUrlChange);
 
-        Label username = changeLabelDesign(new Label("Username: " + user.getU_name()), "file:assets/font/SF_Pro.ttf", 20, "white");
-        String pwd = user.getU_password();
-        Label password = changeLabelDesign(new Label("Password: " + "*".repeat(pwd.length())), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
+        pane.add(chUser, 1, 3);
+        pane.add(chPwd, 1, 4);
 
-        updateInfo = createButton(30, idleUrlUpdate, hoverUrlUpdate);
-        logOut = createButton(30, idleUrlLogOut, hoverUrlLogOut);
+        logOut = createButton(25, idleUrlLogOut, hoverUrlLogOut);
 
-        HBox buttons = new HBox();
-        buttons.getChildren().addAll(updateInfo, logOut);
-        buttons.setSpacing(15);
-
-        pane.add(buttons, 0, 6);
+        pane.add(logOut, 0, 7);
 
         return pane;
     }
 
     /*****************************Getters*********************************/
 
-    public Button getUpdateInfo() {
-        return updateInfo;
+    public Button getChUser() {
+        return chUser;
+    }
+
+    public Button getChPwd() {
+        return chPwd;
     }
 
     public Button getLogout() {

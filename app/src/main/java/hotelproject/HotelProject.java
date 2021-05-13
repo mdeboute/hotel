@@ -4,6 +4,7 @@ import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
+import hotelproject.views.UpdateInfoView.Change;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -70,13 +71,14 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong !");
+                        loginView.getResult().setText("The username or password you have entered is wrong!");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
-                        updateInfoDisplay(secondaryStage, primaryStage);
+                        myPageDisplay();
+                        primaryStage.close();
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong !");
+                        loginView.getResult().setText("The password you have entered is wrong!");
                     }
                 }
             } catch (SQLException throwables) {
@@ -98,13 +100,15 @@ public class HotelProject extends Application {
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
+        Stage myPageStage = new Stage();
+        Stage loginStage = new Stage();
         mainPageStage = new Stage();
 
         // Set buttons on action
 
         mainPageView.getMyPageButton().setOnAction(e -> {
             // display user info page
-            myPageDisplay();
+            credentialsDisplay(myPageStage, loginStage, true);
         });
 
         mainPageView.getViewBookingsButton().setOnAction(e -> {
@@ -141,77 +145,47 @@ public class HotelProject extends Application {
      * @param updateInfoStage stage on which the page to change the user's info will
      *                        appear
      */
-    private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage) {
-        UpdateInfoView updateInfoPage = new UpdateInfoView();
-
-        // if the user choose to change its username
-        updateInfoPage.getChangeUsername().setOnAction(e -> {
-            updateInfoPage.getChangeUsername().setVisible(false);
-            updateInfoPage.getUsernameL().setVisible(true);
-            updateInfoPage.getUsername().setVisible(true);
-        });
-
-        // if the user choose to change its password
-        updateInfoPage.getChangePwd().setOnAction(e -> {
-            updateInfoPage.getChangePwd().setVisible(false);
-            updateInfoPage.getFstPwdL().setVisible(true);
-            updateInfoPage.getFirstPassword().setVisible(true);
-            updateInfoPage.getSndPwdL().setVisible(true);
-            updateInfoPage.getSecondPassword().setVisible(true);
-        });
+    private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
+        UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
         // to save the modifications
         updateInfoPage.getSave().setOnAction(e -> {
             String oldUsername = connectedUser.getU_name();
-            String newUsername = updateInfoPage.getUsername().getText();
-            String firstPassword = updateInfoPage.getFirstPassword().getText();
-            String secondPassword = updateInfoPage.getSecondPassword().getText();
 
-            boolean nothingEmpty = true;
-            // if the user clicked on change username but didn't input any character
-            if (updateInfoPage.getUsername().isVisible() && newUsername.isEmpty()) {
-                updateInfoPage.setOutput("Username field is empty !\n");
-                nothingEmpty = false;
+            if (change == Change.USERNAME) {
+                String firstUsername = updateInfoPage.getFirstUName().getText();
+                String secondUsername = updateInfoPage.getSecondUName().getText();
+                if (firstUsername.equals(secondUsername)) {
+                    connectedUser.setU_name(firstUsername);
+                } else {
+                    updateInfoPage.setOutput("First and second input for usernames are not equal!");
+                }
+            } else {
+                String firstPassword = updateInfoPage.getFirstPwd().getText();
+                String secondPassword = updateInfoPage.getSecondPwd().getText();
+
+                if (firstPassword.equals(secondPassword)) {
+                    connectedUser.setU_password(firstPassword);
+                } else {
+                    updateInfoPage.setOutput("First and second input for passwords are not equal!");
+                }
             }
 
-            // if the user clicked on change password but didn't input any character in any
-            // textfield
-            if (updateInfoPage.getFirstPassword().isVisible()
-                    && (firstPassword.isEmpty() || secondPassword.isEmpty())) {
-                updateInfoPage
-                        .setOutput(updateInfoPage.getOutput().getText() + "Please enter the new password correctly !");
-                nothingEmpty = false;
+            // update db
+            try {
+                hdata.updateUserInformation(connectedUser, oldUsername);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
 
-            // if user wrote something in the visible fields
-            if (nothingEmpty) {
-                if (!updateInfoPage.getChangeUsername().isVisible()) { // if user chose to change username
-                    connectedUser.setU_name(newUsername);
-                }
-                if (!updateInfoPage.getChangePwd().isVisible()) { // if user chose to change password
-                    if (firstPassword.equals(secondPassword)) {
-                        connectedUser.setU_password(firstPassword);
-                    } else {
-                        updateInfoPage.setOutput("First and second input for password are not equal !");
-                    }
-                }
+            myPageDisplay();
+            updateInfoStage.close();
 
-                // update db
-                try {
-                    hdata.updateUserInformation(connectedUser, oldUsername);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-
-                myPageDisplay();
-                updateInfoStage.close();
-            }
         });
 
         updateInfoStage.setScene(updateInfoPage.getScene());
         updateInfoStage.setTitle("Hotel Manager - Update personal information");
         updateInfoStage.show();
-        myPageStage.close();
     }
 
     /**
@@ -220,9 +194,11 @@ public class HotelProject extends Application {
     private void myPageDisplay() {
         MyPageView myPage = new MyPageView(connectedUser);
         Stage myPageStage = new Stage();
+        Stage updateInfoStage = new Stage();
 
         Stage loginStage = new Stage();
-        myPage.getUpdateInfo().setOnAction(e -> credentialsDisplay(myPageStage, loginStage, true));
+        myPage.getChPwd().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.PASSWORD));
+        myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
         myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
 
