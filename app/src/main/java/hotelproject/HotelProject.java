@@ -743,8 +743,23 @@ public class HotelProject extends Application {
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
 
-        customersViewPage.getUpdateCustomer().setOnAction(e -> updateCustomerDisplay(customerStage,
-                customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem()));
+        customersViewPage.getCustomersTable().setRowFactory(tableView -> {
+            final TableRow<Customer> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+
+            MenuItem updateItem = new MenuItem("Update");
+            updateItem.setOnAction(event -> {
+                Customer c = customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem();
+                updateCustomerDisplay(customerStage, c);
+            });
+
+            rowMenu.getItems().addAll(updateItem);
+
+            // only display context menu for non-null items:
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu).otherwise((ContextMenu) null));
+            return row;
+        });
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
@@ -791,6 +806,13 @@ public class HotelProject extends Application {
 
         UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView();
         Stage updateCustomerStage = new Stage();
+        
+        updateCustomerViewPage.getCSSNum().setText(String.valueOf(customer.getC_ss_number()));
+        updateCustomerViewPage.getCAddress().setText(customer.getC_address());
+        updateCustomerViewPage.getCFullName().setText(customer.getC_full_name());
+        updateCustomerViewPage.getCPhoneNum().setText(String.valueOf(customer.getC_phone_num()));
+        updateCustomerViewPage.getCEmail().setText(customer.getC_email());
+
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(updateCustomerViewPage.getCSSNum().getText());
@@ -802,19 +824,21 @@ public class HotelProject extends Application {
             Customer updatedCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
             hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
 
-            customersDisplay();
             updateCustomerStage.close();
+            formerStage.close();
+            customersDisplay();
         });
 
-        updateCustomerViewPage.getCancel().setOnAction(e -> {
-            customersDisplay();
-            updateCustomerStage.close();
-        });
+        updateCustomerStage.setOnCloseRequest(e -> updateCustomerStage.close());
 
         updateCustomerStage.setScene(updateCustomerViewPage.getScene());
         updateCustomerStage.setTitle("Hotel Manager - Updating Customer");
+
+        // Specifies the modality for new window and the owner of window
+        updateCustomerStage.initOwner(formerStage);
+        updateCustomerStage.initModality(Modality.WINDOW_MODAL);
+
         updateCustomerStage.show();
-        formerStage.close();
     }
 
     /**

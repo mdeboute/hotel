@@ -16,7 +16,6 @@ public class UpdateCustomerView extends View {
     private final TextField cEmail = new TextField();
 
     private Button submit;
-    private Button cancel;
 
     public UpdateCustomerView() {
         createScene();
@@ -47,10 +46,6 @@ public class UpdateCustomerView extends View {
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 7);
-
-        cancel = new Button("Cancel");
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 8);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
@@ -87,10 +82,6 @@ public class UpdateCustomerView extends View {
 
     public TextField getCEmail() {
         return cEmail;
-    }
-
-    public Button getCancel() {
-        return cancel;
     }
 
 }
