@@ -54,9 +54,11 @@ public class HotelProject extends Application {
         LoginView loginView = new LoginView(onlyPwd);
 
         loginView.getPassword().setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-                loginView.getTestLoginButton().fire();
-            }
+            if (e.getCode() == KeyCode.ENTER) { loginView.getTestLoginButton().fire(); }
+        });
+
+        loginView.getUsername().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) { loginView.getTestLoginButton().fire(); }
         });
 
         //set login button on action
