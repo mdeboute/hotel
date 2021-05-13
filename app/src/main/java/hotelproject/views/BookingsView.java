@@ -240,4 +240,8 @@ public class BookingsView extends View {
         return startDatePicker;
     }
 
+    public TableView<Booking> getBookingsTable() {
+        return bookingsTable;
+    }
+
 }

@@ -376,6 +376,74 @@ public class HotelProject extends Application {
     }
 
     /**
+     * A page to update the bookings for reception staff and admin
+     *
+     * @param formerStage to close when the new stage is showed
+     */
+    private void updateBookingDisplay(Stage formerStage, Booking booking) {
+
+        UpdateBookingView updateBookingViewPage = new UpdateBookingView();
+        Stage updateRoomStage = new Stage();
+
+        updateBookingViewPage.getNewRoom().setText(String.valueOf(booking.getR_num()));
+        updateBookingViewPage.getNewPayment().setSelected(booking.getPaid_by_card() == 1);
+        updateBookingViewPage.getNewFromDate().setValue(booking.getB_from().toLocalDate());
+        updateBookingViewPage.getNewTillDate().setValue(booking.getB_till().toLocalDate());
+        updateBookingViewPage.getNewFee().setText(String.valueOf(booking.getB_fee()));
+        updateBookingViewPage.getNewIsPaid().setSelected(booking.getB_is_paid() == 1);
+
+        updateBookingViewPage.getSubmit().setOnAction(e -> {
+            int newRoom = Integer.parseInt(updateBookingViewPage.getNewRoom().getText());
+            
+            int newPayment = 0;
+            if (updateBookingViewPage.getNewPayment().isSelected()) {
+                newPayment = 1;
+            }
+            
+            // Getting the datepicker dates
+            DatePicker checkInDP = updateBookingViewPage.getNewFromDate();
+            LocalDate datePicked = checkInDP.getValue();
+            String formattedDate = datePicked.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Date sqlDate = java.sql.Date.valueOf(formattedDate);
+
+            DatePicker checkOutDP = updateBookingViewPage.getNewTillDate();
+
+            LocalDate secondDatePicked = checkOutDP.getValue();
+            String secondFormattedDate = secondDatePicked.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Date secondSQLDate = java.sql.Date.valueOf(secondFormattedDate);
+
+            int bookingFee = Integer.parseInt(updateBookingViewPage.getNewFee().getText());
+            int isPaid = 0;
+            if (updateBookingViewPage.getNewIsPaid().isSelected()) {
+                isPaid = 1;
+            }
+
+            booking.setR_num(newRoom);
+            booking.setPaid_by_card(newPayment);
+            booking.setB_from(sqlDate);
+            booking.setB_till(secondSQLDate);
+            booking.setB_fee(bookingFee);
+            booking.setB_is_paid(isPaid);
+
+            hdata.updateBooking(booking);
+            updateRoomStage.close();
+            formerStage.close();
+            bookingsDisplay();
+        });
+
+        updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
+
+        updateRoomStage.setScene(updateBookingViewPage.getScene());
+        updateRoomStage.setTitle("Hotel Manager - Updating Booking");
+
+        // Specifies the modality for new window and the owner of window
+        updateRoomStage.initOwner(formerStage);
+        updateRoomStage.initModality(Modality.WINDOW_MODAL);
+
+        updateRoomStage.show();
+    }
+
+    /**
      * Displays the page with the hotel's bookings table
      */
 
@@ -389,6 +457,24 @@ public class HotelProject extends Application {
         if (connectedUser.getU_is_admin() == 1) {
             bookingsViewPage.getAddBooking().setOnAction(e -> newBookingDisplay(bookingsStage));
         }
+
+        bookingsViewPage.getBookingsTable().setRowFactory(tableView -> {
+            final TableRow<Booking> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+
+            MenuItem updateItem = new MenuItem("Update");
+            updateItem.setOnAction(event -> {
+                Booking b = bookingsViewPage.getBookingsTable().getSelectionModel().getSelectedItem();
+                updateBookingDisplay(bookingsStage, b);
+            });
+
+            rowMenu.getItems().addAll(updateItem);
+
+            // only display context menu for non-null items:
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu).otherwise((ContextMenu) null));
+            return row;
+        });
 
         /*
         DatePicker dated = bookingsViewPage.getDatePicker();
@@ -719,8 +805,23 @@ public class HotelProject extends Application {
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
 
-        customersViewPage.getUpdateCustomer().setOnAction(e -> updateCustomerDisplay(customerStage,
-                customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem()));
+        customersViewPage.getCustomersTable().setRowFactory(tableView -> {
+            final TableRow<Customer> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+
+            MenuItem updateItem = new MenuItem("Update");
+            updateItem.setOnAction(event -> {
+                Customer c = customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem();
+                updateCustomerDisplay(customerStage, c);
+            });
+
+            rowMenu.getItems().addAll(updateItem);
+
+            // only display context menu for non-null items:
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty())).then(rowMenu).otherwise((ContextMenu) null));
+            return row;
+        });
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
@@ -767,6 +868,13 @@ public class HotelProject extends Application {
 
         UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView();
         Stage updateCustomerStage = new Stage();
+        
+        updateCustomerViewPage.getCSSNum().setText(String.valueOf(customer.getC_ss_number()));
+        updateCustomerViewPage.getCAddress().setText(customer.getC_address());
+        updateCustomerViewPage.getCFullName().setText(customer.getC_full_name());
+        updateCustomerViewPage.getCPhoneNum().setText(String.valueOf(customer.getC_phone_num()));
+        updateCustomerViewPage.getCEmail().setText(customer.getC_email());
+
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(updateCustomerViewPage.getCSSNum().getText());
@@ -778,19 +886,21 @@ public class HotelProject extends Application {
             Customer updatedCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
             hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
 
-            customersDisplay();
             updateCustomerStage.close();
+            formerStage.close();
+            customersDisplay();
         });
 
-        updateCustomerViewPage.getCancel().setOnAction(e -> {
-            customersDisplay();
-            updateCustomerStage.close();
-        });
+        updateCustomerStage.setOnCloseRequest(e -> updateCustomerStage.close());
 
         updateCustomerStage.setScene(updateCustomerViewPage.getScene());
         updateCustomerStage.setTitle("Hotel Manager - Updating Customer");
+
+        // Specifies the modality for new window and the owner of window
+        updateCustomerStage.initOwner(formerStage);
+        updateCustomerStage.initModality(Modality.WINDOW_MODAL);
+
         updateCustomerStage.show();
-        formerStage.close();
     }
 
     /**
