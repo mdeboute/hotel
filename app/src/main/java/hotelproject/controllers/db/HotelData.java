@@ -119,4 +119,15 @@ public class HotelData {
         bookings.add(newBooking); 
         dbm.bdb.addBooking(newBooking);
     }
+
+    public void updateBooking(Booking updateBooking) {
+        for(Booking b : bookings) {
+            if (b.getB_id() == updateBooking.getB_id()) {
+                int index = bookings.indexOf(b);
+                bookings.set(index, updateBooking);
+                dbm.bdb.updateBooking(updateBooking);
+                break;
+            }
+        }
+    }
 }
