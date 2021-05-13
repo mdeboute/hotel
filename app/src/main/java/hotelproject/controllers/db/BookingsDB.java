@@ -109,4 +109,25 @@ public class BookingsDB {
         }
         return bookingDetails;
     }
+
+    public void updateBooking(Booking updatedBooking) {
+        try {
+            String sql = "UPDATE `booking` SET `r_num` = ?, `paid_by_card` = ?, "
+                    + "`b_from` = ?, `b_till` = ?, `b_fee` = ?, `b_is_paid` = ? WHERE `b_id` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, updatedBooking.getR_num());
+            statement.setInt(2, updatedBooking.getPaid_by_card());
+            statement.setDate(3, updatedBooking.getB_from());
+            statement.setDate(4, updatedBooking.getB_till());
+            statement.setInt(5, updatedBooking.getB_fee());
+            statement.setInt(6, updatedBooking.getB_is_paid());
+            statement.setInt(7, updatedBooking.getB_id());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
