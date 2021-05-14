@@ -46,8 +46,8 @@ CREATE TABLE `hotel`.`customer` (
   PRIMARY KEY (`c_ss_number`));
 
 CREATE TABLE `hotel`.`customer_booking` (
-                                            `customer_ss_number` INT NOT NULL,
-                                            `booking_id` INT NOT NULL,
-                                            PRIMARY KEY (`customer_ss_number`, `booking_id`),
-                                            FOREIGN KEY (`customer_ss_number`) REFERENCES customer(`c_ss_number`),
-                                            FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));
+  `customer_ss_number` INT NOT NULL,
+  `booking_id` INT NOT NULL,
+  PRIMARY KEY (`customer_ss_number`, `booking_id`),
+  FOREIGN KEY (`customer_ss_number`) REFERENCES customer(`c_ss_number`),
+  FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));
