@@ -327,7 +327,7 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newBookingDisplay(Stage formerStage) {
-        NewBookingView newBookingViewPage = new NewBookingView();
+        NewBookingView newBookingViewPage = new NewBookingView(dbm);
         Stage newBookingStage = new Stage();
 
         // set buttons on action
@@ -356,7 +356,7 @@ public class HotelProject extends Application {
             if (newBookingViewPage.getIsPaid().isSelected()) {
                 isPaid = 1;
             }
-            int c_ss_number = Integer.parseInt(newBookingViewPage.getC_ss_number().getText());
+            int c_ss_number = newBookingViewPage.getC_ss_number().getValue();
             Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid, c_ss_number);
             hdata.addBooking(newBooking);
 
@@ -382,7 +382,7 @@ public class HotelProject extends Application {
      */
     private void updateBookingDisplay(Stage formerStage, Booking booking) {
 
-        UpdateBookingView updateBookingViewPage = new UpdateBookingView();
+        UpdateBookingView updateBookingViewPage = new UpdateBookingView(dbm);
         Stage updateRoomStage = new Stage();
 
         updateBookingViewPage.getNewRoom().setText(String.valueOf(booking.getR_num()));
@@ -391,6 +391,7 @@ public class HotelProject extends Application {
         updateBookingViewPage.getNewTillDate().setValue(booking.getB_till().toLocalDate());
         updateBookingViewPage.getNewFee().setText(String.valueOf(booking.getB_fee()));
         updateBookingViewPage.getNewIsPaid().setSelected(booking.getB_is_paid() == 1);
+        updateBookingViewPage.getC_ss_number().setValue(booking.getC_ss_number());
 
         updateBookingViewPage.getSubmit().setOnAction(e -> {
             int newRoom = Integer.parseInt(updateBookingViewPage.getNewRoom().getText());
@@ -418,12 +419,15 @@ public class HotelProject extends Application {
                 isPaid = 1;
             }
 
+            Integer new_C_ss_number = updateBookingViewPage.getC_ss_number().getValue();
+
             booking.setR_num(newRoom);
             booking.setPaid_by_card(newPayment);
             booking.setB_from(sqlDate);
             booking.setB_till(secondSQLDate);
             booking.setB_fee(bookingFee);
             booking.setB_is_paid(isPaid);
+            booking.setC_ss_number(new_C_ss_number);
 
             hdata.updateBooking(booking);
             updateRoomStage.close();

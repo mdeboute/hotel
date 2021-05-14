@@ -94,8 +94,8 @@ public class BookingsView extends View {
 
         // Create column in the table
         TableColumn<Booking, Integer> bookIDCol = new TableColumn<>("Booking number");
-        //bookIDCol.setMinWidth(100);
-        bookIDCol.setMinWidth(100);
+
+        bookIDCol.setMinWidth(120);
         bookIDCol.setCellValueFactory(new PropertyValueFactory<>("b_id"));
 
         TableColumn<Booking, Integer> roomNumCol = new TableColumn<>("Room number");
@@ -122,10 +122,14 @@ public class BookingsView extends View {
         bIPCol.setMinWidth(100);
         bIPCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_paid()));
 
+        TableColumn<Booking, String> bCNCol = new TableColumn<>("Customer number");
+        bCNCol.setMinWidth(120);
+        bCNCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
+
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
         bookingsTable.setItems(flBooking);
-        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol);
+        bookingsTable.getColumns().addAll(bookIDCol, roomNumCol, paidBCCol, bookFromCol, bookTillCol, bookFeeCol, bIPCol, bCNCol);
 
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (startDatePicker.getValue() != null && startDatePicker.getValue().isAfter(endDatePicker.getValue())) {

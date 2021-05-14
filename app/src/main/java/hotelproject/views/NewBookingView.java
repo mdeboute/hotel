@@ -1,5 +1,7 @@
 package hotelproject.views;
 
+import hotelproject.controllers.db.DatabaseManager;
+import hotelproject.controllers.objects.Customer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,22 +13,26 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class NewBookingView extends View {
+
+    private final DatabaseManager dbm;
 
     private final TextField numRoom = new TextField();
     private final CheckBox paidByCard = new CheckBox("Paid by card ?");
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
-    private final TextField c_ss_number = new TextField();
+    private final ComboBox<Integer> c_ss_number = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
     private final String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
     private Button cancel;
 
-    public NewBookingView() {
+    public NewBookingView(DatabaseManager dbm) {
+        this.dbm = dbm;
         createScene();
     }
 
@@ -88,10 +94,7 @@ public class NewBookingView extends View {
         });
         checkIn.setPromptText("FROM (DD/MM/YYYY)");
         checkOut.setPromptText("TO (DD/MM/YYYY)");
-
-        Label bookingIDL = new Label("Booking number: ");
-        //pane.add(bookingIDL, 0, 1);
-        //pane.add(bookingIDL, 1, 1);
+        
         Label numRoomL = changeLabelDesign(new Label("Room number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(numRoomL, 0, 1);
         pane.add(numRoom, 1, 1);
@@ -102,7 +105,14 @@ public class NewBookingView extends View {
         pane.add(bookingFee, 1, 3);
         Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(bookingCSSL, 0, 4);
+
+        List<Customer> customers = dbm.cdb.findAllCustomers();
+        for (Customer value : customers) {
+            c_ss_number.getItems().add(value.getC_ss_number());
+        }
+
         pane.add(c_ss_number, 1, 4);
+
         paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
         paidByCard.setTextFill(Paint.valueOf("white"));
         pane.add(paidByCard, 0, 5);
@@ -158,7 +168,7 @@ public class NewBookingView extends View {
         return cancel;
     }
 
-    public TextField getC_ss_number() {
+    public ComboBox<Integer> getC_ss_number() {
         return c_ss_number;
     }
 }
