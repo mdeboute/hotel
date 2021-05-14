@@ -33,8 +33,8 @@ CREATE TABLE `hotel`.`booking` (
   `b_till` DATE NOT NULL,
   `b_fee` INT NULL,
   `b_is_paid` TINYINT NULL,
-  PRIMARY KEY (`b_id`),
-  FOREIGN KEY (`r_num`) REFERENCES room(`r_num`));
+  `c_ss_number` INT NULL,
+  PRIMARY KEY (`b_id`));
 
 CREATE TABLE `hotel`.`customer` (
   `c_ss_number` INT NOT NULL,
@@ -43,10 +43,3 @@ CREATE TABLE `hotel`.`customer` (
   `c_phone_num` INT NOT NULL,
   `c_email` VARCHAR(100) NULL,
   PRIMARY KEY (`c_ss_number`));
-
-CREATE TABLE `hotel`.`customer_booking` (
-  `customer_ss_number` INT NOT NULL,
-  `booking_id` INT NOT NULL,
-  PRIMARY KEY (`customer_ss_number`, `booking_id`),
-  FOREIGN KEY (`customer_ss_number`) REFERENCES customer(`c_ss_number`),
-  FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));

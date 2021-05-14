@@ -342,102 +342,102 @@ VALUES
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     1, 2, 1, '2021-04-11', '2021-04-12',
-    799, 0
+    799, 0, 46040774
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     2, 5, 1, '2021-04-18', '2021-04-20',
-    1500, 1
+    1500, 1, 89012362
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     3, 4, 0, '2021-05-01', '2021-05-03',
-    1500, 0
+    1500, 0, 90040525
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     4, 4, 1, '2021-04-22', '2021-04-23',
-    500, 1
+    500, 1, 82012909
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     5, 5, 0, '2021-05-10', '2021-05-30',
-    10000, 1
+    10000, 1, 84031956
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     6, 6, 1, '2021-04-26', '2021-04-30',
-    750, 1
+    750, 1, 86050868
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     7, 7, 1, '2021-05-23', '2021-05-29',
-    950, 1
+    950, 1, 94080245
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     8, 8, 0, '2021-04-29', '2021-05-01',
-    400, 0
+    400, 0, 98112434
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     9, 9, 1, '2021-04-30', '2021-05-05',
-    1500, 1
+    1500, 1, 72091719
   );
 
 INSERT INTO `hotel`.`booking`(
   b_id, r_num, paid_by_card, b_from,
-  b_till, b_fee, b_is_paid
+  b_till, b_fee, b_is_paid, c_ss_number
 )
 VALUES
   (
     10, 10, 1, '2021-05-30', '2021-06-05',
-    2000, 1
+    2000, 1, 46040774
   );
 
 
