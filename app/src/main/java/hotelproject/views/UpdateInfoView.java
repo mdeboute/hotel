@@ -7,11 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 
 public class UpdateInfoView extends View {
 
@@ -19,11 +16,11 @@ public class UpdateInfoView extends View {
     private final Label output = new Label();
     private final Label Lbl1;
     private final Label Lbl2;
+    private final Button save = new Button("Save");
     private TextField firstUName;
     private TextField secondUName;
     private PasswordField firstPwd;
     private PasswordField secondPwd;
-    private final Button save = new Button("Save");
 
     public UpdateInfoView(Change change) {
         this.change = change;
@@ -96,8 +93,6 @@ public class UpdateInfoView extends View {
         return pane;
     }
 
-    public enum Change { USERNAME, PASSWORD; }
-
     /*****************************Getters*********************************/
 
     public Button getSave() {
@@ -106,6 +101,12 @@ public class UpdateInfoView extends View {
 
     public Label getOutput() {
         return output;
+    }
+
+    /***************************Setter*******************************/
+
+    public void setOutput(String outputTxt) {
+        output.setText(outputTxt);
     }
 
     public TextField getFirstUName() {
@@ -124,9 +125,5 @@ public class UpdateInfoView extends View {
         return secondPwd;
     }
 
-    /***************************Setter*******************************/
-
-    public void setOutput(String outputTxt) {
-        output.setText(outputTxt);
-    }
+    public enum Change {USERNAME, PASSWORD}
 }

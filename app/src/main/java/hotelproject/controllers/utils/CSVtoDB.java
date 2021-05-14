@@ -28,7 +28,6 @@ public class CSVtoDB {
         csvdb.roomQuery();
         csvdb.customerQuery();
         csvdb.bookingQuery();
-        csvdb.customerBookingQuery();
         csvdb.userQuery();
     }
 
@@ -37,7 +36,7 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO `hotel`.`room` (`r_num`, `r_floor`, `r_type`) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/room.csv"));
@@ -51,14 +50,12 @@ public class CSVtoDB {
                 int r_num = Integer.parseInt(data[0]);
                 int r_floor = Integer.parseInt(data[1]);
                 String r_type = data[2];
-                int booked = Integer.parseInt(data[3]);
 
                 count++;
 
                 statement.setInt(1, r_num);
                 statement.setInt(2, r_floor);
                 statement.setString(3, r_type);
-                statement.setInt(4, booked);
 
                 statement.addBatch();
 
@@ -196,54 +193,6 @@ public class CSVtoDB {
         }
     }
 
-    public void customerBookingQuery() {
-        int batchSize = 20; //optimization
-        try {
-            conn.setAutoCommit(false);
-
-            String sql = "INSERT INTO `hotel`.`customer_booking` (`customer_ss_number`, `booking_id`) VALUES (?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/customer_booking.csv"));
-            String lineText;
-            int count = 0;
-            lineReader.readLine(); // skip header line
-
-            while ((lineText = lineReader.readLine()) != null) {
-                String[] data = lineText.split(",");
-
-                int customer_ss_number = Integer.parseInt(data[0]);
-                int booking_id = Integer.parseInt(data[1]);
-
-                count++;
-
-                statement.setInt(1, customer_ss_number);
-                statement.setInt(2, booking_id);
-
-                statement.addBatch();
-
-                if (count % batchSize == 0) {
-                    statement.executeBatch();
-                }
-            }
-            lineReader.close();
-
-            // execute the remaining queries
-            statement.executeBatch();
-
-            conn.commit();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            try {
-                conn.rollback();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void customerQuery() {
         int batchSize = 20; //optimization
         try {
@@ -303,7 +252,7 @@ public class CSVtoDB {
         try {
             conn.setAutoCommit(false);
 
-            String sql = "INSERT INTO `hotel`.`booking` (`b_id`, `r_num`, `paid_by_card`, `b_from`, `b_till`, `b_fee`, `b_is_paid`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `hotel`.`booking` (`b_id`, `r_num`, `paid_by_card`, `b_from`, `b_till`, `b_fee`, `b_is_paid`, `c_ss_number`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             BufferedReader lineReader = new BufferedReader(new FileReader(FILE_PATH + "/booking.csv"));
@@ -321,6 +270,7 @@ public class CSVtoDB {
                 Date b_till = Date.valueOf(data[4]);
                 int b_fee = Integer.parseInt(data[5]);
                 int b_is_paid = Integer.parseInt(data[6]);
+                int c_ss_number = Integer.parseInt(data[7]);
 
                 count++;
 
@@ -331,6 +281,7 @@ public class CSVtoDB {
                 statement.setDate(5, b_till);
                 statement.setInt(6, b_fee);
                 statement.setInt(7, b_is_paid);
+                statement.setInt(8, c_ss_number);
 
                 statement.addBatch();
 

@@ -28,7 +28,7 @@ public class BookingsDB {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Booking booking = new Booking(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getInt(6), rs.getInt(7));
+                Booking booking = new Booking(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class BookingsDB {
      */
     public void addBooking(Booking booking) {
         try {
-            String sql = "INSERT INTO `booking` VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `booking` VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, booking.getB_id());
@@ -53,6 +53,7 @@ public class BookingsDB {
             statement.setDate(5, booking.getB_till());
             statement.setInt(6, booking.getB_fee());
             statement.setInt(7, booking.getB_is_paid());
+            statement.setInt(8, booking.getC_ss_number());
 
             statement.executeUpdate();
 
@@ -92,7 +93,7 @@ public class BookingsDB {
      */
     public Hashtable<String, String> getBookingDetails(int b_id) {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
-        String[] bookingHeaders = {"b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid"};
+        String[] bookingHeaders = {"b_id", "r_num", "paid_by_card", "b_from", "b_till", "b_fee", "b_is_paid", "c_ss_number"};
         try {
             String sql = "SELECT * FROM booking WHERE b_id = ?";
 
@@ -113,7 +114,7 @@ public class BookingsDB {
     public void updateBooking(Booking updatedBooking) {
         try {
             String sql = "UPDATE `booking` SET `r_num` = ?, `paid_by_card` = ?, "
-                    + "`b_from` = ?, `b_till` = ?, `b_fee` = ?, `b_is_paid` = ? WHERE `b_id` = ?";
+                    + "`b_from` = ?, `b_till` = ?, `b_fee` = ?, `b_is_paid` = ?, `c_ss_number`= ? WHERE `b_id` = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setInt(1, updatedBooking.getR_num());
@@ -123,6 +124,7 @@ public class BookingsDB {
             statement.setInt(5, updatedBooking.getB_fee());
             statement.setInt(6, updatedBooking.getB_is_paid());
             statement.setInt(7, updatedBooking.getB_id());
+            statement.setInt(8, updatedBooking.getC_ss_number());
 
             statement.executeUpdate();
 

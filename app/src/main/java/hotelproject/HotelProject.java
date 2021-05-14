@@ -55,11 +55,15 @@ public class HotelProject extends Application {
         LoginView loginView = new LoginView(onlyPwd);
 
         loginView.getPassword().setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) { loginView.getTestLoginButton().fire(); }
+            if (e.getCode() == KeyCode.ENTER) {
+                loginView.getTestLoginButton().fire();
+            }
         });
 
         loginView.getUsername().setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) { loginView.getTestLoginButton().fire(); }
+            if (e.getCode() == KeyCode.ENTER) {
+                loginView.getTestLoginButton().fire();
+            }
         });
 
         //set login button on action
@@ -71,14 +75,14 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong!");
+                        loginView.getResult().setText("The username or password you have entered is wrong !");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         myPageDisplay();
                         primaryStage.close();
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong!");
+                        loginView.getResult().setText("The password you have entered is wrong !");
                     }
                 }
             } catch (SQLException throwables) {
@@ -158,7 +162,7 @@ public class HotelProject extends Application {
                 if (firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else {
-                    updateInfoPage.setOutput("First and second input for usernames are not equal!");
+                    updateInfoPage.setOutput("First and second input for usernames are not equal !");
                 }
             } else {
                 String firstPassword = updateInfoPage.getFirstPwd().getText();
@@ -167,7 +171,7 @@ public class HotelProject extends Application {
                 if (firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
                 } else {
-                    updateInfoPage.setOutput("First and second input for passwords are not equal!");
+                    updateInfoPage.setOutput("First and second input for passwords are not equal !");
                 }
             }
 
@@ -260,12 +264,8 @@ public class HotelProject extends Application {
             int roomNb = Integer.parseInt(newRoomViewPage.getNumRoom().getText());
             int roomFloor = Integer.parseInt(newRoomViewPage.getFloor().getText());
             String roomType = newRoomViewPage.getRoomType().getValue();
-            int roomBooked = 0;
-            if (newRoomViewPage.getBooked().isSelected()) {
-                roomBooked = 1;
-            }
 
-            Room newRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+            Room newRoom = new Room(roomNb, roomFloor, roomType);
             hdata.addRoom(newRoom);
 
             newRoomStage.close();
@@ -356,8 +356,8 @@ public class HotelProject extends Application {
             if (newBookingViewPage.getIsPaid().isSelected()) {
                 isPaid = 1;
             }
-
-            Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid);
+            int c_ss_number = Integer.parseInt(newBookingViewPage.getC_ss_number().getText());
+            Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid, c_ss_number);
             hdata.addBooking(newBooking);
 
             bookingsDisplay();
@@ -394,12 +394,12 @@ public class HotelProject extends Application {
 
         updateBookingViewPage.getSubmit().setOnAction(e -> {
             int newRoom = Integer.parseInt(updateBookingViewPage.getNewRoom().getText());
-            
+
             int newPayment = 0;
             if (updateBookingViewPage.getNewPayment().isSelected()) {
                 newPayment = 1;
             }
-            
+
             // Getting the datepicker dates
             DatePicker checkInDP = updateBookingViewPage.getNewFromDate();
             LocalDate datePicked = checkInDP.getValue();
@@ -725,19 +725,13 @@ public class HotelProject extends Application {
         updateRoomViewPage.getNumRoom().setText(currentRoomNumber);
         updateRoomViewPage.getFloor().setText(currentFloor);
         updateRoomViewPage.getRoomType().setValue(room.getR_type());
-        updateRoomViewPage.getBooked().setSelected(room.getBooked() == 1);
 
         updateRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());
             int roomFloor = Integer.parseInt(updateRoomViewPage.getFloor().getText());
             String roomType = updateRoomViewPage.getRoomType().getValue();
 
-            int roomBooked = 0;
-            if (updateRoomViewPage.getBooked().isSelected()) {
-                roomBooked = 1;
-            }
-
-            Room updateRoom = new Room(roomNb, roomFloor, roomType, roomBooked);
+            Room updateRoom = new Room(roomNb, roomFloor, roomType);
 
             hdata.updateRoom(updateRoom, room.getR_num());
             updateRoomStage.close();
@@ -868,7 +862,7 @@ public class HotelProject extends Application {
 
         UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView();
         Stage updateCustomerStage = new Stage();
-        
+
         updateCustomerViewPage.getCSSNum().setText(String.valueOf(customer.getC_ss_number()));
         updateCustomerViewPage.getCAddress().setText(customer.getC_address());
         updateCustomerViewPage.getCFullName().setText(customer.getC_full_name());

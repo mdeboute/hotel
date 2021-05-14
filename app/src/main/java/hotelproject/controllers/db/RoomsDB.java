@@ -52,13 +52,12 @@ public class RoomsDB {
      */
     public void addRoom(Room room) {
         try {
-            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`, `booked`) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`) VALUES (?, ?, ?)";
             // Statement stmt = conn.createStatement();
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, room.getR_num());
             statement.setInt(2, room.getR_floor());
             statement.setString(3, room.getR_type());
-            statement.setInt(4, room.getBooked());
 
             statement.executeUpdate();
 
@@ -143,13 +142,12 @@ public class RoomsDB {
         try {
             // Statement stmt = conn.createStatement();
 
-            String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ?, `booked` = ? WHERE `r_num` = ?";
+            String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ? WHERE `r_num` = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, room.getR_num());
             statement.setInt(2, room.getR_floor());
             statement.setString(3, room.getR_type());
-            statement.setInt(4, room.getBooked());
-            statement.setInt(5, oldRNum);
+            statement.setInt(4, oldRNum);
             statement.executeUpdate();
             // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
             // room.getR_type(),
@@ -219,7 +217,7 @@ public class RoomsDB {
             String sql = "SELECT * FROM `room`";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Room room = new Room(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+                Room room = new Room(rs.getInt(1), rs.getInt(2), rs.getString(3));
                 rooms.add(room);
             }
         } catch (SQLException e) {

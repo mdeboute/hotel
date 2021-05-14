@@ -10,9 +10,10 @@ public class Booking {
     private Date b_till;
     private int b_fee;
     private int b_is_paid;
+    private int c_ss_number;
 
 
-    public Booking(int b_id, int r_num, int paid_by_card, Date b_from, Date b_till, int b_fee, int b_is_paid) {
+    public Booking(int b_id, int r_num, int paid_by_card, Date b_from, Date b_till, int b_fee, int b_is_paid, int c_ss_number) {
         this.b_id = b_id;
         this.r_num = r_num;
         this.paid_by_card = paid_by_card;
@@ -20,6 +21,7 @@ public class Booking {
         this.b_till = b_till;
         this.b_fee = b_fee;
         this.b_is_paid = b_is_paid;
+        this.c_ss_number = c_ss_number;
     }
 
     public int getB_id() {
@@ -78,6 +80,14 @@ public class Booking {
         this.b_is_paid = b_is_paid;
     }
 
+    public int getC_ss_number() {
+        return c_ss_number;
+    }
+
+    public void setC_ss_number(int c_ss_number) {
+        this.c_ss_number = c_ss_number;
+    }
+
     public String is_paid() {
         if (b_is_paid == 1) return "yes";
         return "no";
@@ -102,6 +112,7 @@ public class Booking {
                 ", b_till=" + b_till +
                 ", b_fee=" + b_fee +
                 ", b_is_paid=" + b_is_paid +
+                ", c_ss_number=" + c_ss_number +
                 '}';
     }
 }

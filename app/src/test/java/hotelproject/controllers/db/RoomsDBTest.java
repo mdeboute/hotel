@@ -22,7 +22,7 @@ public class RoomsDBTest {
     private final DatabaseManager dbm = new DatabaseManager();
     private final ArrayList<String> log = new ArrayList<>();
     private final int r_num = 666;
-    private final Room testRoom1 = new Room(r_num, 6, "Hexagonal", 1);
+    private final Room testRoom1 = new Room(r_num, 6, "Hexagonal");
     private final String t_name1 = "Hexagonal"; // generateRandomString();
     private final RoomType testRoomType1 = new RoomType(t_name1, 1, 1, 1, 1, 1, 1, 1, 1);
     private final String t_name2 = "Heptagonal"; // generateRandomString();

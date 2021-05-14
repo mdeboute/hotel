@@ -16,11 +16,11 @@ import javafx.util.Callback;
 public class UpdateBookingView extends View {
 
   private final TextField newRoom = new TextField();
-  private final CheckBox newPayment = new CheckBox("Paid by card?");
+  private final CheckBox newPayment = new CheckBox("Paid by card ?");
   private final DatePicker newCheckIn = new DatePicker();
   private final DatePicker newCheckOut = new DatePicker();
   private final TextField newFee = new TextField();
-  private final CheckBox newIsPaid = new CheckBox("Is paid?");
+  private final CheckBox newIsPaid = new CheckBox("Is paid ?");
 
   private Button submit;
 

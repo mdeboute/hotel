@@ -4,16 +4,14 @@ public class Room {
     private int r_num;
     private int r_floor;
     private String r_type;
-    private int booked;
 
     public Room() {
     }
 
-    public Room(int r_num, int r_floor, String r_type, int booked) {
+    public Room(int r_num, int r_floor, String r_type) {
         this.r_num = r_num;
         this.r_floor = r_floor;
         this.r_type = r_type;
-        this.booked = booked;
     }
 
     public int getR_num() {
@@ -40,19 +38,6 @@ public class Room {
         this.r_type = r_type;
     }
 
-    public int getBooked() {
-        return booked;
-    }
-
-    public void setBooked(int booked) {
-        this.booked = booked;
-    }
-
-    public String is_booked() {
-        if (booked == 1) return "yes";
-        return "no";
-    }
-
     /**
      * @return attribute information as a String
      * @brief Returns attribute information as a String
@@ -63,7 +48,6 @@ public class Room {
                 "r_num=" + r_num +
                 ", r_floor=" + r_floor +
                 ", r_type=" + r_type +
-                ", booked=" + booked +
                 '}';
     }
 }

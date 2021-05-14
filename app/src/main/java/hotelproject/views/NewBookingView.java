@@ -19,6 +19,7 @@ public class NewBookingView extends View {
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
+    private final TextField c_ss_number = new TextField();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
     private final String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
@@ -99,12 +100,15 @@ public class NewBookingView extends View {
         Label bookingFeeL = changeLabelDesign(new Label("Booking fee: "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(bookingFeeL, 0, 3);
         pane.add(bookingFee, 1, 3);
+        Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
+        pane.add(bookingCSSL, 0, 4);
+        pane.add(c_ss_number, 1, 4);
         paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
         paidByCard.setTextFill(Paint.valueOf("white"));
-        pane.add(paidByCard, 0, 4);
+        pane.add(paidByCard, 0, 5);
         isPaid.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
         isPaid.setTextFill(Paint.valueOf("white"));
-        pane.add(isPaid, 0, 5);
+        pane.add(isPaid, 0, 6);
 
         //pane.getChildren().forEach(e -> e.setPadding(new Insets(15, 15, 25, 15)));
         return pane;
@@ -154,4 +158,7 @@ public class NewBookingView extends View {
         return cancel;
     }
 
+    public TextField getC_ss_number() {
+        return c_ss_number;
+    }
 }

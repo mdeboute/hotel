@@ -22,7 +22,6 @@ CREATE TABLE `hotel`.`room` (
   `r_num` SMALLINT NOT NULL,
   `r_floor` TINYINT NULL,
   `r_type` VARCHAR(30) NULL,
-  `booked` TINYINT NULL,
   PRIMARY KEY (`r_num`),
   FOREIGN KEY (`r_type`) REFERENCES room_type(`t_name`));
 
@@ -34,8 +33,8 @@ CREATE TABLE `hotel`.`booking` (
   `b_till` DATE NOT NULL,
   `b_fee` INT NULL,
   `b_is_paid` TINYINT NULL,
-  PRIMARY KEY (`b_id`),
-  FOREIGN KEY (`r_num`) REFERENCES room(`r_num`));
+  `c_ss_number` INT NULL,
+  PRIMARY KEY (`b_id`));
 
 CREATE TABLE `hotel`.`customer` (
   `c_ss_number` INT NOT NULL,
@@ -44,13 +43,6 @@ CREATE TABLE `hotel`.`customer` (
   `c_phone_num` INT NOT NULL,
   `c_email` VARCHAR(100) NULL,
   PRIMARY KEY (`c_ss_number`));
-
-CREATE TABLE `hotel`.`customer_booking` (
-  `customer_ss_number` INT NOT NULL,
-  `booking_id` INT NOT NULL,
-  PRIMARY KEY (`customer_ss_number`, `booking_id`),
-  FOREIGN KEY (`customer_ss_number`) REFERENCES customer(`c_ss_number`),
-  FOREIGN KEY (`booking_id`) REFERENCES booking(`b_id`));
 
 
 INSERT INTO `hotel`.`room_type`(
@@ -86,166 +78,165 @@ VALUES
   ('Quad', 4, 70, 1, 1, 1, 1, 1, 1);
 
 
-
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (1, 1, 'Single', 0);
+  (1, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (2, 1, 'Single', 0);
+  (2, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (3, 1, 'Double', 0);
+  (3, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (4, 1, 'Double', 0);
+  (4, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (5, 2, 'Single', 1);
+  (5, 2, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (6, 1, 'Single', 0);
+  (6, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (7, 1, 'Double', 0);
+  (7, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (8, 1, 'Single', 0);
+  (8, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (9, 1, 'Single', 0);
+  (9, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (10, 1, 'Double', 0);
+  (10, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (11, 1, 'Double', 0);
+  (11, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (12, 1, 'Double', 0);
+  (12, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (13, 1, 'Double', 0);
+  (13, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (14, 1, 'Single', 0);
+  (14, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (15, 1, 'Single', 0);
+  (15, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (16, 1, 'Single', 0);
+  (16, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (17, 1, 'Single', 0);
+  (17, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (18, 1, 'Double', 0);
+  (18, 1, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (19, 1, 'Single', 0);
+  (19, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (20, 1, 'Single', 0);
+  (20, 1, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (21, 2, 'Triple', 0);
+  (21, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (22, 2, 'Triple', 0);
+  (22, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (23, 2, 'Triple', 0);
+  (23, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (24, 2, 'Triple', 0);
+  (24, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (25, 2, 'Triple', 0);
+  (25, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (26, 2, 'Double', 0);
+  (26, 2, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (27, 2, 'Double', 0);
+  (27, 2, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (28, 2, 'Double', 0);
+  (28, 2, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (29, 2, 'Single', 0);
+  (29, 2, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (30, 2, 'Single', 0);
+  (30, 2, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (31, 2, 'Quad', 0);
+  (31, 2, 'Quad');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (32, 2, 'Quad', 0);
+  (32, 2, 'Quad');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (33, 2, 'Quad', 0);
+  (33, 2, 'Quad');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (34, 2, 'Triple', 0);
+  (34, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (35, 2, 'Triple', 0);
+  (35, 2, 'Triple');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (36, 2, 'Double', 0);
+  (36, 2, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (37, 2, 'Double', 0);
+  (37, 2, 'Double');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (38, 2, 'Single', 0);
+  (38, 2, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (39, 2, 'Single', 0);
+  (39, 2, 'Single');
 
-INSERT INTO `hotel`.`room`(r_num, r_floor, r_type, booked)
+INSERT INTO `hotel`.`room`(r_num, r_floor, r_type)
 VALUES
-  (40, 2, 'Quad', 0);
+  (40, 2, 'Quad');
 
 
 INSERT INTO `hotel`.`customer`(
@@ -448,47 +439,6 @@ VALUES
     10, 10, 1, '2021-05-30', '2021-06-05',
     2000, 1
   );
-
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (46040774, 1);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (72091719, 2);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (82012909, 3);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (84031956, 4);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (86050868, 5);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (89012362, 6);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (89022742, 7);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (90040526, 8);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (94080245, 9);
-
-INSERT INTO `hotel`.`customer_booking`(customer_ss_number, booking_id)
-VALUES
-  (98112434, 10);
 
 
 INSERT INTO `hotel`.`users`(u_name, u_password, u_is_admin)

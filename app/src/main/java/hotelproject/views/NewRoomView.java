@@ -17,7 +17,6 @@ public class NewRoomView extends View {
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
     private final Button addRoomType = new Button("Add type");
-    private final CheckBox booked = new CheckBox("Is booked ?");
     private Button submit;
 
     public NewRoomView(DatabaseManager dbm) {
@@ -49,7 +48,6 @@ public class NewRoomView extends View {
 
         pane.add(roomType, 1, 4);
         pane.add(addRoomType, 2, 4);
-        pane.add(booked, 0, 5);
 
         submit = new Button("Submit");
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
@@ -71,10 +69,6 @@ public class NewRoomView extends View {
 
     public Button getSubmit() {
         return submit;
-    }
-
-    public CheckBox getBooked() {
-        return booked;
     }
 
     public TextField getFloor() {
