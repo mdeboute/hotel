@@ -22,7 +22,6 @@ CREATE TABLE `hotel`.`room` (
   `r_num` SMALLINT NOT NULL,
   `r_floor` TINYINT NULL,
   `r_type` VARCHAR(30) NULL,
-  `booked` TINYINT NULL,
   PRIMARY KEY (`r_num`),
   FOREIGN KEY (`r_type`) REFERENCES room_type(`t_name`));
 
