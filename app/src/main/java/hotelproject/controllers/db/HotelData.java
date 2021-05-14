@@ -2,6 +2,7 @@ package hotelproject.controllers.db;
 
 import hotelproject.controllers.objects.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -72,6 +73,23 @@ public class HotelData {
                 break;
             }
         }
+    }
+
+    public ArrayList<Integer> availableRooms(Date checkIn, Date checkOut) {
+
+        ArrayList<Integer> allRooms = dbm.rdb.findAllRoomNums();
+        ArrayList<Integer> allBookedRooms = dbm.rdb.findAllBookedRooms(checkIn, checkOut);
+
+        ArrayList<Integer> union = new ArrayList<Integer>(allRooms);
+        union.addAll(allBookedRooms);
+
+        ArrayList<Integer> intersection = new ArrayList<Integer>(allRooms);
+
+        intersection.retainAll(allBookedRooms);
+        union.removeAll(intersection);
+
+        // return the union after intersection
+        return union;
     }
 
     public Hashtable<String, String> viewDetails(Room room) {
