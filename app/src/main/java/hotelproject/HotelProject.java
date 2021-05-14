@@ -1,5 +1,6 @@
 package hotelproject;
 
+import com.mysql.cj.util.StringUtils;
 import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.*;
@@ -10,6 +11,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -41,6 +43,16 @@ public class HotelProject extends Application {
     public void start(Stage primaryStage) {
         Stage secondaryStage = new Stage();
         credentialsDisplay(secondaryStage, primaryStage, false);
+    }
+
+    public static boolean isNumeric(String str) {
+        try {
+            //Double.parseDouble(str);
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
     /**
@@ -330,6 +342,115 @@ public class HotelProject extends Application {
         NewBookingView newBookingViewPage = new NewBookingView(dbm);
         Stage newBookingStage = new Stage();
 
+        int MIN_ROOM_NUMBER = 1;
+        int MAX_ROOM_NUMBER = 40;
+        int MIN_BOOKING_FEE = 0;
+        int MAX_BOOKING_FEE = 1000000;
+
+        Alert warningRoomNumber = new Alert(AlertType.WARNING, String.format("Enter a number, greater than or equal to %d and smaller than or equal to %d.",MIN_ROOM_NUMBER, MAX_ROOM_NUMBER));
+        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
+
+        // Error handling
+        if (newBookingViewPage.getNumRoom().getText() == "" ||
+            newBookingViewPage.getBookingFee().getText() == "" ||
+            newBookingViewPage.getCheckIn().getValue() == null ||
+            newBookingViewPage.getCheckOut().getValue() == null ||
+            newBookingViewPage.getC_ss_number().getValue() == null) {
+            newBookingViewPage.getSubmit().setDisable(true);
+        } else {
+            newBookingViewPage.getSubmit().setDisable(false);
+        }
+
+        // Error handling
+        newBookingViewPage.getNumRoom().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isNumeric(newValue) ||
+                Integer.parseInt(newValue) < MIN_ROOM_NUMBER ||
+                Integer.parseInt(newValue) > MAX_ROOM_NUMBER) {
+                newBookingViewPage.getSubmit().setDisable(true);
+                warningRoomNumber.showAndWait();
+            } else {
+                if (newBookingViewPage.getNumRoom().getText() != "" &&
+                    newBookingViewPage.getBookingFee().getText() != "" &&
+                    isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                    newBookingViewPage.getCheckIn().getValue() != null &&
+                    newBookingViewPage.getCheckOut().getValue() != null &&
+                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                    newBookingViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        // Error handling
+        newBookingViewPage.getBookingFee().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isNumeric(newValue) ||
+                Integer.parseInt(newValue) < MIN_BOOKING_FEE ||
+                Integer.parseInt(newValue) > MAX_BOOKING_FEE ) {
+                newBookingViewPage.getSubmit().setDisable(true);
+                warningBookingFee.showAndWait();
+            } else {
+                if (newBookingViewPage.getNumRoom().getText() != "" &&
+                    newBookingViewPage.getBookingFee().getText() != "" &&
+                    isNumeric(newBookingViewPage.getNumRoom().getText()) &&
+                    Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
+                    Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
+                    newBookingViewPage.getCheckIn().getValue() != null &&
+                    newBookingViewPage.getCheckOut().getValue() != null &&
+                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                    newBookingViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        // Error handling
+        newBookingViewPage.getCheckIn().valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newBookingViewPage.getNumRoom().getText() != "" &&
+                newBookingViewPage.getBookingFee().getText() != "" &&
+                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
+                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                newBookingViewPage.getCheckOut().getValue() != null &&
+                newBookingViewPage.getC_ss_number().getValue() != null) {
+                newBookingViewPage.getSubmit().setDisable(false);
+            }
+        });
+
+        // Error handling
+        newBookingViewPage.getCheckOut().valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newBookingViewPage.getNumRoom().getText() != "" &&
+                newBookingViewPage.getBookingFee().getText() != "" &&
+                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
+                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                newBookingViewPage.getCheckIn().getValue() != null &&
+                newBookingViewPage.getC_ss_number().getValue() != null) {
+                newBookingViewPage.getSubmit().setDisable(false);
+            }
+        });
+
+        // Error handling
+        newBookingViewPage.getC_ss_number().valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newBookingViewPage.getNumRoom().getText() != "" &&
+                newBookingViewPage.getBookingFee().getText() != "" &&
+                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
+                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
+                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                newBookingViewPage.getCheckIn().getValue() != null &&
+                newBookingViewPage.getCheckOut().getValue() != null) {
+                newBookingViewPage.getSubmit().setDisable(false);
+            }
+        });
+
         // set buttons on action
 
         newBookingViewPage.getSubmit().setOnAction(e -> {
@@ -480,44 +601,6 @@ public class HotelProject extends Application {
             return row;
         });
 
-        /*
-        DatePicker dated = bookingsViewPage.getDatePicker();
-
-        dated.setOnAction(e -> {
-            Stage newWindow = new Stage();
-            ListView<Integer> bIDListView = new ListView<>();
-
-            LocalDate datePicked = dated.getValue();
-            Date sqlDate = java.sql.Date.valueOf(datePicked);
-
-            String formattedDate = formatter.format(sqlDate);
-            ArrayList<Integer> bookingIDS = dbm.bdb.getBookingsForSpecificDay(formattedDate);
-
-            for (int bID : bookingIDS) {
-                bIDListView.getItems().add(bID);
-            }
-
-
-            GridPane secBLayout = new GridPane();
-            secBLayout.getChildren().add(bIDListView);
-
-            Scene secondScene = new Scene(secBLayout, 300, 300);
-
-            // New window (Stage) Stage newWindow = new Stage();
-            newWindow.setTitle("Bookings available");
-            newWindow.setScene(secondScene);
-
-            // Set position of second window, related to primary window.
-            newWindow.setX(bookingsStage.getX() + 200);
-            newWindow.setY(bookingsStage.getY() + 100);
-
-            newWindow.show();
-
-
-
-        });
-
-        */
 
         bookingsStage.setScene(bookingsViewPage.getScene());
         bookingsStage.setTitle("Hotel Manager - Bookings");

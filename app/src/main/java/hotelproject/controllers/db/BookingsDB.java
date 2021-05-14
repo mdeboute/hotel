@@ -24,6 +24,7 @@ public class BookingsDB {
         ArrayList<Booking> bookings = new ArrayList<>();
         try {
             String sql = "SELECT * FROM `booking`";
+            
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();

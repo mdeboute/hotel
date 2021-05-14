@@ -29,6 +29,7 @@ public class BookingsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Booking> bookings;
 
+
     // The scene's nodes
     private final TableView<Booking> bookingsTable = new TableView<>();
     private final DatePicker startDatePicker = new DatePicker(); // private final DatePicker date = new DatePicker();
