@@ -526,7 +526,7 @@ public class HotelProject extends Application {
     private void roomsDisplay() {
 
         ArrayList<Room> rooms = hdata.getRooms();
-        RoomsView roomsViewPage = new RoomsView(connectedUser, rooms);
+        RoomsView roomsViewPage = new RoomsView(connectedUser, rooms, hdata);
         Stage roomsStage = new Stage();
 
         // admins can add, update or delete a room through the context menu

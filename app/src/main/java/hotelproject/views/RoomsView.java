@@ -1,5 +1,6 @@
 package hotelproject.views;
 
+import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.Room;
 import hotelproject.controllers.objects.User;
 import javafx.collections.FXCollections;
@@ -14,7 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomsView extends View {
@@ -23,16 +28,20 @@ public class RoomsView extends View {
 
     // The user connected to the application
     private final User user;
+    private final HotelData hdata; 
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
     private final String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
     private final String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
     private Button addRoom;
+    private DatePicker startDatePicker = new DatePicker();
+    private DatePicker endDatePicker = new DatePicker();
 
-    public RoomsView(User user, List<Room> rooms) {
+    public RoomsView(User user, List<Room> rooms, HotelData hdata) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
+        this.hdata = hdata; 
         createScene();
     }
 
@@ -102,6 +111,76 @@ public class RoomsView extends View {
             }
         });
 
+        startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            final Callback<DatePicker, DateCell> dayCellFactory = new Callback<>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(startDatePicker.getValue())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                        }
+                    };
+                }
+            };
+            endDatePicker.setDayCellFactory(dayCellFactory);
+        });
+
+        endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (startDatePicker.getValue() != null && startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+                startDatePicker.setValue(endDatePicker.getValue());
+            }
+            if (startDatePicker.getValue() != null) {
+                flRoom.setPredicate(item -> {
+                    // If filter text is empty, display all items.
+                    LocalDate leftEndpoint = startDatePicker.getValue();
+                    LocalDate rightEndpoint = endDatePicker.getValue();
+
+                    Date datePicked = Date.valueOf(leftEndpoint);
+                    Date secondDatePicked = Date.valueOf(rightEndpoint);
+
+                    ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
+
+                    for (int rNum : availableRooms) {
+                        if (rNum == item.getR_num()) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+            }
+        });
+
+        startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (endDatePicker.getValue() != null && endDatePicker.getValue().isBefore(startDatePicker.getValue())) {
+                endDatePicker.setValue(startDatePicker.getValue());
+            }
+            if (endDatePicker.getValue() != null) {
+                flRoom.setPredicate(item -> {
+                    // If filter text is empty, display all items.
+                    LocalDate leftEndpoint = startDatePicker.getValue();
+                    LocalDate rightEndpoint = endDatePicker.getValue();
+
+                    Date datePicked = Date.valueOf(leftEndpoint);
+                    Date secondDatePicked = Date.valueOf(rightEndpoint);
+
+                    ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
+
+                    for (int rNum : availableRooms) {
+                        if (rNum == item.getR_num()) {
+                            return true;
+                        }
+                    }
+                    return false;
+                });
+            }
+        });
+
         // When the new choice is selected we reset
         whatToSearch.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -115,6 +194,8 @@ public class RoomsView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, HPos.CENTER);
         pane.add(search, 0, 2);
+        pane.add(startDatePicker, 0, 3); 
+        pane.add(endDatePicker, 1, 3);
         pane.add(roomsTable, 0, 4);
         addRoom = createButton(35, idlePathAddRoom, hoverPathAddRoom);
         addRoom.setVisible(false);

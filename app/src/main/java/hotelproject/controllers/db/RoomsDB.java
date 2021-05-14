@@ -265,4 +265,50 @@ public class RoomsDB {
         return false;
     }
 
+    /**
+     * @return list filled with all booked room numbers collected from the database
+     * @brief Search all current booked rooms and return as ArrayList
+     */
+    public ArrayList<Integer> findAllBookedRooms(Date checkIn, Date checkOut) {
+        ArrayList<Integer> bookedRNums = new ArrayList<>();
+        try {
+            String sql = "SELECT r.r_num FROM room as r JOIN booking as b ON r.r_num = b.r_num "
+                    + "WHERE b.b_from <= ? AND b.b_till >= ?";
+            String firstDate = checkIn.toString();
+            String secondDate = checkOut.toString();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, firstDate);
+            stmt.setString(2, secondDate);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                bookedRNums.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookedRNums;
+    }
+
+    /**
+     * @return list filled with all room numbers collected from the database
+     * @brief Search all current available rooms and return as ArrayList
+     */
+    public ArrayList<Integer> findAllRoomNums() {
+        ArrayList<Integer> roomNumbers = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT r_num FROM `room`";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                roomNumbers.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomNumbers;
+    }
+
+    
+
 }
