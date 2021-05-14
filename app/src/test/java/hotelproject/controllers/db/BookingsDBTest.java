@@ -61,7 +61,7 @@ public class BookingsDBTest {
         for (String o : keys) {
             values.add(bookingDetails.get(o));
         }
-        Assert.assertEquals(values.size(),7);
+        Assert.assertEquals(values.size(),8);
     }
 
 
