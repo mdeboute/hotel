@@ -124,7 +124,7 @@ public class BookingsView extends View {
         bIPCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_paid()));
 
         TableColumn<Booking, String> bCNCol = new TableColumn<>("Customer number");
-        bCNCol.setMinWidth(120);
+        bCNCol.setMinWidth(130);
         bCNCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
 
         // Create a filtered list to put the rooms as items in the table
