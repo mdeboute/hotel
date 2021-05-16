@@ -916,8 +916,8 @@ public class HotelProject extends Application {
         int LENGTH_PERSONAL_NUMBER = 8;
         int LENGTH_PHONE_NUMBER = 9;
 
-        Alert warningPersonalNumber = new Alert(AlertType.WARNING, "Enter a number consisting of 8 digits.");
-        Alert warningPhoneNumber = new Alert(AlertType.WARNING, "Enter a number consisting of 9 digits.");
+        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.",LENGTH_PERSONAL_NUMBER));
+        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.",LENGTH_PHONE_NUMBER));
 
         // Error handling
         if (newCustomerViewPage.getCSSNum().getText() == "" ||
