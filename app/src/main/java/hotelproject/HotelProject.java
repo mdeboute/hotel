@@ -367,7 +367,6 @@ public class HotelProject extends Application {
                 Integer.parseInt(newValue) < MIN_ROOM_NUMBER ||
                 Integer.parseInt(newValue) > MAX_ROOM_NUMBER) {
                 newBookingViewPage.getSubmit().setDisable(true);
-                warningRoomNumber.showAndWait();
             } else {
                 if (newBookingViewPage.getNumRoom().getText() != "" &&
                     newBookingViewPage.getBookingFee().getText() != "" &&
@@ -380,6 +379,12 @@ public class HotelProject extends Application {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
             }
+            if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
+                (!isNumeric(newValue) && oldValue == "") ||
+                (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_ROOM_NUMBER || Integer.parseInt(newValue) > MAX_ROOM_NUMBER) &&
+                    (Integer.parseInt(oldValue) >= MIN_ROOM_NUMBER && Integer.parseInt(oldValue) <= MAX_ROOM_NUMBER))) {
+                warningRoomNumber.showAndWait();
+            }
         });
 
         // Error handling
@@ -388,7 +393,6 @@ public class HotelProject extends Application {
                 Integer.parseInt(newValue) < MIN_BOOKING_FEE ||
                 Integer.parseInt(newValue) > MAX_BOOKING_FEE ) {
                 newBookingViewPage.getSubmit().setDisable(true);
-                warningBookingFee.showAndWait();
             } else {
                 if (newBookingViewPage.getNumRoom().getText() != "" &&
                     newBookingViewPage.getBookingFee().getText() != "" &&
@@ -400,6 +404,12 @@ public class HotelProject extends Application {
                     newBookingViewPage.getC_ss_number().getValue() != null) {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
+            }
+            if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
+                (!isNumeric(newValue) && oldValue == "") ||
+                (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_BOOKING_FEE || Integer.parseInt(newValue) > MAX_BOOKING_FEE) &&
+                    (Integer.parseInt(oldValue) >= MIN_BOOKING_FEE && Integer.parseInt(oldValue) <= MAX_BOOKING_FEE))) {
+                warningBookingFee.showAndWait();
             }
         });
 
