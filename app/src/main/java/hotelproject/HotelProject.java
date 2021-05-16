@@ -913,6 +913,113 @@ public class HotelProject extends Application {
         NewCustomerView newCustomerViewPage = new NewCustomerView();
         Stage newCustomerStage = new Stage();
 
+        int LENGTH_PERSONAL_NUMBER = 8;
+        int LENGTH_PHONE_NUMBER = 9;
+
+        Alert warningPersonalNumber = new Alert(AlertType.WARNING, "Enter a number consisting of 8 digits.");
+        Alert warningPhoneNumber = new Alert(AlertType.WARNING, "Enter a number consisting of 9 digits.");
+
+        // Error handling
+        if (newCustomerViewPage.getCSSNum().getText() == "" ||
+            newCustomerViewPage.getCAddress().getText() == "" ||
+            newCustomerViewPage.getCFullName().getText() == "" ||
+            newCustomerViewPage.getCPhoneNum().getText() == "" ||
+            newCustomerViewPage.getCEmail().getText() == "") {
+            newCustomerViewPage.getSubmit().setDisable(true);
+        } else {
+            newCustomerViewPage.getSubmit().setDisable(false);
+        }
+
+        // Error handling
+        newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isNumeric(newValue) ||
+                newValue.length() != LENGTH_PERSONAL_NUMBER) {
+                newCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (newCustomerViewPage.getCAddress().getText() != "" &&
+                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
+                    newCustomerViewPage.getCEmail().getText() != "") {
+                    newCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+            if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
+                (!isNumeric(newValue) && oldValue == "") ||
+                (newValue.length() != LENGTH_PERSONAL_NUMBER && oldValue.length() == LENGTH_PERSONAL_NUMBER)) {
+                warningPersonalNumber.showAndWait();
+            }
+        });
+
+        // Error handling
+        newCustomerViewPage.getCAddress().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == "") {
+                newCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
+                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
+                    newCustomerViewPage.getCEmail().getText() != "") {
+                    newCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        // Error handling
+        newCustomerViewPage.getCFullName().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == "") {
+                newCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
+                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                    newCustomerViewPage.getCAddress().getText() != "" &&
+                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
+                    newCustomerViewPage.getCEmail().getText() != "") {
+                    newCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        // Error handling
+        newCustomerViewPage.getCPhoneNum().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isNumeric(newValue) ||
+                newValue.length() != LENGTH_PHONE_NUMBER) {
+                newCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
+                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                    newCustomerViewPage.getCAddress().getText() != "" &&
+                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    newCustomerViewPage.getCEmail().getText() != "") {
+                    newCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+            if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
+                (!isNumeric(newValue) && oldValue == "") ||
+                (newValue.length() != LENGTH_PHONE_NUMBER && oldValue.length() == LENGTH_PHONE_NUMBER)) {
+                warningPhoneNumber.showAndWait();
+            }
+        });
+
+        // Error handling
+        newCustomerViewPage.getCEmail().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == "") {
+                newCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
+                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                    newCustomerViewPage.getCAddress().getText() != "" &&
+                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER) {
+                    newCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
         // set buttons on action
 
         newCustomerViewPage.getSubmit().setOnAction(e -> {
