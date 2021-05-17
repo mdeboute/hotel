@@ -256,7 +256,7 @@ public class HotelProject extends Application {
 
             RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
                     hasTv, hasCoffeeMkr);
-            dbm.rdb.addRoomType(newRoomType);
+            hdata.addRoomType(newRoomType);
 
             newRoomDisplay(addTypeStage);
         });
@@ -275,7 +275,7 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newRoomDisplay(Stage formerStage) {
-        NewRoomView newRoomViewPage = new NewRoomView(dbm);
+        NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
         // set buttons on action

@@ -2,6 +2,8 @@ package hotelproject.views;
 
 import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.RoomType;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -32,9 +34,35 @@ public class UpdateRoomView extends View {
         Label numRoomL = new Label("New room number: ");
         pane.add(numRoomL, 0, 1);
         pane.add(numRoom, 1, 1);
+
+        numRoom.setPromptText("1-256"); // to set the hint text
+        numRoom.getParent().requestFocus();
+
+        // force the field to be numeric only
+        numRoom.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+            if (!newValue.matches("(?:[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])")) {
+                Platform.runLater(() -> {
+                    numRoom.clear();
+                });
+            }
+        });
+
         Label floorL = new Label("New floor: ");
         pane.add(floorL, 0, 2);
         pane.add(floor, 1, 2);
+
+        floor.setPromptText("1-10"); // to set the hint text
+        floor.getParent().requestFocus();
+
+        // force the field to be numeric only
+        floor.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+            if (!newValue.matches("(?:[1-9]|10)")) {
+                Platform.runLater(() -> {
+                    floor.clear();
+                });
+            }
+        });
+
         Label type = new Label("Room type: ");
         pane.add(type, 0, 3);
 
