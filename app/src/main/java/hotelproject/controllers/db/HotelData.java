@@ -80,10 +80,10 @@ public class HotelData {
         ArrayList<Integer> allRooms = dbm.rdb.findAllRoomNums();
         ArrayList<Integer> allBookedRooms = dbm.rdb.findAllBookedRooms(checkIn, checkOut);
 
-        ArrayList<Integer> union = new ArrayList<Integer>(allRooms);
+        ArrayList<Integer> union = new ArrayList<>(allRooms);
         union.addAll(allBookedRooms);
 
-        ArrayList<Integer> intersection = new ArrayList<Integer>(allRooms);
+        ArrayList<Integer> intersection = new ArrayList<>(allRooms);
 
         intersection.retainAll(allBookedRooms);
         union.removeAll(intersection);
