@@ -80,7 +80,7 @@ public class HotelProject extends Application {
 
         //set login button on action
         loginView.getTestLoginButton().setOnAction(e -> {
-            User userTest = new User(loginView.getUsername().getText(), loginView.getPassword().getText());
+            User userTest = new User(loginView.getUsername().getText().trim(), loginView.getPassword().getText());
             try {
                 if (!onlyPwd) { // login
                     if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct password
@@ -162,12 +162,15 @@ public class HotelProject extends Application {
      *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
+        
+        myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
         // to save the modifications
         updateInfoPage.getSave().setOnAction(e -> {
             String oldUsername = connectedUser.getU_name();
-
+            boolean isInfoCorrect = true;
+            
             if (change == Change.USERNAME) {
                 String firstUsername = updateInfoPage.getFirstUName().getText();
                 String secondUsername = updateInfoPage.getSecondUName().getText();
@@ -175,6 +178,9 @@ public class HotelProject extends Application {
                     connectedUser.setU_name(firstUsername);
                 } else {
                     updateInfoPage.setOutput("First and second input for usernames are not equal !");
+                    updateInfoPage.getFirstUName().setText("");
+                    updateInfoPage.getSecondUName().setText("");
+                    isInfoCorrect = false;
                 }
             } else {
                 String firstPassword = updateInfoPage.getFirstPwd().getText();
@@ -184,6 +190,9 @@ public class HotelProject extends Application {
                     connectedUser.setU_password(firstPassword);
                 } else {
                     updateInfoPage.setOutput("First and second input for passwords are not equal !");
+                    updateInfoPage.getFirstPwd().setText("");
+                    updateInfoPage.getSecondPwd().setText("");
+                    isInfoCorrect = false;
                 }
             }
 
@@ -194,8 +203,10 @@ public class HotelProject extends Application {
                 throwables.printStackTrace();
             }
 
-            myPageDisplay();
-            updateInfoStage.close();
+            if(isInfoCorrect){
+                myPageDisplay();
+                updateInfoStage.close();
+            }
 
         });
 
