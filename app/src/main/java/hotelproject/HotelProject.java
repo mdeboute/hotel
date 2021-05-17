@@ -275,6 +275,7 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newRoomDisplay(Stage formerStage) {
+        ArrayList<Room> rooms = hdata.getRooms();
         NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
@@ -288,11 +289,28 @@ public class HotelProject extends Application {
             String roomType = newRoomViewPage.getRoomType().getValue();
 
             Room newRoom = new Room(roomNb, roomFloor, roomType);
-            hdata.addRoom(newRoom);
+            
+            boolean flag = true;
+            
+            for (Room r: rooms) {
+                if (r.getR_num() == newRoom.getR_num()) {
+                    flag = false;
+                    
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Room already exists. Add a different one or update existing!");
+                    a.showAndWait();
 
-            newRoomStage.close();
-            formerStage.close();
-            roomsDisplay();
+                    break;
+                } else {
+                    // do nothing
+                }
+            }
+                if (flag) {
+                    hdata.addRoom(newRoom);
+                    newRoomStage.close();
+                    formerStage.close();
+                    roomsDisplay();
+                }
         });
 
         newRoomStage.setOnCloseRequest(e -> newRoomStage.close());
