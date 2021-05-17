@@ -87,8 +87,8 @@ public class UpdateInfoView extends View {
             createTextFields(firstPwd, secondPwd, pane);
         }
 
-        pane.add(save, 1, 9);
-        pane.add(output, 0, 10);
+        pane.add(output, 0, 9);
+        pane.add(save, 1, 10);
 
         return pane;
     }
