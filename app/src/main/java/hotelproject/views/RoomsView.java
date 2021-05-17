@@ -194,8 +194,9 @@ public class RoomsView extends View {
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, HPos.CENTER);
         pane.add(search, 0, 2);
-        pane.add(startDatePicker, 0, 3); 
-        pane.add(endDatePicker, 1, 3);
+        HBox dateRange = new HBox(startDatePicker, endDatePicker);
+        dateRange.setAlignment(Pos.CENTER);
+        pane.add(dateRange, 0, 3);
         pane.add(roomsTable, 0, 4);
         addRoom = createButton(35, idlePathAddRoom, hoverPathAddRoom);
         addRoom.setVisible(false);
