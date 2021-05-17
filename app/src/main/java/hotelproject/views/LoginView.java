@@ -38,8 +38,9 @@ public class LoginView extends View {
         VBox header = createHeader();
         scenePane.add(header, 0, 0);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+
         if (onlyPwd) {
-            scenePane.setVgap(60);
+            //scenePane.setVgap(60);
         }
 
         GridPane body = createBody();
@@ -47,24 +48,42 @@ public class LoginView extends View {
         GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
         scenePane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
-        scene = new Scene(scenePane, 476, 610);
+
+        int height;
+        if (onlyPwd) {
+            height = 250;
+        } else {
+            height = 610;
+        }
+        scene = new Scene(scenePane, 476, height);
     }
 
     private VBox createHeader() {
-        Image logoImg = new Image("file:assets/img/ui_dev_pack/main_menu/logo_hotel.png");
-        ImageView logo = new ImageView(logoImg);
-        logo.setPreserveRatio(true);
-        logo.setFitWidth(100.0);
-        logo.setFitHeight(125.0);
+        VBox header;
+        if (!onlyPwd) {
+            Image logoImg = new Image("file:assets/img/ui_dev_pack/main_menu/logo_hotel.png");
+            ImageView logo = new ImageView(logoImg);
+            logo.setPreserveRatio(true);
+            logo.setFitWidth(100.0);
+            logo.setFitHeight(125.0);
 
-        Image welcomeImg = new Image("file:assets/img/ui_dev_pack/login_page/text_welcome.png");
-        ImageView welcome = new ImageView(welcomeImg);
-        welcome.setPreserveRatio(true);
+            Image welcomeImg = new Image("file:assets/img/ui_dev_pack/login_page/text_welcome.png");
+            ImageView welcome = new ImageView(welcomeImg);
+            welcome.setPreserveRatio(true);
 
-        VBox header = new VBox(logo, welcome);
+            header = new VBox(logo, welcome);
+            header.setPadding(new Insets(10.0, 10.0, 35.0, 10.0));
+            header.setSpacing(5.5);
+        } else {
+            credentials.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
+            credentials.setStyle("-fx-font-weight: bold;");
+            credentials.setTextFill(Paint.valueOf("bb86fc"));
+
+            header = new VBox(credentials);
+            header.setPadding(new Insets(30.0, 10.0, 5.0, 10.0));
+            header.setSpacing(5.5);
+        }
         header.setAlignment(Pos.CENTER);
-        header.setPadding(new Insets(10.0, 10.0, 35.0, 10.0));
-        header.setSpacing(5.5);
 
         return header;
     }
