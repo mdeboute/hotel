@@ -1,6 +1,5 @@
 package hotelproject;
 
-import com.mysql.cj.util.StringUtils;
 import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.*;
@@ -362,8 +361,8 @@ public class HotelProject extends Application {
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
         // Error handling
-        if (newBookingViewPage.getNumRoom().getText() == "" ||
-            newBookingViewPage.getBookingFee().getText() == "" ||
+        if (newBookingViewPage.getNumRoom().getText().equals("") ||
+            newBookingViewPage.getBookingFee().getText().equals("") ||
             newBookingViewPage.getCheckIn().getValue() == null ||
             newBookingViewPage.getCheckOut().getValue() == null ||
             newBookingViewPage.getC_ss_number().getValue() == null) {
@@ -379,8 +378,8 @@ public class HotelProject extends Application {
                 Integer.parseInt(newValue) > MAX_ROOM_NUMBER) {
                 newBookingViewPage.getSubmit().setDisable(true);
             } else {
-                if (newBookingViewPage.getNumRoom().getText() != "" &&
-                    newBookingViewPage.getBookingFee().getText() != "" &&
+                if (!newBookingViewPage.getNumRoom().getText().equals("") &&
+                    !newBookingViewPage.getBookingFee().getText().equals("") &&
                     isNumeric(newBookingViewPage.getBookingFee().getText()) &&
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
@@ -391,7 +390,7 @@ public class HotelProject extends Application {
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue == "") ||
+                (!isNumeric(newValue) && oldValue.equals("")) ||
                 (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_ROOM_NUMBER || Integer.parseInt(newValue) > MAX_ROOM_NUMBER) &&
                     (Integer.parseInt(oldValue) >= MIN_ROOM_NUMBER && Integer.parseInt(oldValue) <= MAX_ROOM_NUMBER))) {
                 warningRoomNumber.showAndWait();
@@ -405,8 +404,8 @@ public class HotelProject extends Application {
                 Integer.parseInt(newValue) > MAX_BOOKING_FEE ) {
                 newBookingViewPage.getSubmit().setDisable(true);
             } else {
-                if (newBookingViewPage.getNumRoom().getText() != "" &&
-                    newBookingViewPage.getBookingFee().getText() != "" &&
+                if (!newBookingViewPage.getNumRoom().getText().equals("") &&
+                    !newBookingViewPage.getBookingFee().getText().equals("") &&
                     isNumeric(newBookingViewPage.getNumRoom().getText()) &&
                     Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
                     Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
@@ -417,7 +416,7 @@ public class HotelProject extends Application {
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue == "") ||
+                (!isNumeric(newValue) && oldValue.equals("")) ||
                 (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_BOOKING_FEE || Integer.parseInt(newValue) > MAX_BOOKING_FEE) &&
                     (Integer.parseInt(oldValue) >= MIN_BOOKING_FEE && Integer.parseInt(oldValue) <= MAX_BOOKING_FEE))) {
                 warningBookingFee.showAndWait();
@@ -426,8 +425,8 @@ public class HotelProject extends Application {
 
         // Error handling
         newBookingViewPage.getCheckIn().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newBookingViewPage.getNumRoom().getText() != "" &&
-                newBookingViewPage.getBookingFee().getText() != "" &&
+            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
+                !newBookingViewPage.getBookingFee().getText().equals("") &&
                 isNumeric(newBookingViewPage.getNumRoom().getText()) &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
@@ -442,8 +441,8 @@ public class HotelProject extends Application {
 
         // Error handling
         newBookingViewPage.getCheckOut().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newBookingViewPage.getNumRoom().getText() != "" &&
-                newBookingViewPage.getBookingFee().getText() != "" &&
+            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
+                !newBookingViewPage.getBookingFee().getText().equals("") &&
                 isNumeric(newBookingViewPage.getNumRoom().getText()) &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
@@ -458,8 +457,8 @@ public class HotelProject extends Application {
 
         // Error handling
         newBookingViewPage.getC_ss_number().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newBookingViewPage.getNumRoom().getText() != "" &&
-                newBookingViewPage.getBookingFee().getText() != "" &&
+            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
+                !newBookingViewPage.getBookingFee().getText().equals("") &&
                 isNumeric(newBookingViewPage.getNumRoom().getText()) &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
                 Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
@@ -941,11 +940,11 @@ public class HotelProject extends Application {
         Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.",LENGTH_PHONE_NUMBER));
 
         // Error handling
-        if (newCustomerViewPage.getCSSNum().getText() == "" ||
-            newCustomerViewPage.getCAddress().getText() == "" ||
-            newCustomerViewPage.getCFullName().getText() == "" ||
-            newCustomerViewPage.getCPhoneNum().getText() == "" ||
-            newCustomerViewPage.getCEmail().getText() == "") {
+        if (newCustomerViewPage.getCSSNum().getText().equals("") ||
+            newCustomerViewPage.getCAddress().getText().equals("") ||
+            newCustomerViewPage.getCFullName().getText().equals("") ||
+            newCustomerViewPage.getCPhoneNum().getText().equals("") ||
+            newCustomerViewPage.getCEmail().getText().equals("")) {
             newCustomerViewPage.getSubmit().setDisable(true);
         } else {
             newCustomerViewPage.getSubmit().setDisable(false);
@@ -957,16 +956,16 @@ public class HotelProject extends Application {
                 newValue.length() != LENGTH_PERSONAL_NUMBER) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
-                if (newCustomerViewPage.getCAddress().getText() != "" &&
-                    newCustomerViewPage.getCFullName().getText() != "" &&
+                if (!newCustomerViewPage.getCAddress().getText().equals("") &&
+                    !newCustomerViewPage.getCFullName().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
                     newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
-                    newCustomerViewPage.getCEmail().getText() != "") {
+                    !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue == "") ||
+                (!isNumeric(newValue) && oldValue.equals("")) ||
                 (newValue.length() != LENGTH_PERSONAL_NUMBER && oldValue.length() == LENGTH_PERSONAL_NUMBER)) {
                 warningPersonalNumber.showAndWait();
             }
@@ -974,15 +973,15 @@ public class HotelProject extends Application {
 
         // Error handling
         newCustomerViewPage.getCAddress().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == "") {
+            if (newValue.equals("")) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    !newCustomerViewPage.getCFullName().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
                     newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
-                    newCustomerViewPage.getCEmail().getText() != "") {
+                    !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -990,15 +989,15 @@ public class HotelProject extends Application {
 
         // Error handling
         newCustomerViewPage.getCFullName().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == "") {
+            if (newValue.equals("")) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    newCustomerViewPage.getCAddress().getText() != "" &&
+                    !newCustomerViewPage.getCAddress().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
                     newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
-                    newCustomerViewPage.getCEmail().getText() != "") {
+                    !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -1012,14 +1011,14 @@ public class HotelProject extends Application {
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    newCustomerViewPage.getCAddress().getText() != "" &&
-                    newCustomerViewPage.getCFullName().getText() != "" &&
-                    newCustomerViewPage.getCEmail().getText() != "") {
+                    !newCustomerViewPage.getCAddress().getText().equals("") &&
+                    !newCustomerViewPage.getCFullName().getText().equals("") &&
+                    !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue == "") ||
+                (!isNumeric(newValue) && oldValue.equals("")) ||
                 (newValue.length() != LENGTH_PHONE_NUMBER && oldValue.length() == LENGTH_PHONE_NUMBER)) {
                 warningPhoneNumber.showAndWait();
             }
@@ -1027,13 +1026,13 @@ public class HotelProject extends Application {
 
         // Error handling
         newCustomerViewPage.getCEmail().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == "") {
+            if (newValue.equals("")) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    newCustomerViewPage.getCAddress().getText() != "" &&
-                    newCustomerViewPage.getCFullName().getText() != "" &&
+                    !newCustomerViewPage.getCAddress().getText().equals("") &&
+                    !newCustomerViewPage.getCFullName().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
                     newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER) {
                     newCustomerViewPage.getSubmit().setDisable(false);
