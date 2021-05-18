@@ -105,6 +105,7 @@ public class CustomersView extends View {
 
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
+        search.getStyleClass().add("search");
 
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);

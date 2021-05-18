@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -210,15 +211,18 @@ public class BookingsView extends View {
 
 
         startDatePicker.setPromptText("FROM (DD/MM/YYYY)");
+
         endDatePicker.setPromptText("TO (DD/MM/YYYY)");
         startDatePicker.setMaxWidth(200);
         endDatePicker.setMaxWidth(200);
 
         HBox dateRange = new HBox(startDatePicker, endDatePicker);
+        dateRange.getStyleClass().add("date-range");
         dateRange.setAlignment(Pos.CENTER);
         pane.add(dateRange, 0, 3);
 
         HBox search = new HBox(whatToSearch, searchBar);
+        search.getStyleClass().add("search");
         search.setAlignment(Pos.CENTER);
 
         pane.add(title, 0, 0);
