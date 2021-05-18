@@ -238,13 +238,16 @@ public class HotelProject extends Application {
      *
      * @param newRoomStage former stage to close when the new stage is displayed
      */
-    private void addRoomTypeDisplay(Stage newRoomStage) {
+    private void addRoomTypeDisplay(HotelData hdata, Stage newRoomStage) {
+        ArrayList<RoomType> allRoomTypes = hdata.getRoomTypes();
         AddRoomTypeView addRoomTypePage = new AddRoomTypeView();
         Stage addTypeStage = new Stage();
 
         // add the new room type to the database
         addRoomTypePage.getSubmit().setOnAction(e -> {
             String typeName = addRoomTypePage.getName().getText();
+            String capTypeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1);
+            
             int nbBeds = Integer.parseInt(addRoomTypePage.getNbBeds().getText());
             int rSize = Integer.parseInt(addRoomTypePage.getRoomSize().getText());
             int hasView = addRoomTypePage.getHasView();
@@ -254,19 +257,39 @@ public class HotelProject extends Application {
             int hasTv = addRoomTypePage.getHasTv();
             int hasCoffeeMkr = addRoomTypePage.getHasCoffeeMkr();
 
-            RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
+            boolean rtFlag = true;
+            RoomType newRoomType = new RoomType(capTypeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
                     hasTv, hasCoffeeMkr);
-            hdata.addRoomType(newRoomType);
+            
+            for(RoomType rT : allRoomTypes) {
+                if(rT.getT_name().equals(newRoomType.getT_name())) {
+                    rtFlag = false; 
 
-            newRoomDisplay(addTypeStage);
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Room type already exists. Choose another one!");
+                    a.showAndWait();
+
+                    break; 
+                } else {   
+                    // do nothing
+                }
+            }
+            if(rtFlag) {
+                hdata.addRoomType(newRoomType);
+                addTypeStage.close();
+                newRoomStage.close();
+                newRoomDisplay(addTypeStage);
+            }
         });
 
-        addRoomTypePage.getCancel().setOnAction(e -> newRoomDisplay(addTypeStage));
+        addTypeStage.setOnCloseRequest(e -> addTypeStage.close());
+
+        addTypeStage.initOwner(newRoomStage);
+        addTypeStage.initModality(Modality.WINDOW_MODAL);
 
         addTypeStage.setScene(addRoomTypePage.getScene());
         addTypeStage.setTitle("Add a new room type");
         addTypeStage.show();
-        newRoomStage.close();
     }
 
     /**
@@ -281,7 +304,7 @@ public class HotelProject extends Application {
 
         // set buttons on action
 
-        newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(newRoomStage));
+        newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
 
         newRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(newRoomViewPage.getNumRoom().getText());
