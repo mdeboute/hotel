@@ -1052,7 +1052,7 @@ public class HotelProject extends Application {
                     !newCustomerViewPage.getCAddress().getText().equals("") &&
                     !newCustomerViewPage.getCFullName().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER) {
+                    newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -1068,10 +1068,16 @@ public class HotelProject extends Application {
             String cEmail = newCustomerViewPage.getCEmail().getText();
 
             Customer newCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
-            hdata.addCustomer(newCustomer);
+            if (!dbm.cdb.customerExists(newCustomer)) {
+                hdata.addCustomer(newCustomer);
 
-            customersDisplay();
-            newCustomerStage.close();
+                customersDisplay();
+                newCustomerStage.close();
+            } else {
+                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database.");
+                errorCustomerExists.showAndWait();
+            }
+
         });
 
         newCustomerViewPage.getCancel().setOnAction(e -> {
