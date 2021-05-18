@@ -1,6 +1,6 @@
 package hotelproject.views;
 
-import hotelproject.controllers.db.DatabaseManager;
+import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.RoomType;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -13,15 +13,15 @@ import java.util.List;
 
 public class UpdateRoomView extends View {
 
-    private final DatabaseManager dbm;
+    private final HotelData hdata;
 
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
     private Button submit;
 
-    public UpdateRoomView(DatabaseManager dbm) {
-        this.dbm = dbm;
+    public UpdateRoomView(HotelData hdata) {
+        this.hdata = hdata;
         createScene();
     }
 
@@ -66,7 +66,7 @@ public class UpdateRoomView extends View {
         Label type = new Label("Room type: ");
         pane.add(type, 0, 3);
 
-        List<RoomType> roomTypes = dbm.rdb.findAllRoomTypes();
+        List<RoomType> roomTypes = hdata.getRoomTypes();
         for (RoomType value : roomTypes) {
             // MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
             roomType.getItems().add(value.getT_name());
