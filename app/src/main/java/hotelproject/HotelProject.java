@@ -38,20 +38,20 @@ public class HotelProject extends Application {
         launch(args);
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        Stage secondaryStage = new Stage();
-        credentialsDisplay(secondaryStage, primaryStage, false);
-    }
-
     public static boolean isNumeric(String str) {
         try {
             //Double.parseDouble(str);
             Integer.parseInt(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Stage secondaryStage = new Stage();
+        credentialsDisplay(secondaryStage, primaryStage, false);
     }
 
     /**
@@ -161,7 +161,7 @@ public class HotelProject extends Application {
      *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
-        
+
         myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
@@ -169,7 +169,7 @@ public class HotelProject extends Application {
         updateInfoPage.getSave().setOnAction(e -> {
             String oldUsername = connectedUser.getU_name();
             boolean isInfoCorrect = true;
-            
+
             if (change == Change.USERNAME) {
                 String firstUsername = updateInfoPage.getFirstUName().getText();
                 String secondUsername = updateInfoPage.getSecondUName().getText();
@@ -202,7 +202,7 @@ public class HotelProject extends Application {
                 throwables.printStackTrace();
             }
 
-            if(isInfoCorrect){
+            if (isInfoCorrect) {
                 myPageDisplay();
                 updateInfoStage.close();
             }
@@ -238,13 +238,16 @@ public class HotelProject extends Application {
      *
      * @param newRoomStage former stage to close when the new stage is displayed
      */
-    private void addRoomTypeDisplay(Stage newRoomStage) {
+    private void addRoomTypeDisplay(HotelData hdata, Stage newRoomStage) {
+        ArrayList<RoomType> allRoomTypes = hdata.getRoomTypes();
         AddRoomTypeView addRoomTypePage = new AddRoomTypeView();
         Stage addTypeStage = new Stage();
 
         // add the new room type to the database
         addRoomTypePage.getSubmit().setOnAction(e -> {
             String typeName = addRoomTypePage.getName().getText();
+            String capTypeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1);
+            
             int nbBeds = Integer.parseInt(addRoomTypePage.getNbBeds().getText());
             int rSize = Integer.parseInt(addRoomTypePage.getRoomSize().getText());
             int hasView = addRoomTypePage.getHasView();
@@ -254,19 +257,39 @@ public class HotelProject extends Application {
             int hasTv = addRoomTypePage.getHasTv();
             int hasCoffeeMkr = addRoomTypePage.getHasCoffeeMkr();
 
-            RoomType newRoomType = new RoomType(typeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
+            boolean rtFlag = true;
+            RoomType newRoomType = new RoomType(capTypeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
                     hasTv, hasCoffeeMkr);
-            dbm.rdb.addRoomType(newRoomType);
+            
+            for(RoomType rT : allRoomTypes) {
+                if(rT.getT_name().equals(newRoomType.getT_name())) {
+                    rtFlag = false; 
 
-            newRoomDisplay(addTypeStage);
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Room type already exists. Choose another one!");
+                    a.showAndWait();
+
+                    break; 
+                } else {   
+                    // do nothing
+                }
+            }
+            if(rtFlag) {
+                hdata.addRoomType(newRoomType);
+                addTypeStage.close();
+                newRoomStage.close();
+                newRoomDisplay(addTypeStage);
+            }
         });
 
-        addRoomTypePage.getCancel().setOnAction(e -> newRoomDisplay(addTypeStage));
+        addTypeStage.setOnCloseRequest(e -> addTypeStage.close());
+
+        addTypeStage.initOwner(newRoomStage);
+        addTypeStage.initModality(Modality.WINDOW_MODAL);
 
         addTypeStage.setScene(addRoomTypePage.getScene());
         addTypeStage.setTitle("Add a new room type");
         addTypeStage.show();
-        newRoomStage.close();
     }
 
     /**
@@ -275,12 +298,13 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newRoomDisplay(Stage formerStage) {
-        NewRoomView newRoomViewPage = new NewRoomView(dbm);
+        ArrayList<Room> rooms = hdata.getRooms();
+        NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
         // set buttons on action
 
-        newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(newRoomStage));
+        newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
 
         newRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(newRoomViewPage.getNumRoom().getText());
@@ -288,11 +312,27 @@ public class HotelProject extends Application {
             String roomType = newRoomViewPage.getRoomType().getValue();
 
             Room newRoom = new Room(roomNb, roomFloor, roomType);
-            hdata.addRoom(newRoom);
 
-            newRoomStage.close();
-            formerStage.close();
-            roomsDisplay();
+            boolean flag = true;
+
+            for (Room r : rooms) {
+                if (r.getR_num() == newRoom.getR_num()) {
+                    flag = false;
+
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Room already exists. Add a different one or update existing!");
+                    a.showAndWait();
+
+                    break;
+                }
+                // else do nothing
+            }
+            if (flag) {
+                hdata.addRoom(newRoom);
+                newRoomStage.close();
+                formerStage.close();
+                roomsDisplay();
+            }
         });
 
         newRoomStage.setOnCloseRequest(e -> newRoomStage.close());
@@ -349,7 +389,7 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void newBookingDisplay(Stage formerStage) {
-        NewBookingView newBookingViewPage = new NewBookingView(dbm);
+        NewBookingView newBookingViewPage = new NewBookingView(dbm, hdata);
         Stage newBookingStage = new Stage();
 
         int MIN_ROOM_NUMBER = 1;
@@ -357,116 +397,105 @@ public class HotelProject extends Application {
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
-        Alert warningRoomNumber = new Alert(AlertType.WARNING, String.format("Enter a number, greater than or equal to %d and smaller than or equal to %d.",MIN_ROOM_NUMBER, MAX_ROOM_NUMBER));
+        Alert warningRoomNumber = new Alert(AlertType.WARNING, String.format("Enter a number, greater than or equal to %d and smaller than or equal to %d.", MIN_ROOM_NUMBER, MAX_ROOM_NUMBER));
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
         // Error handling
-        if (newBookingViewPage.getNumRoom().getText().equals("") ||
-            newBookingViewPage.getBookingFee().getText().equals("") ||
-            newBookingViewPage.getCheckIn().getValue() == null ||
-            newBookingViewPage.getCheckOut().getValue() == null ||
-            newBookingViewPage.getC_ss_number().getValue() == null) {
+        if (newBookingViewPage.getNumRoom().getValue() == null ||
+                newBookingViewPage.getBookingFee().getText().equals("") ||
+                newBookingViewPage.getCheckIn().getValue() == null ||
+                newBookingViewPage.getCheckOut().getValue() == null ||
+                newBookingViewPage.getC_ss_number().getValue() == null) {
             newBookingViewPage.getSubmit().setDisable(true);
         } else {
             newBookingViewPage.getSubmit().setDisable(false);
         }
 
         // Error handling
-        newBookingViewPage.getNumRoom().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isNumeric(newValue) ||
-                Integer.parseInt(newValue) < MIN_ROOM_NUMBER ||
-                Integer.parseInt(newValue) > MAX_ROOM_NUMBER) {
+        newBookingViewPage.getNumRoom().valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue < MIN_ROOM_NUMBER ||
+                    newValue > MAX_ROOM_NUMBER) {
                 newBookingViewPage.getSubmit().setDisable(true);
             } else {
-                if (!newBookingViewPage.getNumRoom().getText().equals("") &&
-                    !newBookingViewPage.getBookingFee().getText().equals("") &&
-                    isNumeric(newBookingViewPage.getBookingFee().getText()) &&
-                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
-                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
-                    newBookingViewPage.getCheckIn().getValue() != null &&
-                    newBookingViewPage.getCheckOut().getValue() != null &&
-                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                if (newBookingViewPage.getNumRoom().getValue() != null &&
+                        !newBookingViewPage.getBookingFee().getText().equals("") &&
+                        isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                        Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                        Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                        newBookingViewPage.getCheckIn().getValue() != null &&
+                        newBookingViewPage.getCheckOut().getValue() != null &&
+                        newBookingViewPage.getC_ss_number().getValue() != null) {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
-            }
-            if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue.equals("")) ||
-                (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_ROOM_NUMBER || Integer.parseInt(newValue) > MAX_ROOM_NUMBER) &&
-                    (Integer.parseInt(oldValue) >= MIN_ROOM_NUMBER && Integer.parseInt(oldValue) <= MAX_ROOM_NUMBER))) {
-                warningRoomNumber.showAndWait();
             }
         });
 
         // Error handling
         newBookingViewPage.getBookingFee().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!isNumeric(newValue) ||
-                Integer.parseInt(newValue) < MIN_BOOKING_FEE ||
-                Integer.parseInt(newValue) > MAX_BOOKING_FEE ) {
+                    Integer.parseInt(newValue) < MIN_BOOKING_FEE ||
+                    Integer.parseInt(newValue) > MAX_BOOKING_FEE) {
                 newBookingViewPage.getSubmit().setDisable(true);
             } else {
-                if (!newBookingViewPage.getNumRoom().getText().equals("") &&
-                    !newBookingViewPage.getBookingFee().getText().equals("") &&
-                    isNumeric(newBookingViewPage.getNumRoom().getText()) &&
-                    Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
-                    Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
-                    newBookingViewPage.getCheckIn().getValue() != null &&
-                    newBookingViewPage.getCheckOut().getValue() != null &&
-                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                if (newBookingViewPage.getNumRoom().getValue() != null &&
+                        !newBookingViewPage.getBookingFee().getText().equals("") &&
+                        newBookingViewPage.getNumRoom().getValue() >= MIN_ROOM_NUMBER &&
+                        newBookingViewPage.getNumRoom().getValue() <= MAX_ROOM_NUMBER &&
+                        newBookingViewPage.getCheckIn().getValue() != null &&
+                        newBookingViewPage.getCheckOut().getValue() != null &&
+                        newBookingViewPage.getC_ss_number().getValue() != null) {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue.equals("")) ||
-                (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_BOOKING_FEE || Integer.parseInt(newValue) > MAX_BOOKING_FEE) &&
-                    (Integer.parseInt(oldValue) >= MIN_BOOKING_FEE && Integer.parseInt(oldValue) <= MAX_BOOKING_FEE))) {
+                    (!isNumeric(newValue) && oldValue.equals("")) ||
+                    (isNumeric(newValue) && isNumeric(oldValue) && (Integer.parseInt(newValue) < MIN_BOOKING_FEE || Integer.parseInt(newValue) > MAX_BOOKING_FEE) &&
+                            (Integer.parseInt(oldValue) >= MIN_BOOKING_FEE && Integer.parseInt(oldValue) <= MAX_BOOKING_FEE))) {
                 warningBookingFee.showAndWait();
             }
         });
 
         // Error handling
         newBookingViewPage.getCheckIn().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
-                !newBookingViewPage.getBookingFee().getText().equals("") &&
-                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
-                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
-                newBookingViewPage.getCheckOut().getValue() != null &&
-                newBookingViewPage.getC_ss_number().getValue() != null) {
+            if (newBookingViewPage.getNumRoom().getValue() != null &&
+                    !newBookingViewPage.getBookingFee().getText().equals("") &&
+                    newBookingViewPage.getNumRoom().getValue() >= MIN_ROOM_NUMBER &&
+                    newBookingViewPage.getNumRoom().getValue() <= MAX_ROOM_NUMBER &&
+                    isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                    newBookingViewPage.getCheckOut().getValue() != null &&
+                    newBookingViewPage.getC_ss_number().getValue() != null) {
                 newBookingViewPage.getSubmit().setDisable(false);
             }
         });
 
         // Error handling
         newBookingViewPage.getCheckOut().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
-                !newBookingViewPage.getBookingFee().getText().equals("") &&
-                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
-                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
-                newBookingViewPage.getCheckIn().getValue() != null &&
-                newBookingViewPage.getC_ss_number().getValue() != null) {
+            if (newBookingViewPage.getNumRoom().getValue() != null &&
+                    !newBookingViewPage.getBookingFee().getText().equals("") &&
+                    newBookingViewPage.getNumRoom().getValue() >= MIN_ROOM_NUMBER &&
+                    newBookingViewPage.getNumRoom().getValue() <= MAX_ROOM_NUMBER &&
+                    isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                    newBookingViewPage.getCheckIn().getValue() != null &&
+                    newBookingViewPage.getC_ss_number().getValue() != null) {
                 newBookingViewPage.getSubmit().setDisable(false);
             }
         });
 
         // Error handling
         newBookingViewPage.getC_ss_number().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newBookingViewPage.getNumRoom().getText().equals("") &&
-                !newBookingViewPage.getBookingFee().getText().equals("") &&
-                isNumeric(newBookingViewPage.getNumRoom().getText()) &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) >= MIN_ROOM_NUMBER &&
-                Integer.parseInt(newBookingViewPage.getNumRoom().getText()) <= MAX_ROOM_NUMBER &&
-                isNumeric(newBookingViewPage.getBookingFee().getText()) &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
-                Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
-                newBookingViewPage.getCheckIn().getValue() != null &&
-                newBookingViewPage.getCheckOut().getValue() != null) {
+            if (newBookingViewPage.getNumRoom().getValue() != null &&
+                    !newBookingViewPage.getBookingFee().getText().equals("") &&
+                    newBookingViewPage.getNumRoom().getValue() >= MIN_ROOM_NUMBER &&
+                    newBookingViewPage.getNumRoom().getValue() <= MAX_ROOM_NUMBER &&
+                    isNumeric(newBookingViewPage.getBookingFee().getText()) &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
+                    Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
+                    newBookingViewPage.getCheckIn().getValue() != null &&
+                    newBookingViewPage.getCheckOut().getValue() != null) {
                 newBookingViewPage.getSubmit().setDisable(false);
             }
         });
@@ -475,7 +504,7 @@ public class HotelProject extends Application {
 
         newBookingViewPage.getSubmit().setOnAction(e -> {
             int bookingID = hdata.getBookingAutoID();
-            int roomNb = Integer.parseInt(newBookingViewPage.getNumRoom().getText());
+            int roomNb = newBookingViewPage.getNumRoom().getValue();
             int paidByCard = 0;
             if (newBookingViewPage.getPaidByCard().isSelected()) {
                 paidByCard = 1;
@@ -823,8 +852,8 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void updateRoomDisplay(Stage formerStage, Room room) {
-
-        UpdateRoomView updateRoomViewPage = new UpdateRoomView(dbm);
+        ArrayList<Room> rooms = hdata.getRooms();
+        UpdateRoomView updateRoomViewPage = new UpdateRoomView(hdata);
         Stage updateRoomStage = new Stage();
         String currentRoomNumber = String.valueOf(room.getR_num());
         String currentFloor = String.valueOf(room.getR_floor());
@@ -840,10 +869,32 @@ public class HotelProject extends Application {
 
             Room updateRoom = new Room(roomNb, roomFloor, roomType);
 
-            hdata.updateRoom(updateRoom, room.getR_num());
-            updateRoomStage.close();
-            formerStage.close();
-            roomsDisplay();
+            boolean flag = true;
+
+            for (Room r : rooms) {
+                if (r.getR_num() == room.getR_num()) {
+                    flag = true; 
+                    continue; 
+                }
+                if (r.getR_num() == updateRoom.getR_num()){
+                    flag = false;
+
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Room number already exists. Add a different one or update existing room!");
+                    a.showAndWait();
+
+                    break;
+                } else {
+                    // do nothing
+                }
+            }
+            if (updateRoom.getR_num() == room.getR_num() || flag){
+                hdata.updateRoom(updateRoom, room.getR_num());
+                updateRoomStage.close();
+                formerStage.close();
+                roomsDisplay();
+            }
+    
         });
 
         updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
@@ -936,15 +987,15 @@ public class HotelProject extends Application {
         int LENGTH_PERSONAL_NUMBER = 8;
         int LENGTH_PHONE_NUMBER = 9;
 
-        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.",LENGTH_PERSONAL_NUMBER));
-        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.",LENGTH_PHONE_NUMBER));
+        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PERSONAL_NUMBER));
+        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
 
         // Error handling
         if (newCustomerViewPage.getCSSNum().getText().equals("") ||
-            newCustomerViewPage.getCAddress().getText().equals("") ||
-            newCustomerViewPage.getCFullName().getText().equals("") ||
-            newCustomerViewPage.getCPhoneNum().getText().equals("") ||
-            newCustomerViewPage.getCEmail().getText().equals("")) {
+                newCustomerViewPage.getCAddress().getText().equals("") ||
+                newCustomerViewPage.getCFullName().getText().equals("") ||
+                newCustomerViewPage.getCPhoneNum().getText().equals("") ||
+                newCustomerViewPage.getCEmail().getText().equals("")) {
             newCustomerViewPage.getSubmit().setDisable(true);
         } else {
             newCustomerViewPage.getSubmit().setDisable(false);
@@ -953,20 +1004,20 @@ public class HotelProject extends Application {
         // Error handling
         newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!isNumeric(newValue) ||
-                newValue.length() != LENGTH_PERSONAL_NUMBER) {
+                    newValue.length() != LENGTH_PERSONAL_NUMBER) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (!newCustomerViewPage.getCAddress().getText().equals("") &&
-                    !newCustomerViewPage.getCFullName().getText().equals("") &&
-                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
-                    !newCustomerViewPage.getCEmail().getText().equals("")) {
+                        !newCustomerViewPage.getCFullName().getText().equals("") &&
+                        isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
+                        !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue.equals("")) ||
-                (newValue.length() != LENGTH_PERSONAL_NUMBER && oldValue.length() == LENGTH_PERSONAL_NUMBER)) {
+                    (!isNumeric(newValue) && oldValue.equals("")) ||
+                    (newValue.length() != LENGTH_PERSONAL_NUMBER && oldValue.length() == LENGTH_PERSONAL_NUMBER)) {
                 warningPersonalNumber.showAndWait();
             }
         });
@@ -977,11 +1028,11 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    !newCustomerViewPage.getCFullName().getText().equals("") &&
-                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
-                    !newCustomerViewPage.getCEmail().getText().equals("")) {
+                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                        !newCustomerViewPage.getCFullName().getText().equals("") &&
+                        isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
+                        !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -993,11 +1044,11 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    !newCustomerViewPage.getCAddress().getText().equals("") &&
-                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
-                    !newCustomerViewPage.getCEmail().getText().equals("")) {
+                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                        !newCustomerViewPage.getCAddress().getText().equals("") &&
+                        isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
+                        !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -1006,20 +1057,20 @@ public class HotelProject extends Application {
         // Error handling
         newCustomerViewPage.getCPhoneNum().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!isNumeric(newValue) ||
-                newValue.length() != LENGTH_PHONE_NUMBER) {
+                    newValue.length() != LENGTH_PHONE_NUMBER) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    !newCustomerViewPage.getCAddress().getText().equals("") &&
-                    !newCustomerViewPage.getCFullName().getText().equals("") &&
-                    !newCustomerViewPage.getCEmail().getText().equals("")) {
+                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                        !newCustomerViewPage.getCAddress().getText().equals("") &&
+                        !newCustomerViewPage.getCFullName().getText().equals("") &&
+                        !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                (!isNumeric(newValue) && oldValue.equals("")) ||
-                (newValue.length() != LENGTH_PHONE_NUMBER && oldValue.length() == LENGTH_PHONE_NUMBER)) {
+                    (!isNumeric(newValue) && oldValue.equals("")) ||
+                    (newValue.length() != LENGTH_PHONE_NUMBER && oldValue.length() == LENGTH_PHONE_NUMBER)) {
                 warningPhoneNumber.showAndWait();
             }
         });
@@ -1030,11 +1081,11 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                    newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
-                    !newCustomerViewPage.getCAddress().getText().equals("") &&
-                    !newCustomerViewPage.getCFullName().getText().equals("") &&
-                    isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER) {
+                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
+                        !newCustomerViewPage.getCAddress().getText().equals("") &&
+                        !newCustomerViewPage.getCFullName().getText().equals("") &&
+                        isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
+                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -1050,10 +1101,16 @@ public class HotelProject extends Application {
             String cEmail = newCustomerViewPage.getCEmail().getText();
 
             Customer newCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
-            hdata.addCustomer(newCustomer);
+            if (!dbm.cdb.customerExists(newCustomer)) {
+                hdata.addCustomer(newCustomer);
 
-            customersDisplay();
-            newCustomerStage.close();
+                customersDisplay();
+                newCustomerStage.close();
+            } else {
+                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database.");
+                errorCustomerExists.showAndWait();
+            }
+
         });
 
         newCustomerViewPage.getCancel().setOnAction(e -> {

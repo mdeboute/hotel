@@ -96,6 +96,11 @@ public class HotelData {
         return dbm.rdb.viewRoomDetails(room);
     }
 
+    public void addRoomType(RoomType newRoomType) {
+        roomTypes.add(newRoomType);
+        dbm.rdb.addRoomType(newRoomType);
+    }
+
     public void addCustomer(Customer customer) {
         customers.add(customer);
         dbm.cdb.addCustomer(customer);

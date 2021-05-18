@@ -28,20 +28,20 @@ public class RoomsView extends View {
 
     // The user connected to the application
     private final User user;
-    private final HotelData hdata; 
+    private final HotelData hdata;
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
     private final String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
     private final String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
+    private final DatePicker startDatePicker = new DatePicker();
+    private final DatePicker endDatePicker = new DatePicker();
     private Button addRoom;
-    private DatePicker startDatePicker = new DatePicker();
-    private DatePicker endDatePicker = new DatePicker();
 
     public RoomsView(User user, List<Room> rooms, HotelData hdata) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
-        this.hdata = hdata; 
+        this.hdata = hdata;
         createScene();
     }
 
