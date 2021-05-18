@@ -998,7 +998,7 @@ public class HotelProject extends Application {
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                     !newCustomerViewPage.getCFullName().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
                     !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
@@ -1014,7 +1014,7 @@ public class HotelProject extends Application {
                     newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                     !newCustomerViewPage.getCAddress().getText().equals("") &&
                     isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                    newCustomerViewPage.getCPhoneNum().getText().length() != LENGTH_PHONE_NUMBER &&
+                    newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
                     !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
