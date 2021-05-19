@@ -18,8 +18,8 @@ import java.util.List;
 public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
-    private final String idlePathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
-    private final String hoverPathAddCustomer = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
+    private final String IDLE_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
+    private final String HOVER_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
     public TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
@@ -110,7 +110,7 @@ public class CustomersView extends View {
         GridPane.setHalignment(title, javafx.geometry.HPos.CENTER);
         pane.add(search, 0, 2);
         pane.add(customersTable, 0, 4);
-        addCustomer = createButton(35, idlePathAddCustomer, hoverPathAddCustomer);
+        addCustomer = createButton(35, IDLE_ADD_CUSTOMER, HOVER_ADD_CUSTOMER);
         pane.add(addCustomer, 0, 5);
         GridPane.setHalignment(addCustomer, javafx.geometry.HPos.CENTER);
 

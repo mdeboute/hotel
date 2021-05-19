@@ -33,8 +33,8 @@ public class RoomsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
-    private final String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
-    private final String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
+    private final String IDLE_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
+    private final String HOVER_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
     private final DatePicker startDatePicker = new DatePicker();
     private final DatePicker endDatePicker = new DatePicker();
     private Button addRoom;
@@ -51,9 +51,6 @@ public class RoomsView extends View {
         GridPane bodyPane = createBody();
         GridPane.setHalignment(bodyPane, HPos.CENTER);
 
-        //roomsTable.setTextFill(Paint.valueOf("white"));
-        //roomsTable.setStyle("-fx-background-color: #121212;");
-
         bodyPane.getStyleClass().add("body-pane");
         roomsTable.getStyleClass().add("table-view");
 
@@ -69,7 +66,6 @@ public class RoomsView extends View {
         GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
-        //title.setFont(Font.font(18));
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.getStyleClass().add("purple");
 
@@ -172,7 +168,7 @@ public class RoomsView extends View {
                     LocalDate rightEndpoint = endDatePicker.getValue();
                     String secondFormattedDate = rightEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     Date secondDatePicked = java.sql.Date.valueOf(secondFormattedDate);
-                    
+
                     ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
 
                     for (int rNum : availableRooms) {
@@ -206,7 +202,7 @@ public class RoomsView extends View {
         pane.add(dateRange, 0, 3);
         pane.add(roomsTable, 0, 4);
 
-        addRoom = createButton(35, idlePathAddRoom, hoverPathAddRoom);
+        addRoom = createButton(35, IDLE_ADD_ROOM, HOVER_ADD_ROOM);
         addRoom.setVisible(false);
 
         if (user.getU_is_admin() == 1) {

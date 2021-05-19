@@ -40,7 +40,6 @@ public class HotelProject extends Application {
 
     public static boolean isNumeric(String str) {
         try {
-            //Double.parseDouble(str);
             Integer.parseInt(str);
             return true;
         } catch (NumberFormatException e) {
@@ -50,19 +49,17 @@ public class HotelProject extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Stage secondaryStage = new Stage();
-        credentialsDisplay(secondaryStage, primaryStage, false);
+        credentialsDisplay(primaryStage, false);
     }
 
     /**
-     * @param secondaryStage parameter needed to call the updateInfoDisplay method
-     * @param primaryStage   stage on which the login view is displayed
-     * @param onlyPwd        if true this method displays the password input,
-     *                       otherwise the login page
+     * @param primaryStage stage on which the login view is displayed
+     * @param onlyPwd      if true this method displays the password input,
+     *                     otherwise the login page
      * @brief Displays the login stage or the password input when the user wants to change
      * their personal info
      */
-    private void credentialsDisplay(Stage secondaryStage, Stage primaryStage, boolean onlyPwd) {
+    private void credentialsDisplay(Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
 
         loginView.getPassword().setOnKeyPressed(e -> {
@@ -115,7 +112,6 @@ public class HotelProject extends Application {
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
-        Stage myPageStage = new Stage();
         Stage loginStage = new Stage();
         mainPageStage = new Stage();
 
@@ -123,7 +119,7 @@ public class HotelProject extends Application {
 
         mainPageView.getMyPageButton().setOnAction(e -> {
             // display user info page
-            credentialsDisplay(myPageStage, loginStage, true);
+            credentialsDisplay(loginStage, true);
         });
 
         mainPageView.getViewBookingsButton().setOnAction(e -> {
@@ -222,7 +218,6 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
         Stage updateInfoStage = new Stage();
 
-        Stage loginStage = new Stage();
         myPage.getChPwd().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.PASSWORD));
         myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
@@ -619,7 +614,6 @@ public class HotelProject extends Application {
         List<Booking> bookings = hdata.getBookings();
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
-        // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         // admins can add a booking
         if (connectedUser.getU_is_admin() == 1) {
@@ -731,7 +725,6 @@ public class HotelProject extends Application {
 
                     Scene secondScene = new Scene(secBLayout, 250, 250);
 
-                    // New window (Stage) Stage newWindow = new Stage();
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);
 
@@ -813,7 +806,6 @@ public class HotelProject extends Application {
 
                     Scene secondScene = new Scene(secBLayout, 250, 250);
 
-                    // New window (Stage) Stage newWindow = new Stage();
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);
 
@@ -876,7 +868,6 @@ public class HotelProject extends Application {
                     Alert a = new Alert(AlertType.ERROR);
                     a.setContentText("Room number already exists. Add a different one or update existing room!");
                     a.showAndWait();
-
                     break;
                 }
             }
@@ -1173,8 +1164,7 @@ public class HotelProject extends Application {
         logoutViewPage.getLogin().setOnAction(e -> {
             // display again login window
             Stage loginStage = new Stage();
-            Stage secondStage = new Stage();
-            credentialsDisplay(secondStage, loginStage, false);
+            credentialsDisplay(loginStage, false);
             logoutStage.close();
         });
 

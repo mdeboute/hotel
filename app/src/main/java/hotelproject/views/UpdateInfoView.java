@@ -16,7 +16,9 @@ public class UpdateInfoView extends View {
     private final Label output = new Label();
     private final Label Lbl1;
     private final Label Lbl2;
-    private final Button save = new Button("Save");
+    private final String IDLE_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/idle_button_save.png";
+    private final String HOVER_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/hover_button_save.png";
+    private Button save;
     private TextField firstUName;
     private TextField secondUName;
     private PasswordField firstPwd;
@@ -88,6 +90,8 @@ public class UpdateInfoView extends View {
         }
 
         pane.add(output, 0, 9);
+
+        save = createButton(35, IDLE_BUTTON_SAVE, HOVER_BUTTON_SAVE);
         pane.add(save, 1, 10);
 
         return pane;

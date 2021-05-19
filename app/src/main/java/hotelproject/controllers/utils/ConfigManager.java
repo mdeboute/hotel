@@ -19,6 +19,11 @@ public class ConfigManager {
         this.configPath = configPath;
     }
 
+    /**
+     * @param key for getting the focal property's value.
+     * @return the property return as a string.
+     * @brief According a file path to get configuration property.
+     */
     public String getPValue(String key) {
         Properties prop = new Properties();
         InputStream is = null;
@@ -36,6 +41,11 @@ public class ConfigManager {
         return prop.getProperty(key);
     }
 
+    /**
+     * You should not use this method, use this
+     * @see ConfigManager#getPValue(java.lang.String) instead
+     */
+    @Deprecated
     public ArrayList<String> getPValue(ArrayList<String> keys) {
         Properties prop = new Properties();
         InputStream is = null;
@@ -50,11 +60,9 @@ public class ConfigManager {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         for (String key : keys) {
             values.add(prop.getProperty(key));
         }
-
         return values;
     }
 }
