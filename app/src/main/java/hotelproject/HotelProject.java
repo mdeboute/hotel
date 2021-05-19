@@ -6,7 +6,6 @@ import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 import hotelproject.views.UpdateInfoView.Change;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -193,8 +192,8 @@ public class HotelProject extends Application {
             boolean isInfoCorrect = true;
 
             if (change == Change.USERNAME) {
-                String firstUsername = updateInfoPage.getFirstUName().getText().trim();
-                String secondUsername = updateInfoPage.getSecondUName().getText().trim();
+                String firstUsername = updateInfoPage.getFirstUName().getText();
+                String secondUsername = updateInfoPage.getSecondUName().getText();
                 if (firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else {

@@ -22,9 +22,9 @@ public class UpdateBookingView extends View {
     private final TextField newFee = new TextField();
     private final CheckBox newIsPaid = new CheckBox("Is paid ?");
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
-    private Button submit;
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private Button submit;
 
     public UpdateBookingView(DatabaseManager dbm) {
         this.dbm = dbm;

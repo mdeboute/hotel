@@ -13,13 +13,12 @@ public class NewUserView extends View {
     private final TextField userName = new TextField();
     private final TextField userPassword = new TextField();
     private final CheckBox userIA = new CheckBox("Is admin ?");
-    private Button submit;
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-
-    private Button cancel;
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit;
+    private Button cancel;
 
     public NewUserView() {
         createScene();

@@ -21,9 +21,9 @@ public class NewRoomView extends View {
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
     private final Button addRoomType = new Button("Add type");
-    private Button submit;
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private Button submit;
 
     public NewRoomView(HotelData hdata) {
         this.hdata = hdata;
@@ -77,7 +77,8 @@ public class NewRoomView extends View {
         pane.add(roomType, 1, 4);
         pane.add(addRoomType, 2, 4);
 
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);;
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 7);
 
