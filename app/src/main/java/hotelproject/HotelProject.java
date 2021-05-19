@@ -171,8 +171,8 @@ public class HotelProject extends Application {
             boolean isInfoCorrect = true;
 
             if (change == Change.USERNAME) {
-                String firstUsername = updateInfoPage.getFirstUName().getText();
-                String secondUsername = updateInfoPage.getSecondUName().getText();
+                String firstUsername = updateInfoPage.getFirstUName().getText().trim();
+                String secondUsername = updateInfoPage.getSecondUName().getText().trim();
                 if (firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else {
