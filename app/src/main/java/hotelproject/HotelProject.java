@@ -161,6 +161,32 @@ public class HotelProject extends Application {
         myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
+        if (change == Change.USERNAME) {
+            updateInfoPage.getFirstUName().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+
+            updateInfoPage.getSecondUName().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+        } else {
+            updateInfoPage.getFirstPwd().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+
+            updateInfoPage.getSecondPwd().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+        }
+
         // to save the modifications
         updateInfoPage.getSave().setOnAction(e -> {
             String oldUsername = connectedUser.getU_name();
