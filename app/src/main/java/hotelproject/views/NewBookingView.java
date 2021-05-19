@@ -15,14 +15,13 @@ import javafx.util.Callback;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewBookingView extends View {
 
     private final DatabaseManager dbm;
     private final HotelData hdata;
-
     private final ComboBox<Integer> numRoom = new ComboBox<>();
     private final CheckBox paidByCard = new CheckBox("Paid by card ?");
     private final DatePicker checkIn = new DatePicker();
@@ -34,6 +33,7 @@ public class NewBookingView extends View {
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    List<Integer> availableRooms;
     private Button submit;
     private Button cancel;
 
@@ -77,10 +77,8 @@ public class NewBookingView extends View {
                 Date datePicked = Date.valueOf(leftEndpoint);
                 Date secondDatePicked = Date.valueOf(rightEndpoint);
 
-                ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
-                for (Integer value : availableRooms) {
-                    numRoom.getItems().add(value);
-                }
+                availableRooms = hdata.availableRooms(datePicked, secondDatePicked).stream().sorted().distinct().collect(Collectors.toList());
+                availableRooms.forEach(value -> numRoom.getItems().add(value));
             }
         });
         checkOut.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -94,10 +92,8 @@ public class NewBookingView extends View {
                 Date datePicked = Date.valueOf(leftEndpoint);
                 Date secondDatePicked = Date.valueOf(rightEndpoint);
 
-                ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
-                for (Integer value : availableRooms) {
-                    numRoom.getItems().add(value);
-                }
+                availableRooms = hdata.availableRooms(datePicked, secondDatePicked).stream().sorted().distinct().collect(Collectors.toList());
+                availableRooms.forEach(value -> numRoom.getItems().add(value));
             }
         });
 
