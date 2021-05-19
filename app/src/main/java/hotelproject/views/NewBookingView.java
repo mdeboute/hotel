@@ -30,8 +30,8 @@ public class NewBookingView extends View {
     private final TextField bookingFee = new TextField();
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
-    private final String idleSubmit = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String hoverSubmit = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
     private Button cancel;
 
@@ -155,7 +155,7 @@ public class NewBookingView extends View {
     }
 
     private VBox createFooter() {
-        submit = createButton(35, idleSubmit, hoverSubmit);
+        submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
         cancel = new Button("Cancel");
 
         VBox footer = new VBox(submit, cancel);

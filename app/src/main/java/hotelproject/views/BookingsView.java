@@ -34,8 +34,8 @@ public class BookingsView extends View {
     private final TableView<Booking> bookingsTable = new TableView<>();
     private final DatePicker startDatePicker = new DatePicker(); // private final DatePicker date = new DatePicker();
     private final DatePicker endDatePicker = new DatePicker();
-    private final String idlePathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
-    private final String hoverPathAddBooking = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
+    private final String IDLE_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
+    private final String HOVER_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
     private Button addBooking;
 
     public BookingsView(User user, List<Booking> bookings) {
@@ -64,9 +64,6 @@ public class BookingsView extends View {
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
         title.setStyle("-fx-font-weight: bold;");
         title.setTextFill(Paint.valueOf("bb86fc"));
-
-        //startDatePicker.setValue(LocalDate.now().minusMonths(1));
-        //endDatePicker.setValue(LocalDate.now().plusMonths(1));
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
@@ -230,7 +227,7 @@ public class BookingsView extends View {
 
         pane.add(bookingsTable, 0, 4);
         if (user.getU_is_admin() == 1) {
-            addBooking = createButton(35, idlePathAddBooking, hoverPathAddBooking);
+            addBooking = createButton(35, IDLE_ADD_BOOKING, HOVER_ADD_BOOKING);
             pane.add(addBooking, 0, 5);
             GridPane.setHalignment(addBooking, javafx.geometry.HPos.CENTER);
         }

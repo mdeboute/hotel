@@ -22,8 +22,8 @@ public class LoginView extends View {
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password");
     private final Label result = new Label();
-    private final String idlePathTestLogin = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
-    private final String hoverPathTestLogin = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
+    private final String IDLE_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
+    private final String HOVER_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
     boolean onlyPwd;
     private Button testLogin;
 
@@ -38,11 +38,6 @@ public class LoginView extends View {
         VBox header = createHeader();
         scenePane.add(header, 0, 0);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
-
-        if (onlyPwd) {
-            //scenePane.setVgap(60);
-        }
-
         GridPane body = createBody();
         scenePane.add(body, 0, 1);
         GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
@@ -73,7 +68,6 @@ public class LoginView extends View {
 
             header = new VBox(logo, welcome);
             header.setPadding(new Insets(10.0, 10.0, 35.0, 10.0));
-            header.setSpacing(5.5);
         } else {
             credentials.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
             credentials.setStyle("-fx-font-weight: bold;");
@@ -81,8 +75,8 @@ public class LoginView extends View {
 
             header = new VBox(credentials);
             header.setPadding(new Insets(30.0, 10.0, 5.0, 10.0));
-            header.setSpacing(5.5);
         }
+        header.setSpacing(5.5);
         header.setAlignment(Pos.CENTER);
 
         return header;
@@ -141,7 +135,7 @@ public class LoginView extends View {
         }
 
         //login button
-        testLogin = createButton(55, idlePathTestLogin, hoverPathTestLogin);
+        testLogin = createButton(55, IDLE_TEST_LOGIN, HOVER_TEST_LOGIN);
         bodyPane.add(testLogin, 0, 2);
 
         return bodyPane;

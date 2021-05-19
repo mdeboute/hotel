@@ -2,7 +2,6 @@ package hotelproject.views;
 
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -49,14 +48,12 @@ public class AddRoomTypeView extends View {
         name.getParent().requestFocus();
 
         // force the field to be numeric only
-        name.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z]*")) {
-                Platform.runLater(() -> {
-                    name.clear();
-                });
+                Platform.runLater(name::clear);
             }
         });
-    
+
         Label nbBedsL = new Label("Number of beds: ");
         pane.add(nbBedsL, 0, 3);
         pane.add(nbBeds, 1, 3);
@@ -65,11 +62,9 @@ public class AddRoomTypeView extends View {
         nbBeds.getParent().requestFocus();
 
         // force the field to be numeric only
-        nbBeds.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
-            if (!newValue.matches("(?:[1-9]|10)")) {
-                Platform.runLater(() -> {
-                    nbBeds.clear();
-                });
+        nbBeds.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-9]|10")) {
+                Platform.runLater(nbBeds::clear);
             }
         });
 
@@ -81,11 +76,9 @@ public class AddRoomTypeView extends View {
         roomSize.getParent().requestFocus();
 
         // force the field to be numeric only
-        roomSize.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
-            if (!newValue.matches("(?:[1-9]|[1-9][0-9]|[12][0-9]{2}|300)")) {
-                Platform.runLater(() -> {
-                    roomSize.clear();
-                });
+        roomSize.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-9]|[1-9][0-9]|[12][0-9]{2}|300")) {
+                Platform.runLater(roomSize::clear);
             }
         });
 
