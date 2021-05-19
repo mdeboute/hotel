@@ -23,7 +23,6 @@ public class RoomsDB {
             String sql = "INSERT INTO `room_type` (`t_name`, `beds`, `r_size`, `has_view`, `has_kitchen`, "
                     + "`has_bathroom`, `has_workspace`, `has_tv`, `has_coffee_maker`) VALUES "
                     + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            // Statement stmt = conn.createStatement();
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, room.getT_name());
             statement.setInt(2, room.getBeds());
@@ -37,10 +36,6 @@ public class RoomsDB {
 
             statement.executeUpdate();
 
-            // stmt.executeUpdate(String.format(sql, room.getT_name(), room.getBeds(),
-            // room.getR_size(), room.getHas_view(),
-            // room.getHas_kitchen(), room.getHas_bathroom(), room.getHas_workspace(),
-            // room.getHas_tv(), room.getHas_coffee_maker()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +48,6 @@ public class RoomsDB {
     public void addRoom(Room room) {
         try {
             String sql = "INSERT INTO `room` (`r_num`, `r_floor`, `r_type`) VALUES (?, ?, ?)";
-            // Statement stmt = conn.createStatement();
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, room.getR_num());
             statement.setInt(2, room.getR_floor());
@@ -61,8 +55,6 @@ public class RoomsDB {
 
             statement.executeUpdate();
 
-            // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
-            // room.getR_type(), room.getBooked()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,11 +67,9 @@ public class RoomsDB {
      */
     public void deleteRoomType(RoomType roomType) {
         try {
-            // Statement stmt = conn.createStatement();
             String sql = "DELETE FROM `room_type` WHERE `t_name` = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, roomType.getT_name());
-            // stmt.executeUpdate(String.format(sql, roomType.getT_name()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,12 +82,10 @@ public class RoomsDB {
      */
     public void deleteRoom(Room room) {
         try {
-            // Statement stmt = conn.createStatement();
             String sql = "DELETE FROM `room` WHERE `r_num` = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, room.getR_num());
             statement.executeUpdate();
-            // stmt.executeUpdate(String.format(sql, room.getR_num()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,7 +98,6 @@ public class RoomsDB {
      */
     public void updateRoomType(RoomType roomType, String oldRoomType) {
         try {
-            // Statement stmt = conn.createStatement();
             String sql = "UPDATE `room_type` SET `t_name` = ?, `beds` = ?, `r_size` = ?, `has_view` = ?, "
                     + "`has_kitchen` = ?, `has_bathroom` = ?, `has_workspace` = ?, `has_tv` = ?, `has_coffee_maker`"
                     + " = ? WHERE `t_name` = ? ";
@@ -125,9 +112,6 @@ public class RoomsDB {
             statement.setInt(8, roomType.getHas_tv());
             statement.setInt(9, roomType.getHas_coffee_maker());
             statement.setString(10, oldRoomType);
-            // stmt.executeUpdate(String.format(sql,roomType.getT_name(),roomType.getBeds(),roomType.getR_size(),
-            // roomType.getHas_view(),roomType.getHas_kitchen(),roomType.getHas_bathroom(),
-            // roomType.getHas_workspace(),roomType.getHas_tv(),roomType.getHas_coffee_maker(),oldRoomType));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,8 +124,6 @@ public class RoomsDB {
      */
     public void updateRoom(Room room, int oldRNum) {
         try {
-            // Statement stmt = conn.createStatement();
-
             String sql = "UPDATE `room` SET `r_num` = ?, `r_floor` = ?, `r_type` = ? WHERE `r_num` = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, room.getR_num());
@@ -149,9 +131,6 @@ public class RoomsDB {
             statement.setString(3, room.getR_type());
             statement.setInt(4, oldRNum);
             statement.executeUpdate();
-            // stmt.executeUpdate(String.format(sql, room.getR_num(), room.getR_floor(),
-            // room.getR_type(),
-            // room.getBooked(), oldRNum));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -167,7 +146,6 @@ public class RoomsDB {
         String[] roomData = {"t_name", "beds", "r_size", "has_view", "has_kitchen", "has_bathroom", "has_workspace",
                 "has_tv", "has_coffee_maker"};
         try {
-            // Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM room_type WHERE t_name = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, room.getR_type());
@@ -308,7 +286,4 @@ public class RoomsDB {
         }
         return roomNumbers;
     }
-
-    
-
 }
