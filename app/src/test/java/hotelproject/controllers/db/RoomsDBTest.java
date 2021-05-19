@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +19,6 @@ public class RoomsDBTest {
 
 
     private final DatabaseManager dbm = new DatabaseManager();
-    private final ArrayList<String> log = new ArrayList<>();
     private final int r_num = 666;
     private final Room testRoom1 = new Room(r_num, 6, "Hexagonal");
     private final String t_name1 = "Hexagonal"; // generateRandomString();
@@ -249,7 +247,4 @@ public class RoomsDBTest {
     }
 
 
-    public ArrayList<String> getLog() {
-        return log;
-    }
 }
