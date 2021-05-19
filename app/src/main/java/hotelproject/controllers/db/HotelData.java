@@ -13,7 +13,7 @@ public class HotelData {
     private final ArrayList<RoomType> roomTypes;
     private final ArrayList<Booking> bookings;
     private final ArrayList<User> users;
-    private final ArrayList<Customer> customers;  // Will be integrated later
+    private final ArrayList<Customer> customers;
 
     public HotelData() {
         dbm = new DatabaseManager();

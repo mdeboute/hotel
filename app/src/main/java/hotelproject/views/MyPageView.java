@@ -5,10 +5,7 @@ import hotelproject.controllers.utils.Default;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
 public class MyPageView extends View {
 
@@ -16,10 +13,10 @@ public class MyPageView extends View {
     private final User user;
 
     // The scene's nodes
-    private String idleUrlChange = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
-    private String hoverUrlChange = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
-    private String idleUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
-    private String hoverUrlLogOut = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
+    private final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
+    private final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
+    private final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
+    private final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
     private Button chUser;
     private Button chPwd;
     private Button logOut;
@@ -53,15 +50,15 @@ public class MyPageView extends View {
         pane.add(status, 0, 1);
         Label username = changeLabelDesign(new Label("Username: " + user.getU_name()), SFPath, 20, "white");
         Label password = changeLabelDesign(new Label("Password: " + "*".repeat(pwd.length())), SFPath, 20, "white");
-        chUser = createButton(25, idleUrlChange, hoverUrlChange);
-        chPwd = createButton(25, idleUrlChange, hoverUrlChange);
+        chUser = createButton(25, IDLE_CHANGE, HOVER_CHANGE);
+        chPwd = createButton(25, IDLE_CHANGE, HOVER_CHANGE);
 
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
         pane.add(chUser, 1, 3);
         pane.add(chPwd, 1, 4);
 
-        logOut = createButton(25, idleUrlLogOut, hoverUrlLogOut);
+        logOut = createButton(25, IDLE_LOGOUT, HOVER_LOGOUT);
 
         pane.add(logOut, 0, 7);
 

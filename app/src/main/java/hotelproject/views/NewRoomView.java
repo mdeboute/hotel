@@ -3,9 +3,11 @@ package hotelproject.views;
 import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.RoomType;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -38,13 +40,11 @@ public class NewRoomView extends View {
 
         numRoom.setPromptText("1-256"); // to set the hint text
         numRoom.getParent().requestFocus();
-        
+
         // force the field to be numeric only
-        numRoom.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
-            if (!newValue.matches("(?:[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])")) {
-                Platform.runLater(() -> {
-                    numRoom.clear();
-                });
+        numRoom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]")) {
+                Platform.runLater(numRoom::clear);
             }
         });
 
@@ -56,11 +56,9 @@ public class NewRoomView extends View {
         floor.getParent().requestFocus();
 
         // force the field to be numeric only
-        floor.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
-            if (!newValue.matches("(?:[1-9]|10)")) {
-                Platform.runLater(() -> {
-                    floor.clear();
-                });
+        floor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-9]|10")) {
+                Platform.runLater(floor::clear);
             }
         });
 
