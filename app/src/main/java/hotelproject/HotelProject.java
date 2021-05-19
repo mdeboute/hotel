@@ -86,7 +86,7 @@ public class HotelProject extends Application {
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
-                        myPageDisplay();
+                        updateInfoDisplay(new Stage(), new Stage(), Change.PASSWORD);
                         primaryStage.close();
                     } else {
                         loginView.getResult().setText("The password you have entered is wrong !");
@@ -118,7 +118,7 @@ public class HotelProject extends Application {
 
         mainPageView.getMyPageButton().setOnAction(e -> {
             // display user info page
-            credentialsDisplay(loginStage, true);
+            myPageDisplay();
         });
 
         mainPageView.getViewBookingsButton().setOnAction(e -> {
@@ -156,7 +156,6 @@ public class HotelProject extends Application {
      *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
-
         myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
@@ -243,7 +242,7 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
         Stage updateInfoStage = new Stage();
 
-        myPage.getChPwd().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.PASSWORD));
+        myPage.getChPwd().setOnAction(e -> credentialsDisplay(new Stage(), true));
         myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
         myPage.getLogout().setOnAction(e -> logout(myPageStage));
@@ -320,8 +319,16 @@ public class HotelProject extends Application {
         NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
-        // set buttons on action
+        // error handling
+        if (newRoomViewPage.getNumRoom().getText().equals("") ||
+                newRoomViewPage.getFloor().getText().equals("") ||
+                newRoomViewPage.getRoomType().getValue() == null) {
+            newRoomViewPage.getSubmit().setDisable(true);
+        } else {
+            newRoomViewPage.getSubmit().setDisable(false);
+        }
 
+        // set buttons on action
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
 
         newRoomViewPage.getSubmit().setOnAction(e -> {
@@ -372,8 +379,15 @@ public class HotelProject extends Application {
         NewUserView newUserViewPage = new NewUserView();
         Stage newUserStage = new Stage();
 
-        // set buttons on action
+        // Error handling
+        if (newUserViewPage.getUserName().getText().equals("") ||
+                newUserViewPage.getUserPassWord().getText().equals("")) {
+            newUserViewPage.getSubmit().setDisable(true);
+        } else {
+            newUserViewPage.getSubmit().setDisable(false);
+        }
 
+        // set buttons on action
         newUserViewPage.getSubmit().setOnAction(e -> {
             String userN = newUserViewPage.getUserName().getText();
             String userP = newUserViewPage.getUserPassWord().getText();
@@ -746,9 +760,11 @@ public class HotelProject extends Application {
                     }
 
                     GridPane secBLayout = new GridPane();
+                    secBLayout.getStyleClass().add("details-pane");
                     secBLayout.getChildren().add(roomDListView);
 
                     Scene secondScene = new Scene(secBLayout, 250, 250);
+                    secondScene.getStylesheets().add("file:assets/css/Stylesheet.css");
 
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);

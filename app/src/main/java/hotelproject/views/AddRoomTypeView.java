@@ -8,6 +8,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class AddRoomTypeView extends View {
@@ -22,7 +24,10 @@ public class AddRoomTypeView extends View {
     private final TextField name = new TextField();
     private final TextField nbBeds = new TextField();
     private final TextField roomSize = new TextField();
-    private final Button submit = new Button("Submit");
+
+    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    private final Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
 
     public AddRoomTypeView() {
         createScene();
@@ -33,14 +38,9 @@ public class AddRoomTypeView extends View {
         GridPane pane = createPane();
 
         //labels and text fields
-        Label title = new Label("New room type");
-        title.setStyle("-fx-font-weight: bold;");
-        title.setFont(Font.font(18));
+        VBox header = createHeader("New room type", "Please enter the new room type parameters");
 
-        Label subtitle = new Label("Please enter the new room type parameters: ");
-        pane.add(subtitle, 0, 0);
-
-        Label nameL = new Label("Type name: ");
+        Label nameL = changeLabelDesign(new Label("Type name: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(nameL, 0, 2);
         pane.add(name, 1, 2);
 
@@ -54,7 +54,7 @@ public class AddRoomTypeView extends View {
             }
         });
 
-        Label nbBedsL = new Label("Number of beds: ");
+        Label nbBedsL = changeLabelDesign(new Label("Number of beds: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(nbBedsL, 0, 3);
         pane.add(nbBeds, 1, 3);
 
@@ -68,7 +68,7 @@ public class AddRoomTypeView extends View {
             }
         });
 
-        Label roomSizeL = new Label("Room size: ");
+        Label roomSizeL = changeLabelDesign(new Label("Room size: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(roomSizeL, 0, 4);
         pane.add(roomSize, 1, 4);
 
@@ -82,20 +82,43 @@ public class AddRoomTypeView extends View {
             }
         });
 
-        Label sizeUnit = new Label("m²");
+        Label sizeUnit = changeLabelDesign(new Label("m²"), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(sizeUnit, 2, 4);
 
         //checkboxes
+        hasView.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasView.setTextFill(Paint.valueOf("white"));
         pane.add(hasView, 0, 5);
+
+        hasKitchen.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasKitchen.setTextFill(Paint.valueOf("white"));
         pane.add(hasKitchen, 0, 6);
+
+        hasBathroom.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasBathroom.setTextFill(Paint.valueOf("white"));
         pane.add(hasBathroom, 0, 7);
+
+        hasWorksp.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasWorksp.setTextFill(Paint.valueOf("white"));
         pane.add(hasWorksp, 0, 8);
+
+        hasTv.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasTv.setTextFill(Paint.valueOf("white"));
         pane.add(hasTv, 0, 9);
+
+        hasCoffeeMkr.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        hasCoffeeMkr.setTextFill(Paint.valueOf("white"));
         pane.add(hasCoffeeMkr, 0, 10);
 
-        pane.add(submit, 2, 12);
-
-        scene = new Scene(pane);
+        GridPane mainPain = createPane();
+        mainPain.add(header, 0, 0);
+        pane.setVgap(15);
+        mainPain.add(pane, 0, 1);
+        mainPain.add(submit, 0, 2);
+        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
+        scene = new Scene(mainPain);
+        mainPain.getStyleClass().add("body-pane");
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override

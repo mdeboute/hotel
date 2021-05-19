@@ -77,12 +77,12 @@ public class UpdateBookingView extends View {
         newCheckIn.setPromptText("FROM (DD/MM/YYYY)");
         newCheckOut.setPromptText("TO (DD/MM/YYYY)");
 
-        Label newFeeL = new Label("New fee: ");
+        Label newFeeL = changeLabelDesign(new Label("New fee: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(newFeeL, 0, 5);
         pane.add(newFee, 1, 5);
         pane.add(newIsPaid, 0, 6);
 
-        Label bookingCSSL = new Label("Customer number: ");
+        Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingCSSL, 0, 7);
 
         List<Customer> customers = dbm.cdb.findAllCustomers();
@@ -98,6 +98,7 @@ public class UpdateBookingView extends View {
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
+        pane.setVgap(15);
         paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
         paneTwo.getStyleClass().add("body-pane");

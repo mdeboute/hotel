@@ -1,5 +1,7 @@
 package hotelproject.views;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -7,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 public class NewUserView extends View {
 
@@ -30,31 +34,44 @@ public class NewUserView extends View {
 
         VBox header = createHeader("New user", "Enter the new user details");
 
-        Label userNameL = new Label("Username: ");
+        Label userNameL = changeLabelDesign(new Label("Username: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(userNameL, 0, 2);
         pane.add(userName, 1, 2);
-        Label userPassL = new Label("User password: ");
+        Label userPassL = changeLabelDesign(new Label("User password: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(userPassL, 0, 4);
         pane.add(userPassword, 1, 4);
+        userIA.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
+        userIA.setTextFill(Paint.valueOf("white"));
         pane.add(userIA, 0, 5);
 
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
-        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 7);
-
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 8);
-
         GridPane paneTwo = new GridPane();
+
         paneTwo.add(header, 0, 0);
-        paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+
+        pane.setVgap(15);
+        paneTwo.add(pane, 0, 1);
+
+        VBox footer = createFooter();
+        paneTwo.add(footer, 0, 2);
+
         pane.getStyleClass().add("body-pane");
         paneTwo.getStyleClass().add("body-pane");
 
         scene = new Scene(paneTwo);
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
+    }
+
+    private VBox createFooter() {
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
+
+        VBox footer = new VBox(submit, cancel);
+        footer.setAlignment(Pos.CENTER);
+        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
+        footer.setSpacing(15);
+
+        return footer;
     }
 
     @Override

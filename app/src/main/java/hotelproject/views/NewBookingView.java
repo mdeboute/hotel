@@ -125,14 +125,14 @@ public class NewBookingView extends View {
         pane.add(checkIn, 0, 1);
         pane.add(checkOut, 1, 1);
 
-        Label numRoomL = changeLabelDesign(new Label("Room number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label numRoomL = changeLabelDesign(new Label("Room number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(numRoomL, 0, 2);
         pane.add(numRoom, 1, 2);
 
-        Label bookingFeeL = changeLabelDesign(new Label("Booking fee: "), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label bookingFeeL = changeLabelDesign(new Label("Booking fee: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingFeeL, 0, 3);
         pane.add(bookingFee, 1, 3);
-        Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
+        Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingCSSL, 0, 4);
 
         List<Customer> customers = dbm.cdb.findAllCustomers();
@@ -142,14 +142,14 @@ public class NewBookingView extends View {
 
         pane.add(c_ss_number, 1, 4);
 
-        paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         paidByCard.setTextFill(Paint.valueOf("white"));
         pane.add(paidByCard, 0, 5);
-        isPaid.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+        isPaid.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         isPaid.setTextFill(Paint.valueOf("white"));
         pane.add(isPaid, 0, 6);
 
-        //pane.getChildren().forEach(e -> e.setPadding(new Insets(15, 15, 25, 15)));
+        pane.setVgap(15);
         return pane;
     }
 
@@ -160,7 +160,7 @@ public class NewBookingView extends View {
         VBox footer = new VBox(submit, cancel);
         footer.setAlignment(Pos.CENTER);
         footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
-        footer.setSpacing(5.5);
+        footer.setSpacing(15);
 
         return footer;
     }
