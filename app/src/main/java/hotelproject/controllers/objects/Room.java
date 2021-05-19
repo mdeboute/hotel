@@ -18,16 +18,8 @@ public class Room {
         return r_num;
     }
 
-    public void setR_num(int r_num) {
-        this.r_num = r_num;
-    }
-
     public int getR_floor() {
         return r_floor;
-    }
-
-    public void setR_floor(int r_floor) {
-        this.r_floor = r_floor;
     }
 
     public String getR_type() {

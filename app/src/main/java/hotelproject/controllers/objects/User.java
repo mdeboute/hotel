@@ -39,10 +39,6 @@ public class User {
         return u_is_admin;
     }
 
-    public void setU_is_admin(int u_is_admin) {
-        this.u_is_admin = u_is_admin;
-    }
-
     public String is_admin() {
         if (u_is_admin == 1) return "yes";
         return "no";

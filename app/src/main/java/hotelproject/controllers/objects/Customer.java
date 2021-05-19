@@ -1,11 +1,11 @@
 package hotelproject.controllers.objects;
 
 public class Customer {
-    private int c_ss_number;
-    private String c_address;
-    private String c_full_name;
-    private int c_phone_num;
-    private String c_email;
+    private final int c_ss_number;
+    private final String c_email;
+    private final String c_address;
+    private final String c_full_name;
+    private final int c_phone_num;
 
     public Customer(int c_ss_number, String c_address, String c_full_name, int c_phone_num, String c_email) {
         this.c_ss_number = c_ss_number;
@@ -19,40 +19,20 @@ public class Customer {
         return c_ss_number;
     }
 
-    public void setC_ss_number(int c_ss_number) {
-        this.c_ss_number = c_ss_number;
-    }
-
     public String getC_address() {
         return c_address;
-    }
-
-    public void setC_address(String c_adress) {
-        this.c_address = c_adress;
     }
 
     public String getC_full_name() {
         return c_full_name;
     }
 
-    public void setC_full_name(String c_full_name) {
-        this.c_full_name = c_full_name;
-    }
-
     public int getC_phone_num() {
         return c_phone_num;
     }
 
-    public void setC_phone_num(int c_phone_num) {
-        this.c_phone_num = c_phone_num;
-    }
-
     public String getC_email() {
         return c_email;
-    }
-
-    public void setC_email(String c_email) {
-        this.c_email = c_email;
     }
 
     /**

@@ -3,7 +3,7 @@ package hotelproject.controllers.objects;
 import java.sql.Date;
 
 public class Booking {
-    private int b_id;
+    private final int b_id;
     private int r_num;
     private int paid_by_card;
     private Date b_from;
@@ -26,10 +26,6 @@ public class Booking {
 
     public int getB_id() {
         return b_id;
-    }
-
-    public void setB_id(int b_id) {
-        this.b_id = b_id;
     }
 
     public int getR_num() {
