@@ -19,6 +19,7 @@ import javafx.util.Callback;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,10 +140,12 @@ public class RoomsView extends View {
                 flRoom.setPredicate(item -> {
                     // If filter text is empty, display all items.
                     LocalDate leftEndpoint = startDatePicker.getValue();
-                    LocalDate rightEndpoint = endDatePicker.getValue();
+                    String firstFormattedDate = leftEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date datePicked = java.sql.Date.valueOf(firstFormattedDate);
 
-                    Date datePicked = Date.valueOf(leftEndpoint);
-                    Date secondDatePicked = Date.valueOf(rightEndpoint);
+                    LocalDate rightEndpoint = endDatePicker.getValue();
+                    String secondFormattedDate = rightEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date secondDatePicked = java.sql.Date.valueOf(secondFormattedDate);
 
                     ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
 
@@ -164,11 +167,13 @@ public class RoomsView extends View {
                 flRoom.setPredicate(item -> {
                     // If filter text is empty, display all items.
                     LocalDate leftEndpoint = startDatePicker.getValue();
+                    String firstFormattedDate = leftEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date datePicked = java.sql.Date.valueOf(firstFormattedDate);
+
                     LocalDate rightEndpoint = endDatePicker.getValue();
-
-                    Date datePicked = Date.valueOf(leftEndpoint);
-                    Date secondDatePicked = Date.valueOf(rightEndpoint);
-
+                    String secondFormattedDate = rightEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date secondDatePicked = java.sql.Date.valueOf(secondFormattedDate);
+                    
                     ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
 
                     for (int rNum : availableRooms) {
