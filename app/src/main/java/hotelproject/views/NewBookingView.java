@@ -30,14 +30,12 @@ public class NewBookingView extends View {
     private final TextField bookingFee = new TextField();
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
-
-    private Button submit;
     private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-
-    private Button cancel;
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit;
+    private Button cancel;
 
     public NewBookingView(DatabaseManager dbm, HotelData hdata) {
         this.dbm = dbm;
