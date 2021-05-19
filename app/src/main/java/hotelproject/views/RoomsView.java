@@ -19,6 +19,7 @@ import javafx.util.Callback;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +29,20 @@ public class RoomsView extends View {
 
     // The user connected to the application
     private final User user;
-    private final HotelData hdata; 
+    private final HotelData hdata;
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
     private final String idlePathAddRoom = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
     private final String hoverPathAddRoom = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
+    private final DatePicker startDatePicker = new DatePicker();
+    private final DatePicker endDatePicker = new DatePicker();
     private Button addRoom;
-    private DatePicker startDatePicker = new DatePicker();
-    private DatePicker endDatePicker = new DatePicker();
 
     public RoomsView(User user, List<Room> rooms, HotelData hdata) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
-        this.hdata = hdata; 
+        this.hdata = hdata;
         createScene();
     }
 
@@ -139,10 +140,12 @@ public class RoomsView extends View {
                 flRoom.setPredicate(item -> {
                     // If filter text is empty, display all items.
                     LocalDate leftEndpoint = startDatePicker.getValue();
-                    LocalDate rightEndpoint = endDatePicker.getValue();
+                    String firstFormattedDate = leftEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date datePicked = java.sql.Date.valueOf(firstFormattedDate);
 
-                    Date datePicked = Date.valueOf(leftEndpoint);
-                    Date secondDatePicked = Date.valueOf(rightEndpoint);
+                    LocalDate rightEndpoint = endDatePicker.getValue();
+                    String secondFormattedDate = rightEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date secondDatePicked = java.sql.Date.valueOf(secondFormattedDate);
 
                     ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
 
@@ -164,11 +167,13 @@ public class RoomsView extends View {
                 flRoom.setPredicate(item -> {
                     // If filter text is empty, display all items.
                     LocalDate leftEndpoint = startDatePicker.getValue();
+                    String firstFormattedDate = leftEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date datePicked = java.sql.Date.valueOf(firstFormattedDate);
+
                     LocalDate rightEndpoint = endDatePicker.getValue();
-
-                    Date datePicked = Date.valueOf(leftEndpoint);
-                    Date secondDatePicked = Date.valueOf(rightEndpoint);
-
+                    String secondFormattedDate = rightEndpoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Date secondDatePicked = java.sql.Date.valueOf(secondFormattedDate);
+                    
                     ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
 
                     for (int rNum : availableRooms) {
@@ -190,14 +195,18 @@ public class RoomsView extends View {
 
         HBox search = new HBox(whatToSearch, searchBar);
         search.setAlignment(Pos.CENTER);
+        search.getStyleClass().add("search");
 
         pane.add(title, 0, 0);
         GridPane.setHalignment(title, HPos.CENTER);
         pane.add(search, 0, 2);
+
         HBox dateRange = new HBox(startDatePicker, endDatePicker);
         dateRange.setAlignment(Pos.CENTER);
+        dateRange.getStyleClass().add("date-range");
         pane.add(dateRange, 0, 3);
         pane.add(roomsTable, 0, 4);
+
         addRoom = createButton(35, idlePathAddRoom, hoverPathAddRoom);
         addRoom.setVisible(false);
 

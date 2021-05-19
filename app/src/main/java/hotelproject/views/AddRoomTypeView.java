@@ -1,5 +1,8 @@
 package hotelproject.views;
 
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -21,7 +24,6 @@ public class AddRoomTypeView extends View {
     private final TextField nbBeds = new TextField();
     private final TextField roomSize = new TextField();
     private final Button submit = new Button("Submit");
-    private final Button cancel = new Button("Cancel");
 
     public AddRoomTypeView() {
         createScene();
@@ -38,17 +40,58 @@ public class AddRoomTypeView extends View {
 
         Label subtitle = new Label("Please enter the new room type parameters: ");
         pane.add(subtitle, 0, 0);
+
         Label nameL = new Label("Type name: ");
         pane.add(nameL, 0, 2);
         pane.add(name, 1, 2);
+
+        name.setPromptText("Alphabetical letters only"); // to set the hint text
+        name.getParent().requestFocus();
+
+        // force the field to be numeric only
+        name.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]*")) {
+                Platform.runLater(() -> {
+                    name.clear();
+                });
+            }
+        });
+    
         Label nbBedsL = new Label("Number of beds: ");
         pane.add(nbBedsL, 0, 3);
         pane.add(nbBeds, 1, 3);
+
+        nbBeds.setPromptText("1-10"); // to set the hint text
+        nbBeds.getParent().requestFocus();
+
+        // force the field to be numeric only
+        nbBeds.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+            if (!newValue.matches("(?:[1-9]|10)")) {
+                Platform.runLater(() -> {
+                    nbBeds.clear();
+                });
+            }
+        });
+
         Label roomSizeL = new Label("Room size: ");
         pane.add(roomSizeL, 0, 4);
         pane.add(roomSize, 1, 4);
+
+        roomSize.setPromptText("Digits up to 300 only"); // to set the hint text
+        roomSize.getParent().requestFocus();
+
+        // force the field to be numeric only
+        roomSize.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+            if (!newValue.matches("(?:[1-9]|[1-9][0-9]|[12][0-9]{2}|300)")) {
+                Platform.runLater(() -> {
+                    roomSize.clear();
+                });
+            }
+        });
+
         Label sizeUnit = new Label("m²");
         pane.add(sizeUnit, 2, 4);
+
         //checkboxes
         pane.add(hasView, 0, 5);
         pane.add(hasKitchen, 0, 6);
@@ -58,7 +101,6 @@ public class AddRoomTypeView extends View {
         pane.add(hasCoffeeMkr, 0, 10);
 
         pane.add(submit, 2, 12);
-        pane.add(cancel, 2, 13);
 
         scene = new Scene(pane);
     }
@@ -134,7 +176,4 @@ public class AddRoomTypeView extends View {
         return roomSize;
     }
 
-    public Button getCancel() {
-        return cancel;
-    }
 }

@@ -1,6 +1,7 @@
 package hotelproject.views;
 
 import hotelproject.controllers.db.DatabaseManager;
+import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.Customer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,14 +13,17 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewBookingView extends View {
 
     private final DatabaseManager dbm;
+    private final HotelData hdata;
 
-    private final TextField numRoom = new TextField();
+    private final ComboBox<Integer> numRoom = new ComboBox<>();
     private final CheckBox paidByCard = new CheckBox("Paid by card ?");
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
@@ -31,8 +35,9 @@ public class NewBookingView extends View {
     private Button submit;
     private Button cancel;
 
-    public NewBookingView(DatabaseManager dbm) {
+    public NewBookingView(DatabaseManager dbm, HotelData hdata) {
         this.dbm = dbm;
+        this.hdata = hdata;
         createScene();
     }
 
@@ -62,13 +67,36 @@ public class NewBookingView extends View {
             if (checkOut.getValue() != null && checkOut.getValue().isBefore(checkIn.getValue())) {
                 checkOut.setValue(checkIn.getValue().plusDays(1));
             }
+            if (checkOut.getValue() != null) {
+                LocalDate leftEndpoint = checkIn.getValue();
+                LocalDate rightEndpoint = checkOut.getValue();
+
+                Date datePicked = Date.valueOf(leftEndpoint);
+                Date secondDatePicked = Date.valueOf(rightEndpoint);
+
+                ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
+                for (Integer value : availableRooms) {
+                    numRoom.getItems().add(value);
+                }
+            }
         });
         checkOut.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (checkIn.getValue() != null && checkIn.getValue().isAfter(checkOut.getValue())) {
                 checkIn.setValue(checkOut.getValue().minusDays(1));
             }
-        });
+            if (checkIn.getValue() != null) {
+                LocalDate leftEndpoint = checkIn.getValue();
+                LocalDate rightEndpoint = checkOut.getValue();
 
+                Date datePicked = Date.valueOf(leftEndpoint);
+                Date secondDatePicked = Date.valueOf(rightEndpoint);
+
+                ArrayList<Integer> availableRooms = hdata.availableRooms(datePicked, secondDatePicked);
+                for (Integer value : availableRooms) {
+                    numRoom.getItems().add(value);
+                }
+            }
+        });
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =
@@ -94,12 +122,14 @@ public class NewBookingView extends View {
         });
         checkIn.setPromptText("FROM (DD/MM/YYYY)");
         checkOut.setPromptText("TO (DD/MM/YYYY)");
-        
+
+        pane.add(checkIn, 0, 1);
+        pane.add(checkOut, 1, 1);
+
         Label numRoomL = changeLabelDesign(new Label("Room number: "), "file:assets/font/SF_Pro.ttf", 20, "white");
-        pane.add(numRoomL, 0, 1);
-        pane.add(numRoom, 1, 1);
-        pane.add(checkIn, 0, 2);
-        pane.add(checkOut, 1, 2);
+        pane.add(numRoomL, 0, 2);
+        pane.add(numRoom, 1, 2);
+
         Label bookingFeeL = changeLabelDesign(new Label("Booking fee: "), "file:assets/font/SF_Pro.ttf", 20, "white");
         pane.add(bookingFeeL, 0, 3);
         pane.add(bookingFee, 1, 3);
@@ -140,7 +170,7 @@ public class NewBookingView extends View {
         return submit;
     }
 
-    public TextField getNumRoom() {
+    public ComboBox<Integer> getNumRoom() {
         return numRoom;
     }
 
