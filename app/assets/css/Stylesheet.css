@@ -43,6 +43,7 @@
 .text-field {
     -fx-background-color: #323232;
     -fx-background-radius: 0;
+    -fx-text-fill: white;
 }
 
 .choice-box .context-menu {
