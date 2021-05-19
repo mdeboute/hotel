@@ -19,6 +19,11 @@ public class ConfigManager {
         this.configPath = configPath;
     }
 
+    /**
+     * @param key for getting the focal property's value.
+     * @return the property return as a string.
+     * @brief According a file path to get configuration property.
+     */
     public String getPValue(String key) {
         Properties prop = new Properties();
         InputStream is = null;
