@@ -36,6 +36,11 @@ public class ConfigManager {
         return prop.getProperty(key);
     }
 
+    /**
+     * You should not use this method, use this
+     * @see ConfigManager#getPValue(java.lang.String) instead
+     */
+    @Deprecated
     public ArrayList<String> getPValue(ArrayList<String> keys) {
         Properties prop = new Properties();
         InputStream is = null;
@@ -50,11 +55,9 @@ public class ConfigManager {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         for (String key : keys) {
             values.add(prop.getProperty(key));
         }
-
         return values;
     }
 }
