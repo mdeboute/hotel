@@ -23,6 +23,8 @@ public class UpdateBookingView extends View {
     private final CheckBox newIsPaid = new CheckBox("Is paid ?");
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
     private Button submit;
+    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
 
     public UpdateBookingView(DatabaseManager dbm) {
         this.dbm = dbm;
@@ -90,7 +92,7 @@ public class UpdateBookingView extends View {
 
         pane.add(c_ss_number, 1, 7);
 
-        submit = new Button("Submit");
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 8);
 

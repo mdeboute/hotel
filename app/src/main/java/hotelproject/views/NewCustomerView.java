@@ -16,7 +16,12 @@ public class NewCustomerView extends View {
     private final TextField cEmail = new TextField();
 
     private Button submit;
+    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+
     private Button cancel;
+    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
 
     public NewCustomerView() {
         createScene();
@@ -44,11 +49,11 @@ public class NewCustomerView extends View {
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
 
-        submit = new Button("Submit");
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);;
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 7);
 
-        cancel = new Button("Cancel");
+        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
         GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
         pane.add(cancel, 1, 8);
 

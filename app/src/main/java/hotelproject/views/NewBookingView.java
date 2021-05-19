@@ -30,10 +30,14 @@ public class NewBookingView extends View {
     private final TextField bookingFee = new TextField();
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
+
+    private Button submit;
     private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private Button submit;
+
     private Button cancel;
+    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
 
     public NewBookingView(DatabaseManager dbm, HotelData hdata) {
         this.dbm = dbm;
@@ -157,7 +161,7 @@ public class NewBookingView extends View {
 
     private VBox createFooter() {
         submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
-        cancel = new Button("Cancel");
+        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
         VBox footer = new VBox(submit, cancel);
         footer.setAlignment(Pos.CENTER);

@@ -221,7 +221,7 @@ public class HotelProject extends Application {
         myPage.getChPwd().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.PASSWORD));
         myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
-        myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
+        myPage.getLogout().setOnAction(e -> logout(myPageStage));
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -1157,23 +1157,10 @@ public class HotelProject extends Application {
      * @param myPageStage the main application's page to close after showing logout
      *                    page
      */
-    private void logoutDisplay(Stage myPageStage) {
-        LogoutView logoutViewPage = new LogoutView();
-        Stage logoutStage = new Stage();
-
-        logoutViewPage.getLogin().setOnAction(e -> {
-            // display again login window
-            Stage loginStage = new Stage();
-            credentialsDisplay(loginStage, false);
-            logoutStage.close();
-        });
-
-        logoutViewPage.getClose().setOnAction(e -> Platform.exit());
-
-        logoutStage.setScene(logoutViewPage.getScene());
-        logoutStage.setTitle("Hotel Manager - Logout");
-        logoutStage.show();
+    private void logout(Stage myPageStage) {
         mainPageStage.close();
+        Stage loginStage = new Stage();
+        credentialsDisplay(loginStage, false);
         myPageStage.close();
     }
 }
