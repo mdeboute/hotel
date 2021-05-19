@@ -270,8 +270,6 @@ public class HotelProject extends Application {
                     a.showAndWait();
 
                     break;
-                } else {
-                    // do nothing
                 }
             }
             if (rtFlag) {
@@ -390,11 +388,10 @@ public class HotelProject extends Application {
         Stage newBookingStage = new Stage();
 
         int MIN_ROOM_NUMBER = 1;
-        int MAX_ROOM_NUMBER = 40;
+        int MAX_ROOM_NUMBER = hdata.getRooms().size();
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
-        Alert warningRoomNumber = new Alert(AlertType.WARNING, String.format("Enter a number, greater than or equal to %d and smaller than or equal to %d.", MIN_ROOM_NUMBER, MAX_ROOM_NUMBER));
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
         // Error handling
@@ -881,8 +878,6 @@ public class HotelProject extends Application {
                     a.showAndWait();
 
                     break;
-                } else {
-                    // do nothing
                 }
             }
             if (updateRoom.getR_num() == room.getR_num() || flag) {
