@@ -65,7 +65,7 @@ public class NewBookingView extends View {
 
         checkIn.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (checkOut.getValue() != null && checkOut.getValue().isBefore(checkIn.getValue())) {
-                checkOut.setValue(checkIn.getValue().plusDays(1));
+                checkOut.setValue(checkIn.getValue());
             }
             if (checkOut.getValue() != null) {
                 LocalDate leftEndpoint = checkIn.getValue();
@@ -82,7 +82,7 @@ public class NewBookingView extends View {
         });
         checkOut.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (checkIn.getValue() != null && checkIn.getValue().isAfter(checkOut.getValue())) {
-                checkIn.setValue(checkOut.getValue().minusDays(1));
+                checkIn.setValue(checkOut.getValue());
             }
             if (checkIn.getValue() != null) {
                 LocalDate leftEndpoint = checkIn.getValue();
@@ -109,7 +109,7 @@ public class NewBookingView extends View {
                                     super.updateItem(item, empty);
 
                                     if (item.isBefore(
-                                            checkIn.getValue().plusDays(1))
+                                            checkIn.getValue())
                                     ) {
                                         setDisable(true);
                                         setStyle("-fx-background-color: #ffc0cb;");
