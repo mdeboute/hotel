@@ -247,7 +247,7 @@ public class HotelProject extends Application {
         addRoomTypePage.getSubmit().setOnAction(e -> {
             String typeName = addRoomTypePage.getName().getText();
             String capTypeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1);
-            
+
             int nbBeds = Integer.parseInt(addRoomTypePage.getNbBeds().getText());
             int rSize = Integer.parseInt(addRoomTypePage.getRoomSize().getText());
             int hasView = addRoomTypePage.getHasView();
@@ -260,21 +260,21 @@ public class HotelProject extends Application {
             boolean rtFlag = true;
             RoomType newRoomType = new RoomType(capTypeName, nbBeds, rSize, hasView, hasKitchen, hasBathroom, hasWorksp,
                     hasTv, hasCoffeeMkr);
-            
-            for(RoomType rT : allRoomTypes) {
-                if(rT.getT_name().equals(newRoomType.getT_name())) {
-                    rtFlag = false; 
+
+            for (RoomType rT : allRoomTypes) {
+                if (rT.getT_name().equals(newRoomType.getT_name())) {
+                    rtFlag = false;
 
                     Alert a = new Alert(AlertType.ERROR);
                     a.setContentText("Room type already exists. Choose another one!");
                     a.showAndWait();
 
-                    break; 
-                } else {   
+                    break;
+                } else {
                     // do nothing
                 }
             }
-            if(rtFlag) {
+            if (rtFlag) {
                 hdata.addRoomType(newRoomType);
                 addTypeStage.close();
                 newRoomStage.close();
@@ -340,9 +340,6 @@ public class HotelProject extends Application {
         // Specifies the modality for new window and the owner of window
         newRoomStage.initOwner(formerStage);
         newRoomStage.initModality(Modality.WINDOW_MODAL);
-
-        newRoomStage.show();
-
         newRoomStage.setScene(newRoomViewPage.getScene());
         newRoomStage.setTitle("Hotel Manager - New Room");
         newRoomStage.show();
@@ -873,10 +870,10 @@ public class HotelProject extends Application {
 
             for (Room r : rooms) {
                 if (r.getR_num() == room.getR_num()) {
-                    flag = true; 
-                    continue; 
+                    flag = true;
+                    continue;
                 }
-                if (r.getR_num() == updateRoom.getR_num()){
+                if (r.getR_num() == updateRoom.getR_num()) {
                     flag = false;
 
                     Alert a = new Alert(AlertType.ERROR);
@@ -888,13 +885,13 @@ public class HotelProject extends Application {
                     // do nothing
                 }
             }
-            if (updateRoom.getR_num() == room.getR_num() || flag){
+            if (updateRoom.getR_num() == room.getR_num() || flag) {
                 hdata.updateRoom(updateRoom, room.getR_num());
                 updateRoomStage.close();
                 formerStage.close();
                 roomsDisplay();
             }
-    
+
         });
 
         updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
