@@ -103,3 +103,31 @@
 .date-picker .cell:hover {
     -fx-background-color: #10DCC9;
 }
+
+.body-pane > .label, .check-box > .label {
+    -fx-text-fill: white;
+    -fx-font: "SF-Font";
+}
+
+.body-pane > .purple {
+    -fx-text-fill: #bb86fc;
+    -fx-font-weight: bold;
+}
+
+.combo-box .context-menu {
+    -fx-background-color: #323232;
+}
+
+.check-box:selected > .box {
+    -fx-background-color: #121212;
+}
+
+.check-box > .box {
+    -fx-background-color: #121212;
+    -fx-border-color: white;
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate  > .box > .mark {
+    -fx-background-color: white;
+}

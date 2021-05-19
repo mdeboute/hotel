@@ -51,8 +51,10 @@ public class UpdateCustomerView extends View {
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        paneTwo.getStyleClass().add("body-pane");
 
         scene = new Scene(paneTwo);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override

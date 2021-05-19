@@ -54,9 +54,10 @@ public class NewBookingView extends View {
         pane.add(footer, 0, 2);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
         GridPane.setHalignment(footer, javafx.geometry.HPos.CENTER);
+        pane.getStyleClass().add("body-pane");
 
-        pane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
         scene = new Scene(pane);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override

@@ -71,8 +71,7 @@ public class RoomsView extends View {
         Label title = new Label("Hotel rooms");
         //title.setFont(Font.font(18));
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
-        title.setStyle("-fx-font-weight: bold;");
-        title.setTextFill(Paint.valueOf("bb86fc"));
+        title.getStyleClass().add("purple");
 
         roomsTable.setEditable(true);
         // Create column in the table

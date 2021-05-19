@@ -62,8 +62,7 @@ public class BookingsView extends View {
 
         Label title = new Label("Hotel bookings");
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
-        title.setStyle("-fx-font-weight: bold;");
-        title.setTextFill(Paint.valueOf("bb86fc"));
+        title.getStyleClass().add("purple");
 
         //startDatePicker.setValue(LocalDate.now().minusMonths(1));
         //endDatePicker.setValue(LocalDate.now().plusMonths(1));

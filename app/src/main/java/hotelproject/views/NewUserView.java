@@ -46,9 +46,11 @@ public class NewUserView extends View {
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        pane.getStyleClass().add("body-pane");
+        paneTwo.getStyleClass().add("body-pane");
 
         scene = new Scene(paneTwo);
-
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override
