@@ -100,6 +100,8 @@ public class UpdateRoomView extends View {
     }
 
     /**
+     * No body need to be created in this view.
+     *
      * @return null
      */
     @Override
@@ -109,38 +111,18 @@ public class UpdateRoomView extends View {
 
     /**************************Getter**********************/
 
-    /**
-     * Getter for submit button.
-     *
-     * @return a Button object.
-     */
     public Button getSubmit() {
         return submit;
     }
 
-    /**
-     * Getter for floor number.
-     *
-     * @return a TextField object.
-     */
     public TextField getFloor() {
         return floor;
     }
 
-    /**
-     * Getter for room number.
-     *
-     * @return a TextField object.
-     */
     public TextField getNumRoom() {
         return numRoom;
     }
 
-    /**
-     * Getter for room type.
-     *
-     * @return a ComboBox<String> object.
-     */
     public ComboBox<String> getRoomType() {
         return roomType;
     }
