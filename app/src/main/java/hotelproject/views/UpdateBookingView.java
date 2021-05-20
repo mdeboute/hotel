@@ -11,6 +11,9 @@ import javafx.util.Callback;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Create update booking information view.
+ */
 public class UpdateBookingView extends View {
 
     private final DatabaseManager dbm;
@@ -26,11 +29,18 @@ public class UpdateBookingView extends View {
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
 
+    /**
+     * Constructor for this view.
+     * @param dbm the instance of DatabaseManager for creating connection.
+     */
     public UpdateBookingView(DatabaseManager dbm) {
         this.dbm = dbm;
         createScene();
     }
 
+    /**
+     * Create scene for update booking view.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -107,11 +117,16 @@ public class UpdateBookingView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * No body need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /*****************************Getters*********************************/
     public Button getSubmit() {
         return submit;
     }
