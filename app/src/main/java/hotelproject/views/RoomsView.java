@@ -23,6 +23,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Create rooms view based on abstract class view.
+ * This view presents detailed information of a room.
+ */
 public class RoomsView extends View {
 
     // The scene's nodes
@@ -39,6 +43,12 @@ public class RoomsView extends View {
     private final DatePicker endDatePicker = new DatePicker();
     private Button addRoom;
 
+    /**
+     * To initiate all rooms' data in the view.
+     * @param user  the user with or without 'admin' identity has different view.
+     * @param rooms the rooms saved in list.
+     * @param hdata this instance to encapsulate all related operations for the database of the hotel.
+     */
     public RoomsView(User user, List<Room> rooms, HotelData hdata) {
         this.user = user;
         this.rooms = FXCollections.observableList(rooms);
@@ -46,6 +56,9 @@ public class RoomsView extends View {
         createScene();
     }
 
+    /**
+     * Create scene for rooms view.
+     */
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
@@ -61,6 +74,10 @@ public class RoomsView extends View {
         scene.getStylesheets().add("file:assets/css/JavaFx2HideTableViewHScrollBar.css");
     }
 
+    /**
+     * Rooms view body contain all rooms in the database and present in a table.
+     * @return an instance of Grid pane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
