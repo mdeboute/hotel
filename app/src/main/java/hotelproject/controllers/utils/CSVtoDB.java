@@ -10,11 +10,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This class is used for reading all the csv data to the database.
+ * All initial data of this application is firstly stored in csv files then read to the database.
+ */
 public class CSVtoDB {
     private final Connection conn;
     private final PasswordAuth passwordAuth = new PasswordAuth();
     private final String FILE_PATH = "instances";
 
+    /**
+     * This constructor is used for building connection with the database.
+     * @param conn database connection
+     */
     public CSVtoDB(Connection conn) {
         this.conn = conn;
     }
@@ -31,6 +39,9 @@ public class CSVtoDB {
         csvdb.userQuery();
     }
 
+    /**
+     * Read all rooms' data from csv file and insert them to the room table in the database.
+     */
     public void roomQuery() {
         int batchSize = 20; //optimize the size of the batch
         try {
@@ -81,6 +92,9 @@ public class CSVtoDB {
         }
     }
 
+    /**
+     * Read all room types' data from csv file and insert them to the room table in the database.
+     */
     public void roomTypeQuery() {
         int batchSize = 20; //optimization
         try {
@@ -143,6 +157,9 @@ public class CSVtoDB {
         }
     }
 
+    /**
+     * Read all users' data from csv file and insert them to the user table in the database.
+     */
     public void userQuery() {
         int batchSize = 20; //optimization
         try {
@@ -193,6 +210,9 @@ public class CSVtoDB {
         }
     }
 
+    /**
+     * Read all customers' data from csv file and insert them to the customer table in the database.
+     */
     public void customerQuery() {
         int batchSize = 20; //optimization
         try {
@@ -247,6 +267,9 @@ public class CSVtoDB {
         }
     }
 
+    /**
+     * Read all bookings' data from csv file and insert them to the booking table in the database.
+     */
     public void bookingQuery() {
         int batchSize = 20; //optimization
         try {
