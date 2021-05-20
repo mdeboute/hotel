@@ -118,7 +118,7 @@ public class UpdateBookingView extends View {
     }
 
     /**
-     * No body need to be created in this view.
+     * No body pane need to be created in this view.
      * @return null
      */
     @Override

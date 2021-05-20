@@ -12,6 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+/**
+ * Create new user view based on abstract class view.
+ * Only user with 'admin' authority can see this view.
+ */
 public class NewUserView extends View {
 
     private final TextField userName = new TextField();
@@ -24,10 +28,16 @@ public class NewUserView extends View {
     private Button submit;
     private Button cancel;
 
+    /**
+     * No parameter is needed for this constructor.
+     */
     public NewUserView() {
         createScene();
     }
 
+    /**
+     * This scene includes username, password text fields and submit and cancel buttons.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -62,6 +72,10 @@ public class NewUserView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create the instance of VBox for containing submit and cancel buttons.
+     * @return an instance of VBox.
+     */
     private VBox createFooter() {
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
@@ -74,11 +88,16 @@ public class NewUserView extends View {
         return footer;
     }
 
+    /**
+     * No body pane need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /************************** Getter **********************/
     public Button getSubmit() {
         return submit;
     }
