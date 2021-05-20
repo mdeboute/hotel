@@ -18,6 +18,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This view aims for adding a new booking to the database.
+ * All users have access to this view.
+ */
 public class NewBookingView extends View {
 
     private final DatabaseManager dbm;
@@ -37,12 +41,20 @@ public class NewBookingView extends View {
     private Button submit;
     private Button cancel;
 
+    /**
+     * Constructor  for initiating related data to a new booking view.
+     * @param dbm   create connection with database.
+     * @param hdata this instance to encapsulate all related operations for the database of the hotel.
+     */
     public NewBookingView(DatabaseManager dbm, HotelData hdata) {
         this.dbm = dbm;
         this.hdata = hdata;
         createScene();
     }
 
+    /**
+     * Create scene for adding a new booking.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -62,6 +74,10 @@ public class NewBookingView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create body pane to contain new booking related information.
+     * @return an instance of Grid pane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
@@ -153,6 +169,10 @@ public class NewBookingView extends View {
         return pane;
     }
 
+    /**
+     * VBox for containing submit and cancel buttons.
+     * @return an instance of VBox.
+     */
     private VBox createFooter() {
         submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
@@ -165,6 +185,7 @@ public class NewBookingView extends View {
         return footer;
     }
 
+    /************************** Getter **********************/
     public Button getSubmit() {
         return submit;
     }
