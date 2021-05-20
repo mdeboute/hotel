@@ -9,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This view aims for adding a new customer in the database.
+ * All users have access to this view.
+ */
 public class NewCustomerView extends View {
 
     private final TextField cSSNum = new TextField();
@@ -23,10 +27,16 @@ public class NewCustomerView extends View {
     private Button submit;
     private Button cancel;
 
+    /**
+     * No parameter is needed for this constructor.
+     */
     public NewCustomerView() {
         createScene();
     }
 
+    /**
+     * Create scene for adding a new customer.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -65,6 +75,10 @@ public class NewCustomerView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * VBox for containing submit and cancel buttons.
+     * @return an instance of VBox.
+     */
     private VBox createFooter() {
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
@@ -77,11 +91,16 @@ public class NewCustomerView extends View {
         return footer;
     }
 
+    /**
+     * No body pane need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /************************** Getter **********************/
     public Button getSubmit() {
         return submit;
     }
