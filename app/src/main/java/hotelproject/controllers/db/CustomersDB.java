@@ -5,6 +5,9 @@ import hotelproject.controllers.objects.Customer;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * This class is used for manipulating all the SQL operations related to customers.
+ */
 public class CustomersDB {
 
     private final Connection conn;
