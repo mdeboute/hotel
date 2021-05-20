@@ -2,6 +2,9 @@ package hotelproject.controllers.utils;
 
 import javafx.scene.text.Font;
 
+/**
+ * This class is used for retrieving the default font for UI design.
+ */
 public class Default {
     public static String SFPath = "file:assets/font/SF_Pro.ttf";
 
