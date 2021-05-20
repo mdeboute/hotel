@@ -12,6 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+/**
+ * This view is used to add a new room type for a typical room.
+ * This view will present when users add a new room in the database.
+ */
 public class AddRoomTypeView extends View {
 
     // The scene's nodes
@@ -29,10 +33,16 @@ public class AddRoomTypeView extends View {
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private final Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
 
+    /**
+     * No parameter for this constructor.
+     */
     public AddRoomTypeView() {
         createScene();
     }
 
+    /**
+     * This scene includes type name, number of beds, room size, with view, with kitchen, with bathroom, with a workplace, with TV, and with Coffee maker.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -121,6 +131,10 @@ public class AddRoomTypeView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * No body pane need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
