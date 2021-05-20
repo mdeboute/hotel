@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Create view for deleting a room
+ * Create view for deleting a room.
  */
 public class DeleteRoomView extends View {
 

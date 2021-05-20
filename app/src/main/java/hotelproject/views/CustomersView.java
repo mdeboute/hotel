@@ -14,6 +14,9 @@ import javafx.scene.text.Font;
 
 import java.util.List;
 
+/**
+ * This view is used to present all hotel customers.
+ */
 public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
@@ -22,11 +25,18 @@ public class CustomersView extends View {
     public TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
+    /**
+     * The constructor is used for initiating all available customers in the database.
+     * @param customers list to store all the customer objects.
+     */
     public CustomersView(List<Customer> customers) {
         this.customers = FXCollections.observableList(customers);
         createScene();
     }
 
+    /**
+     * Create scene for this view.
+     */
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
@@ -39,6 +49,10 @@ public class CustomersView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create a body pane to contain all customers' information.
+     * @return the instance of the GridPane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
