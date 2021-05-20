@@ -111,7 +111,6 @@ public class HotelProject extends Application {
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
-        Stage loginStage = new Stage();
         mainPageStage = new Stage();
 
         // Set buttons on action
@@ -320,13 +319,9 @@ public class HotelProject extends Application {
         Stage newRoomStage = new Stage();
 
         // error handling
-        if (newRoomViewPage.getNumRoom().getText().equals("") ||
+        newRoomViewPage.getSubmit().setDisable(newRoomViewPage.getNumRoom().getText().equals("") ||
                 newRoomViewPage.getFloor().getText().equals("") ||
-                newRoomViewPage.getRoomType().getValue() == null) {
-            newRoomViewPage.getSubmit().setDisable(true);
-        } else {
-            newRoomViewPage.getSubmit().setDisable(false);
-        }
+                newRoomViewPage.getRoomType().getValue() == null);
 
         // set buttons on action
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
@@ -380,12 +375,8 @@ public class HotelProject extends Application {
         Stage newUserStage = new Stage();
 
         // Error handling
-        if (newUserViewPage.getUserName().getText().equals("") ||
-                newUserViewPage.getUserPassWord().getText().equals("")) {
-            newUserViewPage.getSubmit().setDisable(true);
-        } else {
-            newUserViewPage.getSubmit().setDisable(false);
-        }
+        newUserViewPage.getSubmit().setDisable(newUserViewPage.getUserName().getText().equals("") ||
+                newUserViewPage.getUserPassWord().getText().equals(""));
 
         // set buttons on action
         newUserViewPage.getSubmit().setOnAction(e -> {
@@ -429,15 +420,11 @@ public class HotelProject extends Application {
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
         // Error handling
-        if (newBookingViewPage.getNumRoom().getValue() == null ||
+        newBookingViewPage.getSubmit().setDisable(newBookingViewPage.getNumRoom().getValue() == null ||
                 newBookingViewPage.getBookingFee().getText().equals("") ||
                 newBookingViewPage.getCheckIn().getValue() == null ||
                 newBookingViewPage.getCheckOut().getValue() == null ||
-                newBookingViewPage.getC_ss_number().getValue() == null) {
-            newBookingViewPage.getSubmit().setDisable(true);
-        } else {
-            newBookingViewPage.getSubmit().setDisable(false);
-        }
+                newBookingViewPage.getC_ss_number().getValue() == null);
 
         // Error handling
         newBookingViewPage.getNumRoom().valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -1015,15 +1002,11 @@ public class HotelProject extends Application {
         Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
 
         // Error handling
-        if (newCustomerViewPage.getCSSNum().getText().equals("") ||
+        newCustomerViewPage.getSubmit().setDisable(newCustomerViewPage.getCSSNum().getText().equals("") ||
                 newCustomerViewPage.getCAddress().getText().equals("") ||
                 newCustomerViewPage.getCFullName().getText().equals("") ||
                 newCustomerViewPage.getCPhoneNum().getText().equals("") ||
-                newCustomerViewPage.getCEmail().getText().equals("")) {
-            newCustomerViewPage.getSubmit().setDisable(true);
-        } else {
-            newCustomerViewPage.getSubmit().setDisable(false);
-        }
+                newCustomerViewPage.getCEmail().getText().equals(""));
 
         // Error handling
         newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
