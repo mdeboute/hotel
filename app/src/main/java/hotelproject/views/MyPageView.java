@@ -7,6 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+/**
+ * This view aims for presenting user status information.
+ * All users have access to this view.
+ * User can change its username and password.
+ */
 public class MyPageView extends View {
 
     // The user connected to the application
@@ -21,11 +26,18 @@ public class MyPageView extends View {
     private Button chPwd;
     private Button logOut;
 
+    /**
+     * Constructor for initiating MyPageView.
+     * @param user the login user
+     */
     public MyPageView(User user) {
         this.user = user;
         createScene();
     }
 
+    /**
+     * Create a scene for this view.
+     */
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
@@ -35,6 +47,10 @@ public class MyPageView extends View {
         scene = new Scene(bodyPane);
     }
 
+    /**
+     * Create MyPageView based on different user status.
+     * @return an instance of Grid pane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();

@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 /**
  * This view aims for adding a new booking to the database.
  * All users have access to this view.
+ * User can add a new booking by fulfilling all the selections.
  */
 public class NewBookingView extends View {
 

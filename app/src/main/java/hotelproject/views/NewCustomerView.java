@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 /**
  * This view aims for adding a new customer in the database.
  * All users have access to this view.
+ * Adding a new customer needs social security number, address, name ,telephone number, email adress.
  */
 public class NewCustomerView extends View {
 
