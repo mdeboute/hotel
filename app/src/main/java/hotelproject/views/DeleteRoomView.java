@@ -8,6 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Create view for deleting a room
+ */
 public class DeleteRoomView extends View {
 
     private Button submit;
@@ -18,10 +21,16 @@ public class DeleteRoomView extends View {
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
 
+    /**
+     * No parameter is needed for this constructor.
+     */
     public DeleteRoomView() {
         createScene();
     }
 
+    /**
+     * Create scene for this view.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -42,6 +51,10 @@ public class DeleteRoomView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create VBox to contain submit and cancel buttons.
+     * @return an instance of VBox containing these buttons.
+     */
     private VBox createFooter() {
         submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
@@ -54,11 +67,16 @@ public class DeleteRoomView extends View {
         return footer;
     }
 
+    /**
+     * No body pane need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /***************************** Getters *********************************/
     public Button getSubmit() {
         return submit;
     }
