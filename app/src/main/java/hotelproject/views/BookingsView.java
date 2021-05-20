@@ -20,6 +20,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * This view is used to present all bookings in the database.
+ * Only user with 'admin' authority can add bookings.
+ */
 public class BookingsView extends View {
 
     // The user connected to the application
@@ -37,12 +41,20 @@ public class BookingsView extends View {
     private final String HOVER_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
     private Button addBooking;
 
+    /**
+     * The constructor is used for initiating bookings view.
+     * @param user     the login user.
+     * @param bookings all bookings are stored in a list.
+     */
     public BookingsView(User user, List<Booking> bookings) {
         this.user = user;
         this.bookings = FXCollections.observableList(bookings);
         createScene();
     }
 
+    /**
+     * Create scene for bookings view.
+     */
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
@@ -55,6 +67,12 @@ public class BookingsView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create body pane for this view.
+     * If the user with 'admin' authority, the view will contain an 'Add booking' button.
+     * Otherwise, there is no button in this view.
+     * @return the instance of the GridPane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
