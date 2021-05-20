@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * This class is used for manipulating all the SQL operations related to bookings.
+ */
 public class BookingsDB {
     private final Connection conn;
 
@@ -112,6 +115,10 @@ public class BookingsDB {
         return bookingDetails;
     }
 
+    /**
+     * @param updatedBooking the new booking is encapsulated in this object
+     * @brief Update a booking to the database.
+     */
     public void updateBooking(Booking updatedBooking) {
         try {
             String sql = "UPDATE `booking` SET `r_num` = ?, `paid_by_card` = ?, "
