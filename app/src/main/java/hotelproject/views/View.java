@@ -99,9 +99,9 @@ public abstract class View {
     /**
      * Create a button with the the height of button, the paths of the idle image and  hover image.
      *
-     * @param fitHeight
-     * @param idleUrl
-     * @param hoverUrl
+     * @param fitHeight the height of the button.
+     * @param idleUrl   the path of the idle image.
+     * @param hoverUrl  the path of the hover image.
      * @return a Button object.
      */
     protected Button createButton(double fitHeight, String idleUrl, String hoverUrl) {
@@ -123,10 +123,10 @@ public abstract class View {
     /**
      * Change a label design based on original label object, new font, size and color.
      *
-     * @param label
-     * @param font
-     * @param size
-     * @param color
+     * @param label the original label object.
+     * @param font  the font for the new label.
+     * @param size  the size for the new label.
+     * @param color the color for the new label.
      * @return a Label object.
      */
     protected Label changeLabelDesign(Label label, String font, int size, String color) {
