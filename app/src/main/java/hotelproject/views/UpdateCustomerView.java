@@ -67,9 +67,9 @@ public class UpdateCustomerView extends View {
         scene = new Scene(paneTwo);
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
+
     /**
      * No body need to be created in this view.
-     *
      * @return null
      */
     @Override
