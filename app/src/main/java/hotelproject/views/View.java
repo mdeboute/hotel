@@ -16,7 +16,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 /**
- * Abstract class all views will extend to prevent code redundancy
+ * Abstract class all views will extend to prevent code redundancy.
  */
 public abstract class View {
 
@@ -24,15 +24,17 @@ public abstract class View {
     Scene scene;
 
     /**
-     * @brief create the view scene with all it's nodes
+     * Create the view scene with all it's nodes.
      */
     abstract void createScene();
 
     /**
-     * @param title    of the header
-     * @param subtitle of the header
-     * @return the header in the format VBox
-     * @brief create the scene's header, called in createScene
+     * Create the scene's header, called in createScene.
+     *
+     * @param title    of the header.
+     * @param subtitle of the header.
+     * @return the header in the format VBox.
+     *
      */
     protected VBox createHeader(String title, String subtitle) { //use createHeader in every view
 
@@ -56,8 +58,10 @@ public abstract class View {
     abstract GridPane createBody();
 
     /**
-     * @return the initial GridPane
-     * @brief create the initial GridPane
+     * Create the initial GridPane.
+     *
+     * @return the initial GridPane.
+     *
      */
     protected GridPane createPane() {
         GridPane pane = new GridPane();
@@ -70,13 +74,13 @@ public abstract class View {
     }
 
     /**
-     * Create a button with the image associated
+     * Create a button with the image associated.
      *
-     * @param buttonImgView path of the image associated to the button
-     * @param button        the button concerned
-     * @param minWidth      minimum width of the button
-     * @param minHeight     minimum height of the button
-     * @return a StackPane with the result to add to the scene
+     * @param buttonImgView path of the image associated to the button.
+     * @param button        the button concerned.
+     * @param minWidth      minimum width of the button.
+     * @param minHeight     minimum height of the button.
+     * @return a StackPane with the result to add to the scene.
      */
     protected StackPane createButton(ImageView buttonImgView, Button button, double minWidth, double minHeight) {
         StackPane stack = new StackPane();
@@ -92,6 +96,14 @@ public abstract class View {
         return stack;
     }
 
+    /**
+     * Create a button with the the height of button, the paths of the idle image and  hover image.
+     *
+     * @param fitHeight the height of the button.
+     * @param idleUrl   the path of the idle image.
+     * @param hoverUrl  the path of the hover image.
+     * @return a Button object.
+     */
     protected Button createButton(double fitHeight, String idleUrl, String hoverUrl) {
         Button button = new Button();
         ImageView imgView = new ImageView(new Image(idleUrl));
@@ -108,6 +120,15 @@ public abstract class View {
         return button;
     }
 
+    /**
+     * Change a label design based on original label object, new font, size and color.
+     *
+     * @param label the original label object.
+     * @param font  the font for the new label.
+     * @param size  the size for the new label.
+     * @param color the color for the new label.
+     * @return a Label object.
+     */
     protected Label changeLabelDesign(Label label, String font, int size, String color) {
         label.setFont(Font.loadFont(font, size));
         label.setTextFill(Paint.valueOf(color));
@@ -115,6 +136,11 @@ public abstract class View {
         return label;
     }
 
+    /**
+     * getter for Scene object.
+     *
+     * @return
+     */
     public Scene getScene() {
         return scene;
     }

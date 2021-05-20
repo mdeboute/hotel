@@ -250,8 +250,8 @@ public class RoomsDB {
     public ArrayList<Integer> findAllBookedRooms(Date checkIn, Date checkOut) {
         ArrayList<Integer> bookedRNums = new ArrayList<>();
         try {
-            String sql = "SELECT r.r_num FROM room as r JOIN booking as b ON r.r_num = b.r_num "
-                    + "WHERE b.b_from <= ? AND b.b_till >= ?";
+            String sql = ("SELECT r.r_num FROM room as r JOIN booking as b ON r.r_num = b.r_num" +
+            "WHERE (? BETWEEN b.b_from AND b.b_till) OR (? BETWEEN b_from AND b_till)");
             String firstDate = checkIn.toString();
             String secondDate = checkOut.toString();
             PreparedStatement stmt = conn.prepareStatement(sql);

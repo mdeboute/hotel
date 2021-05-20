@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * Create an update room view based on abstract class view.
+ */
 public class UpdateRoomView extends View {
 
     private final HotelData hdata;
@@ -24,11 +27,19 @@ public class UpdateRoomView extends View {
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
 
+    /**
+     * Constructor for update room view.
+     *
+     * @param hdata the original data of the room.
+     */
     public UpdateRoomView(HotelData hdata) {
         this.hdata = hdata;
         createScene();
     }
 
+    /**
+     * Create the scene for the update room view.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -88,10 +99,17 @@ public class UpdateRoomView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * No body need to be created in this view.
+     *
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
+
+    /**************************Getter**********************/
 
     public Button getSubmit() {
         return submit;

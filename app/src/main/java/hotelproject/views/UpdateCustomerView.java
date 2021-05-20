@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+/**
+ *Create update customer information view.
+ */
 public class UpdateCustomerView extends View {
 
     private final TextField cSSNum = new TextField();
@@ -18,10 +21,17 @@ public class UpdateCustomerView extends View {
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
 
+    /**
+     * Constructor for updating customer view.
+     */
     public UpdateCustomerView() {
         createScene();
     }
 
+    /**
+     * Create the scene for updating customer view.
+     * Including social security number, address, full name, telephone number, and email.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -58,11 +68,16 @@ public class UpdateCustomerView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * No body need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /*****************************Getters*********************************/
     public Button getSubmit() {
         return submit;
     }

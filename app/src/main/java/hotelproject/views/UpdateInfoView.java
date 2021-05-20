@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 
+/**
+ * Create update user information view.
+ */
 public class UpdateInfoView extends View {
 
     private final Change change;
@@ -24,6 +27,11 @@ public class UpdateInfoView extends View {
     private PasswordField firstPwd;
     private PasswordField secondPwd;
 
+    /**
+     * Constructor for this view.
+     *
+     * @param change an instance of Change, can be username or password. The view will change based on the parameter.
+     */
     public UpdateInfoView(Change change) {
         this.change = change;
 
@@ -52,6 +60,9 @@ public class UpdateInfoView extends View {
         createScene();
     }
 
+    /**
+     * Create the scene for update info view.
+     */
     @Override
     void createScene() {
         GridPane pane = createBody();
@@ -61,6 +72,13 @@ public class UpdateInfoView extends View {
         scene = new Scene(pane, 500, 300);
     }
 
+    /**
+     * Create text fields for the update info view
+     *
+     * @param field1 first input text field.
+     * @param field2 second input text field.
+     * @param pane instance of pane.
+     */
     private void createTextFields(Node field1, Node field2, GridPane pane) {
         Lbl1.setFont(Default.getSFPro(20));
         Lbl1.setTextFill(Paint.valueOf("white"));
@@ -75,6 +93,11 @@ public class UpdateInfoView extends View {
         pane.add(field2, 0, 4);
     }
 
+    /**
+     * Create update info view body based on Change object.
+     *
+     * @return a Pane object.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
