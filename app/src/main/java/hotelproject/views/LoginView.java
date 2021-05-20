@@ -16,6 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+/**
+ * User login view used for both initial login and also when user wants to change user information.
+ * The login view will be used.
+ */
 public class LoginView extends View {
 
     private final TextField username = new TextField();
@@ -27,11 +31,20 @@ public class LoginView extends View {
     boolean onlyPwd;
     private Button testLogin;
 
+    /**
+     * Constructor used for initiating the view scene.
+     * @param onlyPwd is used to differ two different kinds of login view.
+     */
     public LoginView(boolean onlyPwd) {
         this.onlyPwd = onlyPwd;
         createScene();
     }
 
+    /**
+     * Create scene based on the @param onlyPwd.
+     * If onlyPwd is true, the scene will be smaller.
+     * If OnlyPwd is false, the scene will be larger.
+     */
     @Override
     void createScene() {
         GridPane scenePane = new GridPane();
@@ -53,6 +66,11 @@ public class LoginView extends View {
         scene = new Scene(scenePane, 476, height);
     }
 
+    /**
+     * Create VBox based on the @param onlyPwd.
+     * If onlyPwd is true, the view will only present text field for password.
+     * If OnlyPwd is false, the view will present hotel logo and welcome images.
+     */
     private VBox createHeader() {
         VBox header;
         if (!onlyPwd) {
@@ -82,6 +100,11 @@ public class LoginView extends View {
         return header;
     }
 
+    /**
+     * Create body pane based on the @param onlyPwd.
+     * If onlyPwd is true, the view will only present text field with password.
+     * If OnlyPwd is false, the view will present both user name and password.
+     */
     @Override
     GridPane createBody() {
         GridPane bodyPane = createPane();
@@ -140,6 +163,8 @@ public class LoginView extends View {
 
         return bodyPane;
     }
+
+    /***************************** Getters *********************************/
 
     public Label getCredentials() {
         return credentials;
