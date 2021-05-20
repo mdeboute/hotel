@@ -137,11 +137,7 @@ public class UsersView extends View {
     }
 
     /**************************Getter**********************/
-    /**
-     * Getter for addUser button.
-     *
-     * @return
-     */
+
     public Button getAddUser() {
         return addUser;
     }
