@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * This class is used for building and managing connection between the application and database.
+ */
 public class DatabaseManager {
     public final RoomsDB rdb;
     public final UserDB udb;
