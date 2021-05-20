@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * This class is used for managing configuration for database connection.
+ */
 public class ConfigManager {
     private String configPath;
 
@@ -20,7 +23,7 @@ public class ConfigManager {
     }
 
     /**
-     * @param key for getting the focal property's value.
+     * @param key for getting the focal property's value
      * @return the property return as a string.
      * @brief According a file path to get configuration property.
      */
@@ -42,7 +45,7 @@ public class ConfigManager {
     }
 
     /**
-     * You should not use this method, use this
+     * You should not use this method, use this.
      * @see ConfigManager#getPValue(java.lang.String) instead
      */
     @Deprecated
