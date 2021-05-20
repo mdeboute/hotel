@@ -11,6 +11,10 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This class contains all the database operations related to users.
+ * Such as identifying if user exist, is user admin, update user information, get all users, delete user, and add a new user.
+ */
 public class UserDB {
     private final Connection conn;
     private final PasswordAuth passwordAuth = new PasswordAuth();
