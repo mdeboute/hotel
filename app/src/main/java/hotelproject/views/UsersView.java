@@ -15,6 +15,9 @@ import javafx.scene.text.Font;
 
 import java.util.List;
 
+/**
+ * Create user view based on abstract class view.
+ */
 public class UsersView extends View {
 
     // The user connected to the application
@@ -29,12 +32,21 @@ public class UsersView extends View {
     private final String HOVER_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
     private Button addUser;
 
+    /**
+     * Create a constructor for user view.
+     *
+     * @param user
+     * @param users
+     */
     public UsersView(User user, List<User> users) {
         this.user = user;
         this.users = FXCollections.observableList(users);
         createScene();
     }
 
+    /**
+     * Create the scene for user view.
+     */
     @Override
     void createScene() {
         GridPane bodyPane = createBody();
@@ -47,6 +59,11 @@ public class UsersView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * Create user view body based on a three-column table.
+     *
+     * @return a Pane object.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
@@ -120,7 +137,11 @@ public class UsersView extends View {
     }
 
     /**************************Getter**********************/
-
+    /**
+     * Getter for addUser button.
+     *
+     * @return
+     */
     public Button getAddUser() {
         return addUser;
     }
