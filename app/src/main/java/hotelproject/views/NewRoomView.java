@@ -15,6 +15,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * This view aims to add a new room to the database.
+ * All users have access to this view.
+ */
 public class NewRoomView extends View {
 
     private final HotelData hdata;
@@ -35,11 +39,18 @@ public class NewRoomView extends View {
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
 
+    /**
+     * Constructor for this view.
+     * @param hdata this instance to encapsulate all related operations for the database of the hotel.
+     */
     public NewRoomView(HotelData hdata) {
         this.hdata = hdata;
         createScene();
     }
 
+    /**
+     * Create scene for adding a new room.
+     */
     @Override
     void createScene() {
         GridPane pane = createPane();
@@ -106,6 +117,10 @@ public class NewRoomView extends View {
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
+    /**
+     * VBox for containing submit and cancel buttons.
+     * @return an instance of VBox.
+     */
     private VBox createFooter() {
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
@@ -118,11 +133,16 @@ public class NewRoomView extends View {
         return footer;
     }
 
+    /**
+     * No body pane need to be created in this view.
+     * @return null
+     */
     @Override
     GridPane createBody() {
         return null;
     }
 
+    /************************** Getter **********************/
     public Button getSubmit() {
         return submit;
     }
