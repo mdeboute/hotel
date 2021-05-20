@@ -13,6 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * This is the main view for this application.
+ * The presentation of this view may different for different users.
+ * The users with 'admin' authority can see USERS selection and can add new users.
+ * The users without 'admin' authority cannot see USERS selection.
+ */
 public class MainPageView extends View {
 
     // The user connected to the application
@@ -35,6 +41,10 @@ public class MainPageView extends View {
     private final Button viewCustomers = new Button("View customers");
     private final Button viewUsers = new Button("View users");
 
+    /**
+     * Constructor for initiating MainPageView.
+     * @param user the login user
+     */
     public MainPageView(User user) {
         myPage.setCursor(Cursor.HAND);
         viewBookings.setCursor(Cursor.HAND);
@@ -45,6 +55,9 @@ public class MainPageView extends View {
         createScene();
     }
 
+    /**
+     * Create scene based on user's authority.
+     */
     @Override
     void createScene() {
         if (user.getU_is_admin() == 1) {
@@ -64,6 +77,10 @@ public class MainPageView extends View {
         scene = new Scene(scenePane, 775, 658);
     }
 
+    /**
+     * Present hotel logo
+     * @return an instance of HBox
+     */
     private HBox createHeader() {
         Image logoImg = new Image("file:assets/img/ui_dev_pack/main_menu/logo_hotel.png");
         ImageView logo = new ImageView(logoImg);
@@ -91,6 +108,10 @@ public class MainPageView extends View {
         return header;
     }
 
+    /**
+     * Create body pane to contain all four selections.
+     * @return an instance of Grid pane.
+     */
     @Override
     GridPane createBody() {
         GridPane pane = createPane();
