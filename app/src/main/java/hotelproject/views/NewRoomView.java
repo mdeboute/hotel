@@ -3,6 +3,8 @@ package hotelproject.views;
 import hotelproject.controllers.db.HotelData;
 import hotelproject.controllers.objects.RoomType;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,8 +22,18 @@ public class NewRoomView extends View {
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
-    private final Button addRoomType = new Button("Add type");
+
+    private Button addRoomType;
+    private final String IDLE_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_add_type.png";
+    private final String HOVER_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_add_type.png";
+
     private Button submit;
+    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+
+    private Button cancel;
+    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
 
     public NewRoomView(HotelData hdata) {
         this.hdata = hdata;
@@ -34,7 +46,7 @@ public class NewRoomView extends View {
 
         VBox header = createHeader("New room", "Enter the new room specifications");
 
-        Label numRoomL = new Label("Room number: ");
+        Label numRoomL = changeLabelDesign(new Label("Room number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(numRoomL, 0, 2);
         pane.add(numRoom, 1, 2);
 
@@ -48,7 +60,7 @@ public class NewRoomView extends View {
             }
         });
 
-        Label floorL = new Label("Floor: ");
+        Label floorL = changeLabelDesign(new Label("Floor: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(floorL, 0, 3);
         pane.add(floor, 1, 3);
 
@@ -62,7 +74,7 @@ public class NewRoomView extends View {
             }
         });
 
-        Label type = new Label("Room type: ");
+        Label type = changeLabelDesign(new Label("Room type: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(type, 0, 4);
 
         List<RoomType> roomTypes = hdata.getRoomTypes();
@@ -73,18 +85,37 @@ public class NewRoomView extends View {
         roomType.setValue("Single");
 
         pane.add(roomType, 1, 4);
+
+        addRoomType = createButton(25, IDLE_BUTTON_ADD_ROOM, HOVER_BUTTON_ADD_ROOM);
         pane.add(addRoomType, 2, 4);
 
-        submit = new Button("Submit");
-        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 7);
-
+        VBox footer = createFooter();
         GridPane paneTwo = new GridPane();
+
         paneTwo.add(header, 0, 0);
-        paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
 
+        pane.setVgap(15);
+        paneTwo.add(pane, 0, 1);
+
+        paneTwo.add(footer, 0, 2);
+
+        paneTwo.getStyleClass().add("body-pane");
+
         scene = new Scene(paneTwo);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
+    }
+
+    private VBox createFooter() {
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
+
+        VBox footer = new VBox(submit, cancel);
+        footer.setAlignment(Pos.CENTER);
+        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
+        footer.setSpacing(15);
+
+        return footer;
     }
 
     @Override

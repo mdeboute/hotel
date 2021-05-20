@@ -22,6 +22,8 @@ public class UpdateBookingView extends View {
     private final TextField newFee = new TextField();
     private final CheckBox newIsPaid = new CheckBox("Is paid ?");
     private final ComboBox<Integer> c_ss_number = new ComboBox<>();
+    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
 
     public UpdateBookingView(DatabaseManager dbm) {
@@ -75,12 +77,12 @@ public class UpdateBookingView extends View {
         newCheckIn.setPromptText("FROM (DD/MM/YYYY)");
         newCheckOut.setPromptText("TO (DD/MM/YYYY)");
 
-        Label newFeeL = new Label("New fee: ");
+        Label newFeeL = changeLabelDesign(new Label("New fee: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(newFeeL, 0, 5);
         pane.add(newFee, 1, 5);
         pane.add(newIsPaid, 0, 6);
 
-        Label bookingCSSL = new Label("Customer number: ");
+        Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingCSSL, 0, 7);
 
         List<Customer> customers = dbm.cdb.findAllCustomers();
@@ -90,16 +92,19 @@ public class UpdateBookingView extends View {
 
         pane.add(c_ss_number, 1, 7);
 
-        submit = new Button("Submit");
+        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 8);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
+        pane.setVgap(15);
         paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
+        paneTwo.getStyleClass().add("body-pane");
 
         scene = new Scene(paneTwo);
+        scene.getStylesheets().add("file:assets/css/Stylesheet.css");
     }
 
     @Override

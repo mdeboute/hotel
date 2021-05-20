@@ -32,18 +32,18 @@ public class UpdateInfoView extends View {
         if (change == Change.USERNAME) {
             chOption = "username";
             firstUName = new TextField();
-            firstUName.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            firstUName.setStyle("-fx-background-color: #323232; -fx-text-inner-color: white; -fx-background-radius: 0;");
             firstUName.setFont(Default.getSFPro(18));
             secondUName = new TextField();
-            secondUName.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            secondUName.setStyle("-fx-background-color: #323232; -fx-text-inner-color: white; -fx-background-radius: 0;");
             secondUName.setFont(Default.getSFPro(18));
         } else {
             chOption = "password";
             firstPwd = new PasswordField();
-            firstPwd.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            firstPwd.setStyle("-fx-background-color: #323232; -fx-text-inner-color: white; -fx-background-radius: 0;");
             firstPwd.setFont(Default.getSFPro(18));
             secondPwd = new PasswordField();
-            secondPwd.setStyle("-fx-background-color: transparent; -fx-text-inner-color: white;");
+            secondPwd.setStyle("-fx-background-color: #323232; -fx-text-inner-color: white; -fx-background-radius: 0;");
             secondPwd.setFont(Default.getSFPro(18));
         }
 

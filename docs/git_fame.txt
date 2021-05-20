@@ -1,0 +1,21 @@
+
+Statistics based on HEAD
+Active files: 69
+Active lines: 60,202
+Total commits: 619
+
+Note: Files matching MIME type image, binary has been ignored
+
++------------------------+--------+---------+-------+--------------------+
+| name                   | loc    | commits | files | distribution (%)   |
++------------------------+--------+---------+-------+--------------------+
+| mdeboute               | 54,750 | 140     | 60    | 90.9 / 22.6 / 87.0 |
+| DrMagazi               | 1,649  | 86      | 25    |  2.7 / 13.9 / 36.2 |
+| Cloe Magnien           | 1,337  | 70      | 21    |  2.2 / 11.3 / 30.4 |
+| Fabian Dacic           | 1,063  | 85      | 23    |  1.8 / 13.7 / 33.3 |
+| yd222br@student.lnu.se | 536    | 116     | 22    |  0.9 / 18.7 / 31.9 |
+| Oscar Johansson        | 418    | 83      | 13    |  0.7 / 13.4 / 18.8 |
+| Martin Debouté         | 400    | 25      | 6     |  0.7 /  4.0 /  8.7 |
+| Hélder Monteiro        | 49     | 14      | 6     |  0.1 /  2.3 /  8.7 |
++------------------------+--------+---------+-------+--------------------+
+8 rows in set

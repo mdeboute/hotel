@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 
@@ -62,8 +61,7 @@ public class BookingsView extends View {
 
         Label title = new Label("Hotel bookings");
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
-        title.setStyle("-fx-font-weight: bold;");
-        title.setTextFill(Paint.valueOf("bb86fc"));
+        title.getStyleClass().add("purple");
 
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             final Callback<DatePicker, DateCell> dayCellFactory =

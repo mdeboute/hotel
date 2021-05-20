@@ -6,7 +6,6 @@ import hotelproject.controllers.objects.*;
 import hotelproject.views.*;
 import hotelproject.views.UpdateInfoView.Change;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -87,7 +86,7 @@ public class HotelProject extends Application {
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
-                        myPageDisplay();
+                        updateInfoDisplay(new Stage(), new Stage(), Change.PASSWORD);
                         primaryStage.close();
                     } else {
                         loginView.getResult().setText("The password you have entered is wrong !");
@@ -112,14 +111,13 @@ public class HotelProject extends Application {
      */
     private void mainPageDisplay(Stage primaryStage) {
         MainPageView mainPageView = new MainPageView(connectedUser);
-        Stage loginStage = new Stage();
         mainPageStage = new Stage();
 
         // Set buttons on action
 
         mainPageView.getMyPageButton().setOnAction(e -> {
             // display user info page
-            credentialsDisplay(loginStage, true);
+            myPageDisplay();
         });
 
         mainPageView.getViewBookingsButton().setOnAction(e -> {
@@ -157,9 +155,34 @@ public class HotelProject extends Application {
      *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
-
         myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
+
+        if (change == Change.USERNAME) {
+            updateInfoPage.getFirstUName().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+
+            updateInfoPage.getSecondUName().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+        } else {
+            updateInfoPage.getFirstPwd().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+
+            updateInfoPage.getSecondPwd().setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.ENTER) {
+                    updateInfoPage.getSave().fire();
+                }
+            });
+        }
 
         // to save the modifications
         updateInfoPage.getSave().setOnAction(e -> {
@@ -167,8 +190,8 @@ public class HotelProject extends Application {
             boolean isInfoCorrect = true;
 
             if (change == Change.USERNAME) {
-                String firstUsername = updateInfoPage.getFirstUName().getText().trim();
-                String secondUsername = updateInfoPage.getSecondUName().getText().trim();
+                String firstUsername = updateInfoPage.getFirstUName().getText();
+                String secondUsername = updateInfoPage.getSecondUName().getText();
                 if (firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else {
@@ -218,10 +241,10 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
         Stage updateInfoStage = new Stage();
 
-        myPage.getChPwd().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.PASSWORD));
+        myPage.getChPwd().setOnAction(e -> credentialsDisplay(new Stage(), true));
         myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
-        myPage.getLogout().setOnAction(e -> logoutDisplay(myPageStage));
+        myPage.getLogout().setOnAction(e -> logout(myPageStage));
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -295,8 +318,12 @@ public class HotelProject extends Application {
         NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
-        // set buttons on action
+        // error handling
+        newRoomViewPage.getSubmit().setDisable(newRoomViewPage.getNumRoom().getText().equals("") ||
+                newRoomViewPage.getFloor().getText().equals("") ||
+                newRoomViewPage.getRoomType().getValue() == null);
 
+        // set buttons on action
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
 
         newRoomViewPage.getSubmit().setOnAction(e -> {
@@ -347,8 +374,11 @@ public class HotelProject extends Application {
         NewUserView newUserViewPage = new NewUserView();
         Stage newUserStage = new Stage();
 
-        // set buttons on action
+        // Error handling
+        newUserViewPage.getSubmit().setDisable(newUserViewPage.getUserName().getText().equals("") ||
+                newUserViewPage.getUserPassWord().getText().equals(""));
 
+        // set buttons on action
         newUserViewPage.getSubmit().setOnAction(e -> {
             String userN = newUserViewPage.getUserName().getText();
             String userP = newUserViewPage.getUserPassWord().getText();
@@ -390,15 +420,11 @@ public class HotelProject extends Application {
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
         // Error handling
-        if (newBookingViewPage.getNumRoom().getValue() == null ||
+        newBookingViewPage.getSubmit().setDisable(newBookingViewPage.getNumRoom().getValue() == null ||
                 newBookingViewPage.getBookingFee().getText().equals("") ||
                 newBookingViewPage.getCheckIn().getValue() == null ||
                 newBookingViewPage.getCheckOut().getValue() == null ||
-                newBookingViewPage.getC_ss_number().getValue() == null) {
-            newBookingViewPage.getSubmit().setDisable(true);
-        } else {
-            newBookingViewPage.getSubmit().setDisable(false);
-        }
+                newBookingViewPage.getC_ss_number().getValue() == null);
 
         // Error handling
         newBookingViewPage.getNumRoom().valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -721,9 +747,11 @@ public class HotelProject extends Application {
                     }
 
                     GridPane secBLayout = new GridPane();
+                    secBLayout.getStyleClass().add("details-pane");
                     secBLayout.getChildren().add(roomDListView);
 
                     Scene secondScene = new Scene(secBLayout, 250, 250);
+                    secondScene.getStylesheets().add("file:assets/css/Stylesheet.css");
 
                     newWindow.setTitle("Details");
                     newWindow.setScene(secondScene);
@@ -974,15 +1002,11 @@ public class HotelProject extends Application {
         Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
 
         // Error handling
-        if (newCustomerViewPage.getCSSNum().getText().equals("") ||
+        newCustomerViewPage.getSubmit().setDisable(newCustomerViewPage.getCSSNum().getText().equals("") ||
                 newCustomerViewPage.getCAddress().getText().equals("") ||
                 newCustomerViewPage.getCFullName().getText().equals("") ||
                 newCustomerViewPage.getCPhoneNum().getText().equals("") ||
-                newCustomerViewPage.getCEmail().getText().equals("")) {
-            newCustomerViewPage.getSubmit().setDisable(true);
-        } else {
-            newCustomerViewPage.getSubmit().setDisable(false);
-        }
+                newCustomerViewPage.getCEmail().getText().equals(""));
 
         // Error handling
         newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -1157,23 +1181,10 @@ public class HotelProject extends Application {
      * @param myPageStage the main application's page to close after showing logout
      *                    page
      */
-    private void logoutDisplay(Stage myPageStage) {
-        LogoutView logoutViewPage = new LogoutView();
-        Stage logoutStage = new Stage();
-
-        logoutViewPage.getLogin().setOnAction(e -> {
-            // display again login window
-            Stage loginStage = new Stage();
-            credentialsDisplay(loginStage, false);
-            logoutStage.close();
-        });
-
-        logoutViewPage.getClose().setOnAction(e -> Platform.exit());
-
-        logoutStage.setScene(logoutViewPage.getScene());
-        logoutStage.setTitle("Hotel Manager - Logout");
-        logoutStage.show();
+    private void logout(Stage myPageStage) {
         mainPageStage.close();
+        Stage loginStage = new Stage();
+        credentialsDisplay(loginStage, false);
         myPageStage.close();
     }
 }
