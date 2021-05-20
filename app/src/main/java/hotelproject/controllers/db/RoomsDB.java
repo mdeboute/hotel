@@ -6,7 +6,12 @@ import hotelproject.controllers.objects.RoomType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
-
+/**
+ * This class contains all the database operations related to rooms.
+ * Include add room type, add room, delete room type, delete room, update room type, update room,
+ * view room details, find all room types, find all rooms, if room type exist, if room exist, find all booked rooms,
+ * and find all room numbers.
+ */
 public class RoomsDB {
     private final Connection conn;
 
