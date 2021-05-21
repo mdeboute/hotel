@@ -1,9 +1,14 @@
 package hotelproject.views;
 
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -38,19 +43,67 @@ public class UpdateCustomerView extends View {
 
         VBox header = createHeader("Update customer", "Enter customer specifics to update");
 
-        Label cSSNumL = new Label("New personal number (8 digits): ");
+        Label cSSNumL = new Label("Personal number (8 digits): ");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
-        Label cAddressL = new Label("New address: ");
+
+        // force the field to be numeric only
+        cSSNum.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("(?:[1-9]|[1-9][0-9]{1,7})")) {
+                Platform.runLater(cSSNum::clear);
+            }
+
+            // If there numbers and no violations (characters, signs or such), limit to 8 only
+            Pattern pattern = Pattern.compile(".{0,8}");
+            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
+                return pattern.matcher(change.getControlNewText()).matches() ? change : null;
+            });
+            cSSNum.setTextFormatter(formatter);
+            
+        });
+
+
+        Label cAddressL = new Label("Address: ");
         pane.add(cAddressL, 0, 2);
         pane.add(cAddress, 1, 2);
-        Label cFullNameL = new Label("New name: ");
+
+        // force the field to be strings only
+        cAddress.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$")) {
+                Platform.runLater(cAddress::clear);
+            }
+        });
+
+        Label cFullNameL = new Label("Name: ");
         pane.add(cFullNameL, 0, 3);
         pane.add(cFullName, 1, 3);
-        Label cPhoneNumL = new Label("New phone number (9 digits): ");
+
+        // force the field to be numeric only
+        cFullName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^[\\p{L} .'-]+$")) {
+                Platform.runLater(cFullName::clear);
+            }
+        });
+
+        Label cPhoneNumL = new Label("Phone number (9 digits): ");
         pane.add(cPhoneNumL, 0, 4);
         pane.add(cPhoneNum, 1, 4);
-        Label cEmailL = new Label("New email: ");
+
+        // force the field to be numeric only
+        cPhoneNum.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[1-9]|[1-9][0-9]{1,8}")) {
+                Platform.runLater(cPhoneNum::clear);
+            }
+
+            // If there numbers and no violations (characters, signs or such), limit to 8
+            Pattern pattern = Pattern.compile(".{0,9}");
+            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
+                return pattern.matcher(change.getControlNewText()).matches() ? change : null;
+            });
+            cPhoneNum.setTextFormatter(formatter);
+        });
+
+        Label cEmailL = new Label("Email: ");
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
 

@@ -1238,6 +1238,20 @@ public class HotelProject extends Application {
         updateCustomerViewPage.getCPhoneNum().setText(String.valueOf(customer.getC_phone_num()));
         updateCustomerViewPage.getCEmail().setText(customer.getC_email());
 
+        // not allowing to submit unless a character has been input in email address
+        updateCustomerViewPage.getCEmail().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("")) {
+                updateCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (updateCustomerViewPage.getCSSNum().getText().length() == 8
+                        && !updateCustomerViewPage.getCAddress().getText().equals("")
+                        && !updateCustomerViewPage.getCFullName().getText().equals("")
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9) {
+                            updateCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
         /***************************** SET BUTTONS ON ACTION *****************************/
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {
