@@ -1238,6 +1238,66 @@ public class HotelProject extends Application {
         updateCustomerViewPage.getCPhoneNum().setText(String.valueOf(customer.getC_phone_num()));
         updateCustomerViewPage.getCEmail().setText(customer.getC_email());
 
+
+
+        updateCustomerViewPage.getSubmit().setDisable(updateCustomerViewPage.getCSSNum().getText().equals("")
+                        || updateCustomerViewPage.getCAddress().getText().equals("")
+                        || updateCustomerViewPage.getCFullName().getText().equals("")
+                        || updateCustomerViewPage.getCPhoneNum().getText().equals("")
+                        || updateCustomerViewPage.getCEmail().getText().equals(""));
+
+        updateCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.length() != 8){
+                    updateCustomerViewPage.getSubmit().setDisable(true);
+                } else {
+                    if(!updateCustomerViewPage.getCAddress().getText().equals("")
+                        && !updateCustomerViewPage.getCFullName().getText().equals("")
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9
+                        && !updateCustomerViewPage.getCEmail().getText().equals("")) {
+                    updateCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        updateCustomerViewPage.getCAddress().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("")) {
+                updateCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (updateCustomerViewPage.getCSSNum().getText().length() == 8
+                        && !updateCustomerViewPage.getCFullName().getText().equals("")
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9
+                        && !updateCustomerViewPage.getCEmail().getText().equals("")) {
+                    updateCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        updateCustomerViewPage.getCFullName().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("")) {
+                updateCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (updateCustomerViewPage.getCSSNum().getText().length() == 8
+                        && !updateCustomerViewPage.getCAddress().getText().equals("")
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9
+                        && !updateCustomerViewPage.getCEmail().getText().equals("")) {
+                    updateCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        updateCustomerViewPage.getCPhoneNum().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() != 9) {
+                updateCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (updateCustomerViewPage.getCSSNum().getText().length() == 9
+                        && !updateCustomerViewPage.getCAddress().getText().equals("")
+                        && !updateCustomerViewPage.getCFullName().getText().equals("")
+                        && !updateCustomerViewPage.getCEmail().getText().equals("")) {
+                    updateCustomerViewPage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
         // not allowing to submit unless a character has been input in email address
         updateCustomerViewPage.getCEmail().textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("")) {
@@ -1246,8 +1306,8 @@ public class HotelProject extends Application {
                 if (updateCustomerViewPage.getCSSNum().getText().length() == 8
                         && !updateCustomerViewPage.getCAddress().getText().equals("")
                         && !updateCustomerViewPage.getCFullName().getText().equals("")
-                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9) {
-                            updateCustomerViewPage.getSubmit().setDisable(false);
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() < 9) {
+                    updateCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
         });
