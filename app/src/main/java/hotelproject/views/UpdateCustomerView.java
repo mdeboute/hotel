@@ -4,11 +4,12 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -70,6 +71,9 @@ public class UpdateCustomerView extends View {
         // force the field to be strings only
         cAddress.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$")) {
+                Alert a = new Alert(AlertType.INFORMATION);
+                a.setContentText("Address has to have letters and numbers (Space included)!");
+                a.showAndWait();
                 Platform.runLater(cAddress::clear);
             }
         });
@@ -81,6 +85,9 @@ public class UpdateCustomerView extends View {
         // force the field to be numeric only
         cFullName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("^[\\p{L} .'-]+$")) {
+                Alert a = new Alert(AlertType.INFORMATION);
+                a.setContentText("Name has to have letters (space included)!");
+                a.showAndWait();
                 Platform.runLater(cFullName::clear);
             }
         });
