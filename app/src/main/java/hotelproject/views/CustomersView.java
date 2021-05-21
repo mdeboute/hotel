@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -59,7 +60,8 @@ public class CustomersView extends View {
 
         Label title = new Label("Hotel customers");
         title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 25));
-        title.getStyleClass().add("purple");
+        title.setStyle("-fx-font-weight: bold;");
+        title.setTextFill(Paint.valueOf("bb86fc"));
 
         customersTable.setEditable(true);
 
