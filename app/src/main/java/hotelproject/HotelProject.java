@@ -277,6 +277,46 @@ public class HotelProject extends Application {
         AddRoomTypeView addRoomTypePage = new AddRoomTypeView();
         Stage addTypeStage = new Stage();
 
+        addRoomTypePage.getSubmit().setDisable(addRoomTypePage.getNbBeds().getText().equals("")
+                        || addRoomTypePage.getName().getText().equals("")
+                        || addRoomTypePage.getRoomSize().getText().equals(""));
+
+        addRoomTypePage.getName().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (addRoomTypePage.getName().getText().equals("")) {
+                addRoomTypePage.getSubmit().setDisable(true);
+            } else {
+                if (!addRoomTypePage.getName().getText().equals("")
+                        && !addRoomTypePage.getNbBeds().getText().equals("")
+                        && !addRoomTypePage.getRoomSize().getText().equals("")){
+                    addRoomTypePage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        addRoomTypePage.getNbBeds().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (addRoomTypePage.getNbBeds().getText().equals("")) {
+                addRoomTypePage.getSubmit().setDisable(true);
+            } else {
+                if (!addRoomTypePage.getNbBeds().getText().equals("") 
+                && !addRoomTypePage.getName().getText().equals("")
+                && !addRoomTypePage.getRoomSize().getText().equals("")) {
+                    addRoomTypePage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
+        addRoomTypePage.getRoomSize().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (addRoomTypePage.getRoomSize().getText().equals("")) {
+                addRoomTypePage.getSubmit().setDisable(true);
+            } else {
+                if (!addRoomTypePage.getRoomSize().getText().equals("") 
+                && !addRoomTypePage.getName().getText().equals("")
+                && !addRoomTypePage.getNbBeds().getText().equals("")) {
+                    addRoomTypePage.getSubmit().setDisable(false);
+                }
+            }
+        });
+
         // SET BUTTONS ON ACTION //
 
         // add the new room type to the database
@@ -316,7 +356,7 @@ public class HotelProject extends Application {
             }
         });
 
-        addTypeStage.setOnCloseRequest(e -> addTypeStage.close());
+        addRoomTypePage.getCancel().setOnAction(e -> addTypeStage.close());
 
         // OPEN THE WINDOW //
 
