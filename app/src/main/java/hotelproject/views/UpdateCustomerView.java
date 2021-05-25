@@ -1,20 +1,17 @@
 package hotelproject.views;
 
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
+
 /**
- *Create update customer information view.
+ * Create update customer information view.
  */
 public class UpdateCustomerView extends View {
 
@@ -50,17 +47,15 @@ public class UpdateCustomerView extends View {
 
         // force the field to be numeric only
         cSSNum.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("(?:[1-9]|[1-9][0-9]{1,7})")) {
+            if (!newValue.matches("[1-9]|[1-9][0-9]{1,7}")) {
                 Platform.runLater(cSSNum::clear);
             }
 
             // If there numbers and no violations (characters, signs or such), limit to 8 only
             Pattern pattern = Pattern.compile(".{0,8}");
-            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
-                return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-            });
+            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cSSNum.setTextFormatter(formatter);
-            
+
         });
 
 
@@ -104,9 +99,7 @@ public class UpdateCustomerView extends View {
 
             // If there numbers and no violations (characters, signs or such), limit to 8
             Pattern pattern = Pattern.compile(".{0,9}");
-            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
-                return pattern.matcher(change.getControlNewText()).matches() ? change : null;
-            });
+            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cPhoneNum.setTextFormatter(formatter);
         });
 
@@ -130,6 +123,7 @@ public class UpdateCustomerView extends View {
 
     /**
      * No body need to be created in this view.
+     *
      * @return null
      */
     @Override

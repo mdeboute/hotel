@@ -44,6 +44,7 @@ public class BookingsView extends View {
 
     /**
      * The constructor is used for initiating bookings view.
+     *
      * @param user     the login user.
      * @param bookings all bookings are stored in a list.
      */
@@ -72,6 +73,7 @@ public class BookingsView extends View {
      * Create body pane for this view.
      * If the user with 'admin' authority, the view will contain an 'Add booking' button.
      * Otherwise, there is no button in this view.
+     *
      * @return the instance of the GridPane.
      */
     @Override

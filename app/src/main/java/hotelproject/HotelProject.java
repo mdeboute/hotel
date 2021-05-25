@@ -61,7 +61,7 @@ public class HotelProject extends Application {
     private void credentialsDisplay(Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
 
-        /***************************** SET ON ENTER KEY PRESSED *****************************/
+        // SET ON ENTER KEY PRESSED //
 
         loginView.getPassword().setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -75,7 +75,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         loginView.getTestLoginButton().setOnAction(e -> {
             User userTest = new User(loginView.getUsername().getText().trim(), loginView.getPassword().getText());
@@ -100,7 +100,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         primaryStage.setScene(loginView.getScene());
         primaryStage.setTitle("Hotel Manager - Login");
@@ -117,7 +117,7 @@ public class HotelProject extends Application {
         MainPageView mainPageView = new MainPageView(connectedUser);
         mainPageStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         mainPageView.getMyPageButton().setOnAction(e -> {
             // display user info page
@@ -144,7 +144,7 @@ public class HotelProject extends Application {
             });
         }
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         mainPageStage.setScene(mainPageView.getScene());
         mainPageStage.setTitle("Hotel Manager - Menu");
@@ -164,7 +164,7 @@ public class HotelProject extends Application {
         myPageStage.close();
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
 
-        /***************************** SET ON ENTER KEY PRESSED *****************************/
+        // SET ON ENTER KEY PRESSED //
 
         if (change == Change.USERNAME) {
             updateInfoPage.getFirstUName().setOnKeyPressed(e -> {
@@ -192,7 +192,7 @@ public class HotelProject extends Application {
             });
         }
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         // to save the modifications
         updateInfoPage.getSave().setOnAction(e -> {
@@ -238,7 +238,7 @@ public class HotelProject extends Application {
 
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         updateInfoStage.setScene(updateInfoPage.getScene());
         updateInfoStage.setTitle("Hotel Manager - Update personal information");
@@ -253,14 +253,14 @@ public class HotelProject extends Application {
         Stage myPageStage = new Stage();
         Stage updateInfoStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         myPage.getChPwd().setOnAction(e -> credentialsDisplay(new Stage(), true));
         myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
 
         myPage.getLogout().setOnAction(e -> logout(myPageStage));
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         myPageStage.setScene(myPage.getScene());
         myPageStage.setTitle("Hotel Manager - My Page");
@@ -277,7 +277,7 @@ public class HotelProject extends Application {
         AddRoomTypeView addRoomTypePage = new AddRoomTypeView();
         Stage addTypeStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         // add the new room type to the database
         addRoomTypePage.getSubmit().setOnAction(e -> {
@@ -318,7 +318,7 @@ public class HotelProject extends Application {
 
         addTypeStage.setOnCloseRequest(e -> addTypeStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         addTypeStage.initOwner(newRoomStage);
         addTypeStage.initModality(Modality.WINDOW_MODAL);
@@ -338,11 +338,11 @@ public class HotelProject extends Application {
         NewRoomView newRoomViewPage = new NewRoomView(hdata);
         Stage newRoomStage = new Stage();
 
-        /***************************** ERROR HANDLING *****************************/
+        // ERROR HANDLING //
 
         newRoomViewPage.getSubmit().setDisable(newRoomViewPage.getNumRoom().getText().equals("") ||
-                    newRoomViewPage.getFloor().getText().equals("") ||
-                    newRoomViewPage.getRoomType().getValue() == null);
+                newRoomViewPage.getFloor().getText().equals("") ||
+                newRoomViewPage.getRoomType().getValue() == null);
 
         newRoomViewPage.getSubmit().setDisable(newRoomViewPage.getNumRoom().getText().equals("") ||
                 newRoomViewPage.getFloor().getText().equals("") ||
@@ -372,7 +372,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         newRoomViewPage.getAddRoomType().setOnAction(e -> addRoomTypeDisplay(hdata, newRoomStage));
 
@@ -407,7 +407,7 @@ public class HotelProject extends Application {
 
         newRoomStage.setOnCloseRequest(e -> newRoomStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         // Specifies the modality for new window and the owner of window
         newRoomStage.initOwner(formerStage);
@@ -426,17 +426,17 @@ public class HotelProject extends Application {
         NewUserView newUserViewPage = new NewUserView();
         Stage newUserStage = new Stage();
 
-        /***************************** ERROR HANDLING *****************************/
+        // ERROR HANDLING //
 
         newUserViewPage.getSubmit().setDisable(newUserViewPage.getUserName().getText().equals("") ||
-                    newUserViewPage.getUserPassWord().getText().equals(""));
+                newUserViewPage.getUserPassWord().getText().equals(""));
 
         newUserViewPage.getUserName().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newUserViewPage.getUserName().getText().equals("") &&
                     !newUserViewPage.getUserPassWord().getText().equals("")) {
                 newUserViewPage.getSubmit().setDisable(false);
             }
-                });
+        });
 
         newUserViewPage.getUserPassWord().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newUserViewPage.getUserName().getText().equals("") &&
@@ -445,7 +445,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         newUserViewPage.getSubmit().setOnAction(e -> {
             String userN = newUserViewPage.getUserName().getText();
@@ -465,7 +465,7 @@ public class HotelProject extends Application {
             newUserStage.close();
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         newUserStage.setScene(newUserViewPage.getScene());
         newUserStage.setTitle("Hotel Manager - New User");
@@ -489,7 +489,7 @@ public class HotelProject extends Application {
 
         Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
 
-        /***************************** ERROR HANDLING *****************************/
+        // ERROR HANDLING //
 
         newBookingViewPage.getSubmit().setDisable(newBookingViewPage.getNumRoom().getValue() == null ||
                 newBookingViewPage.getBookingFee().getText().equals("") ||
@@ -581,7 +581,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         newBookingViewPage.getSubmit().setOnAction(e -> {
             int bookingID = hdata.getBookingAutoID();
@@ -620,7 +620,7 @@ public class HotelProject extends Application {
             newBookingStage.close();
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         newBookingStage.setScene(newBookingViewPage.getScene());
         newBookingStage.setTitle("Hotel Manager - New Booking");
@@ -646,7 +646,7 @@ public class HotelProject extends Application {
         updateBookingViewPage.getNewIsPaid().setSelected(booking.getB_is_paid() == 1);
         updateBookingViewPage.getC_ss_number().setValue(booking.getC_ss_number());
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         updateBookingViewPage.getSubmit().setOnAction(e -> {
             int newRoom = Integer.parseInt(updateBookingViewPage.getNewRoom().getText());
@@ -692,7 +692,7 @@ public class HotelProject extends Application {
 
         updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         updateRoomStage.setScene(updateBookingViewPage.getScene());
         updateRoomStage.setTitle("Hotel Manager - Updating Booking");
@@ -713,7 +713,7 @@ public class HotelProject extends Application {
         BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
         Stage bookingsStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         // admins can add a booking
         if (connectedUser.getU_is_admin() == 1 || connectedUser.getU_is_admin() == 0) {
@@ -738,7 +738,7 @@ public class HotelProject extends Application {
             return row;
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         bookingsStage.setScene(bookingsViewPage.getScene());
         bookingsStage.setTitle("Hotel Manager - Bookings");
@@ -753,7 +753,7 @@ public class HotelProject extends Application {
         RoomsView roomsViewPage = new RoomsView(connectedUser, rooms, hdata);
         Stage roomsStage = new Stage();
 
-        /***************************** SET CONTEXT MENU & BUTTONS ON ACTION *****************************/
+        // SET CONTEXT MENU & BUTTONS ON ACTION //
 
         // admins can add, update or delete a room through the context menu
         if (connectedUser.getU_is_admin() == 1) {
@@ -932,7 +932,7 @@ public class HotelProject extends Application {
             });
         }
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         roomsStage.setScene(roomsViewPage.getScene());
         roomsStage.setTitle("Hotel Manager - Rooms");
@@ -957,7 +957,7 @@ public class HotelProject extends Application {
         updateRoomViewPage.getFloor().setText(currentFloor);
         updateRoomViewPage.getRoomType().setValue(room.getR_type());
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         updateRoomViewPage.getSubmit().setOnAction(e -> {
             int roomNb = Integer.parseInt(updateRoomViewPage.getNumRoom().getText());
@@ -993,7 +993,7 @@ public class HotelProject extends Application {
 
         updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         updateRoomStage.setScene(updateRoomViewPage.getScene());
         updateRoomStage.setTitle("Hotel Manager - Updating Room");
@@ -1010,7 +1010,7 @@ public class HotelProject extends Application {
         DeleteRoomView deleteRoomViewPage = new DeleteRoomView();
         Stage deleteRoomStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         deleteRoomViewPage.getSubmit().setOnAction(e -> {
             hdata.deleteRoom(room);
@@ -1021,7 +1021,7 @@ public class HotelProject extends Application {
 
         deleteRoomStage.setOnCloseRequest(e -> deleteRoomStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         // Specifies the modality for new window and the owner of window
         deleteRoomStage.initOwner(formerStage);
@@ -1036,14 +1036,14 @@ public class HotelProject extends Application {
         UsersView usersViewPage = new UsersView(connectedUser, users);
         Stage usersStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         // admins can add a user
         if (connectedUser.getU_is_admin() == 1) {
             usersViewPage.getAddUser().setOnAction(e -> newUserDisplay(usersStage));
         }
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         usersStage.setScene(usersViewPage.getScene());
         usersStage.setTitle("Hotel Manager - Users");
@@ -1055,7 +1055,7 @@ public class HotelProject extends Application {
         CustomersView customersViewPage = new CustomersView(customers);
         Stage customerStage = new Stage();
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         customersViewPage.getAddCustomer().setOnAction(e -> newCustomerDisplay(customerStage));
 
@@ -1077,7 +1077,7 @@ public class HotelProject extends Application {
             return row;
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         customerStage.setScene(customersViewPage.getScene());
         customerStage.setTitle("Hotel Manager - Customers");
@@ -1094,7 +1094,7 @@ public class HotelProject extends Application {
         Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PERSONAL_NUMBER));
         Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
 
-        /***************************** ERROR HANDLING *****************************/
+        // ERROR HANDLING //
 
         newCustomerViewPage.getSubmit().setDisable(newCustomerViewPage.getCSSNum().getText().equals("") ||
                 newCustomerViewPage.getCAddress().getText().equals("") ||
@@ -1187,7 +1187,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         newCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(newCustomerViewPage.getCSSNum().getText());
@@ -1214,7 +1214,7 @@ public class HotelProject extends Application {
             newCustomerStage.close();
         });
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         newCustomerStage.setScene(newCustomerViewPage.getScene());
         newCustomerStage.setTitle("Hotel Manager - New Customer");
@@ -1239,18 +1239,17 @@ public class HotelProject extends Application {
         updateCustomerViewPage.getCEmail().setText(customer.getC_email());
 
 
-
         updateCustomerViewPage.getSubmit().setDisable(updateCustomerViewPage.getCSSNum().getText().equals("")
-                        || updateCustomerViewPage.getCAddress().getText().equals("")
-                        || updateCustomerViewPage.getCFullName().getText().equals("")
-                        || updateCustomerViewPage.getCPhoneNum().getText().equals("")
-                        || updateCustomerViewPage.getCEmail().getText().equals(""));
+                || updateCustomerViewPage.getCAddress().getText().equals("")
+                || updateCustomerViewPage.getCFullName().getText().equals("")
+                || updateCustomerViewPage.getCPhoneNum().getText().equals("")
+                || updateCustomerViewPage.getCEmail().getText().equals(""));
 
         updateCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.length() != 8){
-                    updateCustomerViewPage.getSubmit().setDisable(true);
-                } else {
-                    if(!updateCustomerViewPage.getCAddress().getText().equals("")
+            if (newValue.length() != 8) {
+                updateCustomerViewPage.getSubmit().setDisable(true);
+            } else {
+                if (!updateCustomerViewPage.getCAddress().getText().equals("")
                         && !updateCustomerViewPage.getCFullName().getText().equals("")
                         && updateCustomerViewPage.getCPhoneNum().getText().length() == 9
                         && !updateCustomerViewPage.getCEmail().getText().equals("")) {
@@ -1312,7 +1311,7 @@ public class HotelProject extends Application {
             }
         });
 
-        /***************************** SET BUTTONS ON ACTION *****************************/
+        // SET BUTTONS ON ACTION //
 
         updateCustomerViewPage.getSubmit().setOnAction(e -> {
             int cSSNum = Integer.parseInt(updateCustomerViewPage.getCSSNum().getText());
@@ -1331,7 +1330,7 @@ public class HotelProject extends Application {
 
         updateCustomerStage.setOnCloseRequest(e -> updateCustomerStage.close());
 
-        /***************************** OPEN THE WINDOW *****************************/
+        // OPEN THE WINDOW //
 
         updateCustomerStage.setScene(updateCustomerViewPage.getScene());
         updateCustomerStage.setTitle("Hotel Manager - Updating Customer");

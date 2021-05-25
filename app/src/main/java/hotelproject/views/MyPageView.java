@@ -28,6 +28,7 @@ public class MyPageView extends View {
 
     /**
      * Constructor for initiating MyPageView.
+     *
      * @param user the login user
      */
     public MyPageView(User user) {
@@ -49,6 +50,7 @@ public class MyPageView extends View {
 
     /**
      * Create MyPageView based on different user status.
+     *
      * @return an instance of Grid pane.
      */
     @Override

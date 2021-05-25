@@ -133,6 +133,7 @@ public class AddRoomTypeView extends View {
 
     /**
      * No body pane need to be created in this view.
+     *
      * @return null
      */
     @Override

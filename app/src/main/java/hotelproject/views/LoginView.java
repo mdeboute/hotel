@@ -33,6 +33,7 @@ public class LoginView extends View {
 
     /**
      * Constructor used for initiating the view scene.
+     *
      * @param onlyPwd is used to differ two different kinds of login view.
      */
     public LoginView(boolean onlyPwd) {

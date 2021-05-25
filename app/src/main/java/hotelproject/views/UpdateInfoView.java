@@ -77,7 +77,7 @@ public class UpdateInfoView extends View {
      *
      * @param field1 first input text field.
      * @param field2 second input text field.
-     * @param pane instance of pane.
+     * @param pane   instance of pane.
      */
     private void createTextFields(Node field1, Node field2, GridPane pane) {
         Lbl1.setFont(Default.getSFPro(20));

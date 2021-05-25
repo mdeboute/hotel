@@ -34,7 +34,6 @@ public abstract class View {
      * @param title    of the header.
      * @param subtitle of the header.
      * @return the header in the format VBox.
-     *
      */
     protected VBox createHeader(String title, String subtitle) { //use createHeader in every view
 
@@ -61,7 +60,6 @@ public abstract class View {
      * Create the initial GridPane.
      *
      * @return the initial GridPane.
-     *
      */
     protected GridPane createPane() {
         GridPane pane = new GridPane();
@@ -138,8 +136,6 @@ public abstract class View {
 
     /**
      * getter for Scene object.
-     *
-     * @return
      */
     public Scene getScene() {
         return scene;

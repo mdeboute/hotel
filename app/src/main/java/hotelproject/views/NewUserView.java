@@ -74,6 +74,7 @@ public class NewUserView extends View {
 
     /**
      * Create the instance of VBox for containing submit and cancel buttons.
+     *
      * @return an instance of VBox.
      */
     private VBox createFooter() {
@@ -90,6 +91,7 @@ public class NewUserView extends View {
 
     /**
      * No body pane need to be created in this view.
+     *
      * @return null
      */
     @Override

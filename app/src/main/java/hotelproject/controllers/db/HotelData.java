@@ -32,6 +32,7 @@ public class HotelData {
 
     /**
      * This constructor is used for initializing all encapsulated data.
+     *
      * @param dbm       build connection with database.
      * @param rooms     all room objects
      * @param roomTypes all room type objects
@@ -72,6 +73,7 @@ public class HotelData {
     /**
      * Add a new room.
      * First add the room object in the list then update the room in the database.
+     *
      * @param room the room object
      */
     public void addRoom(Room room) {
@@ -82,6 +84,7 @@ public class HotelData {
     /**
      * Delete a room.
      * First delete the room object in the list then delete the room in the database.
+     *
      * @param room the room object
      */
     public void deleteRoom(Room room) {
@@ -92,6 +95,7 @@ public class HotelData {
     /**
      * Update a room information.
      * First find the focal room's index in the list, then call RoomsDB's update method to update the room object.
+     *
      * @param room    the encapsulated new room object.
      * @param oldRNum the old room number for identify the room.
      */
@@ -108,6 +112,7 @@ public class HotelData {
 
     /**
      * Find all available rooms during the time period.
+     *
      * @param checkIn  the check-in date
      * @param checkOut the check-out date
      * @return all available rooms saved in ArrayList.
@@ -131,6 +136,7 @@ public class HotelData {
 
     /**
      * View a room's detail.
+     *
      * @param room the room object for viewing
      * @return the room's information saved in Hashtable.
      */
@@ -141,6 +147,7 @@ public class HotelData {
     /**
      * Add a new room type.
      * First add in ArrayList then update the database.
+     *
      * @param newRoomType new room type object
      */
     public void addRoomType(RoomType newRoomType) {
@@ -151,6 +158,7 @@ public class HotelData {
     /**
      * Add a new customer.
      * First add in ArrayList then update the database.
+     *
      * @param customer new customer object.
      */
     public void addCustomer(Customer customer) {
@@ -161,6 +169,7 @@ public class HotelData {
     /**
      * Update a customer's information according to its social security number.
      * First update ArrayList for customers. Then update the database.
+     *
      * @param customer  the new customer object
      * @param oldCSSNum the customer's social security number
      */
@@ -177,6 +186,7 @@ public class HotelData {
 
     /**
      * Add a new user.
+     *
      * @param user user object for adding
      */
     public void addUser(User user) {
@@ -186,6 +196,7 @@ public class HotelData {
 
     /**
      * Update a user's information.
+     *
      * @param user     the new user object
      * @param oldUName the user's name
      * @throws SQLException this method need to handle SQLException when call
@@ -203,6 +214,7 @@ public class HotelData {
 
     /**
      * Get booking's id.
+     *
      * @return booking id is an integer number
      */
     public int getBookingAutoID() {
@@ -214,10 +226,11 @@ public class HotelData {
      * Add a new booking in the system.
      * First add the new booking to the ArrayList.
      * Then update the database.
+     *
      * @param newBooking new booking object
      */
     public void addBooking(Booking newBooking) {
-        bookings.add(newBooking); 
+        bookings.add(newBooking);
         dbm.bdb.addBooking(newBooking);
     }
 
@@ -225,10 +238,11 @@ public class HotelData {
      * Update a booking's information.
      * First add the new booking to the ArrayList.
      * Then update the database.
+     *
      * @param updateBooking new booking object
      */
     public void updateBooking(Booking updateBooking) {
-        for(Booking b : bookings) {
+        for (Booking b : bookings) {
             if (b.getB_id() == updateBooking.getB_id()) {
                 int index = bookings.indexOf(b);
                 bookings.set(index, updateBooking);

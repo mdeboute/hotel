@@ -43,6 +43,7 @@ public class MainPageView extends View {
 
     /**
      * Constructor for initiating MainPageView.
+     *
      * @param user the login user
      */
     public MainPageView(User user) {
@@ -79,6 +80,7 @@ public class MainPageView extends View {
 
     /**
      * Present hotel logo
+     *
      * @return an instance of HBox
      */
     private HBox createHeader() {
@@ -110,6 +112,7 @@ public class MainPageView extends View {
 
     /**
      * Create body pane to contain all four selections.
+     *
      * @return an instance of Grid pane.
      */
     @Override

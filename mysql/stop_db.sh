@@ -12,9 +12,9 @@ if [ ! "${CID}" ]; then
   exit 1
 fi
 if [ "$(docker container inspect -f '{{.State.Running}}' $CONTAINER_NAME)" == "true" ]; then
-    docker stop $CONTAINER_NAME
-    echo "Done !"
-    exit 0
+  docker stop $CONTAINER_NAME
+  echo "Done !"
+  exit 0
 fi
 echo "Please launch the database with './start_db.sh' first"
 exit 1

@@ -10,8 +10,8 @@ Run this commands in this folder on your terminal (a bash) :
 
 ## Testers :
 
-If you want to test the code of the project on the CI prefilled database you can run this commands (make sure that another container is
-not running at the same time on the same port) :
+If you want to test the code of the project on the CI prefilled database you can run this commands (make sure that
+another container is not running at the same time on the same port) :
 
 1. `docker pull mdeboute/hotel-sql:gitlab-ci`
 2. `docker run -d -p 3306:3306 --name hotel-ci -e MYSQL_ROOT_PASSWORD=root mdeboute/hotel-sql:gitlab-ci`

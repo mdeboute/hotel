@@ -26,21 +26,19 @@ public class NewRoomView extends View {
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
-
-    private Button addRoomType;
     private final String IDLE_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_add_type.png";
     private final String HOVER_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_add_type.png";
-
-    private Button submit;
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-
-    private Button cancel;
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button addRoomType;
+    private Button submit;
+    private Button cancel;
 
     /**
      * Constructor for this view.
+     *
      * @param hdata this instance to encapsulate all related operations for the database of the hotel.
      */
     public NewRoomView(HotelData hdata) {
@@ -119,6 +117,7 @@ public class NewRoomView extends View {
 
     /**
      * VBox for containing submit and cancel buttons.
+     *
      * @return an instance of VBox.
      */
     private VBox createFooter() {
@@ -135,6 +134,7 @@ public class NewRoomView extends View {
 
     /**
      * No body pane need to be created in this view.
+     *
      * @return null
      */
     @Override

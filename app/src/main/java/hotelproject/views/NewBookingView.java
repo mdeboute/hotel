@@ -44,6 +44,7 @@ public class NewBookingView extends View {
 
     /**
      * Constructor  for initiating related data to a new booking view.
+     *
      * @param dbm   create connection with database.
      * @param hdata this instance to encapsulate all related operations for the database of the hotel.
      */
@@ -77,6 +78,7 @@ public class NewBookingView extends View {
 
     /**
      * Create body pane to contain new booking related information.
+     *
      * @return an instance of Grid pane.
      */
     @Override
@@ -172,6 +174,7 @@ public class NewBookingView extends View {
 
     /**
      * VBox for containing submit and cancel buttons.
+     *
      * @return an instance of VBox.
      */
     private VBox createFooter() {

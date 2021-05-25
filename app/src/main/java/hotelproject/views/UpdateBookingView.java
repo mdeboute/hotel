@@ -31,6 +31,7 @@ public class UpdateBookingView extends View {
 
     /**
      * Constructor for this view.
+     *
      * @param dbm the instance of DatabaseManager for creating connection.
      */
     public UpdateBookingView(DatabaseManager dbm) {
@@ -119,6 +120,7 @@ public class UpdateBookingView extends View {
 
     /**
      * No body pane need to be created in this view.
+     *
      * @return null
      */
     @Override

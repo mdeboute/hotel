@@ -13,13 +13,12 @@ import javafx.scene.layout.VBox;
  */
 public class DeleteRoomView extends View {
 
-    private Button submit;
     private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-
-    private Button cancel;
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit;
+    private Button cancel;
 
     /**
      * No parameter is needed for this constructor.
@@ -53,6 +52,7 @@ public class DeleteRoomView extends View {
 
     /**
      * Create VBox to contain submit and cancel buttons.
+     *
      * @return an instance of VBox containing these buttons.
      */
     private VBox createFooter() {
@@ -69,6 +69,7 @@ public class DeleteRoomView extends View {
 
     /**
      * No body pane need to be created in this view.
+     *
      * @return null
      */
     @Override

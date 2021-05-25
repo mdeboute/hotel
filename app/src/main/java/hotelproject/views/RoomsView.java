@@ -45,6 +45,7 @@ public class RoomsView extends View {
 
     /**
      * To initiate all rooms' data in the view.
+     *
      * @param user  the user with or without 'admin' identity has different view.
      * @param rooms the rooms saved in list.
      * @param hdata this instance to encapsulate all related operations for the database of the hotel.
@@ -76,6 +77,7 @@ public class RoomsView extends View {
 
     /**
      * Rooms view body contain all rooms in the database and present in a table.
+     *
      * @return an instance of Grid pane.
      */
     @Override

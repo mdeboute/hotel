@@ -21,6 +21,7 @@ public class CSVtoDB {
 
     /**
      * This constructor is used for building connection with the database.
+     *
      * @param conn database connection
      */
     public CSVtoDB(Connection conn) {

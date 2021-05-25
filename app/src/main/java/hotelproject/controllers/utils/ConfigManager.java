@@ -46,6 +46,7 @@ public class ConfigManager {
 
     /**
      * You should not use this method, use this.
+     *
      * @see ConfigManager#getPValue(java.lang.String) instead
      */
     @Deprecated

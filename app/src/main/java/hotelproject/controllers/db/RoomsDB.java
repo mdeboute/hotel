@@ -6,6 +6,7 @@ import hotelproject.controllers.objects.RoomType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 /**
  * This class contains all the database operations related to rooms.
  * Include add room type, add room, delete room type, delete room, update room type, update room,
@@ -256,8 +257,8 @@ public class RoomsDB {
         ArrayList<Integer> bookedRNums = new ArrayList<>();
         try {
             String sql = ("SELECT r.r_num FROM room as r JOIN booking as b ON r.r_num = b.r_num " +
-            "WHERE (? BETWEEN b.b_from AND b.b_till) OR (? BETWEEN b_from AND b_till) "+
-            "OR (b.b_from BETWEEN ? AND ?) OR (b.b_till BETWEEN ? AND ?)");
+                    "WHERE (? BETWEEN b.b_from AND b.b_till) OR (? BETWEEN b_from AND b_till) " +
+                    "OR (b.b_from BETWEEN ? AND ?) OR (b.b_till BETWEEN ? AND ?)");
             String firstDate = checkIn.toString();
             String secondDate = checkOut.toString();
             PreparedStatement stmt = conn.prepareStatement(sql);

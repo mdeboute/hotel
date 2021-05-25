@@ -28,6 +28,7 @@ public class CustomersView extends View {
 
     /**
      * The constructor is used for initiating all available customers in the database.
+     *
      * @param customers list to store all the customer objects.
      */
     public CustomersView(List<Customer> customers) {
@@ -52,6 +53,7 @@ public class CustomersView extends View {
 
     /**
      * Create a body pane to contain all customers' information.
+     *
      * @return the instance of the GridPane.
      */
     @Override
