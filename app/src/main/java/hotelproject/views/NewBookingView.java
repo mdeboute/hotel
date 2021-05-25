@@ -142,8 +142,6 @@ public class NewBookingView extends View {
                     };
             checkOut.setDayCellFactory(dayCellFactory);
         });
-        checkIn.setPromptText("FROM (DD/MM/YYYY)");
-        checkOut.setPromptText("TO (DD/MM/YYYY)");
 
         pane.add(checkIn, 0, 1);
         pane.add(checkOut, 1, 1);

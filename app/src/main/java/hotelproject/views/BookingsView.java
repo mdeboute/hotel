@@ -230,11 +230,7 @@ public class BookingsView extends View {
                 searchBar.setText("");
             }
         });
-
-
-        startDatePicker.setPromptText("FROM (DD/MM/YYYY)");
-
-        endDatePicker.setPromptText("TO (DD/MM/YYYY)");
+        
         startDatePicker.setMaxWidth(200);
         endDatePicker.setMaxWidth(200);
 
