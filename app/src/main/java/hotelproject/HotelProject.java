@@ -991,13 +991,48 @@ public class HotelProject extends Application {
         UpdateRoomView updateRoomViewPage = new UpdateRoomView(hdata);
         Stage updateRoomStage = new Stage();
 
-        // Ddefault values
+        // Default values
         String currentRoomNumber = String.valueOf(room.getR_num());
         String currentFloor = String.valueOf(room.getR_floor());
 
         updateRoomViewPage.getNumRoom().setText(currentRoomNumber);
         updateRoomViewPage.getFloor().setText(currentFloor);
         updateRoomViewPage.getRoomType().setValue(room.getR_type());
+
+        // ERROR HANDLING //
+
+        updateRoomViewPage.getSubmit().setDisable(updateRoomViewPage.getNumRoom().getText().equals("")
+                || updateRoomViewPage.getFloor().getText().equals("") || updateRoomViewPage.getRoomType().getValue() == null);
+
+        updateRoomViewPage.getNumRoom().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (updateRoomViewPage.getNumRoom().getText().equals("")) {
+                updateRoomViewPage.getSubmit().setDisable(true);
+            } else if (!updateRoomViewPage.getNumRoom().getText().equals("")
+                    && !updateRoomViewPage.getFloor().getText().equals("")
+                    && updateRoomViewPage.getRoomType().getValue() != null) {
+                updateRoomViewPage.getSubmit().setDisable(false);
+            }
+        });
+
+        updateRoomViewPage.getFloor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (updateRoomViewPage.getFloor().getText().equals("")) {
+                updateRoomViewPage.getSubmit().setDisable(true);
+            } else if (!updateRoomViewPage.getFloor().getText().equals("")
+                    && !updateRoomViewPage.getNumRoom().getText().equals("")
+                    && updateRoomViewPage.getRoomType().getValue() != null) {
+                updateRoomViewPage.getSubmit().setDisable(false);
+            }
+        });
+
+        updateRoomViewPage.getRoomType().valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (updateRoomViewPage.getRoomType().getValue() == null) {
+                updateRoomViewPage.getSubmit().setDisable(true);
+            } else if (!updateRoomViewPage.getNumRoom().getText().equals("")
+                    && !updateRoomViewPage.getFloor().getText().equals("")
+                    && updateRoomViewPage.getRoomType().getValue() != null) {
+                updateRoomViewPage.getSubmit().setDisable(false);
+            }
+        });
 
         // SET BUTTONS ON ACTION //
 
@@ -1033,7 +1068,7 @@ public class HotelProject extends Application {
 
         });
 
-        updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
+        updateRoomViewPage.getCancel().setOnAction(e -> updateRoomStage.close());
 
         // OPEN THE WINDOW //
 
