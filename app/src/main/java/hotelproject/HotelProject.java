@@ -732,7 +732,7 @@ public class HotelProject extends Application {
             bookingsDisplay();
         });
 
-        updateRoomStage.setOnCloseRequest(e -> updateRoomStage.close());
+        updateBookingViewPage.getCancel().setOnAction(e -> updateRoomStage.close());
 
         // OPEN THE WINDOW //
 
