@@ -26,6 +26,9 @@ public class UpdateRoomView extends View {
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
+    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button cancel;
 
     /**
      * Constructor for update room view.
@@ -89,6 +92,10 @@ public class UpdateRoomView extends View {
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
         pane.add(submit, 1, 4);
 
+        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
+        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
+        pane.add(cancel, 1, 5);
+
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
@@ -113,6 +120,10 @@ public class UpdateRoomView extends View {
 
     public Button getSubmit() {
         return submit;
+    }
+
+    public Button getCancel() {
+        return cancel; 
     }
 
     public TextField getFloor() {

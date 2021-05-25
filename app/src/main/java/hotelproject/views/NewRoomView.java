@@ -147,6 +147,10 @@ public class NewRoomView extends View {
         return submit;
     }
 
+    public Button getCancel() {
+        return cancel; 
+    }
+
     public TextField getFloor() {
         return floor;
     }
