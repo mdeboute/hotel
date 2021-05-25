@@ -1061,7 +1061,7 @@ public class HotelProject extends Application {
             roomsDisplay();
         });
 
-        deleteRoomStage.setOnCloseRequest(e -> deleteRoomStage.close());
+        deleteRoomViewPage.getCancel().setOnAction(e -> deleteRoomStage.close());
 
         // OPEN THE WINDOW //
 

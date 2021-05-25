@@ -82,4 +82,8 @@ public class DeleteRoomView extends View {
         return submit;
     }
 
+    public Button getCancel() {
+        return cancel; 
+    }
+
 }
