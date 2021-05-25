@@ -495,7 +495,7 @@ public class HotelProject extends Application {
                 newBookingViewPage.getBookingFee().getText().equals("") ||
                 newBookingViewPage.getCheckIn().getValue() == null ||
                 newBookingViewPage.getCheckOut().getValue() == null ||
-                newBookingViewPage.getC_ss_number().getValue() == null);
+                newBookingViewPage.getCustomer().getValue() == null);
 
         newBookingViewPage.getNumRoom().valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue < MIN_ROOM_NUMBER ||
@@ -509,7 +509,7 @@ public class HotelProject extends Application {
                         Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
                         newBookingViewPage.getCheckIn().getValue() != null &&
                         newBookingViewPage.getCheckOut().getValue() != null &&
-                        newBookingViewPage.getC_ss_number().getValue() != null) {
+                        newBookingViewPage.getCustomer().getValue() != null) {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -527,7 +527,7 @@ public class HotelProject extends Application {
                         newBookingViewPage.getNumRoom().getValue() <= MAX_ROOM_NUMBER &&
                         newBookingViewPage.getCheckIn().getValue() != null &&
                         newBookingViewPage.getCheckOut().getValue() != null &&
-                        newBookingViewPage.getC_ss_number().getValue() != null) {
+                        newBookingViewPage.getCustomer().getValue() != null) {
                     newBookingViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -548,7 +548,7 @@ public class HotelProject extends Application {
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
                     newBookingViewPage.getCheckOut().getValue() != null &&
-                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                    newBookingViewPage.getCustomer().getValue() != null) {
                 newBookingViewPage.getSubmit().setDisable(false);
             }
         });
@@ -562,12 +562,12 @@ public class HotelProject extends Application {
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) >= MIN_BOOKING_FEE &&
                     Integer.parseInt(newBookingViewPage.getBookingFee().getText()) <= MAX_BOOKING_FEE &&
                     newBookingViewPage.getCheckIn().getValue() != null &&
-                    newBookingViewPage.getC_ss_number().getValue() != null) {
+                    newBookingViewPage.getCustomer().getValue() != null) {
                 newBookingViewPage.getSubmit().setDisable(false);
             }
         });
 
-        newBookingViewPage.getC_ss_number().valueProperty().addListener((observable, oldValue, newValue) -> {
+        newBookingViewPage.getCustomer().valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newBookingViewPage.getNumRoom().getValue() != null &&
                     !newBookingViewPage.getBookingFee().getText().equals("") &&
                     newBookingViewPage.getNumRoom().getValue() >= MIN_ROOM_NUMBER &&
@@ -607,7 +607,8 @@ public class HotelProject extends Application {
             if (newBookingViewPage.getIsPaid().isSelected()) {
                 isPaid = 1;
             }
-            int c_ss_number = newBookingViewPage.getC_ss_number().getValue();
+
+            int c_ss_number = Integer.parseInt(newBookingViewPage.getCustomer().getValue().split(" - ")[1].trim());
             Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid, c_ss_number);
             hdata.addBooking(newBooking);
 
@@ -644,7 +645,7 @@ public class HotelProject extends Application {
         updateBookingViewPage.getNewTillDate().setValue(booking.getB_till().toLocalDate());
         updateBookingViewPage.getNewFee().setText(String.valueOf(booking.getB_fee()));
         updateBookingViewPage.getNewIsPaid().setSelected(booking.getB_is_paid() == 1);
-        updateBookingViewPage.getC_ss_number().setValue(booking.getC_ss_number());
+        updateBookingViewPage.getCustomer().setValue(dbm.cdb.getCustomerName(booking.getC_ss_number()) + " - " + booking.getC_ss_number());
 
         // SET BUTTONS ON ACTION //
 
@@ -674,7 +675,7 @@ public class HotelProject extends Application {
                 isPaid = 1;
             }
 
-            Integer new_C_ss_number = updateBookingViewPage.getC_ss_number().getValue();
+            int new_C_ss_number = Integer.parseInt(updateBookingViewPage.getCustomer().getValue().split(" - ")[1].trim());
 
             booking.setR_num(newRoom);
             booking.setPaid_by_card(newPayment);
@@ -710,7 +711,7 @@ public class HotelProject extends Application {
 
     private void bookingsDisplay() {
         List<Booking> bookings = hdata.getBookings();
-        BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings);
+        BookingsView bookingsViewPage = new BookingsView(connectedUser, bookings, dbm);
         Stage bookingsStage = new Stage();
 
         // SET BUTTONS ON ACTION //

@@ -1,5 +1,6 @@
 package hotelproject.views;
 
+import hotelproject.controllers.db.DatabaseManager;
 import hotelproject.controllers.objects.Booking;
 import hotelproject.controllers.objects.User;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -20,6 +21,7 @@ import javafx.util.Callback;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This view is used to present all bookings in the database.
@@ -29,6 +31,7 @@ public class BookingsView extends View {
 
     // The user connected to the application
     private final User user;
+    private final DatabaseManager dbm;
 
     // Observable list with all the hotel's rooms
     private final ObservableList<Booking> bookings;
@@ -48,9 +51,10 @@ public class BookingsView extends View {
      * @param user     the login user.
      * @param bookings all bookings are stored in a list.
      */
-    public BookingsView(User user, List<Booking> bookings) {
+    public BookingsView(User user, List<Booking> bookings, DatabaseManager dbm) {
         this.user = user;
         this.bookings = FXCollections.observableList(bookings);
+        this.dbm = dbm;
         createScene();
     }
 
@@ -140,9 +144,9 @@ public class BookingsView extends View {
         bIPCol.setMinWidth(100);
         bIPCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().is_paid()));
 
-        TableColumn<Booking, String> bCNCol = new TableColumn<>("Customer number");
-        bCNCol.setMinWidth(130);
-        bCNCol.setCellValueFactory(new PropertyValueFactory<>("c_ss_number"));
+        TableColumn<Booking, String> bCNCol = new TableColumn<>("Customer name");
+        bCNCol.setMinWidth(200);
+        bCNCol.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(dbm.cdb.getCustomerName(cellData.getValue().getC_ss_number())));
 
         // Create a filtered list to put the rooms as items in the table
         FilteredList<Booking> flBooking = new FilteredList<>(bookings, p -> true);
@@ -202,7 +206,7 @@ public class BookingsView extends View {
 
         // Create choice box so the user can choose on the column he's searching in
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
-        whatToSearch.getItems().addAll("Booking number", "Room number", "Paid");
+        whatToSearch.getItems().addAll("Booking number", "Room number", "Paid", "Customer name");
         whatToSearch.setValue("Booking number"); // default search
 
         // Create search bar with listener to update according to the user's input
@@ -212,9 +216,11 @@ public class BookingsView extends View {
             if (whatToSearch.getValue().equals("Booking number")) {
                 flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Room number")) {
-                flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim())); // filter
+                flBooking.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Paid")) {
-                flBooking.setPredicate(p -> p.is_paid().contains(newValue.toLowerCase().trim())); // filter
+                flBooking.setPredicate(p -> p.is_paid().contains(newValue.toLowerCase().trim()));
+            } else if (whatToSearch.getValue().equals("Customer name")) {
+                flBooking.setPredicate(p -> dbm.cdb.getCustomerName(p.getC_ss_number()).toLowerCase(Locale.ROOT).trim().contains(newValue.toLowerCase().trim()));
             }
         });
 

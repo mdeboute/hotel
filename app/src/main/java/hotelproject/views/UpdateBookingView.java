@@ -24,7 +24,7 @@ public class UpdateBookingView extends View {
     private final DatePicker newCheckOut = new DatePicker();
     private final TextField newFee = new TextField();
     private final CheckBox newIsPaid = new CheckBox("Is paid ?");
-    private final ComboBox<Integer> c_ss_number = new ComboBox<>();
+    private final ComboBox<String> customer = new ComboBox<>();
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private Button submit;
@@ -98,10 +98,10 @@ public class UpdateBookingView extends View {
 
         List<Customer> customers = dbm.cdb.findAllCustomers();
         for (Customer value : customers) {
-            c_ss_number.getItems().add(value.getC_ss_number());
+            customer.getItems().add(value.getC_full_name() + " - " + value.getC_ss_number());
         }
 
-        pane.add(c_ss_number, 1, 7);
+        pane.add(customer, 1, 7);
 
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
@@ -157,7 +157,7 @@ public class UpdateBookingView extends View {
         return newIsPaid;
     }
 
-    public ComboBox<Integer> getC_ss_number() {
-        return c_ss_number;
+    public ComboBox<String> getCustomer() {
+        return customer;
     }
 }

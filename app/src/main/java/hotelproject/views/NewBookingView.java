@@ -32,7 +32,7 @@ public class NewBookingView extends View {
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
-    private final ComboBox<Integer> c_ss_number = new ComboBox<>();
+    private final ComboBox<String> customer = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid ?");
     private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
@@ -156,10 +156,10 @@ public class NewBookingView extends View {
 
         List<Customer> customers = dbm.cdb.findAllCustomers();
         for (Customer value : customers) {
-            c_ss_number.getItems().add(value.getC_ss_number());
+            customer.getItems().add(value.getC_full_name() + " - " + value.getC_ss_number());
         }
 
-        pane.add(c_ss_number, 1, 4);
+        pane.add(customer, 1, 4);
 
         paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         paidByCard.setTextFill(Paint.valueOf("white"));
@@ -222,7 +222,7 @@ public class NewBookingView extends View {
         return cancel;
     }
 
-    public ComboBox<Integer> getC_ss_number() {
-        return c_ss_number;
+    public ComboBox<String> getCustomer() {
+        return customer;
     }
 }

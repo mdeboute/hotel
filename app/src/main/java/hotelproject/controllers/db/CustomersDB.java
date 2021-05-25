@@ -124,4 +124,20 @@ public class CustomersDB {
         }
         return customers;
     }
+    
+    public String getCustomerName(Integer c_ss_number) {
+        String c_full_name = null;
+        try {
+            String sql = "SELECT `c_full_name` FROM `customer` WHERE `c_ss_number` = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, c_ss_number);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                c_full_name = rs.getString("c_full_name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return c_full_name;
+    }
 }
