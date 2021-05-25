@@ -1,6 +1,7 @@
 package hotelproject.views;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -22,9 +23,9 @@ public class UpdateCustomerView extends View {
     private final TextField cEmail = new TextField();
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private Button submit;
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit;
     private Button cancel;
 
     /**
@@ -44,7 +45,7 @@ public class UpdateCustomerView extends View {
 
         VBox header = createHeader("Update customer", "Enter customer specifics to update");
 
-        Label cSSNumL = new Label("Personal number (8 digits): ");
+        Label cSSNumL = changeLabelDesign(new Label("New personal number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
 
@@ -62,7 +63,7 @@ public class UpdateCustomerView extends View {
         });
 
 
-        Label cAddressL = new Label("Address: ");
+        Label cAddressL = changeLabelDesign(new Label("New address: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cAddressL, 0, 2);
         pane.add(cAddress, 1, 2);
 
@@ -76,7 +77,7 @@ public class UpdateCustomerView extends View {
             }
         });
 
-        Label cFullNameL = new Label("Name: ");
+        Label cFullNameL = changeLabelDesign(new Label("New name: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cFullNameL, 0, 3);
         pane.add(cFullName, 1, 3);
 
@@ -90,7 +91,7 @@ public class UpdateCustomerView extends View {
             }
         });
 
-        Label cPhoneNumL = new Label("Phone number (9 digits): ");
+        Label cPhoneNumL = changeLabelDesign(new Label("New phone number (9 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cPhoneNumL, 0, 4);
         pane.add(cPhoneNum, 1, 4);
 
@@ -106,7 +107,7 @@ public class UpdateCustomerView extends View {
             cPhoneNum.setTextFormatter(formatter);
         });
 
-        Label cEmailL = new Label("Email: ");
+        Label cEmailL = changeLabelDesign(new Label("New email: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
 
@@ -118,9 +119,14 @@ public class UpdateCustomerView extends View {
         GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
         pane.add(cancel, 1, 8);
 
+        pane.setVgap(15);
+
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
+        paneTwo.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
+        paneTwo.setVgap(15);
+
         GridPane.setHalignment(header, javafx.geometry.HPos.CENTER);
         paneTwo.getStyleClass().add("body-pane");
 
@@ -144,7 +150,7 @@ public class UpdateCustomerView extends View {
     }
 
     public Button getCancel() {
-        return cancel; 
+        return cancel;
     }
 
     public TextField getCSSNum() {

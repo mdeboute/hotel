@@ -88,7 +88,6 @@ public class NewRoomView extends View {
 
         List<RoomType> roomTypes = hdata.getRoomTypes();
         for (RoomType value : roomTypes) {
-            // MenuItem rType = new MenuItem(roomTypes.get(i).getT_name());
             roomType.getItems().add(value.getT_name());
         }
         roomType.setValue("Single");
@@ -148,7 +147,7 @@ public class NewRoomView extends View {
     }
 
     public Button getCancel() {
-        return cancel; 
+        return cancel;
     }
 
     public TextField getFloor() {

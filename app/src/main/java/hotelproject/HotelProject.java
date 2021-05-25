@@ -278,8 +278,8 @@ public class HotelProject extends Application {
         Stage addTypeStage = new Stage();
 
         addRoomTypePage.getSubmit().setDisable(addRoomTypePage.getNbBeds().getText().equals("")
-                        || addRoomTypePage.getName().getText().equals("")
-                        || addRoomTypePage.getRoomSize().getText().equals(""));
+                || addRoomTypePage.getName().getText().equals("")
+                || addRoomTypePage.getRoomSize().getText().equals(""));
 
         addRoomTypePage.getName().textProperty().addListener((observable, oldValue, newValue) -> {
             if (addRoomTypePage.getName().getText().equals("")) {
@@ -287,7 +287,7 @@ public class HotelProject extends Application {
             } else {
                 if (!addRoomTypePage.getName().getText().equals("")
                         && !addRoomTypePage.getNbBeds().getText().equals("")
-                        && !addRoomTypePage.getRoomSize().getText().equals("")){
+                        && !addRoomTypePage.getRoomSize().getText().equals("")) {
                     addRoomTypePage.getSubmit().setDisable(false);
                 }
             }
@@ -297,9 +297,9 @@ public class HotelProject extends Application {
             if (addRoomTypePage.getNbBeds().getText().equals("")) {
                 addRoomTypePage.getSubmit().setDisable(true);
             } else {
-                if (!addRoomTypePage.getNbBeds().getText().equals("") 
-                && !addRoomTypePage.getName().getText().equals("")
-                && !addRoomTypePage.getRoomSize().getText().equals("")) {
+                if (!addRoomTypePage.getNbBeds().getText().equals("")
+                        && !addRoomTypePage.getName().getText().equals("")
+                        && !addRoomTypePage.getRoomSize().getText().equals("")) {
                     addRoomTypePage.getSubmit().setDisable(false);
                 }
             }
@@ -309,9 +309,9 @@ public class HotelProject extends Application {
             if (addRoomTypePage.getRoomSize().getText().equals("")) {
                 addRoomTypePage.getSubmit().setDisable(true);
             } else {
-                if (!addRoomTypePage.getRoomSize().getText().equals("") 
-                && !addRoomTypePage.getName().getText().equals("")
-                && !addRoomTypePage.getNbBeds().getText().equals("")) {
+                if (!addRoomTypePage.getRoomSize().getText().equals("")
+                        && !addRoomTypePage.getName().getText().equals("")
+                        && !addRoomTypePage.getNbBeds().getText().equals("")) {
                     addRoomTypePage.getSubmit().setDisable(false);
                 }
             }
@@ -385,11 +385,11 @@ public class HotelProject extends Application {
                 newRoomViewPage.getRoomType().getValue() == null);
 
         newRoomViewPage.getNumRoom().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newRoomViewPage.getNumRoom().getText().equals("")){
+            if (newRoomViewPage.getNumRoom().getText().equals("")) {
                 newRoomViewPage.getSubmit().setDisable(true);
-            } else if(!newRoomViewPage.getNumRoom().getText().equals("") 
-            && !newRoomViewPage.getFloor().getText().equals("")
-            && newRoomViewPage.getRoomType().getValue() != null) {
+            } else if (!newRoomViewPage.getNumRoom().getText().equals("")
+                    && !newRoomViewPage.getFloor().getText().equals("")
+                    && newRoomViewPage.getRoomType().getValue() != null) {
                 newRoomViewPage.getSubmit().setDisable(false);
             }
         });
@@ -405,7 +405,7 @@ public class HotelProject extends Application {
         });
 
         newRoomViewPage.getRoomType().valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newRoomViewPage.getRoomType().getValue() == null) {
+            if (newRoomViewPage.getRoomType().getValue() == null) {
                 newRoomViewPage.getSubmit().setDisable(true);
             } else if (!newRoomViewPage.getNumRoom().getText().equals("") &&
                     !newRoomViewPage.getFloor().getText().equals("") &&
@@ -677,11 +677,11 @@ public class HotelProject extends Application {
      * @param formerStage to close when the new stage is showed
      */
     private void updateBookingDisplay(Stage formerStage, Booking booking) {
-        UpdateBookingView updateBookingViewPage = new UpdateBookingView(dbm);
+        UpdateBookingView updateBookingViewPage = new UpdateBookingView(dbm, hdata);
         Stage updateRoomStage = new Stage();
 
         // default values
-        updateBookingViewPage.getNewRoom().setText(String.valueOf(booking.getR_num()));
+        updateBookingViewPage.getNewRoom().setValue(booking.getR_num());
         updateBookingViewPage.getNewPayment().setSelected(booking.getPaid_by_card() == 1);
         updateBookingViewPage.getNewFromDate().setValue(booking.getB_from().toLocalDate());
         updateBookingViewPage.getNewTillDate().setValue(booking.getB_till().toLocalDate());
@@ -692,7 +692,7 @@ public class HotelProject extends Application {
         // SET BUTTONS ON ACTION //
 
         updateBookingViewPage.getSubmit().setOnAction(e -> {
-            int newRoom = Integer.parseInt(updateBookingViewPage.getNewRoom().getText());
+            int newRoom = updateBookingViewPage.getNewRoom().getValue();
 
             int newPayment = 0;
             if (updateBookingViewPage.getNewPayment().isSelected()) {
