@@ -716,7 +716,7 @@ public class HotelProject extends Application {
         /***************************** SET BUTTONS ON ACTION *****************************/
 
         // admins can add a booking
-        if (connectedUser.getU_is_admin() == 1) {
+        if (connectedUser.getU_is_admin() == 1 || connectedUser.getU_is_admin() == 0) {
             bookingsViewPage.getAddBooking().setOnAction(e -> newBookingDisplay(bookingsStage));
         }
 

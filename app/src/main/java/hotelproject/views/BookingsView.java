@@ -244,7 +244,7 @@ public class BookingsView extends View {
         pane.add(search, 0, 2);
 
         pane.add(bookingsTable, 0, 4);
-        if (user.getU_is_admin() == 1) {
+        if (user.getU_is_admin() == 1 || user.getU_is_admin() == 0) {
             addBooking = createButton(35, IDLE_ADD_BOOKING, HOVER_ADD_BOOKING);
             pane.add(addBooking, 0, 5);
             GridPane.setHalignment(addBooking, javafx.geometry.HPos.CENTER);
