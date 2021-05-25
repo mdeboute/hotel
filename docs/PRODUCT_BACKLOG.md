@@ -24,3 +24,8 @@ Notice that several of the user stories can be implemented in several ways. The 
 
 ## User stories added
 - [x] Error handling job
+
+# And now ?
+- [ ] Continue the javadoc
+- [ ] Search & fix some minor bugs
+- [ ] Try to generalize the View classes: there is a lot of code redundancy in the `NewExampleView`, `DeleteExampleView` and `UpdateExampleView` views, it would just be enough to make an abstract `ExampleView` class for each `Example` and inherit the other views to access the parameters and implement the specific methods and avoid retyping the same code
