@@ -97,6 +97,8 @@ public class NewBookingView extends View {
                 Date secondDatePicked = Date.valueOf(rightEndpoint);
 
                 availableRooms = hdata.availableRooms(datePicked, secondDatePicked).stream().sorted().distinct().collect(Collectors.toList());
+                numRoom.getSelectionModel().clearSelection();
+                numRoom.getItems().clear();
                 availableRooms.forEach(value -> numRoom.getItems().add(value));
             }
         });
@@ -112,6 +114,8 @@ public class NewBookingView extends View {
                 Date secondDatePicked = Date.valueOf(rightEndpoint);
 
                 availableRooms = hdata.availableRooms(datePicked, secondDatePicked).stream().sorted().distinct().collect(Collectors.toList());
+                numRoom.getSelectionModel().clearSelection();
+                numRoom.getItems().clear();
                 availableRooms.forEach(value -> numRoom.getItems().add(value));
             }
         });
@@ -151,6 +155,7 @@ public class NewBookingView extends View {
         Label bookingFeeL = changeLabelDesign(new Label("Booking fee: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingFeeL, 0, 3);
         pane.add(bookingFee, 1, 3);
+
         Label bookingCSSL = changeLabelDesign(new Label("Customer number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(bookingCSSL, 0, 4);
 
@@ -164,6 +169,7 @@ public class NewBookingView extends View {
         paidByCard.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         paidByCard.setTextFill(Paint.valueOf("white"));
         pane.add(paidByCard, 0, 5);
+
         isPaid.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         isPaid.setTextFill(Paint.valueOf("white"));
         pane.add(isPaid, 0, 6);
