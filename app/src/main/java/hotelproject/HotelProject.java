@@ -1365,7 +1365,7 @@ public class HotelProject extends Application {
             if (newValue.length() != 9) {
                 updateCustomerViewPage.getSubmit().setDisable(true);
             } else {
-                if (updateCustomerViewPage.getCSSNum().getText().length() == 9
+                if (updateCustomerViewPage.getCSSNum().getText().length() == 8
                         && !updateCustomerViewPage.getCAddress().getText().equals("")
                         && !updateCustomerViewPage.getCFullName().getText().equals("")
                         && !updateCustomerViewPage.getCEmail().getText().equals("")) {
@@ -1374,7 +1374,6 @@ public class HotelProject extends Application {
             }
         });
 
-        // not allowing to submit unless a character has been input in email address
         updateCustomerViewPage.getCEmail().textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("")) {
                 updateCustomerViewPage.getSubmit().setDisable(true);
@@ -1382,7 +1381,7 @@ public class HotelProject extends Application {
                 if (updateCustomerViewPage.getCSSNum().getText().length() == 8
                         && !updateCustomerViewPage.getCAddress().getText().equals("")
                         && !updateCustomerViewPage.getCFullName().getText().equals("")
-                        && updateCustomerViewPage.getCPhoneNum().getText().length() < 9) {
+                        && updateCustomerViewPage.getCPhoneNum().getText().length() == 9) {
                     updateCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
@@ -1405,7 +1404,7 @@ public class HotelProject extends Application {
             customersDisplay();
         });
 
-        updateCustomerStage.setOnCloseRequest(e -> updateCustomerStage.close());
+        updateCustomerViewPage.getCancel().setOnAction(e -> updateCustomerStage.close());
 
         // OPEN THE WINDOW //
 
