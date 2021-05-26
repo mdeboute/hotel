@@ -85,14 +85,14 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong !");
+                        loginView.getResult().setText("The username or password you have entered is wrong!");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(new Stage(), new Stage(), Change.PASSWORD);
                         primaryStage.close();
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong !");
+                        loginView.getResult().setText("The password you have entered is wrong!");
                     }
                 }
             } catch (SQLException throwables) {
@@ -205,10 +205,10 @@ public class HotelProject extends Application {
                 if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields.");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The usernames do not match.");
+                    updateInfoPage.setOutput("The usernames do not match!");
                     isInfoCorrect = false;
                 }
             } else {
@@ -218,10 +218,10 @@ public class HotelProject extends Application {
                 if (!firstPassword.equals("") && firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
                 } else if (firstPassword.equals("") || secondPassword.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields.");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The passwords do not match.");
+                    updateInfoPage.setOutput("The passwords do not match!");
                     isInfoCorrect = false;
                 }
             }
@@ -500,21 +500,24 @@ public class HotelProject extends Application {
             }
             User newUser = new User(userN, userP, userIA);
             hdata.addUser(newUser);
-            usersDisplay();
             newUserStage.close();
+            formerStage.close();
+            usersDisplay();
         });
 
         newUserViewPage.getCancel().setOnAction(e -> {
-            usersDisplay();
             newUserStage.close();
+            formerStage.close();
+            usersDisplay();
         });
 
         // OPEN THE WINDOW //
 
+        newUserStage.initOwner(formerStage);
+        newUserStage.initModality(Modality.WINDOW_MODAL);
         newUserStage.setScene(newUserViewPage.getScene());
         newUserStage.setTitle("Hotel Manager - New User");
         newUserStage.show();
-        formerStage.close();
     }
 
     /**
@@ -527,11 +530,12 @@ public class HotelProject extends Application {
         Stage newBookingStage = new Stage();
 
         int MIN_ROOM_NUMBER = 1;
-        int MAX_ROOM_NUMBER = hdata.getRooms().size();
+        Room lastRoomAdded = hdata.getRooms().get(hdata.getRooms().size() - 1);
+        int MAX_ROOM_NUMBER = lastRoomAdded.getR_num();
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
-        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number greater than or equal to 0 and smaller than or equal to 1000000.");
+        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number greater than or equal to 0 and smaller than or equal to 1000000!");
 
         // ERROR HANDLING //
 
@@ -656,21 +660,22 @@ public class HotelProject extends Application {
             Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid, c_ss_number);
             hdata.addBooking(newBooking);
 
-            bookingsDisplay();
             newBookingStage.close();
+            formerStage.close();
+            bookingsDisplay();
         });
 
         newBookingViewPage.getCancel().setOnAction(e -> {
-            bookingsDisplay();
             newBookingStage.close();
+            formerStage.close();
+            bookingsDisplay();
         });
 
-        // OPEN THE WINDOW //
-
+        newBookingStage.initOwner(formerStage);
+        newBookingStage.initModality(Modality.WINDOW_MODAL);
         newBookingStage.setScene(newBookingViewPage.getScene());
         newBookingStage.setTitle("Hotel Manager - New Booking");
         newBookingStage.show();
-        formerStage.close();
     }
 
     /**
@@ -1056,7 +1061,6 @@ public class HotelProject extends Application {
 
             for (Room r : rooms) {
                 if (r.getR_num() == room.getR_num()) {
-                    flag = true;
                     continue;
                 }
                 if (r.getR_num() == updateRoom.getR_num()) {
@@ -1239,8 +1243,8 @@ public class HotelProject extends Application {
         int LENGTH_PERSONAL_NUMBER = 8;
         int LENGTH_PHONE_NUMBER = 9;
 
-        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PERSONAL_NUMBER));
-        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
+        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PERSONAL_NUMBER));
+        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PHONE_NUMBER));
 
         // ERROR HANDLING //
 
@@ -1348,26 +1352,30 @@ public class HotelProject extends Application {
             if (!dbm.cdb.customerExists(newCustomer)) {
                 hdata.addCustomer(newCustomer);
 
-                customersDisplay();
                 newCustomerStage.close();
+                formerStage.close();
+                customersDisplay();
             } else {
-                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database.");
+                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database!");
                 errorCustomerExists.showAndWait();
             }
 
         });
 
         newCustomerViewPage.getCancel().setOnAction(e -> {
-            customersDisplay();
             newCustomerStage.close();
+            formerStage.close();
+            customersDisplay();
         });
 
         // OPEN THE WINDOW //
 
+        // Specifies the modality for new window and the owner of window
+        newCustomerStage.initOwner(formerStage);
+        newCustomerStage.initModality(Modality.WINDOW_MODAL);
         newCustomerStage.setScene(newCustomerViewPage.getScene());
         newCustomerStage.setTitle("Hotel Manager - New Customer");
         newCustomerStage.show();
-        formerStage.close();
     }
 
     /**

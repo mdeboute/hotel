@@ -34,7 +34,7 @@ public class DeleteBookingView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("Delete selected booking?", "Confirm your action !");
+        VBox header = createHeader("Delete selected booking?", "Confirm your action!");
 
         pane.setAlignment(Pos.CENTER);
 

@@ -80,6 +80,7 @@ public class MyPageView extends View {
 
         pane.add(logOut, 0, 7);
 
+        pane.setVgap(15);
         return pane;
     }
 

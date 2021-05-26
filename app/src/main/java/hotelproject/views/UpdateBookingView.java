@@ -25,11 +25,11 @@ public class UpdateBookingView extends View {
     private final DatabaseManager dbm;
     private final HotelData hdata;
     private final ComboBox<Integer> newRoom = new ComboBox<>();
-    private final CheckBox newPayment = new CheckBox("Paid by card ?");
+    private final CheckBox newPayment = new CheckBox("Paid by card?");
     private final DatePicker newCheckIn = new DatePicker();
     private final DatePicker newCheckOut = new DatePicker();
     private final TextField newFee = new TextField();
-    private final CheckBox newIsPaid = new CheckBox("Is paid ?");
+    private final CheckBox newIsPaid = new CheckBox("Is paid?");
     private final ComboBox<String> customer = new ComboBox<>();
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";

@@ -35,9 +35,6 @@ public class UsersView extends View {
 
     /**
      * Create a constructor for user view.
-     *
-     * @param user
-     * @param users
      */
     public UsersView(User user, List<User> users) {
         this.user = user;
@@ -106,9 +103,9 @@ public class UsersView extends View {
         searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Username")) {
-                flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));                                                                                        // number
+                flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Admin")) {
-                flUser.setPredicate(p -> p.is_admin().contains(newValue.toLowerCase().trim()));                                                                                        // number
+                flUser.setPredicate(p -> p.is_admin().contains(newValue.toLowerCase().trim()));
             }
         });
 
