@@ -162,10 +162,10 @@ public class HotelProject extends Application {
     /**
      * Displays the window where the user can update its pers. info
      *
-     * @param myPageStage     former open stage to close after showing updateInfo
-     *                        stage
-     * @param change stage on which the page to change the user's info will
-     *                        appear
+     * @param myPageStage former open stage to close after showing updateInfo
+     *                    stage
+     * @param change      stage on which the page to change the user's info will
+     *                    appear
      */
     private void updateInfoDisplay(Stage myPageStage, Change change) {
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
