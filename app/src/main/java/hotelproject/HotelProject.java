@@ -501,11 +501,13 @@ public class HotelProject extends Application {
             User newUser = new User(userN, userP, userIA);
             hdata.addUser(newUser);
             newUserStage.close();
+            formerStage.close();
             usersDisplay();
         });
 
         newUserViewPage.getCancel().setOnAction(e -> {
             newUserStage.close();
+            formerStage.close();
             usersDisplay();
         });
 
