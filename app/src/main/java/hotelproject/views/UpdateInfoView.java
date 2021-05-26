@@ -1,6 +1,7 @@
 package hotelproject.views;
 
 import hotelproject.controllers.utils.Default;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -69,7 +70,7 @@ public class UpdateInfoView extends View {
         GridPane.setHalignment(pane, javafx.geometry.HPos.CENTER);
 
         pane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
-        scene = new Scene(pane, 500, 300);
+        scene = new Scene(pane, 370, 230);
     }
 
     /**
@@ -112,10 +113,11 @@ public class UpdateInfoView extends View {
             createTextFields(firstPwd, secondPwd, pane);
         }
 
-        pane.add(output, 0, 9);
+        output.setTranslateX(75);
+        pane.add(output, 0, 6);
 
         save = createButton(35, IDLE_BUTTON_SAVE, HOVER_BUTTON_SAVE);
-        pane.add(save, 1, 10);
+        pane.add(save, 0, 6);
 
         return pane;
     }
