@@ -63,6 +63,7 @@ public class HotelProject extends Application {
      */
     private void credentialsDisplay(Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
+        Stage credentialScene = new Stage(); 
 
         // SET ON ENTER KEY PRESSED //
 
@@ -92,6 +93,7 @@ public class HotelProject extends Application {
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
+                        credentialScene.close();
                         updateInfoDisplay(primaryStage, Change.PASSWORD);
                     } else {
                         loginView.getResult().setText("The password you have entered is wrong!");
@@ -104,9 +106,11 @@ public class HotelProject extends Application {
 
         // OPEN THE WINDOW //
 
-        primaryStage.setScene(loginView.getScene());
-        primaryStage.setTitle("Hotel Manager - Login");
-        primaryStage.show();
+        credentialScene.initOwner(primaryStage);
+        credentialScene.initModality(Modality.WINDOW_MODAL);
+        credentialScene.setScene(loginView.getScene());
+        credentialScene.setTitle("Hotel Manager - Login");
+        credentialScene.show();
     }
 
     /**
