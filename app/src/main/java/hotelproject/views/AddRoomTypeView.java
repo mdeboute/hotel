@@ -96,7 +96,7 @@ public class AddRoomTypeView extends View {
             }
         });
 
-        Label sizeUnit = changeLabelDesign(new Label("m²"), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label sizeUnit = changeLabelDesign(new Label("m\u00b2"), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(sizeUnit, 2, 4);
 
         //checkboxes
