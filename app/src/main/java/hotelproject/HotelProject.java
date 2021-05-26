@@ -205,10 +205,10 @@ public class HotelProject extends Application {
                 if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The usernames do not match");
+                    updateInfoPage.setOutput("The usernames do not match!");
                     isInfoCorrect = false;
                 }
             } else {
@@ -218,10 +218,10 @@ public class HotelProject extends Application {
                 if (!firstPassword.equals("") && firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
                 } else if (firstPassword.equals("") || secondPassword.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The passwords do not match");
+                    updateInfoPage.setOutput("The passwords do not match!");
                     isInfoCorrect = false;
                 }
             }

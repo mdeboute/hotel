@@ -44,18 +44,20 @@ public class NewCustomerView extends View {
 
         VBox header = createHeader("New customer", "Enter the new customer specifications");
 
-        Label cSSNumL = changeLabelDesign(new Label("Personal number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cSSNumL = changeLabelDesign(new Label("Social security number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
+        cSSNum.setPromptText("8 digits");
         Label cAddressL = changeLabelDesign(new Label("Address: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cAddressL, 0, 2);
         pane.add(cAddress, 1, 2);
         Label cFullNameL = changeLabelDesign(new Label("Name: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cFullNameL, 0, 3);
         pane.add(cFullName, 1, 3);
-        Label cPhoneNumL = changeLabelDesign(new Label("Phone number (9 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cPhoneNumL = changeLabelDesign(new Label("Phone number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cPhoneNumL, 0, 4);
         pane.add(cPhoneNum, 1, 4);
+        cPhoneNum.setPromptText("9 digits");
         Label cEmailL = changeLabelDesign(new Label("Email: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);

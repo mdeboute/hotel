@@ -45,7 +45,7 @@ public class UpdateCustomerView extends View {
 
         VBox header = createHeader("Update customer", "Enter customer specifics to update");
 
-        Label cSSNumL = changeLabelDesign(new Label("New personal number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cSSNumL = changeLabelDesign(new Label("New social security number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
 
