@@ -20,8 +20,9 @@ public class BookingsDB {
     }
 
     /**
+     * Search all current available rooms and return as ArrayList.
+     *
      * @return list filled with all Room objects collected from the database.
-     * @brief Search all current available rooms and return as ArrayList.
      */
     public ArrayList<Booking> findAllBookings() {
         ArrayList<Booking> bookings = new ArrayList<>();
@@ -42,8 +43,9 @@ public class BookingsDB {
     }
 
     /**
+     * Inserts new row into the `booking` table in the database.
+     *
      * @param booking Booking object that will be added to the database
-     * @brief Inserts new row into the `booking` table in the database.
      */
     public void addBooking(Booking booking) {
         try {
@@ -67,9 +69,10 @@ public class BookingsDB {
     }
 
     /**
+     * Search the related booking ids by specific date.
+     *
      * @param date Date string from front-end will be used for checking in database.
      * @return All booking ids that meet the conditions will be saved in ArrayList.
-     * @brief Search the related booking ids by specific date.
      */
     public ArrayList<Integer> getBookingsForSpecificDay(String date) {
         ArrayList<Integer> bookings = new ArrayList<>();
@@ -91,9 +94,10 @@ public class BookingsDB {
 
 
     /**
+     * Retrieve booking information from database and save it in a hashtable.
+     *
      * @param b_id Booking id is used for checking detail information in the database.
      * @return Hashtable's keys are table's attributes and value is the related information.
-     * @brief Retrieve booking information from database and save it in a hashtable.
      */
     public Hashtable<String, String> getBookingDetails(int b_id) {
         Hashtable<String, String> bookingDetails = new Hashtable<>();
@@ -116,8 +120,9 @@ public class BookingsDB {
     }
 
     /**
+     * Update a booking to the database.
+     *
      * @param updatedBooking the new booking is encapsulated in this object
-     * @brief Update a booking to the database.
      */
     public void updateBooking(Booking updatedBooking) {
         try {
@@ -142,8 +147,9 @@ public class BookingsDB {
     }
 
     /**
+     * Delete the booking from database.
+     *
      * @param booking The booking object for delete.
-     * @brief Delete the booking from database.
      */
     public void deleteBooking(Booking booking) {
         try {

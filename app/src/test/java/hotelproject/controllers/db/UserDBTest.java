@@ -25,8 +25,7 @@ public class UserDBTest {
 
 
     /**
-     * @brief Test usrExist() method.
-     * @result This user already exists in the database and the result should be true.
+     * This user already exists in the database and the result should be true.
      */
     @Test
     public void test_001_IsUserExist() {
@@ -38,8 +37,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test addUser() method.
-     * @result These two user objects should be added in the users table of database. The result should be true.
+     * These two user objects should be added in the users table of database. The result should be true.
      */
     @Test
     public void test_002_addUser() {
@@ -54,9 +52,8 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test getU_is_admin() method.
-     * @result The user 'userIsAdmin' should return '1'.
-     * @result The user 'userIsStaff' should return '0'.
+     * The user 'userIsStaff' should return '0'.
+     * The user 'userIsAdmin' should return '1'.
      */
     @Test
     public void test_003_GetU_is_admin() {
@@ -71,8 +68,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test getAllUsers() method.
-     * @result All four users should be obtained from the database. The result should return true.
+     * All four users should be obtained from the database. The result should return true.
      */
     @Test
     public void test_004_GetAllUsers() {
@@ -97,8 +93,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test updateUserInformation() method.
-     * @result The user object's attributes should be updated accordingly and should return true.
+     * The user object's attributes should be updated accordingly and should return true.
      */
     @Test
     public void test_005_UpdateUserInformation() {
@@ -120,8 +115,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test updateUserInformation() method.
-     * @result The user object's attributes should be updated accordingly and should return true.
+     * The user object's attributes should be updated accordingly and should return true.
      */
     @Test
     public void test_006_UpdateUserInformation2() {
@@ -142,8 +136,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test deleteUser() method.
-     * @result The user 'userIsWorker' should be found and deleted in the database. The result should return true.
+     * The user 'userIsWorker' should be found and deleted in the database. The result should return true.
      */
     @Test
     public void test_007_DeleteUser() {
@@ -161,8 +154,7 @@ public class UserDBTest {
     }
 
     /**
-     * @brief Test deleteUser() method.
-     * @result The user 'userIsBoss' should be found and deleted in the database. The result should return true.
+     * The user 'userIsBoss' should be found and deleted in the database. The result should return true.
      */
     @Test
     public void test_008_DeleteUser2() {

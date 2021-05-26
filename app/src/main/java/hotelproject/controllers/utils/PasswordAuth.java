@@ -73,6 +73,7 @@ public final class PasswordAuth {
     /**
      * Hash a password for storage.
      *
+     * @param password an array of characters.
      * @return a secure authentication token to be stored for later authentication
      */
     public String hash(char[] password) {
@@ -89,7 +90,9 @@ public final class PasswordAuth {
     /**
      * Authenticate with a password and a stored password token.
      *
-     * @return true if the password and token match
+     * @param password an array of characters.
+     * @param token    a string.
+     * @return true if the password and token match.
      */
     public boolean authenticate(char[] password, String token) {
         Matcher m = layout.matcher(token);
@@ -109,6 +112,9 @@ public final class PasswordAuth {
      * Hash a password in an immutable {@code String}.
      * Passwords should be stored in a {@code char[]} so that it can be filled
      * with zeros after use instead of lingering on the heap and elsewhere.
+     *
+     * @param password a string to hash.
+     * @return the corresponding hash.
      */
     public String hash(String password) {
         return hash(password.toCharArray());
@@ -118,6 +124,9 @@ public final class PasswordAuth {
      * Authenticate with a password in an immutable {@code String} and a stored
      * password token.
      *
+     * @param password (a string)
+     * @param token    (a string)
+     * @return return true if a password corresponds to a token, else false.
      * @see #hash(String)
      */
     public boolean authenticate(String password, String token) {

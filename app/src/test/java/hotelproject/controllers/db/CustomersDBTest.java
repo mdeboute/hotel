@@ -17,8 +17,7 @@ public class CustomersDBTest {
     private final Customer customer_3 = new Customer(22222222, "Street 2", "Lisa Green", 87654321, "lisa.green@hotmail.com");
 
     /**
-     * @brief Test customerExists() method.
-     * @result Customer_1 should return true; customer_2 and customer_3 should return false.
+     * Customer_1 should return true; customer_2 and customer_3 should return false.
      */
     @Test
     public void test_001_UserExists() {
@@ -28,8 +27,7 @@ public class CustomersDBTest {
     }
 
     /**
-     * @brief Test addCustomer() method.
-     * @result After adding customer_2 in the database, the customerExists() method should return true.
+     * After adding customer_2 in the database, the customerExists() method should return true.
      */
     @Test
     public void test_002_AddCustomer() {
@@ -39,8 +37,7 @@ public class CustomersDBTest {
     }
 
     /**
-     * @brief Test updateCustomer() method.
-     * @result After updating the customer_2's information to customer_3, customer_2 should be replaced by customer_3's information.the customerExists() method should return true.
+     * After updating the customer_2's information to customer_3, customer_2 should be replaced by customer_3's information.the customerExists() method should return true.
      */
     @Test
     public void test_003_UpdateCustomer() {
@@ -49,8 +46,7 @@ public class CustomersDBTest {
     }
 
     /**
-     * @brief Test deleteCustomer() method.
-     * @result After deleting the customer_2 and customer_3, both records should be removed from database.
+     * After deleting the customer_2 and customer_3, both records should be removed from database.
      */
     @Test
     public void test_004_DeleteCustomer() {
@@ -71,7 +67,7 @@ public class CustomersDBTest {
     public void test_006_getCustomerName() {
         Integer c_ss_number = customer_1.getC_ss_number();
         String customerName = dm.cdb.getCustomerName(c_ss_number);
-        Assert.assertTrue(customerName.equals(customer_1.getC_full_name()));
+        Assert.assertEquals(customerName, customer_1.getC_full_name());
     }
 
 }

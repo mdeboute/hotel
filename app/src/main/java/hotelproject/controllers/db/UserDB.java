@@ -24,9 +24,11 @@ public class UserDB {
     }
 
     /**
+     * Checks if a user exists in the `users` table in the database.
+     *
      * @param user User object whose existence will be checked in the database.
      * @return boolean regarding the existence of the user.
-     * @brief Checks if a user exists in the `users` table in the database.
+     * @throws SQLException thrown sql exception.
      */
     public boolean userExists(User user) throws SQLException {
         String sql = "SELECT * FROM `users`";
@@ -41,9 +43,11 @@ public class UserDB {
     }
 
     /**
+     * Checks if a user is an administrator in the `users` table in the database.
+     *
      * @param user User object whose admin status will be checked.
      * @return int that returns 1 if user is admin and 0 if not.
-     * @brief Checks if a user is an administrator in the `users` table in the database.
+     * @throws SQLException thrown sql exception.
      */
     public int getU_is_admin(User user) throws SQLException {
         String sql = "SELECT `u_is_admin` FROM `users` WHERE u_name = ?";
@@ -57,9 +61,11 @@ public class UserDB {
     }
 
     /**
+     * Updates a row in the `user` table in the database.
+     *
      * @param user         User object whose information will be updated in the database.
      * @param old_username the old_username of the user whose information will be changed.
-     * @brief Updates a row in the `user` table in the database.
+     * @throws SQLException thrown sql exception.
      */
     public void updateUserInformation(User user, String old_username) throws SQLException {
         String sql = "UPDATE `users` SET `u_name` = ?, `u_password` = ? WHERE `u_name` = ?";
@@ -74,8 +80,9 @@ public class UserDB {
     }
 
     /**
+     * Find all current users in the database.
+     *
      * @return a list of User objects from all users in the database.
-     * @brief Find all current users in the database.
      */
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
@@ -94,8 +101,9 @@ public class UserDB {
     }
 
     /**
+     * Delete a user according to the user name.
+     *
      * @param user object of the user who will be deleted from the database.
-     * @brief Delete a user according to the user name.
      */
     public void deleteUser(User user) {
         try {
@@ -111,8 +119,9 @@ public class UserDB {
     }
 
     /**
+     * Add a new user to the database.
+     *
      * @param user object of the user who will be added to the database.
-     * @brief Add a new user to the database.
      */
     public void addUser(User user) {
         try {

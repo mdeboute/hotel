@@ -19,8 +19,7 @@ public class BookingsDBTest {
     private final Booking booking = new Booking(hdata.getBookingAutoID(), 1, 1, java.sql.Date.valueOf("2021-04-28"), java.sql.Date.valueOf("2021-04-29"), 1, 1, 12345678);
 
     /**
-     * @brief Test findAllBookings() method.
-     * @result The method should be able to retrieve all bookings in the database and the result should be 10.
+     * The method should be able to retrieve all bookings in the database and the result should be 10.
      */
     @Test
     public void test_001_findAllBookings() {
@@ -40,8 +39,7 @@ public class BookingsDBTest {
     }
 
     /**
-     * @brief Test getBookingsForSpecificDay(String date) method.
-     * @result Use two different dates to test this method. The first date should return one record. The second date should return two records.
+     * Use two different dates to test this method. The first date should return one record. The second date should return two records.
      */
     @Test
     public void test_002_getBookingsForSpecificDay() {
@@ -52,8 +50,7 @@ public class BookingsDBTest {
     }
 
     /**
-     * @brief Test getBookingDetails(int b_id) method, using "b_id = 1" record to test.
-     * @result TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
+     * TrueCount should equal to 7 in this test which means all the key-value pairs are corrected.
      */
     @Test
     public void test_003_getBookingDetails() {

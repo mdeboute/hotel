@@ -17,9 +17,10 @@ public class CustomersDB {
     }
 
     /**
+     * Identify if the customer already exists in the database.This method will be used by addCustomer() method.
+     *
      * @param customer The customer for checking.
      * @return If customer's social security number already exists will return true, otherwise return false.
-     * @brief Identify if the customer already exists in the database.This method will be used by addCustomer() method.
      */
     public boolean customerExists(Customer customer) {
         try {
@@ -38,8 +39,9 @@ public class CustomersDB {
     }
 
     /**
+     * Add a new customer if the social security number is not duplicated.
+     *
      * @param customer The inserted customer object.
-     * @brief Add a new customer if the social security number is not duplicated.
      */
     public void addCustomer(Customer customer) {
         try {
@@ -61,9 +63,10 @@ public class CustomersDB {
     }
 
     /**
+     * Update customer in the database.
+     *
      * @param customer            The updated Customer object.
      * @param oldCustomerSSNumber The old customer's social security number that is to be updated.
-     * @brief update customer in the database.
      */
     public void updateCustomer(Customer customer, int oldCustomerSSNumber) {
 
@@ -87,8 +90,9 @@ public class CustomersDB {
     }
 
     /**
+     * Delete the customer from database.
+     *
      * @param customer The customer object for delete.
-     * @brief Delete the customer from database.
      */
     public void deleteCustomer(Customer customer) {
         try {
@@ -106,8 +110,9 @@ public class CustomersDB {
     }
 
     /**
+     * Search all current customers and return as ArrayList
+     *
      * @return list filled with all Customer objects collected from the database
-     * @brief Search all current customers and return as ArrayList
      */
     public ArrayList<Customer> findAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();

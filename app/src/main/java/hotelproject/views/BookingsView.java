@@ -48,6 +48,7 @@ public class BookingsView extends View {
      *
      * @param user     the login user.
      * @param bookings all bookings are stored in a list.
+     * @param dbm an instance of the database manager that allow us to create a connection with the database.
      */
     public BookingsView(User user, List<Booking> bookings, DatabaseManager dbm) {
         this.user = user;

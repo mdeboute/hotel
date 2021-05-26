@@ -23,9 +23,10 @@ public class ConfigManager {
     }
 
     /**
+     * According a file path to get configuration property.
+     *
      * @param key for getting the focal property's value
      * @return the property return as a string.
-     * @brief According a file path to get configuration property.
      */
     public String getPValue(String key) {
         Properties prop = new Properties();
@@ -47,6 +48,8 @@ public class ConfigManager {
     /**
      * You should not use this method, use this.
      *
+     * @param keys as an an array list of strings.
+     * @return the property return as an array list of strings.
      * @see ConfigManager#getPValue(java.lang.String) instead
      */
     @Deprecated

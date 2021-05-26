@@ -34,6 +34,9 @@ public class UsersView extends View {
 
     /**
      * Create a constructor for user view.
+     *
+     * @param user  the current user.
+     * @param users the list of all the users in the database.
      */
     public UsersView(User user, List<User> users) {
         this.user = user;
