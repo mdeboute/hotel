@@ -202,8 +202,13 @@ public class HotelProject extends Application {
             if (change == Change.USERNAME) {
                 String firstUsername = updateInfoPage.getFirstUName().getText();
                 String secondUsername = updateInfoPage.getSecondUName().getText();
-                if (firstUsername.equals(secondUsername)) {
+                if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
+                } else if (firstUsername.equals("")) {
+                    updateInfoPage.setOutput("First input for username must not be empty !");
+                    updateInfoPage.getFirstUName().setText("");
+                    updateInfoPage.getSecondUName().setText("");
+                    isInfoCorrect = false;
                 } else {
                     updateInfoPage.setOutput("First and second input for usernames are not equal !");
                     updateInfoPage.getFirstUName().setText("");
@@ -214,8 +219,13 @@ public class HotelProject extends Application {
                 String firstPassword = updateInfoPage.getFirstPwd().getText();
                 String secondPassword = updateInfoPage.getSecondPwd().getText();
 
-                if (firstPassword.equals(secondPassword)) {
+                if (!firstPassword.equals("") && firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
+                } else if (firstPassword.equals("")) {
+                    updateInfoPage.setOutput("First input for password must not be empty !");
+                    updateInfoPage.getFirstPwd().setText("");
+                    updateInfoPage.getSecondPwd().setText("");
+                    isInfoCorrect = false;
                 } else {
                     updateInfoPage.setOutput("First and second input for passwords are not equal !");
                     updateInfoPage.getFirstPwd().setText("");
