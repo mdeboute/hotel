@@ -7,11 +7,14 @@ import hotelproject.views.*;
 import hotelproject.views.UpdateInfoView.Change;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -833,56 +836,61 @@ public class HotelProject extends Application {
                 MenuItem viewItem = new MenuItem("View details");
                 viewItem.setOnAction(event -> {
                     Stage newWindow = new Stage();
+                    GridPane secBLayout = new GridPane();
+                    secBLayout.getStyleClass().add("details-pane");
+
+                    Label title = new Label("The room is :");
+                    title.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 20));
+                    title.setStyle("-fx-font-weight: bold;");
+                    title.setTextFill(Paint.valueOf("white"));
+                    secBLayout.add(title, 0, 0);
 
                     Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
-                    ListView<String> roomDListView = new ListView<>();
                     Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
 
-                    roomDListView.getItems().add("It is of " + roomsDetails.get("t_name") + " type");
-                    roomDListView.getItems().add("Has " + roomsDetails.get("beds") + " bed/s");
-                    roomDListView.getItems().add(roomsDetails.get("r_size") + " square meters");
+                    secBLayout.add(new Label("  •  Of type " + roomsDetails.get("t_name")), 0, 1);
+                    secBLayout.add(new Label("  •  With " + roomsDetails.get("beds") + " bed/s"), 0, 2);
+                    secBLayout.add(new Label("  •  With a surface of " + roomsDetails.get("r_size") + " square meters"), 0, 3);
 
                     if (roomsDetails.get("has_view").equals("1")) {
-                        roomDListView.getItems().add("It has a view");
+                        secBLayout.add(new Label("  •  With view : yes."), 0, 4);
                     } else if (roomsDetails.get("has_view").equals("0")) {
-                        roomDListView.getItems().add("It does not have a view");
+                        secBLayout.add(new Label("  •  With view : no."), 0, 4);
                     }
 
                     if (roomsDetails.get("has_kitchen").equals("1")) {
-                        roomDListView.getItems().add("It has a kitchen");
+                        secBLayout.add(new Label("  •  Kitchen integrated : yes."), 0, 5);
                     } else if (roomsDetails.get("has_kitchen").equals("0")) {
-                        roomDListView.getItems().add("It does not have a kitchen");
+                        secBLayout.add(new Label("  •  Kitchen integrated : no."), 0, 5);
                     }
 
                     if (roomsDetails.get("has_bathroom").equals("1")) {
-                        roomDListView.getItems().add("It has a bathroom");
+                        secBLayout.add(new Label("  •  Bathroom integrated : yes."), 0, 6);
                     } else if (roomsDetails.get("has_bathroom").equals("0")) {
-                        roomDListView.getItems().add("It does not have a bathroom");
+                        secBLayout.add(new Label("  •  Bathroom integrated : no."), 0, 6);
                     }
 
                     if (roomsDetails.get("has_workspace").equals("1")) {
-                        roomDListView.getItems().add("It has a workspace");
+                        secBLayout.add(new Label("  •  Workspace integrated : yes."), 0, 7);
                     } else if (roomsDetails.get("has_workspace").equals("0")) {
-                        roomDListView.getItems().add("It does not have a workspace");
+                        secBLayout.add(new Label("  •  Workspace integrated : no."), 0, 7);
                     }
 
                     if (roomsDetails.get("has_tv").equals("1")) {
-                        roomDListView.getItems().add("It has a TV");
+                        secBLayout.add(new Label("  •  With TV : yes."), 0, 8);
                     } else if (roomsDetails.get("has_tv").equals("0")) {
-                        roomDListView.getItems().add("It does not have a TV");
+                        secBLayout.add(new Label("  •  With TV : no."), 0, 8);
                     }
 
                     if (roomsDetails.get("has_coffee_maker").equals("1")) {
-                        roomDListView.getItems().add("It has a coffee maker");
+                        secBLayout.add(new Label("  •  With coffee maker : yes."), 0, 9);
                     } else if (roomsDetails.get("has_view").equals("0")) {
-                        roomDListView.getItems().add("It does not have a coffee maker");
+                        secBLayout.add(new Label("  •  With coffee maker : no."), 0, 9);
                     }
 
-                    GridPane secBLayout = new GridPane();
-                    secBLayout.getStyleClass().add("details-pane");
-                    secBLayout.getChildren().add(roomDListView);
-
-                    Scene secondScene = new Scene(secBLayout, 250, 250);
+                    secBLayout.setVgap(10);
+                    secBLayout.setPadding(new Insets(10, 10, 10, 10));
+                    Scene secondScene = new Scene(secBLayout, 280, 280);
                     secondScene.getStylesheets().add("file:assets/css/Stylesheet.css");
 
                     newWindow.setTitle("Details");

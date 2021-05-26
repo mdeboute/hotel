@@ -167,7 +167,13 @@
     -fx-background-color: #10DCC9;
 }
 
-.details-pane > .label {
+.details-pane {
     -fx-background-color: #323232;
+    -fx-spacing: 10px;
+}
+
+
+.details-pane .label {
     -fx-text-fill: white;
+    -fx-size: 20;
 }
