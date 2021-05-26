@@ -539,7 +539,7 @@ public class HotelProject extends Application {
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
-        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number.");
+        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number greater than or equal to 0 and smaller than or equal to 1000000.");
 
         // ERROR HANDLING //
 
