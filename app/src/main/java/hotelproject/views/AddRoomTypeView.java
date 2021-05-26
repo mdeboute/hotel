@@ -154,7 +154,7 @@ public class AddRoomTypeView extends View {
     }
 
     public Button getCancel() {
-        return cancel; 
+        return cancel;
     }
 
     public int getHasBathroom() {

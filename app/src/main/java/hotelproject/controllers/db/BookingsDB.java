@@ -140,4 +140,24 @@ public class BookingsDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param booking The booking object for delete.
+     * @brief Delete the booking from database.
+     */
+    public void deleteBooking(Booking booking) {
+        try {
+            String sql = "DELETE FROM `customer` WHERE `c_ss_number` = ?";
+            int booking_id = booking.getB_id();
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, booking_id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

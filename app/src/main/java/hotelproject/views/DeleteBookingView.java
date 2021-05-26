@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 /**
  * Create view for deleting a room.
  */
-public class DeleteRoomView extends View {
+public class DeleteBookingView extends View {
 
     private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
@@ -23,7 +23,7 @@ public class DeleteRoomView extends View {
     /**
      * No parameter is needed for this constructor.
      */
-    public DeleteRoomView() {
+    public DeleteBookingView() {
         createScene();
     }
 
@@ -34,7 +34,7 @@ public class DeleteRoomView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("Delete selected room ?", "Confirm your action !");
+        VBox header = createHeader("Delete selected booking?", "Confirm your action !");
 
         pane.setAlignment(Pos.CENTER);
 
