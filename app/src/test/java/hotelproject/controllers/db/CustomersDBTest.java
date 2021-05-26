@@ -67,4 +67,11 @@ public class CustomersDBTest {
     }
 
 
+    @Test
+    public void test_006_getCustomerName() {
+        Integer c_ss_number = customer_1.getC_ss_number();
+        String customerName = dm.cdb.getCustomerName(c_ss_number);
+        Assert.assertTrue(customerName.equals(customer_1.getC_full_name()));
+    }
+
 }
