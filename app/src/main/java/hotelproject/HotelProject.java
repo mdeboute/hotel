@@ -92,8 +92,7 @@ public class HotelProject extends Application {
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
-                        updateInfoDisplay(new Stage(), new Stage(), Change.PASSWORD);
-                        primaryStage.close();
+                        updateInfoDisplay(primaryStage, Change.PASSWORD);
                     } else {
                         loginView.getResult().setText("The password you have entered is wrong!");
                     }
@@ -163,9 +162,9 @@ public class HotelProject extends Application {
      * @param updateInfoStage stage on which the page to change the user's info will
      *                        appear
      */
-    private void updateInfoDisplay(Stage myPageStage, Stage updateInfoStage, Change change) {
-        myPageStage.close();
+    private void updateInfoDisplay(Stage myPageStage, Change change) {
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
+        Stage updateInfoStage = new Stage(); 
 
         // SET ON ENTER KEY PRESSED //
 
@@ -237,13 +236,17 @@ public class HotelProject extends Application {
             }
 
             if (isInfoCorrect) {
-                myPageDisplay();
                 updateInfoStage.close();
+                myPageStage.close();
+                myPageDisplay();
             }
 
         });
 
         // OPEN THE WINDOW //
+
+        updateInfoStage.initOwner(myPageStage);
+        updateInfoStage.initModality(Modality.WINDOW_MODAL);
 
         updateInfoStage.setScene(updateInfoPage.getScene());
         updateInfoStage.setTitle("Hotel Manager - Update personal information");
@@ -256,12 +259,11 @@ public class HotelProject extends Application {
     private void myPageDisplay() {
         MyPageView myPage = new MyPageView(connectedUser);
         Stage myPageStage = new Stage();
-        Stage updateInfoStage = new Stage();
 
         // SET BUTTONS ON ACTION //
 
-        myPage.getChPwd().setOnAction(e -> credentialsDisplay(new Stage(), true));
-        myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, updateInfoStage, Change.USERNAME));
+        myPage.getChPwd().setOnAction(e -> credentialsDisplay(myPageStage, true));
+        myPage.getChUser().setOnAction(e -> updateInfoDisplay(myPageStage, Change.USERNAME));
 
         myPage.getLogout().setOnAction(e -> logout(myPageStage));
 
