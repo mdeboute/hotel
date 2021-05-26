@@ -230,6 +230,11 @@ public class HotelProject extends Application {
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
                     updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
+                } else if (!firstUsername.equalsIgnoreCase("") && !unFlag ) {
+                    isInfoCorrect = false; 
+                    Alert aUN = new Alert(AlertType.INFORMATION);
+                    aUN.setContentText("Do not write already existing usernames!");
+                    aUN.showAndWait();
                 } else {
                     updateInfoPage.setOutput("The usernames do not match!");
                     isInfoCorrect = false;
