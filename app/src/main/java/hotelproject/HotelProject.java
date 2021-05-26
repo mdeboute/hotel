@@ -170,6 +170,7 @@ public class HotelProject extends Application {
     private void updateInfoDisplay(Stage myPageStage, Change change) {
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
         Stage updateInfoStage = new Stage(); 
+        ArrayList<User> checkUsers = hdata.getUsers();
 
         // SET ON ENTER KEY PRESSED //
 
@@ -209,11 +210,31 @@ public class HotelProject extends Application {
             if (change == Change.USERNAME) {
                 String firstUsername = updateInfoPage.getFirstUName().getText();
                 String secondUsername = updateInfoPage.getSecondUName().getText();
-                if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
+
+                boolean unFlag = true;
+                for (User u : checkUsers) {
+                    if (u.getU_name().equalsIgnoreCase(oldUsername)) {
+                        continue;
+                    }
+                    if (u.getU_name().equalsIgnoreCase(firstUsername)) {
+                        unFlag = false;
+                        Alert aU = new Alert(AlertType.ERROR);
+                        aU.setContentText("Username already exists in database. Choose another!");
+                        aU.showAndWait();
+                        break;
+                    }
+                }
+
+                if (!firstUsername.equals("") && firstUsername.equals(secondUsername) && unFlag) {
                     connectedUser.setU_name(firstUsername);
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
                     updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
+                } else if (!firstUsername.equalsIgnoreCase("") && !unFlag ) {
+                    isInfoCorrect = false; 
+                    Alert aUN = new Alert(AlertType.INFORMATION);
+                    aUN.setContentText("Do not write already existing usernames!");
+                    aUN.showAndWait();
                 } else {
                     updateInfoPage.setOutput("The usernames do not match!");
                     isInfoCorrect = false;
@@ -232,20 +253,19 @@ public class HotelProject extends Application {
                     isInfoCorrect = false;
                 }
             }
-
-            // update db
-            try {
-                hdata.updateUserInformation(connectedUser, oldUsername);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-            if (isInfoCorrect) {
+            
+            if (isInfoCorrect || (isInfoCorrect && connectedUser.getU_name().equalsIgnoreCase(oldUsername))){
+                // update db
+                try {
+                    hdata.updateUserInformation(connectedUser, oldUsername);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 updateInfoStage.close();
                 myPageStage.close();
                 myPageDisplay();
             }
-
+            
         });
 
         // OPEN THE WINDOW //
@@ -479,6 +499,7 @@ public class HotelProject extends Application {
     private void newUserDisplay(Stage formerStage) {
         NewUserView newUserViewPage = new NewUserView();
         Stage newUserStage = new Stage();
+        ArrayList<User> allUsers = hdata.getUsers();
 
         // ERROR HANDLING //
 
@@ -509,10 +530,27 @@ public class HotelProject extends Application {
                 userIA = 1;
             }
             User newUser = new User(userN, userP, userIA);
-            hdata.addUser(newUser);
-            newUserStage.close();
-            formerStage.close();
-            usersDisplay();
+
+            boolean uFlag = true;
+
+            for (User u : allUsers) {
+                if (u.getU_name().equalsIgnoreCase(newUser.getU_name())) {
+                    uFlag = false;
+
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Username already exists. Add a different one or update existing!");
+                    a.showAndWait();
+
+                    break;
+                }
+                // else do nothing
+            }
+            if (uFlag) {
+                hdata.addUser(newUser);
+                newUserStage.close();
+                formerStage.close();
+                usersDisplay();
+            }
         });
 
         newUserViewPage.getCancel().setOnAction(e -> {
@@ -1401,6 +1439,7 @@ public class HotelProject extends Application {
     private void updateCustomerDisplay(Stage formerStage, Customer customer) {
         UpdateCustomerView updateCustomerViewPage = new UpdateCustomerView();
         Stage updateCustomerStage = new Stage();
+        ArrayList<Customer> allCustomers = hdata.getCustomers();
 
         //default values
         updateCustomerViewPage.getCSSNum().setText(String.valueOf(customer.getC_ss_number()));
@@ -1491,11 +1530,29 @@ public class HotelProject extends Application {
             String cEmail = updateCustomerViewPage.getCEmail().getText();
 
             Customer updatedCustomer = new Customer(cSSNum, cAddress, cFullName, cPhoneNum, cEmail);
-            hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
 
-            updateCustomerStage.close();
-            formerStage.close();
-            customersDisplay();
+            boolean cFlag = true;
+
+            for (Customer c : allCustomers) {
+                if (c.getC_ss_number() == customer.getC_ss_number()) {
+                    continue;
+                }
+                if (c.getC_ss_number() == updatedCustomer.getC_ss_number()) {
+                    cFlag = false;
+
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Social security number already exists. Add a different one or update existing!");
+                    a.showAndWait();
+                    break;
+                }
+            }
+            if (updatedCustomer.getC_ss_number() == customer.getC_ss_number() || cFlag) {
+                hdata.updateCustomer(updatedCustomer, customer.getC_ss_number());
+                updateCustomerStage.close();
+                formerStage.close();
+                customersDisplay();
+            }
+
         });
 
         updateCustomerViewPage.getCancel().setOnAction(e -> updateCustomerStage.close());
