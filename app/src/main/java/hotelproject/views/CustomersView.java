@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class CustomersView extends View {
 
+    public final TableView<Customer> customersTable = new TableView<>();
     private final ObservableList<Customer> customers;
-    public TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
     /**

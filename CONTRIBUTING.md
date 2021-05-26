@@ -18,7 +18,7 @@ Instead, we recommend using [this discord channel](https://discord.gg/XKk9xS6xET
 Moreover [Stack Overflow][stackoverflow] is a pretty good place to ask questions since :
 
 - there are thousands of people willing to help on Stack Overflow
-- questions and answers stay available for public viewing so your question/answer might help someone else
+- questions and answers stay available for public viewing, so your question/answer might help someone else
 - Stack Overflow's voting system assures that the best answers are prominently visible.
 
 To save your and our time, we will systematically close all issues that are requests for general support.
@@ -57,7 +57,7 @@ A minimal reproduction allows us to quickly confirm a bug (or point out a coding
 
 We require a minimal reproduction to save maintainers' time and ultimately be able to fix more bugs.
 Often, developers find coding problems themselves while preparing a minimal reproduction.
-We understand that sometimes it might be hard to extract essential bits of code from a larger codebase but we really need to isolate the problem before we can fix it.
+We understand that sometimes it might be hard to extract essential bits of code from a larger codebase, but we really need to isolate the problem before we can fix it.
 
 Unfortunately, we are not able to investigate / fix bugs without a minimal reproduction, so if we don't hear back from you, we are going to close an issue that doesn't have enough info to be reproduced.
 

@@ -16,7 +16,7 @@ The first line of their commit message starts with "fixup! " (notice the space a
 
 The purpose of a fixup commit is to modify an earlier commit.
 I.e. it allows adding more changes in a new commit, but "marking" them as belonging to an earlier commit.
-`Git` provides tools to make it easy to squash fixup commits into the original commit at a later time (see [below](#squash-fixup-commits) for details).
+`Git` provide tools to make it easy to squash fixup commits into the original commit at a later time (see [below](#squash-fixup-commits) for details).
 
 For example, let's assume you have added the following commits to your branch:
 
@@ -48,8 +48,6 @@ Here is where fixup commits come in handy.
 By addressing review feedback in fixup commits, you make it very straight forward for the reviewer to see what are the new changes that need to be reviewed and verify that their earlier feedback has been addressed.
 This can save a lot of effort, especially on larger Pull Requests (where having to re-review _all_ the changes is pretty wasteful).
 
-When the time comes to merge the Pull Request into the repository, the merge script [knows how to automatically squash](../dev-infra/pr/merge/strategies/autosquash-merge.ts) fixup commits with the corresponding regular commits.
-
 
 ## <a name="create-fixup-commits"></a> Creating fixup commits
 
@@ -68,11 +66,6 @@ git commit --fixup <COMMIT_SHA> ...
 
 
 ## <a name="squash-fixup-commits"></a> Squashing fixup commits
-
-As mentioned above, the merge script will [automatically squash](../dev-infra/pr/merge/strategies/autosquash-merge.ts) fixup commits.
-However, sometimes you might want to manually squash a fixup commit.
-
-
 ### Rebasing to squash fixup commits
 
 The easiest way to re-order and squash any commit is via [rebasing interactively](https://git-scm.com/docs/git-rebase#_interactive_mode). You move a commit right after the one you want to squash it into in the rebase TODO list and change the corresponding action from `pick` to `fixup`.

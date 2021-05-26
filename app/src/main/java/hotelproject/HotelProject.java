@@ -162,10 +162,10 @@ public class HotelProject extends Application {
     /**
      * Displays the window where the user can update its pers. info
      *
-     * @param myPageStage     former open stage to close after showing updateInfo
-     *                        stage
-     * @param change stage on which the page to change the user's info will
-     *                        appear
+     * @param myPageStage former open stage to close after showing updateInfo
+     *                    stage
+     * @param change      stage on which the page to change the user's info will
+     *                    appear
      */
     private void updateInfoDisplay(Stage myPageStage, Change change) {
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
@@ -1235,12 +1235,6 @@ public class HotelProject extends Application {
         NewCustomerView newCustomerViewPage = new NewCustomerView();
         Stage newCustomerStage = new Stage();
 
-        int LENGTH_PERSONAL_NUMBER = 8;
-        int LENGTH_PHONE_NUMBER = 9;
-
-        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PERSONAL_NUMBER));
-        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PHONE_NUMBER));
-
         // ERROR HANDLING //
 
         newCustomerViewPage.getSubmit().setDisable(newCustomerViewPage.getCSSNum().getText().equals("") ||
@@ -1250,22 +1244,21 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getCEmail().getText().equals(""));
 
         newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isNumeric(newValue) ||
-                    newValue.length() != LENGTH_PERSONAL_NUMBER) {
+            if (!isNumeric(newValue)) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (!newCustomerViewPage.getCAddress().getText().equals("") &&
                         !newCustomerViewPage.getCFullName().getText().equals("") &&
                         isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
                         !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                    (!isNumeric(newValue) && oldValue.equals("")) ||
-                    (newValue.length() != LENGTH_PERSONAL_NUMBER && oldValue.length() == LENGTH_PERSONAL_NUMBER)) {
-                warningPersonalNumber.showAndWait();
+                    (!isNumeric(newValue) && oldValue.equals(""))) {
+                Alert nCA = new Alert(AlertType.ERROR);
+                nCA.setContentText("8 digits please!");
+                nCA.showAndWait();
             }
         });
 
@@ -1274,10 +1267,8 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                         !newCustomerViewPage.getCFullName().getText().equals("") &&
                         isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
                         !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
@@ -1289,10 +1280,8 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                         !newCustomerViewPage.getCAddress().getText().equals("") &&
                         isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER &&
                         !newCustomerViewPage.getCEmail().getText().equals("")) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
@@ -1300,12 +1289,10 @@ public class HotelProject extends Application {
         });
 
         newCustomerViewPage.getCPhoneNum().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isNumeric(newValue) ||
-                    newValue.length() != LENGTH_PHONE_NUMBER) {
+            if (!isNumeric(newValue)) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                         !newCustomerViewPage.getCAddress().getText().equals("") &&
                         !newCustomerViewPage.getCFullName().getText().equals("") &&
                         !newCustomerViewPage.getCEmail().getText().equals("")) {
@@ -1313,9 +1300,10 @@ public class HotelProject extends Application {
                 }
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
-                    (!isNumeric(newValue) && oldValue.equals("")) ||
-                    (newValue.length() != LENGTH_PHONE_NUMBER && oldValue.length() == LENGTH_PHONE_NUMBER)) {
-                warningPhoneNumber.showAndWait();
+                    (!isNumeric(newValue) && oldValue.equals(""))) {
+                Alert nCAnd = new Alert(AlertType.ERROR);
+                nCAnd.setContentText("9 digits please!");
+                nCAnd.showAndWait();
             }
         });
 
@@ -1324,11 +1312,9 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (isNumeric(newCustomerViewPage.getCSSNum().getText()) &&
-                        newCustomerViewPage.getCSSNum().getText().length() == LENGTH_PERSONAL_NUMBER &&
                         !newCustomerViewPage.getCAddress().getText().equals("") &&
                         !newCustomerViewPage.getCFullName().getText().equals("") &&
-                        isNumeric(newCustomerViewPage.getCPhoneNum().getText()) &&
-                        newCustomerViewPage.getCPhoneNum().getText().length() == LENGTH_PHONE_NUMBER) {
+                        isNumeric(newCustomerViewPage.getCPhoneNum().getText())) {
                     newCustomerViewPage.getSubmit().setDisable(false);
                 }
             }
