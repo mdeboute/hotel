@@ -87,6 +87,7 @@ public class HotelProject extends Application {
                 if (!onlyPwd) { // login
                     if (dbm.udb.userExists(userTest)) { // test if the user exist in the database and has correct password
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
+                        credentialScene.close();
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
                         loginView.getResult().setText("The username or password you have entered is wrong!");
