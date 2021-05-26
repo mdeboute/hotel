@@ -1,5 +1,7 @@
 package hotelproject.views;
 
+import java.util.regex.Pattern;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,12 +13,10 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.util.regex.Pattern;
-
 /**
- * This view aims for adding a new customer in the database.
- * All users have access to this view.
- * Adding a new customer needs social security number, address, name ,telephone number, email adress.
+ * This view aims for adding a new customer in the database. All users have
+ * access to this view. Adding a new customer needs social security number,
+ * address, name ,telephone number, email adress.
  */
 public class NewCustomerView extends View {
 
@@ -44,7 +44,8 @@ public class NewCustomerView extends View {
 
         VBox header = createHeader("New customer", "Enter the new customer specifications");
 
-        Label cSSNumL = changeLabelDesign(new Label("Social security number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cSSNumL = changeLabelDesign(new Label("Social security number: "), "file:assets/font/SF_Pro.ttf", 17,
+                "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
 
