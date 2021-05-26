@@ -24,7 +24,7 @@ Notice that several of the user stories can be implemented in several ways. The 
 
 # What's next ?
 - [ ] Improve / refine the design of the app (GUI)
-- [ ] Improve the UI experience
+- [ ] Improve the UI experience (create a search bar for selecting the customers when we do a new booking)
 - [ ] Continue the javadoc
 - [ ] Try to generalize the View classes: there is a lot of code redundancy in the `NewExampleView`, `DeleteExampleView` and `UpdateExampleView` views in the views package, it would just be enough to make an abstract `ExampleView` class for each `Example` and inherit the other views to access the parameters and implement the specific methods and avoid retyping the same code
 - [ ] Improve / optimize the code of HotelProject (code redundancy + ghost code + the management of privileges between the different types of users: rstaff & admin)
