@@ -29,3 +29,5 @@ Notice that several of the user stories can be implemented in several ways. The 
 - [ ] Try to generalize the View classes: there is a lot of code redundancy in the `NewExampleView`, `DeleteExampleView` and `UpdateExampleView` views, it would just be enough to make an abstract `ExampleView` class for each `Example` and inherit the other views to access the parameters and implement the specific methods and avoid retyping the same code
 - [ ] Improve / optimize the code of HotelProject (code redundancy + ghost code)
 - [ ] Improve and clarify the data management (dbm & hdata in the controllers package)
+- [ ] Improve / optimize the error handling system (maybe create a special class for this)
+- [ ] Improve the CI / tests & pipeline stuffs (the different stages)

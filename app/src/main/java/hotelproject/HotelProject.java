@@ -853,39 +853,39 @@ public class HotelProject extends Application {
                     secBLayout.add(new Label("  •  With a surface of " + roomsDetails.get("r_size") + " square meters"), 0, 3);
 
                     if (roomsDetails.get("has_view").equals("1")) {
-                        secBLayout.add(new Label("  •  With view : yes."), 0, 4);
+                        secBLayout.add(new Label("  •  With view: yes"), 0, 4);
                     } else if (roomsDetails.get("has_view").equals("0")) {
-                        secBLayout.add(new Label("  •  With view : no."), 0, 4);
+                        secBLayout.add(new Label("  •  With view: no"), 0, 4);
                     }
 
                     if (roomsDetails.get("has_kitchen").equals("1")) {
-                        secBLayout.add(new Label("  •  Kitchen integrated : yes."), 0, 5);
+                        secBLayout.add(new Label("  •  Kitchen integrated: yes"), 0, 5);
                     } else if (roomsDetails.get("has_kitchen").equals("0")) {
-                        secBLayout.add(new Label("  •  Kitchen integrated : no."), 0, 5);
+                        secBLayout.add(new Label("  •  Kitchen integrated: no"), 0, 5);
                     }
 
                     if (roomsDetails.get("has_bathroom").equals("1")) {
-                        secBLayout.add(new Label("  •  Bathroom integrated : yes."), 0, 6);
+                        secBLayout.add(new Label("  •  Bathroom integrated: yes"), 0, 6);
                     } else if (roomsDetails.get("has_bathroom").equals("0")) {
-                        secBLayout.add(new Label("  •  Bathroom integrated : no."), 0, 6);
+                        secBLayout.add(new Label("  •  Bathroom integrated: no"), 0, 6);
                     }
 
                     if (roomsDetails.get("has_workspace").equals("1")) {
-                        secBLayout.add(new Label("  •  Workspace integrated : yes."), 0, 7);
+                        secBLayout.add(new Label("  •  Workspace integrated: yes"), 0, 7);
                     } else if (roomsDetails.get("has_workspace").equals("0")) {
-                        secBLayout.add(new Label("  •  Workspace integrated : no."), 0, 7);
+                        secBLayout.add(new Label("  •  Workspace integrated: no"), 0, 7);
                     }
 
                     if (roomsDetails.get("has_tv").equals("1")) {
-                        secBLayout.add(new Label("  •  With TV : yes."), 0, 8);
+                        secBLayout.add(new Label("  •  With TV: yes"), 0, 8);
                     } else if (roomsDetails.get("has_tv").equals("0")) {
-                        secBLayout.add(new Label("  •  With TV : no."), 0, 8);
+                        secBLayout.add(new Label("  •  With TV: no"), 0, 8);
                     }
 
                     if (roomsDetails.get("has_coffee_maker").equals("1")) {
-                        secBLayout.add(new Label("  •  With coffee maker : yes."), 0, 9);
+                        secBLayout.add(new Label("  •  With coffee maker: yes"), 0, 9);
                     } else if (roomsDetails.get("has_view").equals("0")) {
-                        secBLayout.add(new Label("  •  With coffee maker : no."), 0, 9);
+                        secBLayout.add(new Label("  •  With coffee maker: no"), 0, 9);
                     }
 
                     secBLayout.setVgap(10);
