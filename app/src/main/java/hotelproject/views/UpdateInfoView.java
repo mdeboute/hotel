@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.utils.Default;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -16,7 +16,7 @@ public class BookingsDBTest {
 
     private final DatabaseManager dbm = new DatabaseManager();
     private final HotelData hdata = dbm.createDBObjects();
-    private final Booking booking = new Booking(hdata.getBookingAutoID(), 1,1,java.sql.Date.valueOf("2021-04-28"), java.sql.Date.valueOf("2021-04-29"), 1, 1, 12345678);
+    private final Booking booking = new Booking(hdata.getBookingAutoID(), 1, 1, java.sql.Date.valueOf("2021-04-28"), java.sql.Date.valueOf("2021-04-29"), 1, 1, 12345678);
 
     /**
      * @brief Test findAllBookings() method.
