@@ -26,8 +26,6 @@ public class LoginView extends View {
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password");
     private final Label result = new Label();
-    private final String IDLE_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
-    private final String HOVER_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
     boolean onlyPwd;
     private Button testLogin;
 
@@ -108,6 +106,9 @@ public class LoginView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/idle_button_login.png";
+        final String HOVER_TEST_LOGIN = "file:assets/img/ui_dev_pack/login_page/hover_button_login.png";
+
         GridPane bodyPane = createPane();
 
         result.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));

@@ -31,10 +31,6 @@ public class UpdateBookingView extends View {
     private final TextField newFee = new TextField();
     private final CheckBox newIsPaid = new CheckBox("Is paid?");
     private final ComboBox<String> customer = new ComboBox<>();
-    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     List<Integer> availableRooms;
     private Button submit;
     private Button cancel;
@@ -55,6 +51,10 @@ public class UpdateBookingView extends View {
      */
     @Override
     void createScene() {
+        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
         GridPane pane = createPane();
 
         VBox header = createHeader("Update booking", "Enter booking specifics to update");

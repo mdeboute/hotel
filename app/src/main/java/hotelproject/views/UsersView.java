@@ -29,8 +29,7 @@ public class UsersView extends View {
 
     // The scene's nodes
     private final TableView<User> usersTable = new TableView<>();
-    private final String IDLE_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
-    private final String HOVER_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
+
     private Button addUser;
 
     /**
@@ -47,6 +46,7 @@ public class UsersView extends View {
      */
     @Override
     void createScene() {
+
         GridPane bodyPane = createBody();
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
@@ -64,6 +64,9 @@ public class UsersView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
+        final String HOVER_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
+
         GridPane pane = createPane();
 
         Label title = new Label("Hotel users");

@@ -37,8 +37,6 @@ public class RoomsView extends View {
     // Observable list with all the hotel's rooms
     private final ObservableList<Room> rooms;
     private final TableView<Room> roomsTable = new TableView<>();
-    private final String IDLE_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
-    private final String HOVER_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
     private final DatePicker startDatePicker = new DatePicker();
     private final DatePicker endDatePicker = new DatePicker();
     private Button addRoom;
@@ -82,6 +80,9 @@ public class RoomsView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_new_room.png";
+        final String HOVER_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_new_room.png";
+
         GridPane pane = createPane();
 
         Label title = new Label("Hotel rooms");
