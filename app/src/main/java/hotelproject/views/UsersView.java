@@ -102,11 +102,13 @@ public class UsersView extends View {
         whatToSearch.getItems().addAll("Username");
         whatToSearch.getItems().addAll("Admin");
         whatToSearch.setValue("Username"); // default search
+        whatToSearch.setStyle("-fx-pref-width: 183;");
 
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here");
+        searchBar.setStyle("-fx-pref-width: 183;");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Username")) {
                 flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));

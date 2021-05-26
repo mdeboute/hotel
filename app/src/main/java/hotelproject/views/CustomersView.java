@@ -98,10 +98,12 @@ public class CustomersView extends View {
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Full name", "Phone number", "Social security number");
         whatToSearch.setValue("Full name"); // default search
+        whatToSearch.setStyle("-fx-pref-width: 183;");
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here");
+        searchBar.setStyle("-fx-pref-width: 183;");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Social security number")) {
                 flCustomer.setPredicate(p -> String.valueOf(p.getC_ss_number()).contains(newValue.toLowerCase().trim()));

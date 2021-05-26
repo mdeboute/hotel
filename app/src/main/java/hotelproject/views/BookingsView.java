@@ -210,10 +210,12 @@ public class BookingsView extends View {
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Booking number", "Room number", "Paid", "Customer name");
         whatToSearch.setValue("Booking number"); // default search
+        whatToSearch.setStyle("-fx-pref-width: 200;");
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here");
+        searchBar.setStyle("-fx-pref-width: 200;");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Booking number")) {
                 flBooking.setPredicate(p -> String.valueOf(p.getB_id()).contains(newValue.toLowerCase().trim()));
