@@ -530,7 +530,8 @@ public class HotelProject extends Application {
         Stage newBookingStage = new Stage();
 
         int MIN_ROOM_NUMBER = 1;
-        int MAX_ROOM_NUMBER = hdata.getRooms().size();
+        Room lastRoomAdded = hdata.getRooms().get(hdata.getRooms().size() - 1);
+        int MAX_ROOM_NUMBER = lastRoomAdded.getR_num();
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
