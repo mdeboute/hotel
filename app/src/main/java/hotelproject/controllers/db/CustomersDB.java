@@ -124,7 +124,7 @@ public class CustomersDB {
         }
         return customers;
     }
-    
+
     public String getCustomerName(Integer c_ss_number) {
         String c_full_name = null;
         try {

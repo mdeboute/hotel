@@ -230,7 +230,7 @@ public class BookingsView extends View {
                 searchBar.setText("");
             }
         });
-        
+
         startDatePicker.setMaxWidth(200);
         endDatePicker.setMaxWidth(200);
 

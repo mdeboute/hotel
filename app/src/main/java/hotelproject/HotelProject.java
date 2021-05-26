@@ -1125,7 +1125,7 @@ public class HotelProject extends Application {
         deleteRoomStage.show();
     }
 
-     /**
+    /**
      * Display to delete the selected booking
      */
     private void deleteBookingDisplay(Stage formerStage, Booking booking) {
