@@ -26,7 +26,7 @@ public class LoginView extends View {
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password");
     private final Label result = new Label();
-    boolean onlyPwd;
+    final boolean onlyPwd;
     private Button testLogin;
 
     /**

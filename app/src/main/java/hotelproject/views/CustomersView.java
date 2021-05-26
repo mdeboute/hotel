@@ -21,7 +21,7 @@ import java.util.List;
 public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
-    public TableView<Customer> customersTable = new TableView<>();
+    public final TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
     /**
