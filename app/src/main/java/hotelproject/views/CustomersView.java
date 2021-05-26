@@ -21,8 +21,6 @@ import java.util.List;
 public class CustomersView extends View {
 
     private final ObservableList<Customer> customers;
-    private final String IDLE_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
-    private final String HOVER_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
     public TableView<Customer> customersTable = new TableView<>();
     private Button addCustomer;
 
@@ -58,6 +56,9 @@ public class CustomersView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/idle_button_new_customer.png";
+        final String HOVER_ADD_CUSTOMER = "file:assets/img/ui_dev_pack/customer_menu/hover_button_new_customer.png";
+
         GridPane pane = createPane();
 
         Label title = new Label("Hotel customers");

@@ -21,10 +21,6 @@ public class UpdateCustomerView extends View {
     private final TextField cFullName = new TextField();
     private final TextField cPhoneNum = new TextField();
     private final TextField cEmail = new TextField();
-    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     private Button submit;
     private Button cancel;
 
@@ -41,11 +37,16 @@ public class UpdateCustomerView extends View {
      */
     @Override
     void createScene() {
+        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+
         GridPane pane = createPane();
 
         VBox header = createHeader("Update customer", "Enter customer specifics to update");
 
-        Label cSSNumL = changeLabelDesign(new Label("New personal number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cSSNumL = changeLabelDesign(new Label("New social security number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
 
@@ -57,7 +58,7 @@ public class UpdateCustomerView extends View {
 
             // If there numbers and no violations (characters, signs or such), limit to 8 only
             Pattern pattern = Pattern.compile(".{0,8}");
-            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+            TextFormatter<String> formatter = new TextFormatter<>((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cSSNum.setTextFormatter(formatter);
 
         });
@@ -103,7 +104,7 @@ public class UpdateCustomerView extends View {
 
             // If there numbers and no violations (characters, signs or such), limit to 8
             Pattern pattern = Pattern.compile(".{0,9}");
-            TextFormatter formatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+            TextFormatter<String> formatter = new TextFormatter <>((UnaryOperator<TextFormatter.Change>) change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cPhoneNum.setTextFormatter(formatter);
         });
 

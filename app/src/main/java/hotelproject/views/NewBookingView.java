@@ -28,16 +28,12 @@ public class NewBookingView extends View {
     private final DatabaseManager dbm;
     private final HotelData hdata;
     private final ComboBox<Integer> numRoom = new ComboBox<>();
-    private final CheckBox paidByCard = new CheckBox("Paid by card ?");
+    private final CheckBox paidByCard = new CheckBox("Paid by card?");
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
     private final ComboBox<String> customer = new ComboBox<>();
-    private final CheckBox isPaid = new CheckBox("Is paid ?");
-    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private final CheckBox isPaid = new CheckBox("Is paid?");
     List<Integer> availableRooms;
     private Button submit;
     private Button cancel;
@@ -182,6 +178,10 @@ public class NewBookingView extends View {
      * @return an instance of VBox.
      */
     private VBox createFooter() {
+        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 

@@ -29,15 +29,11 @@ public class UsersView extends View {
 
     // The scene's nodes
     private final TableView<User> usersTable = new TableView<>();
-    private final String IDLE_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
-    private final String HOVER_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
+
     private Button addUser;
 
     /**
      * Create a constructor for user view.
-     *
-     * @param user
-     * @param users
      */
     public UsersView(User user, List<User> users) {
         this.user = user;
@@ -50,6 +46,7 @@ public class UsersView extends View {
      */
     @Override
     void createScene() {
+
         GridPane bodyPane = createBody();
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
@@ -67,6 +64,9 @@ public class UsersView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/idle_button_new_user.png";
+        final String HOVER_ADD_USER = "file:assets/img/ui_dev_pack/user_menu/hover_button_new_user.png";
+
         GridPane pane = createPane();
 
         Label title = new Label("Hotel users");
@@ -106,9 +106,9 @@ public class UsersView extends View {
         searchBar.setPromptText("Search here");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Username")) {
-                flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));                                                                                        // number
+                flUser.setPredicate(p -> String.valueOf(p.getU_name()).contains(newValue.toLowerCase().trim()));
             } else if (whatToSearch.getValue().equals("Admin")) {
-                flUser.setPredicate(p -> p.is_admin().contains(newValue.toLowerCase().trim()));                                                                                        // number
+                flUser.setPredicate(p -> p.is_admin().contains(newValue.toLowerCase().trim()));
             }
         });
 

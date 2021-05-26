@@ -18,10 +18,6 @@ public class MyPageView extends View {
     private final User user;
 
     // The scene's nodes
-    private final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
-    private final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
-    private final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
-    private final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
     private Button chUser;
     private Button chPwd;
     private Button logOut;
@@ -55,6 +51,11 @@ public class MyPageView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
+        final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
+        final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
+        final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
+
         GridPane pane = createPane();
 
         String SFPath = Default.SFPath;
@@ -80,6 +81,7 @@ public class MyPageView extends View {
 
         pane.add(logOut, 0, 7);
 
+        pane.setVgap(15);
         return pane;
     }
 

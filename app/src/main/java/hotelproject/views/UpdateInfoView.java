@@ -1,7 +1,6 @@
 package hotelproject.views;
 
 import hotelproject.controllers.utils.Default;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,8 +19,6 @@ public class UpdateInfoView extends View {
     private final Label output = new Label();
     private final Label Lbl1;
     private final Label Lbl2;
-    private final String IDLE_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/idle_button_save.png";
-    private final String HOVER_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/hover_button_save.png";
     private Button save;
     private TextField firstUName;
     private TextField secondUName;
@@ -101,6 +98,8 @@ public class UpdateInfoView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/idle_button_save.png";
+        final String HOVER_BUTTON_SAVE = "file:assets/img/ui_dev_pack/general/hover_button_save.png";
         GridPane pane = createPane();
 
         //font and color of labels

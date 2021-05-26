@@ -41,8 +41,6 @@ public class BookingsView extends View {
     private final TableView<Booking> bookingsTable = new TableView<>();
     private final DatePicker startDatePicker = new DatePicker(); // private final DatePicker date = new DatePicker();
     private final DatePicker endDatePicker = new DatePicker();
-    private final String IDLE_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
-    private final String HOVER_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
     private Button addBooking;
 
     /**
@@ -82,6 +80,9 @@ public class BookingsView extends View {
      */
     @Override
     GridPane createBody() {
+        final String IDLE_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/idle_button_booking_menu.png";
+        final String HOVER_ADD_BOOKING = "file:assets/img/ui_dev_pack/booking_menu/hover_button_booking_menu.png";
+
         GridPane pane = createPane();
 
         Label title = new Label("Hotel bookings");

@@ -88,14 +88,14 @@ public class HotelProject extends Application {
                         connectedUser = new User(loginView.getUsernameString(), loginView.getPasswordString(), dbm.udb.getU_is_admin(userTest));
                         mainPageDisplay(primaryStage); // if the user succeeded to login we open the main page of the application
                     } else {
-                        loginView.getResult().setText("The username or password you have entered is wrong !");
+                        loginView.getResult().setText("The username or password you have entered is wrong!");
                     }
                 } else { // pwd input
                     if (connectedUser.getU_password().equals(userTest.getU_password())) {
                         updateInfoDisplay(new Stage(), new Stage(), Change.PASSWORD);
                         primaryStage.close();
                     } else {
-                        loginView.getResult().setText("The password you have entered is wrong !");
+                        loginView.getResult().setText("The password you have entered is wrong!");
                     }
                 }
             } catch (SQLException throwables) {
@@ -208,10 +208,10 @@ public class HotelProject extends Application {
                 if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields.");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The usernames do not match.");
+                    updateInfoPage.setOutput("The usernames do not match!");
                     isInfoCorrect = false;
                 }
             } else {
@@ -221,10 +221,10 @@ public class HotelProject extends Application {
                 if (!firstPassword.equals("") && firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
                 } else if (firstPassword.equals("") || secondPassword.equals("")) {
-                    updateInfoPage.setOutput("Please write in the fields.");
+                    updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("The passwords do not match.");
+                    updateInfoPage.setOutput("The passwords do not match!");
                     isInfoCorrect = false;
                 }
             }
@@ -538,7 +538,7 @@ public class HotelProject extends Application {
         int MIN_BOOKING_FEE = 0;
         int MAX_BOOKING_FEE = 1000000;
 
-        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number greater than or equal to 0 and smaller than or equal to 1000000.");
+        Alert warningBookingFee = new Alert(AlertType.WARNING, "Enter a number greater than or equal to 0 and smaller than or equal to 1000000!");
 
         // ERROR HANDLING //
 
@@ -1251,8 +1251,8 @@ public class HotelProject extends Application {
         int LENGTH_PERSONAL_NUMBER = 8;
         int LENGTH_PHONE_NUMBER = 9;
 
-        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PERSONAL_NUMBER));
-        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits.", LENGTH_PHONE_NUMBER));
+        Alert warningPersonalNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PERSONAL_NUMBER));
+        Alert warningPhoneNumber = new Alert(AlertType.WARNING, String.format("Enter a number consisting of %d digits!", LENGTH_PHONE_NUMBER));
 
         // ERROR HANDLING //
 
@@ -1364,7 +1364,7 @@ public class HotelProject extends Application {
                 formerStage.close();
                 customersDisplay();
             } else {
-                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database.");
+                Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database!");
                 errorCustomerExists.showAndWait();
             }
 

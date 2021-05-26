@@ -21,10 +21,6 @@ public class NewCustomerView extends View {
     private final TextField cFullName = new TextField();
     private final TextField cPhoneNum = new TextField();
     private final TextField cEmail = new TextField();
-    private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     private Button submit;
     private Button cancel;
 
@@ -44,18 +40,20 @@ public class NewCustomerView extends View {
 
         VBox header = createHeader("New customer", "Enter the new customer specifications");
 
-        Label cSSNumL = changeLabelDesign(new Label("Personal number (8 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cSSNumL = changeLabelDesign(new Label("Social security number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cSSNumL, 0, 1);
         pane.add(cSSNum, 1, 1);
+        cSSNum.setPromptText("8 digits");
         Label cAddressL = changeLabelDesign(new Label("Address: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cAddressL, 0, 2);
         pane.add(cAddress, 1, 2);
         Label cFullNameL = changeLabelDesign(new Label("Name: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cFullNameL, 0, 3);
         pane.add(cFullName, 1, 3);
-        Label cPhoneNumL = changeLabelDesign(new Label("Phone number (9 digits): "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        Label cPhoneNumL = changeLabelDesign(new Label("Phone number: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cPhoneNumL, 0, 4);
         pane.add(cPhoneNum, 1, 4);
+        cPhoneNum.setPromptText("9 digits");
         Label cEmailL = changeLabelDesign(new Label("Email: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
@@ -82,6 +80,10 @@ public class NewCustomerView extends View {
      * @return an instance of VBox.
      */
     private VBox createFooter() {
+        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
         submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 

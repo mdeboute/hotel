@@ -13,10 +13,6 @@ import javafx.scene.layout.VBox;
  */
 public class DeleteBookingView extends View {
 
-    private final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    private final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    private final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     private Button submit;
     private Button cancel;
 
@@ -34,7 +30,7 @@ public class DeleteBookingView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("Delete selected booking?", "Confirm your action !");
+        VBox header = createHeader("Delete selected booking?", "Confirm your action!");
 
         pane.setAlignment(Pos.CENTER);
 
@@ -56,6 +52,11 @@ public class DeleteBookingView extends View {
      * @return an instance of VBox containing these buttons.
      */
     private VBox createFooter() {
+        final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+        final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+
         submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
         cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
