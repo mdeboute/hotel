@@ -184,6 +184,11 @@ public class HotelData {
         }
     }
 
+    public void deleteCustomer(Customer customer) {
+        dbm.cdb.deleteCustomer(customer);
+        customers.remove(customer);
+    }
+
     /**
      * Add a new user.
      *
@@ -250,5 +255,10 @@ public class HotelData {
                 break;
             }
         }
+    }
+
+    public void deleteBooking(Booking booking) {
+        dbm.bdb.deleteBooking(booking);
+        bookings.remove(booking);
     }
 }
