@@ -114,10 +114,12 @@ public class RoomsView extends View {
         ChoiceBox<String> whatToSearch = new ChoiceBox<>();
         whatToSearch.getItems().addAll("Room number", "Floor", "Room type");
         whatToSearch.setValue("Room number"); // default search
+        whatToSearch.setStyle("-fx-pref-width: 183;");
 
         // Create search bar with listener to update according to the user's input
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search here");
+        searchBar.setStyle("-fx-pref-width: 183;");
         searchBar.textProperty().addListener((obs, oldValue, newValue) -> {
             if (whatToSearch.getValue().equals("Room number")) {
                 flRoom.setPredicate(p -> String.valueOf(p.getR_num()).contains(newValue.toLowerCase().trim()));
