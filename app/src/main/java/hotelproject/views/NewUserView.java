@@ -47,12 +47,12 @@ public class NewUserView extends View {
         Label userNameL = changeLabelDesign(new Label("Username: "), "file:assets/font/SF_Pro.ttf", 17, "white");
         pane.add(userNameL, 0, 2);
         pane.add(userName, 1, 2);
-        Label userPassL = changeLabelDesign(new Label("User password: "), "file:assets/font/SF_Pro.ttf", 17, "white");
-        pane.add(userPassL, 0, 4);
-        pane.add(userPassword, 1, 4);
+        Label userPassL = changeLabelDesign(new Label("Password: "), "file:assets/font/SF_Pro.ttf", 17, "white");
+        pane.add(userPassL, 0, 3);
+        pane.add(userPassword, 1, 3);
         userIA.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 17));
         userIA.setTextFill(Paint.valueOf("white"));
-        pane.add(userIA, 0, 5);
+        pane.add(userIA, 0, 4);
 
         GridPane paneTwo = new GridPane();
 
