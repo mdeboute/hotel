@@ -57,7 +57,7 @@ public class UpdateCustomerView extends View {
 
             // If there numbers and no violations (characters, signs or such), limit to 8 only
             Pattern pattern = Pattern.compile(".{0,8}");
-            TextFormatter<String> formatter = new TextFormatter<>( change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+            TextFormatter<String> formatter = new TextFormatter<>(change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cSSNum.setTextFormatter(formatter);
 
         });
@@ -103,7 +103,7 @@ public class UpdateCustomerView extends View {
 
             // If there numbers and no violations (characters, signs or such), limit to 8
             Pattern pattern = Pattern.compile(".{0,9}");
-            TextFormatter<String> formatter = new TextFormatter <> ( change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
+            TextFormatter<String> formatter = new TextFormatter<>(change -> pattern.matcher(change.getControlNewText()).matches() ? change : null);
             cPhoneNum.setTextFormatter(formatter);
         });
 

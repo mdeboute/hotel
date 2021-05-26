@@ -38,7 +38,7 @@ public class UpdateBookingView extends View {
     /**
      * Constructor for this view.
      *
-     * @param dbm the instance of DatabaseManager for creating connection.
+     * @param dbm   the instance of DatabaseManager for creating connection.
      * @param hdata the instance of the actual database.
      */
     public UpdateBookingView(DatabaseManager dbm, HotelData hdata) {

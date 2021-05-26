@@ -63,7 +63,7 @@ public class HotelProject extends Application {
      */
     private void credentialsDisplay(Stage primaryStage, boolean onlyPwd) {
         LoginView loginView = new LoginView(onlyPwd);
-        Stage credentialScene = new Stage(); 
+        Stage credentialScene = new Stage();
 
         // SET ON ENTER KEY PRESSED //
 
@@ -164,12 +164,12 @@ public class HotelProject extends Application {
      *
      * @param myPageStage     former open stage to close after showing updateInfo
      *                        stage
-     * @param updateInfoStage stage on which the page to change the user's info will
+     * @param change stage on which the page to change the user's info will
      *                        appear
      */
     private void updateInfoDisplay(Stage myPageStage, Change change) {
         UpdateInfoView updateInfoPage = new UpdateInfoView(change);
-        Stage updateInfoStage = new Stage(); 
+        Stage updateInfoStage = new Stage();
         ArrayList<User> checkUsers = hdata.getUsers();
 
         // SET ON ENTER KEY PRESSED //
@@ -230,8 +230,8 @@ public class HotelProject extends Application {
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
                     updateInfoPage.setOutput("Please write in the fields!");
                     isInfoCorrect = false;
-                } else if (!firstUsername.equalsIgnoreCase("") && !unFlag ) {
-                    isInfoCorrect = false; 
+                } else if (!firstUsername.equalsIgnoreCase("") && !unFlag) {
+                    isInfoCorrect = false;
                     Alert aUN = new Alert(AlertType.INFORMATION);
                     aUN.setContentText("Do not write already existing usernames!");
                     aUN.showAndWait();
@@ -253,8 +253,8 @@ public class HotelProject extends Application {
                     isInfoCorrect = false;
                 }
             }
-            
-            if (isInfoCorrect || (isInfoCorrect && connectedUser.getU_name().equalsIgnoreCase(oldUsername))){
+
+            if (isInfoCorrect || (isInfoCorrect && connectedUser.getU_name().equalsIgnoreCase(oldUsername))) {
                 // update db
                 try {
                     hdata.updateUserInformation(connectedUser, oldUsername);
@@ -265,7 +265,7 @@ public class HotelProject extends Application {
                 myPageStage.close();
                 myPageDisplay();
             }
-            
+
         });
 
         // OPEN THE WINDOW //
