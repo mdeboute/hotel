@@ -34,7 +34,7 @@ public class DeleteRoomView extends View {
     void createScene() {
         GridPane pane = createPane();
 
-        VBox header = createHeader("Delete selected room ?", "Confirm your action !");
+        VBox header = createHeader("Delete selected room?", "Confirm your action!");
 
         pane.setAlignment(Pos.CENTER);
 

@@ -28,12 +28,12 @@ public class NewBookingView extends View {
     private final DatabaseManager dbm;
     private final HotelData hdata;
     private final ComboBox<Integer> numRoom = new ComboBox<>();
-    private final CheckBox paidByCard = new CheckBox("Paid by card ?");
+    private final CheckBox paidByCard = new CheckBox("Paid by card?");
     private final DatePicker checkIn = new DatePicker();
     private final DatePicker checkOut = new DatePicker();
     private final TextField bookingFee = new TextField();
     private final ComboBox<String> customer = new ComboBox<>();
-    private final CheckBox isPaid = new CheckBox("Is paid ?");
+    private final CheckBox isPaid = new CheckBox("Is paid?");
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";

@@ -20,7 +20,7 @@ public class NewUserView extends View {
 
     private final TextField userName = new TextField();
     private final TextField userPassword = new TextField();
-    private final CheckBox userIA = new CheckBox("Is admin ?");
+    private final CheckBox userIA = new CheckBox("Is admin?");
     private final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     private final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     private final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
