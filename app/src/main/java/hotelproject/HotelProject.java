@@ -204,15 +204,11 @@ public class HotelProject extends Application {
                 String secondUsername = updateInfoPage.getSecondUName().getText();
                 if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
                     connectedUser.setU_name(firstUsername);
-                } else if (firstUsername.equals("")) {
-                    updateInfoPage.setOutput("First input for username must not be empty !");
-                    updateInfoPage.getFirstUName().setText("");
-                    updateInfoPage.getSecondUName().setText("");
+                } else if (firstUsername.equals("") || secondUsername.equals("")) {
+                    updateInfoPage.setOutput("Please write in the fields.");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("First and second input for usernames are not equal !");
-                    updateInfoPage.getFirstUName().setText("");
-                    updateInfoPage.getSecondUName().setText("");
+                    updateInfoPage.setOutput("The usernames do not match.");
                     isInfoCorrect = false;
                 }
             } else {
@@ -221,15 +217,11 @@ public class HotelProject extends Application {
 
                 if (!firstPassword.equals("") && firstPassword.equals(secondPassword)) {
                     connectedUser.setU_password(firstPassword);
-                } else if (firstPassword.equals("")) {
-                    updateInfoPage.setOutput("First input for password must not be empty !");
-                    updateInfoPage.getFirstPwd().setText("");
-                    updateInfoPage.getSecondPwd().setText("");
+                } else if (firstPassword.equals("") || secondPassword.equals("")) {
+                    updateInfoPage.setOutput("Please write in the fields.");
                     isInfoCorrect = false;
                 } else {
-                    updateInfoPage.setOutput("First and second input for passwords are not equal !");
-                    updateInfoPage.getFirstPwd().setText("");
-                    updateInfoPage.getSecondPwd().setText("");
+                    updateInfoPage.setOutput("The passwords do not match.");
                     isInfoCorrect = false;
                 }
             }
