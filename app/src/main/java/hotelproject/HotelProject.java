@@ -783,7 +783,13 @@ public class HotelProject extends Application {
                 updateBookingDisplay(bookingsStage, b);
             });
 
-            rowMenu.getItems().addAll(updateItem);
+            MenuItem deleteItem = new MenuItem("Delete");
+            deleteItem.setOnAction(event -> {
+                Booking bD = bookingsViewPage.getBookingsTable().getSelectionModel().getSelectedItem();
+                deleteBookingDisplay(bookingsStage, bD);
+            });
+
+            rowMenu.getItems().addAll(updateItem, deleteItem);
 
             // only display context menu for non-null items:
             row.contextMenuProperty().bind(
@@ -1119,6 +1125,62 @@ public class HotelProject extends Application {
         deleteRoomStage.show();
     }
 
+     /**
+     * Display to delete the selected booking
+     */
+    private void deleteBookingDisplay(Stage formerStage, Booking booking) {
+        DeleteBookingView deleteBookingView = new DeleteBookingView();
+        Stage deleteBookingStage = new Stage();
+
+        // SET BUTTONS ON ACTION //
+
+        deleteBookingView.getSubmit().setOnAction(e -> {
+            hdata.deleteBooking(booking);
+            deleteBookingStage.close();
+            formerStage.close();
+            bookingsDisplay();
+        });
+
+        deleteBookingView.getCancel().setOnAction(e -> deleteBookingStage.close());
+
+        // OPEN THE WINDOW //
+
+        // Specifies the modality for new window and the owner of window
+        deleteBookingStage.initOwner(formerStage);
+        deleteBookingStage.initModality(Modality.WINDOW_MODAL);
+        deleteBookingStage.setScene(deleteBookingView.getScene());
+        deleteBookingStage.setTitle("Hotel Manager - Deleting Booking");
+        deleteBookingStage.show();
+    }
+
+    /**
+     * Display to delete the selected customer
+     */
+    private void deleteCustomerDisplay(Stage formerStage, Customer customer) {
+        DeleteCustomerView deleteCustomerView = new DeleteCustomerView();
+        Stage deleteCustomerStage = new Stage();
+
+        // SET BUTTONS ON ACTION //
+
+        deleteCustomerView.getSubmit().setOnAction(e -> {
+            hdata.deleteCustomer(customer);
+            deleteCustomerStage.close();
+            formerStage.close();
+            customersDisplay();
+        });
+
+        deleteCustomerView.getCancel().setOnAction(e -> deleteCustomerStage.close());
+
+        // OPEN THE WINDOW //
+
+        // Specifies the modality for new window and the owner of window
+        deleteCustomerStage.initOwner(formerStage);
+        deleteCustomerStage.initModality(Modality.WINDOW_MODAL);
+        deleteCustomerStage.setScene(deleteCustomerView.getScene());
+        deleteCustomerStage.setTitle("Hotel Manager - Deleting Customer");
+        deleteCustomerStage.show();
+    }
+
     private void usersDisplay() {
         List<User> users = dbm.udb.getAllUsers();
         UsersView usersViewPage = new UsersView(connectedUser, users);
@@ -1157,7 +1219,13 @@ public class HotelProject extends Application {
                 updateCustomerDisplay(customerStage, c);
             });
 
-            rowMenu.getItems().addAll(updateItem);
+            MenuItem deleteItem = new MenuItem("Delete");
+            deleteItem.setOnAction(event -> {
+                Customer cD = customersViewPage.getCustomersTable().getSelectionModel().getSelectedItem();
+                deleteCustomerDisplay(customerStage, cD);
+            });
+
+            rowMenu.getItems().addAll(updateItem, deleteItem);
 
             // only display context menu for non-null items:
             row.contextMenuProperty().bind(
