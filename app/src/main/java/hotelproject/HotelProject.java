@@ -1302,7 +1302,7 @@ public class HotelProject extends Application {
                 newCustomerViewPage.getCEmail().getText().equals(""));
 
         newCustomerViewPage.getCSSNum().textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isNumeric(newValue)){
+            if (!isNumeric(newValue)) {
                 newCustomerViewPage.getSubmit().setDisable(true);
             } else {
                 if (!newCustomerViewPage.getCAddress().getText().equals("") &&
@@ -1314,9 +1314,9 @@ public class HotelProject extends Application {
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
                     (!isNumeric(newValue) && oldValue.equals(""))) {
-                    Alert nCA = new Alert(AlertType.ERROR);
-                    nCA.setContentText("8 digits please!");
-                    nCA.showAndWait();
+                Alert nCA = new Alert(AlertType.ERROR);
+                nCA.setContentText("8 digits please!");
+                nCA.showAndWait();
             }
         });
 
@@ -1359,9 +1359,9 @@ public class HotelProject extends Application {
             }
             if ((!isNumeric(newValue) && isNumeric(oldValue)) ||
                     (!isNumeric(newValue) && oldValue.equals(""))) {
-                    Alert nCAnd = new Alert(AlertType.ERROR);
-                    nCAnd.setContentText("9 digits please!");
-                    nCAnd.showAndWait();
+                Alert nCAnd = new Alert(AlertType.ERROR);
+                nCAnd.setContentText("9 digits please!");
+                nCAnd.showAndWait();
             }
         });
 

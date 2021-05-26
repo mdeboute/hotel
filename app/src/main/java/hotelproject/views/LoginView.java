@@ -22,11 +22,11 @@ import javafx.scene.text.Font;
  */
 public class LoginView extends View {
 
+    final boolean onlyPwd;
     private final TextField username = new TextField();
     private final PasswordField password = new PasswordField();
     private final Label credentials = new Label("Please enter your password");
     private final Label result = new Label();
-    final boolean onlyPwd;
     private Button testLogin;
 
     /**

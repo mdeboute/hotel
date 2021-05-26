@@ -1,7 +1,5 @@
 package hotelproject.views;
 
-import java.util.regex.Pattern;
-
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+import java.util.regex.Pattern;
 
 /**
  * This view aims for adding a new customer in the database. All users have
