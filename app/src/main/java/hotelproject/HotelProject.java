@@ -210,7 +210,22 @@ public class HotelProject extends Application {
             if (change == Change.USERNAME) {
                 String firstUsername = updateInfoPage.getFirstUName().getText();
                 String secondUsername = updateInfoPage.getSecondUName().getText();
-                if (!firstUsername.equals("") && firstUsername.equals(secondUsername)) {
+
+                boolean unFlag = true;
+                for (User u : checkUsers) {
+                    if (u.getU_name().equalsIgnoreCase(oldUsername)) {
+                        continue;
+                    }
+                    if (u.getU_name().equalsIgnoreCase(firstUsername)) {
+                        unFlag = false;
+                        Alert aU = new Alert(AlertType.ERROR);
+                        aU.setContentText("Username already exists in database. Choose another!");
+                        aU.showAndWait();
+                        break;
+                    }
+                }
+
+                if (!firstUsername.equals("") && firstUsername.equals(secondUsername) && unFlag) {
                     connectedUser.setU_name(firstUsername);
                 } else if (firstUsername.equals("") || secondUsername.equals("")) {
                     updateInfoPage.setOutput("Please write in the fields!");
@@ -233,22 +248,8 @@ public class HotelProject extends Application {
                     isInfoCorrect = false;
                 }
             }
-
-            boolean unFlag = true; 
-            for(User u : checkUsers) {
-                if(u.getU_name().equalsIgnoreCase(oldUsername)) {
-                    continue;
-                }
-                if(u.getU_name().equalsIgnoreCase(connectedUser.getU_name())) {
-                    unFlag = false; 
-                    Alert aU = new Alert(AlertType.ERROR);
-                    aU.setContentText("Username already exists in database. Choose another!");
-                    aU.showAndWait();
-                    break;
-                }
-            }
             
-            if (connectedUser.getU_name().equalsIgnoreCase(oldUsername) || isInfoCorrect && unFlag) {
+            if (isInfoCorrect || (isInfoCorrect && connectedUser.getU_name().equalsIgnoreCase(oldUsername))){
                 // update db
                 try {
                     hdata.updateUserInformation(connectedUser, oldUsername);
