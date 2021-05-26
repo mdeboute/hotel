@@ -500,21 +500,22 @@ public class HotelProject extends Application {
             }
             User newUser = new User(userN, userP, userIA);
             hdata.addUser(newUser);
-            usersDisplay();
             newUserStage.close();
+            usersDisplay();
         });
 
         newUserViewPage.getCancel().setOnAction(e -> {
-            usersDisplay();
             newUserStage.close();
+            usersDisplay();
         });
 
         // OPEN THE WINDOW //
 
+        newUserStage.initOwner(formerStage);
+        newUserStage.initModality(Modality.WINDOW_MODAL);
         newUserStage.setScene(newUserViewPage.getScene());
         newUserStage.setTitle("Hotel Manager - New User");
         newUserStage.show();
-        formerStage.close();
     }
 
     /**
@@ -656,21 +657,22 @@ public class HotelProject extends Application {
             Booking newBooking = new Booking(bookingID, roomNb, paidByCard, sqlDate, secondSQLDate, bookingFee, isPaid, c_ss_number);
             hdata.addBooking(newBooking);
 
-            bookingsDisplay();
             newBookingStage.close();
+            formerStage.close();
+            bookingsDisplay();
         });
 
         newBookingViewPage.getCancel().setOnAction(e -> {
-            bookingsDisplay();
             newBookingStage.close();
+            formerStage.close();
+            bookingsDisplay();
         });
 
-        // OPEN THE WINDOW //
-
+        newBookingStage.initOwner(formerStage);
+        newBookingStage.initModality(Modality.WINDOW_MODAL);
         newBookingStage.setScene(newBookingViewPage.getScene());
         newBookingStage.setTitle("Hotel Manager - New Booking");
         newBookingStage.show();
-        formerStage.close();
     }
 
     /**
@@ -1056,7 +1058,6 @@ public class HotelProject extends Application {
 
             for (Room r : rooms) {
                 if (r.getR_num() == room.getR_num()) {
-                    flag = true;
                     continue;
                 }
                 if (r.getR_num() == updateRoom.getR_num()) {
@@ -1348,8 +1349,9 @@ public class HotelProject extends Application {
             if (!dbm.cdb.customerExists(newCustomer)) {
                 hdata.addCustomer(newCustomer);
 
-                customersDisplay();
                 newCustomerStage.close();
+                formerStage.close();
+                customersDisplay();
             } else {
                 Alert errorCustomerExists = new Alert(AlertType.ERROR, "A customer with this social security number already exists in the database.");
                 errorCustomerExists.showAndWait();
@@ -1358,16 +1360,19 @@ public class HotelProject extends Application {
         });
 
         newCustomerViewPage.getCancel().setOnAction(e -> {
-            customersDisplay();
             newCustomerStage.close();
+            formerStage.close();
+            customersDisplay();
         });
 
         // OPEN THE WINDOW //
 
+        // Specifies the modality for new window and the owner of window
+        newCustomerStage.initOwner(formerStage);
+        newCustomerStage.initModality(Modality.WINDOW_MODAL);
         newCustomerStage.setScene(newCustomerViewPage.getScene());
         newCustomerStage.setTitle("Hotel Manager - New Customer");
         newCustomerStage.show();
-        formerStage.close();
     }
 
     /**
