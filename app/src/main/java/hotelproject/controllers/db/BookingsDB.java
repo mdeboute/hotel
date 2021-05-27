@@ -153,11 +153,11 @@ public class BookingsDB {
      */
     public void deleteBooking(Booking booking) {
         try {
-            String sql = "DELETE FROM `customer` WHERE `c_ss_number` = ?";
-            int c_ss_number = booking.getC_ss_number();
+            String sql = "DELETE FROM `booking` WHERE `b_id` = ?";
+            int b_id = booking.getB_id();
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, c_ss_number);
+            statement.setInt(1, b_id);
 
             statement.executeUpdate();
 
