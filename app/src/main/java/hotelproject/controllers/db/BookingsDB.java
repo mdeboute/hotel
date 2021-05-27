@@ -149,15 +149,15 @@ public class BookingsDB {
     /**
      * Delete the booking from database.
      *
-     * @param booking The booking object for delete.
+     * @param booking The booking object to delete.
      */
     public void deleteBooking(Booking booking) {
         try {
             String sql = "DELETE FROM `customer` WHERE `c_ss_number` = ?";
-            int booking_id = booking.getB_id();
+            int c_ss_number = booking.getC_ss_number();
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, booking_id);
+            statement.setInt(1, c_ss_number);
 
             statement.executeUpdate();
 

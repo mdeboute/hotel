@@ -16,7 +16,7 @@ public class BookingsDBTest {
 
     private final DatabaseManager dbm = new DatabaseManager();
     private final HotelData hdata = dbm.createDBObjects();
-    private final Booking booking = new Booking(hdata.getBookingAutoID(), 1, 1, java.sql.Date.valueOf("2021-04-28"), java.sql.Date.valueOf("2021-04-29"), 1, 1, 12345678);
+    private final Booking booking = new Booking(hdata.getBookingAutoID(), 1, 1, java.sql.Date.valueOf("2021-04-28"), java.sql.Date.valueOf("2021-04-29"), 1000, 1, 84031956);
 
     /**
      * The method should be able to retrieve all bookings in the database and the result should be 10.
@@ -28,8 +28,8 @@ public class BookingsDBTest {
         //Assert.assertEquals(allBookings.size(), 10);
         int i = 1;
         int count = 0;
-        for (Booking booking : allBookings) {
-            if (booking.getB_id() == i) {
+        for (Booking b : allBookings) {
+            if (b.getB_id() == i) {
                 count++;
             }
             i++;

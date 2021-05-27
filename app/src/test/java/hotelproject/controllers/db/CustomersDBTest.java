@@ -51,9 +51,7 @@ public class CustomersDBTest {
     @Test
     public void test_004_DeleteCustomer() {
         dm.cdb.deleteCustomer(customer_2);
-        dm.cdb.deleteCustomer(customer_3);
         Assert.assertFalse(dm.cdb.customerExists(customer_2));
-        Assert.assertFalse(dm.cdb.customerExists(customer_3));
     }
 
     @Test
