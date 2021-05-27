@@ -117,7 +117,7 @@ public class UpdateInfoView extends View {
 
         save = createButton(35, IDLE_BUTTON_SAVE, HOVER_BUTTON_SAVE);
         GridPane.setHalignment(save, javafx.geometry.HPos.CENTER);
-        pane.add(save, 0, 6);
+        pane.add(save, 0, 7);
 
         return pane;
     }
