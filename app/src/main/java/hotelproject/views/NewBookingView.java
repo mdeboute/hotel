@@ -35,8 +35,12 @@ public class NewBookingView extends View {
     private final ComboBox<String> customer = new ComboBox<>();
     private final CheckBox isPaid = new CheckBox("Is paid?");
     List<Integer> availableRooms;
-    private Button submit;
-    private Button cancel;
+    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+    private Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
     /**
      * Constructor  for initiating related data to a new booking view.
@@ -59,7 +63,7 @@ public class NewBookingView extends View {
 
         VBox header = createHeader("New booking", "Enter the new booking specifications");
         GridPane bodyPane = createBody();
-        VBox footer = createFooter();
+        VBox footer = createFooter(submit, cancel);
 
         pane.add(header, 0, 0);
         pane.add(bodyPane, 0, 1);
@@ -170,27 +174,6 @@ public class NewBookingView extends View {
 
         pane.setVgap(15);
         return pane;
-    }
-
-    /**
-     * VBox for containing submit and cancel buttons.
-     *
-     * @return an instance of VBox.
-     */
-    private VBox createFooter() {
-        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-
-        VBox footer = new VBox(submit, cancel);
-        footer.setAlignment(Pos.CENTER);
-        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
-        footer.setSpacing(15);
-
-        return footer;
     }
 
     /************************** Getter **********************/

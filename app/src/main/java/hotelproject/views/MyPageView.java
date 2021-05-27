@@ -21,6 +21,10 @@ public class MyPageView extends View {
     private Button chUser;
     private Button chPwd;
     private Button logOut;
+    final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
+    final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
+    final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
+    final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
 
     /**
      * Constructor for initiating MyPageView.
@@ -37,11 +41,19 @@ public class MyPageView extends View {
      */
     @Override
     void createScene() {
+        GridPane pane = createPane();
+
         GridPane bodyPane = createBody();
+        pane.add(bodyPane,0,0);
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
-        bodyPane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
-        scene = new Scene(bodyPane);
+        logOut = createButton(35, IDLE_LOGOUT, HOVER_LOGOUT);
+        GridPane.setHalignment(logOut, javafx.geometry.HPos.CENTER);
+        pane.add(logOut, 0, 1);
+
+        pane.setVgap(15);
+        pane.setStyle("-fx-background-color: #1e1e1e; -fx-alignment: center;");
+        scene = new Scene(pane);
     }
 
     /**
@@ -51,11 +63,6 @@ public class MyPageView extends View {
      */
     @Override
     GridPane createBody() {
-        final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
-        final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
-        final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
-        final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
-
         GridPane pane = createPane();
 
         String SFPath = Default.SFPath;
@@ -69,17 +76,13 @@ public class MyPageView extends View {
         pane.add(status, 0, 1);
         Label username = changeLabelDesign(new Label("Username: " + user.getU_name()), SFPath, 20, "white");
         Label password = changeLabelDesign(new Label("Password: " + "*".repeat(pwd.length())), SFPath, 20, "white");
-        chUser = createButton(25, IDLE_CHANGE, HOVER_CHANGE);
-        chPwd = createButton(25, IDLE_CHANGE, HOVER_CHANGE);
+        chUser = createButton(30, IDLE_CHANGE, HOVER_CHANGE);
+        chPwd = createButton(30, IDLE_CHANGE, HOVER_CHANGE);
 
         pane.add(username, 0, 3);
         pane.add(password, 0, 4);
         pane.add(chUser, 1, 3);
         pane.add(chPwd, 1, 4);
-
-        logOut = createButton(25, IDLE_LOGOUT, HOVER_LOGOUT);
-
-        pane.add(logOut, 0, 7);
 
         pane.setVgap(15);
         return pane;

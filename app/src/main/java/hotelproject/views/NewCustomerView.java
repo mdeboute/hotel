@@ -25,8 +25,12 @@ public class NewCustomerView extends View {
     private final TextField cFullName = new TextField();
     private final TextField cPhoneNum = new TextField();
     private final TextField cEmail = new TextField();
-    private Button submit;
-    private Button cancel;
+    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+    private Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
     /**
      * No parameter is needed for this constructor.
@@ -117,32 +121,11 @@ public class NewCustomerView extends View {
         pane.setVgap(15);
         paneTwo.add(pane, 0, 1);
 
-        VBox footer = createFooter();
+        VBox footer = createFooter(submit, cancel);
         paneTwo.add(footer, 0, 2);
 
         scene = new Scene(paneTwo);
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
-    }
-
-    /**
-     * VBox for containing submit and cancel buttons.
-     *
-     * @return an instance of VBox.
-     */
-    private VBox createFooter() {
-        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-
-        VBox footer = new VBox(submit, cancel);
-        footer.setAlignment(Pos.CENTER);
-        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
-        footer.setSpacing(15);
-
-        return footer;
     }
 
     /**

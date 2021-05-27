@@ -72,6 +72,20 @@ public abstract class View {
     }
 
     /**
+     * VBox for containing submit and cancel buttons.
+     *
+     * @return an instance of VBox.
+     */
+    protected VBox createFooter(Button submit, Button cancel) {
+        VBox footer = new VBox(submit, cancel);
+        footer.setAlignment(Pos.CENTER);
+        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
+        footer.setSpacing(15);
+
+        return footer;
+    }
+
+    /**
      * Create a button with the image associated.
      *
      * @param buttonImgView path of the image associated to the button.

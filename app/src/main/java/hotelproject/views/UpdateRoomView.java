@@ -25,8 +25,12 @@ public class UpdateRoomView extends View {
     private final TextField numRoom = new TextField();
     private final TextField floor = new TextField();
     private final ComboBox<String> roomType = new ComboBox<>();
-    private Button submit;
-    private Button cancel;
+    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+    private Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
     /**
      * Constructor for update room view.
@@ -43,11 +47,6 @@ public class UpdateRoomView extends View {
      */
     @Override
     void createScene() {
-        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
-
         GridPane pane = createPane();
 
         VBox header = createHeader("Update room", "Enter room specifics to update");
@@ -91,19 +90,13 @@ public class UpdateRoomView extends View {
 
         pane.add(roomType, 1, 3);
 
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
-        GridPane.setHalignment(submit, HPos.CENTER);
-        pane.add(submit, 1, 4);
-
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-        GridPane.setHalignment(cancel, HPos.CENTER);
-        pane.add(cancel, 1, 5);
-
         pane.setVgap(15);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
+        VBox footer = createFooter(submit, cancel);
+        paneTwo.add(footer, 0, 2);
 
         GridPane.setHalignment(header, HPos.CENTER);
         paneTwo.getStyleClass().add("body-pane");

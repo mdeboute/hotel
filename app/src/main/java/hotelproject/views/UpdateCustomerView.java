@@ -20,8 +20,12 @@ public class UpdateCustomerView extends View {
     private final TextField cFullName = new TextField();
     private final TextField cPhoneNum = new TextField();
     private final TextField cEmail = new TextField();
-    private Button submit;
-    private Button cancel;
+    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
+    private Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
     /**
      * Constructor for updating customer view.
@@ -36,11 +40,6 @@ public class UpdateCustomerView extends View {
      */
     @Override
     void createScene() {
-        final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-        final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
-
         GridPane pane = createPane();
 
         VBox header = createHeader("Update customer", "Enter customer specifics to update");
@@ -111,19 +110,13 @@ public class UpdateCustomerView extends View {
         pane.add(cEmailL, 0, 5);
         pane.add(cEmail, 1, 5);
 
-        submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
-        GridPane.setHalignment(submit, javafx.geometry.HPos.CENTER);
-        pane.add(submit, 1, 7);
-
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-        GridPane.setHalignment(cancel, javafx.geometry.HPos.CENTER);
-        pane.add(cancel, 1, 8);
-
         pane.setVgap(15);
 
         GridPane paneTwo = new GridPane();
         paneTwo.add(header, 0, 0);
         paneTwo.add(pane, 0, 1);
+        VBox footer = createFooter(submit, cancel);
+        paneTwo.add(footer, 0, 2);
         paneTwo.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
         paneTwo.setVgap(15);
 
