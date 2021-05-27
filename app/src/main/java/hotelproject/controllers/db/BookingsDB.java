@@ -136,8 +136,8 @@ public class BookingsDB {
             statement.setDate(4, updatedBooking.getB_till());
             statement.setInt(5, updatedBooking.getB_fee());
             statement.setInt(6, updatedBooking.getB_is_paid());
-            statement.setInt(7, updatedBooking.getB_id());
-            statement.setInt(8, updatedBooking.getC_ss_number());
+            statement.setInt(7, updatedBooking.getC_ss_number());
+            statement.setInt(8, updatedBooking.getB_id());
 
             statement.executeUpdate();
 
