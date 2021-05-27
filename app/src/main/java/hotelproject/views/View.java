@@ -36,7 +36,6 @@ public abstract class View {
      * @return the header in the format VBox.
      */
     protected VBox createHeader(String title, String subtitle) { //use createHeader in every view
-
         Label titleL = new Label(title);
         titleL.setFont(Font.loadFont("file:assets/font/SF_Pro.ttf", 30));
         titleL.setStyle("-fx-font-weight: bold;");
@@ -63,7 +62,6 @@ public abstract class View {
      */
     protected GridPane createPane() {
         GridPane pane = new GridPane();
-        //pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.4));
         pane.setHgap(5.5);
         pane.setVgap(5.5);

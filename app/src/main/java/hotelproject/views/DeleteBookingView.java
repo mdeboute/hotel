@@ -13,8 +13,13 @@ import javafx.scene.layout.VBox;
  */
 public class DeleteBookingView extends View {
 
-    private Button submit;
-    private Button cancel;
+    final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+
+    private Button submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
+    private Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
 
     /**
      * No parameter is needed for this constructor.
@@ -40,32 +45,10 @@ public class DeleteBookingView extends View {
         paneTwo.add(pane, 0, 1);
         GridPane.setHalignment(header, HPos.CENTER);
 
-        paneTwo.add(createFooter(), 0, 2);
+        paneTwo.add(createFooter(submit, cancel), 0, 2);
 
         scene = new Scene(paneTwo);
         scene.getStylesheets().add("file:assets/css/Stylesheet.css");
-    }
-
-    /**
-     * Create VBox to contain submit and cancel buttons.
-     *
-     * @return an instance of VBox containing these buttons.
-     */
-    private VBox createFooter() {
-        final String IDLE_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-        final String HOVER_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-        final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-        final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
-
-        submit = createButton(35, IDLE_SUBMIT, HOVER_SUBMIT);
-        cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
-
-        VBox footer = new VBox(submit, cancel);
-        footer.setAlignment(Pos.CENTER);
-        footer.setPadding(new Insets(10.0, 10.0, 10.0, 10.0));
-        footer.setSpacing(15);
-
-        return footer;
     }
 
     /**

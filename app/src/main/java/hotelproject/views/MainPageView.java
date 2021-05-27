@@ -72,7 +72,6 @@ public class MainPageView extends View {
 
         GridPane body = createBody();
         scenePane.add(body, 0, 1);
-        // GridPane.setHalignment(body, javafx.geometry.HPos.CENTER);
 
         scenePane.setStyle("-fx-background-color: #121212; -fx-alignment: center;");
         scene = new Scene(scenePane, 775, 658);
@@ -191,25 +190,5 @@ public class MainPageView extends View {
 
     public Button getViewRooms() {
         return viewRooms;
-    }
-
-    public ImageView getImgMyPage() {
-        return imgMyPage;
-    }
-
-    public ImageView getImgBookings() {
-        return imgBookings;
-    }
-
-    public ImageView getImgRooms() {
-        return imgRooms;
-    }
-
-    public ImageView getImgCustomers() {
-        return imgCustomers;
-    }
-
-    public ImageView getImgUsers() {
-        return imgUsers;
     }
 }

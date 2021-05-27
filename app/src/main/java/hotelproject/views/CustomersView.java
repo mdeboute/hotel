@@ -146,5 +146,4 @@ public class CustomersView extends View {
     public TableView<Customer> getCustomersTable() {
         return customersTable;
     }
-
 }   

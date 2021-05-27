@@ -128,10 +128,6 @@ public class UpdateInfoView extends View {
         return save;
     }
 
-    public Label getOutput() {
-        return output;
-    }
-
     /***************************Setter*******************************/
 
     public void setOutput(String outputTxt) {

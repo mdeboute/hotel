@@ -168,10 +168,6 @@ public class LoginView extends View {
 
     /***************************** Getters *********************************/
 
-    public Label getCredentials() {
-        return credentials;
-    }
-
     public Button getTestLoginButton() {
         return testLogin;
     }

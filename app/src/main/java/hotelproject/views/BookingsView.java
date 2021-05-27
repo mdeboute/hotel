@@ -267,10 +267,6 @@ public class BookingsView extends View {
         return addBooking;
     }
 
-    public DatePicker getDatePicker() {
-        return startDatePicker;
-    }
-
     public TableView<Booking> getBookingsTable() {
         return bookingsTable;
     }
