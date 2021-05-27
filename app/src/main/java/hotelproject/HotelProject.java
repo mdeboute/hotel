@@ -850,9 +850,9 @@ public class HotelProject extends Application {
 
     /**
      * Displays the details of a room
-     * 
+     *
      * @param roomsViewPage roomsView instance which contains the info of the room concerned
-     * @param roomsStage the Stage of the previous window
+     * @param roomsStage    the Stage of the previous window
      */
     private void roomDetailsDisplay(RoomsView roomsViewPage, Stage roomsStage) {
         Stage newWindow = new Stage();
@@ -950,9 +950,7 @@ public class HotelProject extends Application {
                 });
 
                 MenuItem viewItem = new MenuItem("View details");
-                viewItem.setOnAction(event -> {
-                    roomDetailsDisplay(roomsViewPage, roomsStage);
-                });
+                viewItem.setOnAction(event -> roomDetailsDisplay(roomsViewPage, roomsStage));
 
                 rowMenu.getItems().addAll(updateItem, deleteItem, viewItem);
 
@@ -970,9 +968,7 @@ public class HotelProject extends Application {
                 final ContextMenu rowMenu = new ContextMenu();
 
                 MenuItem viewItem = new MenuItem("View details");
-                viewItem.setOnAction(event -> {
-                    roomDetailsDisplay(roomsViewPage, roomsStage);
-                });
+                viewItem.setOnAction(event -> roomDetailsDisplay(roomsViewPage, roomsStage));
 
                 rowMenu.getItems().addAll(viewItem);
 

@@ -72,6 +72,8 @@ public abstract class View {
     /**
      * VBox for containing submit and cancel buttons.
      *
+     * @param submit as a Button.
+     * @param cancel as a Button.
      * @return an instance of VBox.
      */
     protected VBox createFooter(Button submit, Button cancel) {

@@ -14,17 +14,16 @@ import javafx.scene.layout.GridPane;
  */
 public class MyPageView extends View {
 
-    // The user connected to the application
-    private final User user;
-
-    // The scene's nodes
-    private Button chUser;
-    private Button chPwd;
-    private Button logOut;
     final String IDLE_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_change.png";
     final String HOVER_CHANGE = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_change.png";
     final String IDLE_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/idle_button_logout.png";
     final String HOVER_LOGOUT = "file:assets/img/ui_dev_pack/user_information_menu/hover_button_logout.png";
+    // The user connected to the application
+    private final User user;
+    // The scene's nodes
+    private Button chUser;
+    private Button chPwd;
+    private Button logOut;
 
     /**
      * Constructor for initiating MyPageView.
@@ -44,7 +43,7 @@ public class MyPageView extends View {
         GridPane pane = createPane();
 
         GridPane bodyPane = createBody();
-        pane.add(bodyPane,0,0);
+        pane.add(bodyPane, 0, 0);
         GridPane.setHalignment(bodyPane, javafx.geometry.HPos.CENTER);
 
         logOut = createButton(35, IDLE_LOGOUT, HOVER_LOGOUT);

@@ -19,21 +19,19 @@ import java.util.List;
  */
 public class NewRoomView extends View {
 
-    private final HotelData hdata;
-
-    private final TextField numRoom = new TextField();
-    private final TextField floor = new TextField();
-    private final ComboBox<String> roomType = new ComboBox<>();
-
     final String IDLE_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/idle_button_add_type.png";
     final String HOVER_BUTTON_ADD_ROOM = "file:assets/img/ui_dev_pack/room_menu/hover_button_add_type.png";
-    private Button addRoomType;
     final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
     final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
     final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
     final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
+    private final HotelData hdata;
+    private final TextField numRoom = new TextField();
+    private final TextField floor = new TextField();
+    private final ComboBox<String> roomType = new ComboBox<>();
     private final Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
     private final Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
+    private Button addRoomType;
 
     /**
      * Constructor for this view.

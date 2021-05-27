@@ -22,7 +22,7 @@
 
 Notice that several of the user stories can be implemented in several ways. The last one, for example, can be a straight search for a date and a room, or for several rooms in a range of dates.
 
-# What's next ?
+# What's next ? (what we would have liked to do)
 - [ ] Improve / refine the design of the app (GUI)
 - [ ] Improve the UI experience (create a search bar for selecting the customers when we do a new booking)
 - [ ] Continue the javadoc

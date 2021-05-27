@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
  */
 public class UpdateBookingView extends View {
 
+    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
+    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
+    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
+    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     private final DatabaseManager dbm;
     private final HotelData hdata;
     private final ComboBox<Integer> newRoom = new ComboBox<>();
@@ -31,13 +35,9 @@ public class UpdateBookingView extends View {
     private final TextField newFee = new TextField();
     private final CheckBox newIsPaid = new CheckBox("Is paid?");
     private final ComboBox<String> customer = new ComboBox<>();
-    List<Integer> availableRooms;
-    final String IDLE_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/idle_button_submit.png";
-    final String HOVER_BUTTON_SUBMIT = "file:assets/img/ui_dev_pack/general/hover_button_submit.png";
-    final String IDLE_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/idle_button_cancel.png";
-    final String HOVER_BUTTON_CANCEL = "file:assets/img/ui_dev_pack/general/hover_button_cancel.png";
     private final Button submit = createButton(35, IDLE_BUTTON_SUBMIT, HOVER_BUTTON_SUBMIT);
     private final Button cancel = createButton(35, IDLE_BUTTON_CANCEL, HOVER_BUTTON_CANCEL);
+    List<Integer> availableRooms;
 
     /**
      * Constructor for this view.
