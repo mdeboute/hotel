@@ -851,7 +851,8 @@ public class HotelProject extends Application {
     /**
      * Displays the details of a room
      *
-     * @param roomsViewPage roomsView instance which contains the info of the room concerned
+     * @param roomsViewPage roomsView instance which contains the info of the room
+     *                      concerned
      * @param roomsStage    the Stage of the previous window
      */
     private void roomDetailsDisplay(RoomsView roomsViewPage, Stage roomsStage) {
@@ -868,44 +869,44 @@ public class HotelProject extends Application {
         Room rD = roomsViewPage.getRoomsTable().getSelectionModel().getSelectedItem();
         Hashtable<String, String> roomsDetails = hdata.viewDetails(rD);
 
-        secBLayout.add(new Label("  •  Of type " + roomsDetails.get("t_name")), 0, 1);
-        secBLayout.add(new Label("  •  With " + roomsDetails.get("beds") + " bed/s"), 0, 2);
-        secBLayout.add(new Label("  •  With a surface of " + roomsDetails.get("r_size") + " square meters"), 0, 3);
+        secBLayout.add(new Label("  \u2022  Of type " + roomsDetails.get("t_name")), 0, 1);
+        secBLayout.add(new Label("  \u2022  With " + roomsDetails.get("beds") + " bed/s"), 0, 2);
+        secBLayout.add(new Label("  \u2022  With a surface of " + roomsDetails.get("r_size") + " square meters"), 0, 3);
 
         if (roomsDetails.get("has_view").equals("1")) {
-            secBLayout.add(new Label("  •  With view: yes"), 0, 4);
+            secBLayout.add(new Label("  \u2022  With view: yes"), 0, 4);
         } else if (roomsDetails.get("has_view").equals("0")) {
-            secBLayout.add(new Label("  •  With view: no"), 0, 4);
+            secBLayout.add(new Label("  \u2022  With view: no"), 0, 4);
         }
 
         if (roomsDetails.get("has_kitchen").equals("1")) {
-            secBLayout.add(new Label("  •  Kitchen integrated: yes"), 0, 5);
+            secBLayout.add(new Label("  \u2022  Kitchen integrated: yes"), 0, 5);
         } else if (roomsDetails.get("has_kitchen").equals("0")) {
-            secBLayout.add(new Label("  •  Kitchen integrated: no"), 0, 5);
+            secBLayout.add(new Label("  \u2022  Kitchen integrated: no"), 0, 5);
         }
 
         if (roomsDetails.get("has_bathroom").equals("1")) {
-            secBLayout.add(new Label("  •  Bathroom integrated: yes"), 0, 6);
+            secBLayout.add(new Label("  \u2022  Bathroom integrated: yes"), 0, 6);
         } else if (roomsDetails.get("has_bathroom").equals("0")) {
-            secBLayout.add(new Label("  •  Bathroom integrated: no"), 0, 6);
+            secBLayout.add(new Label("  \u2022  Bathroom integrated: no"), 0, 6);
         }
 
         if (roomsDetails.get("has_workspace").equals("1")) {
-            secBLayout.add(new Label("  •  Workspace integrated: yes"), 0, 7);
+            secBLayout.add(new Label("  \u2022  Workspace integrated: yes"), 0, 7);
         } else if (roomsDetails.get("has_workspace").equals("0")) {
-            secBLayout.add(new Label("  •  Workspace integrated: no"), 0, 7);
+            secBLayout.add(new Label("  \u2022  Workspace integrated: no"), 0, 7);
         }
 
         if (roomsDetails.get("has_tv").equals("1")) {
-            secBLayout.add(new Label("  •  With TV: yes"), 0, 8);
+            secBLayout.add(new Label("  \u2022  With TV: yes"), 0, 8);
         } else if (roomsDetails.get("has_tv").equals("0")) {
-            secBLayout.add(new Label("  •  With TV: no"), 0, 8);
+            secBLayout.add(new Label("  \u2022  With TV: no"), 0, 8);
         }
 
         if (roomsDetails.get("has_coffee_maker").equals("1")) {
-            secBLayout.add(new Label("  •  With coffee maker: yes"), 0, 9);
+            secBLayout.add(new Label("  \u2022  With coffee maker: yes"), 0, 9);
         } else if (roomsDetails.get("has_view").equals("0")) {
-            secBLayout.add(new Label("  •  With coffee maker: no"), 0, 9);
+            secBLayout.add(new Label("  \u2022  With coffee maker: no"), 0, 9);
         }
 
         secBLayout.setVgap(10);
