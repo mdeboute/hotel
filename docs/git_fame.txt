@@ -18,7 +18,6 @@ Note: Files matching MIME type image, binary has been ignored
 | Martin Debouté         | 350     | 26      | 6     |  0.3 /  3.5 /  2.7 |
 | Hélder Monteiro        | 48      | 14      | 6     |  0.0 /  1.9 /  2.7 |
 +------------------------+---------+---------+-------+--------------------+
-8 rows in set
 
 
 p.s: do not pay attention to the loc number for mdeboute (aka Martin Debouté), he was the scrum master of the project
