@@ -27,5 +27,3 @@ another container is not running at the same time on the same port) :
 ## Docker hub
 
 [Here are the last stable images of the project.](https://hub.docker.com/r/mdeboute/hotel-sql/tags?page=1&ordering=last_updated)
-
-# Presentation Video
