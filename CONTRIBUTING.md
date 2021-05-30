@@ -1,8 +1,8 @@
 # Contributing to this project
 
-As a contributor, here are the guidelines we would like you to follow :
+As a contributor, here are the guidelines we would like you to follow:
 
- - [Question or Problem ?](#question)
+ - [Question or Problem?](#question)
  - [Issues and Bugs](#issue)
  - [Feature Requests](#feature)
  - [Submission Guidelines (if you contribute with your own fork repository)](#submit)
@@ -10,29 +10,29 @@ As a contributor, here are the guidelines we would like you to follow :
  - [Commit Message Guidelines](#commit)
 
 
-## <a name="question"></a> Got a Question or Problem ?
+## <a name="question"></a> Got a Question or Problem?
 
 Do not open issues for general support questions as we want to keep GitLab issues for bug reports and feature requests.
 Instead, we recommend using [this discord channel](https://discord.gg/XKk9xS6xET) to ask support-related questions.
 
-Moreover [Stack Overflow][stackoverflow] is a pretty good place to ask questions since :
+Moreover [Stack Overflow][stackoverflow] is a pretty good place to ask questions since:
 
 - there are thousands of people willing to help on Stack Overflow
 - questions and answers stay available for public viewing, so your question/answer might help someone else
-- Stack Overflow's voting system assures that the best answers are prominently visible.
+- Stack Overflow's voting system assures that the best answers are prominently visible
 
 To save your and our time, we will systematically close all issues that are requests for general support.
 
 
-## <a name="issue"></a> Found a Bug ?
+## <a name="issue"></a> Found a Bug?
 
 If you find a bug in the source code, you can help us by [submitting an issue](#submit-issue) to our [GitLab Repository](https://gitlab.lnu.se/1dv508/student/helium/hotel).
 Even better, you can [submit a Merge Request](#submit-pr) with a fix.
 
 
-## <a name="feature"></a> Missing a Feature ?
+## <a name="feature"></a> Missing a Feature?
 You can *request* a new feature by [submitting an issue](#submit-issue) to our GitLab Repository.
-If you would like to *implement* a new feature, please consider the size of the change in order to determine the right steps to proceed :
+If you would like to *implement* a new feature, please consider the size of the change in order to determine the right steps to proceed:
 
 * For a **Major Feature**, first open an issue and outline your proposal so that it can be discussed.
   This process allows us to better coordinate our efforts, prevent duplication of work, and help you to craft the change so that it is successfully accepted into the project.
