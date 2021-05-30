@@ -7,9 +7,9 @@ The project is to create a hotel booking system for a small hotel. We are going 
 
 ## Docs
 
-[Here](./docs/PRODUCT_BACKLOG.md) is the product backlog
+[Here](./docs/PRODUCT_BACKLOG.md) is the product backlog.
 
-[Here](./mysql/README.md) is the documentation about how to run the database locally
+[Here](./mysql/README.md) is the documentation about how to run the database locally.
 
 
 ## Presentation video
