@@ -9,6 +9,8 @@ The project is to create a hotel booking system for a small hotel. We are going 
 
 [Here](./mysql/README.md) is the documentation about how to run the database locally on your computer.
 
+[Here](./javadoc) is the Java class documentation (HTML format).
+
 
 ## Presentation video
 
