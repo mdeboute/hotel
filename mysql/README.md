@@ -1,4 +1,4 @@
-# How to launch the database on your computer ?
+# How to launch the database on your computer?
 
 Some notes before launching:
 * Please install Docker on your computer before you go about these steps 
