@@ -14,4 +14,4 @@ The project is to create a hotel booking system for a small hotel. We are going 
 
 ## Presentation video
 
-
+[![](https://img.youtube.com/vi/1qv8eVaBc-4/0.jpg)](https://www.youtube.com/watch?v=1qv8eVaBc-4 "Group Helium app presentation")
