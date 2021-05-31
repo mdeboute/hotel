@@ -5,15 +5,15 @@ As a contributor, here are the guidelines we would like you to follow:
  - [Question or Problem?](#question)
  - [Issues and Bugs](#issue)
  - [Feature Requests](#feature)
- - [Submission Guidelines (if you contribute with your own fork repository)](#submit)
+ - [Submission Guidelines](#submit)
  - [Coding Rules](#rules)
  - [Commit Message Guidelines](#commit)
 
 
 ## <a name="question"></a> Got a Question or Problem?
 
-Do not open issues for general support questions as we want to keep GitLab issues for bug reports and feature requests.
-Instead, we recommend using [this discord channel](https://discord.gg/XKk9xS6xET) to ask support-related questions.
+Do not open issues for general support questions as we want to keep Github issues for bug reports and feature requests.
+Instead, we recommend using [this channel](https://github.com/mdeboute/hotel/discussions) to ask support-related questions.
 
 Moreover [Stack Overflow][stackoverflow] is a pretty good place to ask questions since:
 
@@ -26,12 +26,12 @@ To save your and our time, we will systematically close all issues that are requ
 
 ## <a name="issue"></a> Found a Bug?
 
-If you find a bug in the source code, you can help us by [submitting an issue](#submit-issue) to our [GitLab Repository](https://gitlab.lnu.se/1dv508/student/helium/hotel).
-Even better, you can [submit a Merge Request](#submit-pr) with a fix.
+If you find a bug in the source code, you can help us by [submitting an issue](#submit-issue) to our [Github Repository](https://github.com/mdeboute/hotel/issues).
+Even better, you can [submit a Pull Request](#submit-pr) with a fix.
 
 
 ## <a name="feature"></a> Missing a Feature?
-You can *request* a new feature by [submitting an issue](#submit-issue) to our GitLab Repository.
+You can *request* a new feature by [submitting an issue](#submit-issue) to our Github Repository.
 If you would like to *implement* a new feature, please consider the size of the change in order to determine the right steps to proceed:
 
 * For a **Major Feature**, first open an issue and outline your proposal so that it can be discussed.
@@ -39,10 +39,10 @@ If you would like to *implement* a new feature, please consider the size of the 
 
   **Note**: Adding a new topic to the documentation, or significantly re-writing a topic, counts as a major feature.
 
-* **Small Features** can be crafted and directly [submitted as a Merge Request](#submit-pr).
+* **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
 
 
-## <a name="submit"></a> Submission Guidelines (if you contribute with your own fork repository)
+## <a name="submit"></a> Submission Guidelines
 
 
 ### <a name="submit-issue"></a> Submitting an Issue
@@ -62,17 +62,17 @@ We understand that sometimes it might be hard to extract essential bits of code 
 Unfortunately, we are not able to investigate / fix bugs without a minimal reproduction, so if we don't hear back from you, we are going to close an issue that doesn't have enough info to be reproduced.
 
 
-### <a name="submit-pr"></a> Submitting a Merge Request (MR)
+### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
-Before you submit your Merge Request (MR) consider the following guidelines:
+Before you submit your Pull Request (PR) consider the following guidelines:
 
-1. Search [GitLab](https://gitlab.lnu.se/1dv508/student/helium/hotel/-/merge_requests) for an open or closed PR that relates to your submission.
+1. Search [Github](https://github.com/mdeboute/hotel/pulls) for an open or closed PR that relates to your submission.
    You don't want to duplicate existing efforts.
 
 2. Be sure that an issue describes the problem you're fixing, or documents the design for the feature you'd like to add.
    Discussing the design upfront helps to ensure that we're ready to accept your work.
 
-3. [Fork](https://gitlab.lnu.se/1dv508/student/helium/hotel/-/forks/new) the hotel repo.
+3. [Fork](https://github.com/mdeboute/hotel/fork/) the hotel repo.
 
 4. In your forked repository, make your changes in a new git branch:
 
@@ -100,9 +100,9 @@ Before you submit your Merge Request (MR) consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-10. In GitLab, send a merge request to `hotel:master`.
+10. In Github, send a merge request to `hotel:master`.
 
-### Reviewing a Merge Request
+### Reviewing a Pull Request
 
 
 #### Addressing review feedback
@@ -113,7 +113,7 @@ If we ask for changes via code reviews then:
 
 2. Re-run the test suites to ensure tests are still passing.
 
-3. Create a fixup commit and push to your GitLab repository (this will update your Merge Request):
+3. Create a fixup commit and push to your Github repository (this will update your Pull Request):
 
     ```shell
     git commit --all --fixup HEAD
@@ -142,7 +142,7 @@ In order to update the commit message of the last commit on your branch:
     git commit --amend
     ```
 
-3. Push to your GitLab repository:
+3. Push to your Github repository:
 
     ```shell
     git push --force-with-lease
@@ -157,7 +157,7 @@ In order to update the commit message of the last commit on your branch:
 
 After your merge request is merged, you can safely delete your branch and pull the changes from the main (upstream) repository:
 
-* Delete the remote branch on GitLab either through the GitLab web UI or your local shell as follows:
+* Delete the remote branch on Github either through the Github web UI or your local shell as follows:
 
     ```shell
     git push origin --delete my-fix-branch
