@@ -32,4 +32,5 @@ Notice that several of the user stories can be implemented in several ways. The 
 - [ ] Improve / optimize the code of HotelProject (code redundancy + ghost code + the management of privileges between the different types of users: rstaff & admin)
 - [ ] Improve and clarify the data management (dbm & hdata in the controllers package)
 - [ ] Improve / optimize the error handling system (maybe create a special class for this)
-- [ ] Generalize the tests (should work for any instances) & Improve the CI / pipeline stuffs (the different stages)
+- [ ] Generalize the tests and improve them (should work for any instances) & Improve the CI / pipeline stuffs (the different stages)
+- [ ] Maybe use Hibernate for the DB and FXML for the UI
