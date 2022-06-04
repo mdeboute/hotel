@@ -28,5 +28,3 @@ Shout-out to:
 * Yuyao Duan
 * Oscar Johansson
 * Martin Debouté
-
-[*GIT FAME*](./docs/git_fame.txt)
